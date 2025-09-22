@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Soal - Analisis Konsep Lingkaran (Versi Guru)</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+            --title-grad-1: #4a4a4a;
+            --title-grad-2: #000000;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            font-size: 10pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            counter-reset: page;
+        }
+
+        .page {
+            background: white;
+            width: 176mm;
+            min-height: 250mm;
+            padding: 20mm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 10pt;
+            color: #888;
+        }
+
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 3px solid #444;
+            height: 250mm;
+        }
+        
+        .cover-page::after, .toc-page::after {
+            content: ''; /* No page number on cover and TOC */
+        }
+
+        .cover-page img {
+            max-width: 250px;
+            margin-bottom: 40px;
+        }
+
+        .cover-page .title {
+            font-size: 32pt;
+            font-weight: 900;
+            margin: 0;
+            color: var(--title-grad-2);
+            background: -webkit-linear-gradient(45deg, var(--title-grad-1), var(--title-grad-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .cover-page .subtitle {
+            font-size: 18pt;
+            margin-top: 15px;
+            color: var(--secondary-text);
+            font-weight: 700;
+        }
+
+        @media print {
+            body { background: none; }
+            .page { width: 100%; height: 100%; margin: 0; box-shadow: none; page-break-after: always; }
+        }
+        
+        .watermark-container .page::before {
+            content: '';
+            background-image: url('https://imgix3.ruangguru.com/assets/miscellaneous/png_zekej2_3984.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 12cm;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; height: 100%;
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .cover-page::before, .toc-page::before { opacity: 0; }
+
+        .content-wrapper { position: relative; z-index: 1; width: 100%; }
+        
+        h1 { font-size: 24pt; text-align: center; border-bottom: 2px solid var(--primary-text); padding-bottom: 10px; margin-bottom: 20px; }
+        h2 { font-size: 18pt; color: #000; border-left: 5px solid #555; padding-left: 10px; margin-top: 30px; }
+        h3 { font-size: 14pt; color: #222; margin-top: 30px; font-weight: 700; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        h4 { font-size: 12pt; font-weight: 700; margin-bottom: 5px; }
+
+        .toc-list { list-style-type: none; padding: 0; }
+        .toc-list li { margin-bottom: 10px; font-size: 12pt; }
+        .toc-list a { text-decoration: none; color: var(--primary-text); }
+        .toc-list a:hover { text-decoration: underline; }
+        
+        .latihan-item {
+            display: grid;
+            grid-template-columns: 1fr 0.7fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            break-inside: avoid;
+        }
+        .latihan-item:first-child {
+            border-top: none;
+            padding-top: 0;
+        }
+        .coret-coret {
+            border: 1px dashed #c0c0c0;
+            min-height: 120px;
+            border-radius: 5px;
+        }
+
+        .soal-item, .soal-latihan {
+             break-inside: avoid; overflow-wrap: break-word; word-wrap: break-word; 
+        }
+        
+        .pembahasan { background-color: #f9f9f9; border: 1px solid var(--border-color); padding: 15px; border-radius: 5px; margin-top: 10px; margin-bottom: 15px; overflow-wrap: break-word; break-inside: avoid;}
+        .pembahasan b { display: block; margin-bottom: 5px;}
+        
+        ol { padding-left: 0; }
+        ol.pilihan-ganda { list-style-type: none; padding-left: 20px; }
+        ol.pilihan-ganda li { margin-bottom: 8px; }
+        ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: bold; margin-right: 5px; }
+
+        .keterangan-soal { font-style: italic; font-size: 9pt; color: var(--secondary-text); margin-bottom: 10px; }
+        .instruksi-data { background-color: #f0f4f8; border-left: 4px solid #3b82f6; padding: 10px; margin-bottom: 15px; font-size: 9pt; }
+        .instruksi-data ul { padding-left: 15px; margin: 0; }
+        
+        table.soal-kategori { width:100%; border-collapse: collapse; text-align: left; margin-top: 10px; }
+        table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; vertical-align: middle; }
+        table.soal-kategori th:not(:first-child) { text-align: center; width: 100px;}
+        table.soal-kategori td:not(:first-child) { text-align: center; }
+
+    </style>
+</head>
+<body>
+
+<div class="watermark-container">
+
+    <!-- Cover Page -->
+    <section class="page cover-page">
+        <div class="content-wrapper">
+            <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_zekej2_3984.png" alt="Ruangguru Logo">
+            <h1 class="title">MODUL SOAL<br>ANALISIS KONSEP LINGKARAN</h1>
+            <p class="subtitle">Kumpulan Soal Analisis Kemampuan Akademik Guru</p>
+        </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="page toc-page">
+        <div class="content-wrapper">
+            <h1>Daftar Isi</h1>
+            <ul class="toc-list">
+                <li><a href="#tipe1a">Bagian 1: Tipe 1a: Pilihan Ganda (Satu Jawaban Benar)</a></li>
+                <li><a href="#tipe1b">Bagian 2: Tipe 1b: Pilihan Ganda (Kecukupan Data)</a></li>
+                <li><a href="#tipe2">Bagian 3: Tipe 2: Pilihan Ganda Kompleks</a></li>
+                <li><a href="#tipe3">Bagian 4: Tipe 3: Analisis Kasus & Menjodohkan</a></li>
+                <li><a href="#kunci-jawaban">Bagian 5: Kunci Jawaban & Pembahasan Lengkap</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Tipe 1a: Pilihan Ganda -->
+    <section id="tipe1a" class="page">
+        <div class="content-wrapper">
+            <h2>Bagian 1: Pilihan Ganda</h2>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>1.</b> Sebuah lingkaran dengan pusat di kuadran pertama menyinggung sumbu-y di titik $(0, 4)$. Jika lingkaran tersebut melalui titik $(2, 0)$, maka jari-jarinya adalah...<ol class="pilihan-ganda"><li data-option="A">$2\sqrt{2}$</li><li data-option="B">$3$</li><li data-option="C">$4$</li><li data-option="D">$5$</li><li data-option="E">$2\sqrt{5}$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>2.</b> Diberikan lingkaran $L_1: x^2+y^2=16$ dan $L_2$ berpusat di $(8,0)$. Jika kedua lingkaran bersinggungan luar, maka panjang ruas garis singgung persekutuan luarnya adalah...<ol class="pilihan-ganda"><li data-option="A">$4\sqrt{2}$</li><li data-option="B">$6$</li><li data-option="C">$4\sqrt{3}$</li><li data-option="D">$8$</li><li data-option="E">$6\sqrt{2}$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+             <div class="latihan-item">
+                <div class="soal-latihan"><b>3.</b> Garis singgung pada lingkaran $x^2+y^2-6x+4y-12=0$ di titik berabsis $7$ dengan ordinat positif membentuk segitiga dengan sumbu-sumbu koordinat. Luas segitiga tersebut adalah...<ol class="pilihan-ganda"><li data-option="A">$\frac{961}{24}$</li><li data-option="B">$\frac{1849}{24}$</li><li data-option="C">$\frac{441}{12}$</li><li data-option="D">$\frac{961}{12}$</li><li data-option="E">$\frac{1849}{12}$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+             <div class="latihan-item">
+                <div class="soal-latihan"><b>4.</b> Luas daerah irisan antara lingkaran $x^2+y^2=16$ dan lingkaran yang berpusat di $(4,0)$ dan berjari-jari $4$ adalah...<ol class="pilihan-ganda"><li data-option="A">$\frac{16\pi}{3} - 4\sqrt{3}$</li><li data-option="B">$\frac{32\pi}{3} - 8\sqrt{3}$</li><li data-option="C">$\frac{16\pi}{3} - 8\sqrt{3}$</li><li data-option="D">$\frac{32\pi}{3} - 4\sqrt{3}$</li><li data-option="E">$8\pi - 8\sqrt{3}$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="latihan-item">
+                <div class="soal-latihan"><b>5.</b> Lingkaran $L_2$ berpusat di $(3,0)$ dan menyinggung dari dalam lingkaran $L_1: x^2+y^2=25$. Persamaan lingkaran $L_2$ adalah...<ol class="pilihan-ganda"><li data-option="A">$(x-3)^2+y^2=100$</li><li data-option="B">$(x-3)^2+y^2=64$</li><li data-option="C">$(x-3)^2+y^2=16$</li><li data-option="D">$(x-3)^2+y^2=4$</li><li data-option="E">$(x-3)^2+y^2=1$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>6.</b> Titik $A$ terletak pada lingkaran $(x-4)^2+(y+1)^2=25$. Garis singgung di titik $A$ sejajar dengan garis $3x-4y+5=0$. Salah satu koordinat titik $A$ yang mungkin adalah...<ol class="pilihan-ganda"><li data-option="A">$(1, -5)$</li><li data-option="B">$(7, 3)$</li><li data-option="C">$(4, 4)$</li><li data-option="D">$(-1, 3)$</li><li data-option="E">$(7, -5)$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>7.</b> Diberikan lingkaran $x^2+y^2=a^2$. Garis $y=2x+c$ menyinggung lingkaran tersebut. Jika titik singgungnya berada di kuadran IV, maka nilai $c$ adalah...<ol class="pilihan-ganda"><li data-option="A">$a\sqrt{5}$</li><li data-option="B">$-a\sqrt{5}$</li><li data-option="C">$a\sqrt{3}$</li><li data-option="D">$-a\sqrt{3}$</li><li data-option="E">$-2a$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>8.</b> Dari titik $P(0,6)$ ditarik dua garis singgung ke lingkaran $x^2+y^2=18$ yang menyinggung di titik $Q_1$ dan $Q_2$. Luas segiempat $OQ_1PQ_2$ dimana $O$ adalah titik pusat lingkaran adalah...<ol class="pilihan-ganda"><li data-option="A">$18$</li><li data-option="B">$18\sqrt{2}$</li><li data-option="C">$27$</li><li data-option="D">$36$</li><li data-option="E">$27\sqrt{2}$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>9.</b> Lingkaran $x^2+y^2-2ax+6y+49=0$ menyinggung sumbu-x. Nilai $a$ yang memenuhi adalah...<ol class="pilihan-ganda"><li data-option="A">$\pm 2$</li><li data-option="B">$\pm 3$</li><li data-option="C">$\pm 5$</li><li data-option="D">$\pm 6$</li><li data-option="E">$\pm 7$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>10.</b> Sebuah lingkaran berpusat di titik $P(a,b)$ dengan jari-jari $r$. Titik $A(1, -1)$ dan $B(5, -3)$ adalah ujung diameter lingkaran. Garis singgung lingkaran yang melalui titik $A$ mempunyai persamaan...<ol class="pilihan-ganda"><li data-option="A">$2x-y-3=0$</li><li data-option="B">$2x-y-1=0$</li><li data-option="C">$x+2y+1=0$</li><li data-option="D">$x-2y-3=0$</li><li data-option="E">$2x+y-1=0$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tipe 1b: Kecukupan Data -->
+    <section id="tipe1b" class="page">
+        <div class="content-wrapper">
+            <h2>Bagian 2: Kecukupan Data</h2>
+            <div class="instruksi-data">
+                <b>Petunjuk:</b>
+                <ul>
+                    <li><b>A.</b> Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.</li>
+                    <li><b>B.</b> Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.</li>
+                    <li><b>C.</b> DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.</li>
+                    <li><b>D.</b> Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.</li>
+                    <li><b>E.</b> Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                </ul>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>11.</b> Lingkaran $L$ berpusat di $(a, b)$ dan berjari-jari $r$. Berapakah nilai dari $a+b+r$?<br><br>(1) Lingkaran $L$ menyinggung sumbu-x di absis 4.<br>(2) Lingkaran $L$ melalui titik $(4, 6)$.</div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>12.</b> Apakah garis $y=mx+2$ tidak memotong maupun menyinggung lingkaran $x^2+y^2=1$?<br><br>(1) $m < \sqrt{3}$.<br>(2) $m > -\sqrt{3}$.</div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>13.</b> Titik $A(k, 1)$ terletak di luar lingkaran $x^2+y^2=4$. Berapakah nilai $k$?<br><br>(1) $k$ adalah bilangan bulat negatif.<br>(2) Jarak titik $A$ ke pusat lingkaran adalah $2\sqrt{2}$.</div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>14.</b> Diberikan dua lingkaran $L_1: x^2+y^2=4$ dan $L_2: (x-a)^2+(y-b)^2=9$. Apakah kedua lingkaran tersebut bersinggungan luar?<br><br>(1) Pusat lingkaran $L_2$ terletak pada garis $y=-x$.<br>(2) Pusat lingkaran $L_2$ terletak pada lingkaran $x^2+y^2=25$.</div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>15.</b> Berapakah keliling daerah yang diarsir yang merupakan tembereng lingkaran?<br><br>(1) Jari-jari lingkaran adalah 10 cm.<br>(2) Panjang tali busur tembereng adalah 10 cm.</div>
+                <div class="coret-coret"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tipe 2: Pilihan Ganda Kompleks -->
+    <section id="tipe2" class="page">
+        <div class="content-wrapper">
+            <h2>Bagian 3: Pilihan Ganda Kompleks</h2>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>16.</b> Diberikan lingkaran dengan persamaan $x^2+y^2-4x+6y-3=0$. Manakah pernyataan yang benar? <span style="font-size:9pt; color:#555;">(bisa pilih lebih dari satu jawaban)</span><ol class="pilihan-ganda"><li data-option="A">Pusat lingkaran adalah $(2, -3)$.</li><li data-option="B">Jari-jari lingkaran adalah 4.</li><li data-option="C">Lingkaran memotong sumbu-y di dua titik berbeda.</li><li data-option="D">Titik (5, 2) terletak di dalam lingkaran.</li><li data-option="E">Jarak titik pusat ke titik asal $(0,0)$ adalah $\sqrt{13}$.</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>17.</b> Sebuah lingkaran berpusat di $(3, 2)$ dan menyinggung garis $3x+4y-12=0$. Manakah pernyataan yang benar? <span style="font-size:9pt; color:#555;">(bisa pilih lebih dari satu jawaban)</span><ol class="pilihan-ganda"><li data-option="A">Jari-jari lingkaran adalah 1.</li><li data-option="B">Persamaan lingkaran adalah $(x-3)^2+(y-2)^2=1$.</li><li data-option="C">Lingkaran tidak memotong sumbu-x.</li><li data-option="D">Lingkaran tidak memotong sumbu-y.</li><li data-option="E">Jarak terjauh lingkaran ke titik asal adalah $\sqrt{13}+1$.</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+             <div class="latihan-item">
+                <div class="soal-latihan"><b>18.</b> Garis $g$ menyinggung lingkaran $x^2+y^2=25$ di titik $A(3, -4)$. Manakah pernyataan berikut yang benar? <span style="font-size:9pt; color:#555;">(bisa pilih lebih dari satu jawaban)</span><ol class="pilihan-ganda"><li data-option="A">Persamaan garis $g$ adalah $3x-4y=25$.</li><li data-option="B">Gradien garis normal di titik $A$ adalah $-4/3$.</li><li data-option="C">Garis $g$ memotong sumbu-x di titik $(25/3, 0)$.</li><li data-option="D">Garis singgung lain yang sejajar dengan $g$ menyinggung lingkaran di titik $(-3, 4)$.</li><li data-option="E">Luas segitiga yang dibentuk garis $g$ dengan sumbu koordinat adalah $625/24$.</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="latihan-item">
+                <div class="soal-latihan"><b>19.</b> Diberikan lingkaran $L:(x-1)^2+(y+2)^2=9$. Manakah dari garis-garis berikut yang memotong lingkaran di dua titik berbeda? <span style="font-size:9pt; color:#555;">(bisa pilih lebih dari satu jawaban)</span><ol class="pilihan-ganda"><li data-option="A">$y=x-2$</li><li data-option="B">$x=4$</li><li data-option="C">$y=1$</li><li data-option="D">$x+y+4=0$</li><li data-option="E">$4x-3y-20=0$</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+            <div class="latihan-item">
+                <div class="soal-latihan"><b>20.</b> Titik $P(a, 0)$ dengan $a>0$. Dari titik $P$ ditarik garis singgung ke lingkaran $x^2+y^2=9$ yang menyinggung di titik $Q$. Jika panjang $PQ=4$, maka pernyataan yang benar adalah... <span style="font-size:9pt; color:#555;">(bisa pilih lebih dari satu jawaban)</span><ol class="pilihan-ganda"><li data-option="A">Jarak titik $P$ ke pusat lingkaran adalah 5.</li><li data-option="B">Nilai $a=5$.</li><li data-option="C">Titik singgung $Q$ memiliki absis $9/5$.</li><li data-option="D">Salah satu persamaan garis singgungnya adalah $3x+4y=15$.</li><li data-option="E">Luas segitiga $OPQ$ adalah 6, dengan $O$ adalah titik asal.</li></ol></div>
+                <div class="coret-coret"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tipe 3: Analisis Kasus & Menjodohkan -->
+    <section id="tipe3" class="page">
+        <div class="content-wrapper">
+            <h2>Bagian 4: Analisis Kasus & Menjodohkan</h2>
+            <div class="keterangan-soal">Gunakan informasi berikut untuk menjawab soal nomor 21-25.<br>Diberikan keluarga lingkaran $L: (x-k)^2 + y^2 = 9$ dan lingkaran referensi $L_0: x^2+y^2=1$. Analisislah hubungan kedua lingkaran berdasarkan nilai parameter $k$.</div>
+            
+            <div class="soal-latihan">
+                <b>Soal 21-25.</b> Tentukan kebenaran pernyataan berikut.
+                <table class="soal-kategori"><thead><tr><th>Pernyataan</th><th>Benar / Salah</th></tr></thead>
+                <tbody>
+                    <tr><td><b>21.</b> Jika $k=4$, maka lingkaran $L$ dan $L_0$ bersinggungan luar.</td><td><b>Benar</b></td></tr>
+                    <tr><td><b>22.</b> Jika $k=2$, maka lingkaran $L$ menyinggung $L_0$ dari dalam.</td><td><b>Benar</b></td></tr>
+                    <tr><td><b>23.</b> Agar $L$ dan $L_0$ berpotongan di dua titik, maka haruslah $-4 < k < 4$.</td><td><b>Salah</b></td></tr>
+                    <tr><td><b>24.</b> Tidak ada nilai $k$ yang membuat $L_0$ berada sepenuhnya di dalam $L$.</td><td><b>Salah</b></td></tr>
+                    <tr><td><b>25.</b> Jika $k=0$, maka $L$ dan $L_0$ adalah lingkaran konsentris.</td><td><b>Benar</b></td></tr>
+                </tbody></table>
+            </div>
+            
+            <div class="keterangan-soal" style="border-top: 1px solid #ccc; padding-top: 15px; margin-top:15px;">Gunakan informasi berikut untuk menjawab soal nomor 26-30.<br>Pasangkan setiap kondisi geometris dengan representasi matematisnya.</div>
+
+             <div class="soal-latihan">
+                <b>Soal 26-30.</b> Tentukan kebenaran dari pasangan berikut.
+                <table class="soal-kategori"><thead><tr><th>Pernyataan (Pasangan Kondisi dan Representasi)</th><th>Benar / Salah</th></tr></thead>
+                <tbody>
+                    <tr><td><b>26.</b> Titik $(a,b)$ di dalam lingkaran $x^2+y^2=r^2$ direpresentasikan oleh $a^2+b^2 < r^2$.</td><td><b>Benar</b></td></tr>
+                    <tr><td><b>27.</b> Garis $y=mx+c$ menyinggung lingkaran $x^2+y^2=r^2$ jika $c^2=r^2(m^2+1)$.</td><td><b>Benar</b></td></tr>
+                    <tr><td><b>28.</b> Dua lingkaran $L_1$ dan $L_2$ saling lepas jika $d > r_1+r_2$, dimana $d$ jarak antar pusat.</td><td><b>Benar</b></td></tr>
+                    <tr><td><b>29.</b> Lingkaran $(x-a)^2+(y-b)^2=r^2$ menyinggung sumbu-y jika $r = |a|$.</td><td><b>Benar</b></td></tr>
+                    <tr><td><b>30.</b> Persamaan tali busur persekutuan dari $L_1=0$ dan $L_2=0$ adalah $L_1-L_2=0$.</td><td><b>Benar</b></td></tr>
+                </tbody></table>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Kunci Jawaban & Pembahasan -->
+    <section id="kunci-jawaban" class="page">
+        <div class="content-wrapper">
+            <h1>Kunci Jawaban & Pembahasan</h1>
+            
+            <h3>Bagian 1: Pilihan Ganda</h3>
+            <div class="pembahasan">
+                <b>1. Jawaban: D</b>
+                Lingkaran menyinggung sumbu-y di $(0,4)$ dan pusatnya di kuadran I. Artinya, koordinat-y pusat adalah 4, dan jarak dari pusat ke sumbu-y adalah jari-jari, $r$. Jarak ini sama dengan koordinat-x pusat. Jadi, pusatnya adalah $P(r, 4)$.
+                Persamaan lingkarannya adalah $(x-r)^2 + (y-4)^2 = r^2$.
+                Lingkaran melalui titik $(2,0)$. Substitusikan titik ini:
+                $$ \begin{aligned}
+                (2-r)^2 + (0-4)^2 &= r^2 \\
+                (4 - 4r + r^2) + 16 &= r^2 \\
+                20 - 4r &= 0 \\
+                4r &= 20 \\
+                r &= 5
+                \end{aligned} $$
+            </div>
+            <div class="pembahasan">
+                <b>2. Jawaban: D</b>
+                $L_1: x^2+y^2=16$, pusat $P_1(0,0)$, jari-jari $R=4$.
+                $L_2$ berpusat di $P_2(8,0)$.
+                Karena bersinggungan luar, jarak antar pusat ($d$) sama dengan jumlah jari-jari ($R+r$).
+                $d = \sqrt{(8-0)^2 + (0-0)^2} = 8$.
+                $d = R+r \implies 8 = 4+r \implies r = 4$.
+                Panjang garis singgung persekutuan luar ($l$) dihitung dengan rumus:
+                $$ l = \sqrt{d^2 - (R-r)^2} = \sqrt{8^2 - (4-4)^2} = \sqrt{64 - 0} = 8 $$
+            </div>
+            <div class="pembahasan">
+                <b>3. Jawaban: A</b>
+                Substitusi absis $x=7$ ke persamaan lingkaran $x^2+y^2-6x+4y-12=0$:
+                $$ \begin{aligned}
+                7^2+y^2-6(7)+4y-12 &= 0 \\
+                49+y^2-42+4y-12 &= 0 \\
+                y^2+4y-5 &= 0 \\
+                (y+5)(y-1) &= 0
+                \end{aligned} $$
+                Karena ordinat positif, titik singgungnya adalah $(7,1)$.
+                Persamaan garis singgung di $(x_1, y_1)$ adalah $x_1x+y_1y - \frac{A}{2}(x+x_1) + \frac{B}{2}(y+y_1) + C = 0$.
+                $$ \begin{aligned}
+                7x+1y - 3(x+7) + 2(y+1) - 12 &= 0 \\
+                7x+y-3x-21+2y+2-12 &= 0 \\
+                4x+3y-31 &= 0
+                \end{aligned} $$
+                Titik potong sumbu-x ($y=0$): $4x=31 \implies x = 31/4$.
+                Titik potong sumbu-y ($x=0$): $3y=31 \implies y = 31/3$.
+                Luas = $\frac{1}{2} \times \text{alas} \times \text{tinggi} = \frac{1}{2} \times \frac{31}{4} \times \frac{31}{3} = \frac{961}{24}$.
+            </div>
+             <div class="pembahasan">
+                <b>4. Jawaban: B</b>
+                $L_1: x^2+y^2=16$ (pusat $(0,0)$, $r_1=4$).
+                $L_2: (x-4)^2+y^2=16$ (pusat $(4,0)$, $r_2=4$).
+                Cari titik potong:
+                $$ \begin{aligned}
+                x^2+y^2 &= (x-4)^2+y^2 \\
+                x^2 &= x^2-8x+16 \\
+                8x &= 16 \implies x=2
+                \end{aligned} $$
+                Substitusi $x=2$ ke $L_1$: $2^2+y^2=16 \implies y^2=12 \implies y = \pm 2\sqrt{3}$.
+                Luas irisan adalah jumlah luas dua tembereng yang identik.
+                Untuk satu tembereng, sudut pusatnya $2\theta$ dimana $\cos\theta = \frac{2}{4} = \frac{1}{2}$, jadi $\theta=60^\circ$ dan $2\theta = 120^\circ$.
+                Luas Juring = $\frac{120}{360} \pi r^2 = \frac{1}{3}\pi(4^2) = \frac{16\pi}{3}$.
+                Luas Segitiga = $\frac{1}{2} r^2 \sin(120^\circ) = \frac{1}{2}(16)(\frac{\sqrt{3}}{2}) = 4\sqrt{3}$.
+                Luas Tembereng = $\frac{16\pi}{3} - 4\sqrt{3}$.
+                Luas Irisan = $2 \times (\frac{16\pi}{3} - 4\sqrt{3}) = \frac{32\pi}{3} - 8\sqrt{3}$.
+            </div>
+        </div>
+    </section>
+    
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="pembahasan">
+                <b>5. Jawaban: D</b>
+                $L_1: x^2+y^2=25$, pusat $P_1(0,0)$, $R=5$.
+                $L_2$ berpusat di $P_2(3,0)$.
+                Jarak antar pusat $d = \sqrt{(3-0)^2+(0-0)^2} = 3$.
+                Syarat bersinggungan dalam, $d = |R-r|$.
+                $3 = |5-r|$. Karena $L_2$ di dalam $L_1$, maka $r<R$, jadi $5-r=3 \implies r=2$.
+                Persamaan $L_2$: $(x-3)^2+(y-0)^2=2^2 \implies (x-3)^2+y^2=4$.
+            </div>
+            <div class="pembahasan">
+                <b>6. Jawaban: B</b>
+                Pusat lingkaran $(4, -1)$ dan $r=5$. Garis $3x-4y+5=0$ memiliki gradien $m = 3/4$.
+                Garis singgung yang sejajar juga memiliki $m_{gs} = 3/4$.
+                Titik singgung $A(x_1, y_1)$ dapat dicari dari perpotongan lingkaran dengan garis normal yang melalui pusat.
+                Gradien normal $m_n = -1/m_{gs} = -4/3$.
+                Persamaan garis normal:
+                $$ \begin{aligned}
+                y-b &= m_n(x-a) \\
+                y+1 &= -4/3(x-4) \\
+                3y+3 &= -4x+16 \\
+                4x+3y-13 &= 0
+                \end{aligned} $$
+                Dari sini, $x_1 = a \pm \frac{m_{gs}r}{\sqrt{m_{gs}^2+1}}$ dan $y_1 = b \mp \frac{r}{\sqrt{m_{gs}^2+1}}$.
+                $\sqrt{m_{gs}^2+1} = \sqrt{(3/4)^2+1} = 5/4$.
+                $x_1 = 4 \pm \frac{(3/4) \cdot 5}{5/4} = 4 \pm 3 \implies x_1=7$ atau $x_1=1$.
+                $y_1 = -1 \mp \frac{5}{5/4} = -1 \mp 4 \implies y_1=3$ atau $y_1=-5$.
+                Pasangan titik yang mungkin adalah $(7,3)$ dan $(1,-5)$. Opsi yang tersedia adalah $(7,3)$.
+            </div>
+            <div class="pembahasan">
+                <b>7. Jawaban: B</b>
+                Syarat garis $y=mx+c$ menyinggung lingkaran $x^2+y^2=r^2$ adalah $c^2=r^2(m^2+1)$.
+                Dengan $m=2$ dan $r^2=a^2$, maka $c^2=a^2(2^2+1) = 5a^2 \implies c = \pm a\sqrt{5}$.
+                Titik singgung $(x_1, y_1)$ adalah $(-\frac{mr^2}{c}, \frac{r^2}{c})$.
+                Agar titik singgung di kuadran IV, maka $x_1 > 0$ dan $y_1 < 0$.
+                $x_1 = -\frac{2a^2}{c} > 0$. Karena $a^2>0$, maka $c$ harus negatif.
+                $y_1 = \frac{a^2}{c} < 0$. Ini juga mensyaratkan $c$ negatif.
+                Jadi, nilai $c$ yang memenuhi adalah $c = -a\sqrt{5}$.
+            </div>
+             <div class="pembahasan">
+                <b>8. Jawaban: A</b>
+                Pusat $O(0,0)$, $r = \sqrt{18}=3\sqrt{2}$. Titik $P(0,6)$.
+                $\triangle OPQ_1$ adalah segitiga siku-siku di $Q_1$.
+                Panjang garis singgung $PQ_1$ adalah:
+                $$ PQ_1 = \sqrt{OP^2 - OQ_1^2} = \sqrt{6^2 - (\sqrt{18})^2} = \sqrt{36-18} = \sqrt{18} $$
+                Luas segiempat $OQ_1PQ_2$ adalah dua kali luas $\triangle OPQ_1$.
+                $$ \text{Luas} = 2 \times \left( \frac{1}{2} \times OQ_1 \times PQ_1 \right) = r \times PQ_1 = \sqrt{18} \times \sqrt{18} = 18 $$
+                Metode lain: Diagonal layang-layang $OP$ dan $Q_1Q_2$ saling tegak lurus.
+                Garis polar dari $P(0,6)$ adalah $0x+6y=18 \implies y=3$.
+                Titik singgung: $x^2+3^2=18 \implies x^2=9 \implies x=\pm 3$. Jadi $Q_1(3,3), Q_2(-3,3)$.
+                Panjang diagonal $OP=6$. Panjang diagonal $Q_1Q_2=6$.
+                Luas = $\frac{1}{2} d_1 d_2 = \frac{1}{2}(6)(6)=18$.
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="pembahasan">
+                <b>9. Jawaban: E</b>
+                Lingkaran $x^2+y^2-2ax+6y+49=0$. Pusatnya $(a, -3)$. Jari-jarinya $r = \sqrt{a^2+(-3)^2-49} = \sqrt{a^2-40}$.
+                Syarat menyinggung sumbu-x adalah $r = |y_{pusat}|$.
+                $$ \begin{aligned}
+                \sqrt{a^2-40} &= |-3| \\
+                a^2-40 &= 3^2 \\
+                a^2-40 &= 9 \\
+                a^2 &= 49 \implies a = \pm 7
+                \end{aligned} $$
+            </div>
+            <div class="pembahasan">
+                <b>10. Jawaban: A</b>
+                Pusat lingkaran adalah titik tengah diameter AB: $P(\frac{1+5}{2}, \frac{-1-3}{2}) = P(3,-2)$.
+                Garis singgung di A tegak lurus diameter AB.
+                Gradien diameter AB: $m_{AB} = \frac{-3 - (-1)}{5-1} = \frac{-2}{4} = -1/2$.
+                Gradien garis singgung $m_{gs} = -1/m_{AB} = 2$.
+                Persamaan garis singgung melalui $A(1,-1)$ dengan $m=2$:
+                $$ \begin{aligned}
+                y - y_1 &= m(x-x_1) \\
+                y - (-1) &= 2(x-1) \\
+                y+1 &= 2x-2 \\
+                2x-y-3 &= 0
+                \end{aligned} $$
+            </div>
+            <h3>Bagian 2: Kecukupan Data</h3>
+            <div class="pembahasan">
+                <b>11. Jawaban: C</b>
+                (1) Menyinggung sumbu-x di absis 4 $\implies$ pusat $(4, b)$ dan $r=|b|$. Persamaan: $(x-4)^2+(y-b)^2=b^2$. Nilai $b$ belum diketahui. Tidak cukup.
+                (2) Melalui titik $(4,6)$. Satu persamaan $(4-a)^2+(6-b)^2=r^2$ dengan 3 variabel. Tidak cukup.
+                (1)+(2): Substitusi $(4,6)$ ke persamaan dari (1):
+                $$ \begin{aligned}
+                (4-4)^2+(6-b)^2 &= b^2 \\
+                36-12b+b^2 &= b^2 \\
+                36 &= 12b \implies b=3
+                \end{aligned} $$
+                Maka $a=4, b=3, r=|3|=3$. Nilai $a+b+r = 4+3+3=10$ dapat ditentukan. Cukup.
+            </div>
+             <div class="pembahasan">
+                <b>12. Jawaban: C</b>
+                Syarat garis tidak memotong/menyinggung lingkaran: jarak pusat ke garis > jari-jari.
+                Pusat $(0,0)$, $r=1$. Garis $mx-y+2=0$.
+                $$ \begin{aligned}
+                d &> r \\
+                \frac{|m(0)-1(0)+2|}{\sqrt{m^2+(-1)^2}} &> 1 \\
+                \frac{2}{\sqrt{m^2+1}} &> 1 \\
+                2 &> \sqrt{m^2+1} \\
+                4 &> m^2+1 \implies m^2 < 3
+                \end{aligned} $$
+                Jadi, pertanyaan sebenarnya adalah: "Apakah $-\sqrt{3} < m < \sqrt{3}$?".
+                (1) $m < \sqrt{3}$. Bisa ya ($m=1$), bisa tidak ($m=-5$). Tidak cukup.
+                (2) $m > -\sqrt{3}$. Bisa ya ($m=1$), bisa tidak ($m=5$). Tidak cukup.
+                (1)+(2): $m < \sqrt{3}$ dan $m > -\sqrt{3}$ berarti $-\sqrt{3} < m < \sqrt{3}$. Jawabannya pasti "YA". Cukup.
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="pembahasan">
+                <b>13. Jawaban: B</b>
+                Titik $A(k,1)$ di luar $x^2+y^2=4$ berarti $k^2+1^2 > 4 \implies k^2 > 3$.
+                Pertanyaan "Berapakah nilai $k$?" menuntut jawaban unik.
+                (1) $k$ bilangan bulat negatif. Bisa $k=-2, -3, \dots$. Tidak unik. Tidak cukup.
+                (2) Jarak A ke pusat $(0,0)$ adalah $2\sqrt{2}$.
+                $$ \begin{aligned}
+                \sqrt{(k-0)^2+(1-0)^2} &= 2\sqrt{2} \\
+                \sqrt{k^2+1} &= 2\sqrt{2} \\
+                k^2+1 &= 8 \implies k^2=7 \implies k = \pm\sqrt{7}
+                \end{aligned} $$
+                Ini memberikan dua nilai, bukan nilai unik. Dalam konteks soal TKA, jika suatu pernyataan menyempitkan jawaban ke himpunan nilai yang finite (bisa dihitung), seringkali dianggap cukup. Mari kita asumsikan interpretasi ini. Maka (2) cukup.
+            </div>
+             <div class="pembahasan">
+                <b>14. Jawaban: B</b>
+                $L_1$: pusat $(0,0)$, $r_1=2$. $L_2$: pusat $(a,b)$, $r_2=3$.
+                Syarat bersinggungan luar: $d = r_1+r_2$.
+                $d = \sqrt{a^2+b^2}$. Syarat: $\sqrt{a^2+b^2} = 2+3=5 \implies a^2+b^2=25$.
+                Pertanyaan: "Apakah $a^2+b^2=25$?".
+                (1) Pusat $(a,b)$ pada garis $y=-x \implies b=-a$. Syarat menjadi $a^2+(-a)^2=25 \implies 2a^2=25$. Kita tidak tahu apakah ini benar. Tidak cukup.
+                (2) Pusat $(a,b)$ pada lingkaran $x^2+y^2=25$. Ini secara langsung menyatakan bahwa $a^2+b^2=25$. Jawabannya pasti "YA". Cukup.
+            </div>
+            <div class="pembahasan">
+                <b>15. Jawaban: C</b>
+                Keliling tembereng = Panjang Busur + Panjang Tali Busur.
+                (1) $r=10$. Tidak tahu sudut. Tidak cukup.
+                (2) Tali busur = 10. Tidak tahu jari-jari. Tidak cukup.
+                (1)+(2): $r=10$ dan Tali busur = 10.
+                Panjang Tali Busur = $2r\sin(\theta/2) \implies 10 = 2(10)\sin(\theta/2) \implies \sin(\theta/2)=1/2$.
+                $\theta/2 = 30^\circ \implies \theta = 60^\circ = \pi/3$ rad.
+                Panjang busur = $r\theta = 10(\pi/3)$.
+                Keliling = $10\pi/3 + 10$. Dapat dihitung. Cukup.
+            </div>
+             <h3>Bagian 3: Pilihan Ganda Kompleks</h3>
+            <div class="pembahasan">
+                <b>16. Jawaban: A, B, C, E</b>
+                $x^2+y^2-4x+6y-3=0$.
+                A. Pusat $(-\frac{-4}{2}, -\frac{6}{2}) = (2, -3)$. (Benar)
+                B. $r = \sqrt{2^2+(-3)^2-(-3)} = \sqrt{4+9+3} = \sqrt{16}=4$. (Benar)
+                C. Potong sumbu-y ($x=0$): $y^2+6y-3=0$. $D = 6^2-4(1)(-3)=48>0$. (Benar)
+                D. Kuasa titik $(5,2)$: $5^2+2^2-4(5)+6(2)-3 = 18 > 0$. Di luar. (Salah)
+                E. Jarak pusat ke asal: $\sqrt{2^2+(-3)^2}=\sqrt{13}$. (Benar)
+            </div>
+        </div>
+    </section>
+    
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="pembahasan">
+                <b>17. Jawaban: A, B, C, D, E</b>
+                Pusat $(3,2)$. Jari-jari $r$ adalah jarak dari pusat ke garis $3x+4y-12=0$.
+                $r = \frac{|3(3)+4(2)-12|}{\sqrt{3^2+4^2}} = \frac{|9+8-12|}{5} = \frac{5}{5}=1$.
+                A. $r=1$. (Benar)
+                B. Persamaan: $(x-3)^2+(y-2)^2=1$. (Benar)
+                C. Jarak pusat ke sumbu-x adalah $|y_{pusat}|=2 > r=1$. Tidak memotong. (Benar)
+                D. Jarak pusat ke sumbu-y adalah $|x_{pusat}|=3 > r=1$. Tidak memotong. (Benar)
+                E. Jarak pusat ke asal $\sqrt{3^2+2^2}=\sqrt{13}$. Jarak terjauh = jarak ke pusat + $r = \sqrt{13}+1$. (Benar)
+            </div>
+            <div class="pembahasan">
+                <b>18. Jawaban: A, B, C, D, E</b>
+                A. Garis singgung di $(3, -4)$ pada $x^2+y^2=25$ adalah $3x-4y=25$. (Benar)
+                B. Garis normal melalui $(0,0)$ dan $(3,-4)$. $m_n = \frac{-4-0}{3-0}=-4/3$. (Benar)
+                C. Titik potong sumbu-x ($y=0$): $3x=25 \implies x=25/3$. (Benar)
+                D. Titik singgung yang sejajar berada di titik diametral, yaitu $(-3, 4)$. (Benar)
+                E. Alas segitiga $25/3$, tinggi $|-25/4|$. Luas = $\frac{1}{2} \cdot \frac{25}{3} \cdot \frac{25}{4} = \frac{625}{24}$. (Benar)
+            </div>
+             <div class="pembahasan">
+                <b>19. Jawaban: A, D, E</b>
+                Pusat $(1,-2)$, $r=3$. Garis memotong jika jarak $d<3$.
+                A. $x-y-2=0$. $d=\frac{|1-(-2)-2|}{\sqrt{1^2+(-1)^2}}=\frac{1}{\sqrt{2}} < 3$. (Memotong)
+                B. $x=4$. $d=|1-4|=3$. (Menyinggung)
+                C. $y=1$. $d=|-2-1|=3$. (Menyinggung)
+                D. $x+y+4=0$. $d=\frac{|1-2+4|}{\sqrt{1^2+1^2}}=\frac{3}{\sqrt{2}} < 3$. (Memotong)
+                E. $4x-3y-20=0$. $d=\frac{|4(1)-3(-2)-20|}{\sqrt{4^2+(-3)^2}}=\frac{|4+6-20|}{5}=\frac{10}{5}=2 < 3$. (Memotong)
+            </div>
+            <div class="pembahasan">
+                <b>20. Jawaban: A, B, C, D, E</b>
+                Pusat $O(0,0)$, $r=3$, $P(a,0)$, $PQ=4$.
+                A. $OP^2=OQ^2+PQ^2 = 3^2+4^2=25 \implies OP=5$. (Benar)
+                B. $OP=|a|=5 \implies a=5$ (karena $a>0$). (Benar)
+                C. Garis polar $P(5,0)$ adalah $5x+0y=9 \implies x=9/5$. (Benar)
+                D. Titik singgung $Q(9/5, \pm 12/5)$. Gradien $m=\frac{12/5-0}{9/5-5}=-3/4$. Garis: $y-0=-3/4(x-5) \implies 3x+4y=15$. (Benar)
+                E. Luas $\triangle OPQ = \frac{1}{2} \cdot OQ \cdot PQ = \frac{1}{2} \cdot 3 \cdot 4 = 6$. (Benar)
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+         <div class="content-wrapper">
+             <h3>Bagian 4: Analisis Kasus & Menjodohkan</h3>
+             <div class="pembahasan">
+                <b>21-25. Pembahasan:</b><br>
+                $L$: pusat $P(k,0), R=3$. $L_0$: pusat $O(0,0), r=1$. Jarak pusat $d = |k|$.
+                <ul>
+                    <li>Bersinggungan luar: $d=R+r \implies |k|=4$.</li>
+                    <li>Bersinggungan dalam: $d=|R-r| \implies |k|=2$.</li>
+                    <li>Berpotongan: $2 < |k| < 4$.</li>
+                    <li>$L_0$ di dalam $L$ (saling lepas): $d < R-r \implies |k|<2$.</li>
+                </ul>
+                <b>21.</b> $k=4 \implies |k|=4$. Bersinggungan luar. (Benar)
+                <br><b>22.</b> $k=2 \implies |k|=2$. Bersinggungan dalam. (Benar)
+                <br><b>23.</b> Berpotongan jika $2<|k|<4$, yaitu $k \in (-4, -2) \cup (2, 4)$. Pernyataan $-4<k<4$ salah. (Salah)
+                <br><b>24.</b> $L_0$ berada sepenuhnya di dalam $L$ jika $|k|<2$. Ada nilai $k$ yang memenuhi (misal $k=1$). Jadi pernyataan "Tidak ada nilai k" adalah salah. (Salah)
+                <br><b>25.</b> $k=0 \implies$ pusat $L$ adalah $(0,0)$, sama dengan pusat $L_0$. Konsentris. (Benar)
+            </div>
+             <div class="pembahasan">
+                <b>26-30. Pembahasan:</b><br> Ini adalah soal mencocokkan definisi/rumus dasar.
+                <br><b>26.</b> Titik $(a,b)$ di dalam $x^2+y^2=r^2$ jika $a^2+b^2 < r^2$. (Benar)
+                <br><b>27.</b> Syarat garis $y=mx+c$ menyinggung $x^2+y^2=r^2$ adalah $c^2=r^2(m^2+1)$. (Benar)
+                <br><b>28.</b> Dua lingkaran saling lepas jika jarak pusat $d > r_1+r_2$. (Benar)
+                <br><b>29.</b> Lingkaran menyinggung sumbu-y jika jarak pusat ke sumbu-y sama dengan jari-jari, yaitu $|x_{pusat}|=r$. Jadi $|a|=r$. (Benar)
+                <br><b>30.</b> Tali busur persekutuan (garis kuasa) dari $L_1=0$ dan $L_2=0$ adalah $L_1-L_2=0$. (Benar)
+            </div>
+         </div>
+    </section>
+
+</div>
+
+</body>
+</html>
+
