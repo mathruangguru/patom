@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Latihan & Pembahasan - Limit Fungsi</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            counter-reset: page;
+        }
+
+        .page-container {
+            /* This container helps in centering the pages */
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 2.5cm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 10pt;
+            color: #888;
+        }
+
+        @media print {
+            body { background: none; }
+            .page { width: 100%; height: 100%; margin: 0; box-shadow: none; page-break-after: always; }
+        }
+
+        .content-wrapper { position: relative; z-index: 1; width: 100%; }
+        
+        h1 { font-size: 22pt; text-align: center; border-bottom: 2px solid var(--primary-text); padding-bottom: 10px; margin-bottom: 25px; font-weight: 700; }
+        
+        .soal-latihan {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 25px;
+            break-inside: avoid;
+            text-align: justify;
+        }
+
+        .soal-nomor {
+            font-weight: bold;
+            flex-shrink: 0;
+            min-width: 20px;
+        }
+
+        .soal-konten {
+            flex-grow: 1;
+        }
+        
+        .pembahasan { 
+            background-color: #f9f9f9; 
+            border: 1px solid var(--border-color); 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-top: 20px; 
+            text-align: left;
+        }
+        
+        .pembahasan ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        ol.pilihan-ganda { list-style-type: none; padding-left: 0; margin-top: 10px; text-align: left; }
+        
+        ol.pilihan-ganda li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        ol.pilihan-ganda li::before {
+            content: attr(data-option) ". ";
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .kategori-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .kategori-table th, .kategori-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+        .kategori-table th {
+            background-color: #f2f2f2;
+        }
+        .kategori-table td:not(:first-child) {
+            text-align: center;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-left: 5px;
+            text-align: left;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 12px;
+            min-width: 18px;
+            min-height: 18px;
+        }
+
+        .checkbox-option label {
+            display: block;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <section class="page">
+        <div class="content-wrapper">
+            <h1>Soal Latihan & Pembahasan Limit Fungsi</h1>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">1.</div>
+                <div class="soal-konten">
+                    Diberikan $f(x) = \frac{x^2+ax-10}{x-2}$. Jika $\lim\limits_{x \to 2} f(x)$ ada dan berhingga, maka nilai dari $\lim\limits_{x \to \infty} \frac{f(x)}{x+1}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">0</li>
+                        <li data-option="B">1</li>
+                        <li data-option="C">5</li>
+                        <li data-option="D">7</li>
+                        <li data-option="E">Tak hingga</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Agar limit fungsi rasional ada di titik yang membuat penyebutnya nol, maka pembilangnya juga harus nol di titik tersebut (bentuk tak tentu $0/0$).
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan nilai $a$.
+                                <br>Karena penyebut menjadi nol saat $x=2$, maka pembilang juga harus nol.
+                                <br>$(2)^2 + a(2) - 10 = 0 \implies 4 + 2a - 10 = 0 \implies 2a = 6 \implies a=3$.
+                            </li>
+                            <li><b>Langkah 2:</b> Sederhanakan fungsi $f(x)$.
+                                <br>$f(x) = \frac{x^2+3x-10}{x-2} = \frac{(x-2)(x+5)}{x-2} = x+5$ (untuk $x \neq 2$).
+                            </li>
+                            <li><b>Langkah 3:</b> Hitung limit yang ditanyakan.
+                                <br>$\lim\limits_{x \to \infty} \frac{f(x)}{x+1} = \lim\limits_{x \to \infty} \frac{x+5}{x+1}$.
+                                <br>Karena pangkat tertinggi pembilang dan penyebut sama, nilai limit adalah rasio koefisiennya: $\frac{1}{1}=1$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">2.</div>
+                <div class="soal-konten">
+                    Jika $\lim\limits_{x \to a} \frac{\sin(x^2-a^2)}{x-a} = 8$, maka nilai dari $\lim\limits_{h \to 0} \frac{(a+h)^2 - a^2}{h}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">2</li>
+                        <li data-option="B">4</li>
+                        <li data-option="C">8</li>
+                        <li data-option="D">16</li>
+                        <li data-option="E">32</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Soal ini menghubungkan konsep limit trigonometri dan definisi turunan dalam bentuk limit.
+                        <ul>
+                            <li><b>Langkah 1:</b> Selesaikan limit pertama untuk menemukan nilai $a$.
+                                <br>$\lim\limits_{x \to a} \frac{\sin((x-a)(x+a))}{x-a} = \lim\limits_{x \to a} \frac{\sin((x-a)(x+a))}{(x-a)(x+a)} \cdot (x+a)$.
+                                <br>Dengan menggunakan sifat $\lim\limits_{u \to 0} \frac{\sin u}{u}=1$, limit di atas menjadi $1 \cdot (a+a) = 2a$.
+                                <br>Maka, $2a = 8 \implies a = 4$.
+                            </li>
+                            <li><b>Langkah 2:</b> Kenali bentuk limit kedua.
+                                <br>Bentuk $\lim\limits_{h \to 0} \frac{f(a+h) - f(a)}{h}$ adalah definisi turunan dari fungsi $f(x)$ di titik $x=a$.
+                                <br>Dalam soal ini, fungsinya adalah $f(x)=x^2$.
+                            </li>
+                            <li><b>Langkah 3:</b> Hitung turunan dan substitusikan nilai $a$.
+                                <br>Turunan dari $f(x)=x^2$ adalah $f'(x)=2x$.
+                                <br>Nilai limit yang ditanyakan adalah $f'(a) = 2a$.
+                                <br>Karena $a=4$, maka nilainya adalah $2(4)=8$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">3.</div>
+                <div class="soal-konten">
+                    Garis $y=ax+b$ adalah asimtot miring dari grafik fungsi $f(x) = \frac{2x^2-3x+5}{x+1}$. Nilai dari $a+b$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">-5</li>
+                        <li data-option="B">-3</li>
+                        <li data-option="C">-1</li>
+                        <li data-option="D">2</li>
+                        <li data-option="E">7</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Asimtot miring $y=ax+b$ untuk fungsi $f(x)$ dapat ditemukan dengan rumus:
+                        <br>$a = \lim\limits_{x \to \infty} \frac{f(x)}{x}$ dan $b = \lim\limits_{x \to \infty} (f(x) - ax)$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Hitung nilai $a$.
+                                <br>$a = \lim\limits_{x \to \infty} \frac{2x^2-3x+5}{x(x+1)} = \lim\limits_{x \to \infty} \frac{2x^2-3x+5}{x^2+x}$.
+                                <br>Limitnya adalah rasio koefisien pangkat tertinggi: $a = \frac{2}{1} = 2$.
+                            </li>
+                             <li><b>Langkah 2:</b> Hitung nilai $b$.
+                                <br>$b = \lim\limits_{x \to \infty} \left(\frac{2x^2-3x+5}{x+1} - 2x\right)$.
+                                <br>$b = \lim\limits_{x \to \infty} \left(\frac{2x^2-3x+5 - 2x(x+1)}{x+1}\right)$.
+                                <br>$b = \lim\limits_{x \to \infty} \frac{2x^2-3x+5 - 2x^2-2x}{x+1} = \lim\limits_{x \to \infty} \frac{-5x+5}{x+1}$.
+                                <br>Limitnya adalah rasio koefisien pangkat tertinggi: $b = \frac{-5}{1} = -5$.
+                            </li>
+                            <li><b>Langkah 3:</b> Hitung $a+b$.
+                                <br>$a+b = 2 + (-5) = -3$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">4.</div>
+                <div class="soal-konten">
+                    Nilai dari $\lim\limits_{x \to 0} \frac{\cos(ax) - \cos(bx)}{x^2}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$a-b$</li>
+                        <li data-option="B">$a+b$</li>
+                        <li data-option="C">$\frac{1}{2}(a^2-b^2)$</li>
+                        <li data-option="D">$\frac{1}{2}(b^2-a^2)$</li>
+                        <li data-option="E">$b^2-a^2$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Soal ini dapat diselesaikan dengan Aturan L'Hôpital atau dengan identitas trigonometri.
+                        <ul>
+                            <li><b>Metode 1: Aturan L'Hôpital</b> (karena bentuknya $0/0$)
+                                <br>Turunkan pembilang dan penyebut: $\lim\limits_{x \to 0} \frac{-a\sin(ax) + b\sin(bx)}{2x}$.
+                                <br>Ini masih bentuk $0/0$, turunkan lagi: $\lim\limits_{x \to 0} \frac{-a^2\cos(ax) + b^2\cos(bx)}{2}$.
+                                <br>Substitusi $x=0$: $\frac{-a^2\cos(0) + b^2\cos(0)}{2} = \frac{-a^2+b^2}{2} = \frac{1}{2}(b^2-a^2)$.
+                            </li>
+                             <li><b>Metode 2: Identitas Trigonometri</b>
+                                <br>Gunakan identitas $\cos A - \cos B = -2\sin\left(\frac{A+B}{2}\right)\sin\left(\frac{A-B}{2}\right)$.
+                                <br>Limitnya menjadi $\lim\limits_{x \to 0} \frac{-2\sin\left(\frac{ax+bx}{2}\right)\sin\left(\frac{ax-bx}{2}\right)}{x^2}$.
+                                <br>Pisahkan limit: $-2 \left(\lim\limits_{x \to 0} \frac{\sin\left(\frac{a+b}{2}x\right)}{x}\right) \left(\lim\limits_{x \to 0} \frac{\sin\left(\frac{a-b}{2}x\right)}{x}\right)$.
+                                <br>Menggunakan sifat $\lim\limits_{u \to 0} \frac{\sin ku}{u}=k$: $-2 \left(\frac{a+b}{2}\right) \left(\frac{a-b}{2}\right) = -2 \frac{a^2-b^2}{4} = \frac{b^2-a^2}{2}$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">5.</div>
+                <div class="soal-konten">
+                     Diketahui $\lim\limits_{x \to 4} \frac{\sqrt{ax+b}-3}{x-4} = \frac{1}{3}$. Nilai $a+b$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">3</li>
+                        <li data-option="B">5</li>
+                        <li data-option="C">7</li>
+                        <li data-option="D">9</li>
+                        <li data-option="E">11</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Sama seperti soal 1, agar limit ada, substitusi $x=4$ harus menghasilkan bentuk $0/0$. Kemudian, limit dapat diselesaikan dengan Aturan L'Hôpital atau perkalian sekawan.
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan hubungan $a$ dan $b$.
+                            <br>Substitusi $x=4$ ke pembilang dan samakan dengan nol:
+                            <br>$\sqrt{a(4)+b} - 3 = 0 \implies \sqrt{4a+b} = 3 \implies 4a+b=9$.
+                            </li>
+                             <li><b>Langkah 2:</b> Hitung limit menggunakan Aturan L'Hôpital.
+                            <br>Turunan pembilang: $\frac{d}{dx}(\sqrt{ax+b}-3) = \frac{a}{2\sqrt{ax+b}}$.
+                            <br>Turunan penyebut: $\frac{d}{dx}(x-4) = 1$.
+                            <br>Limitnya menjadi $\lim\limits_{x \to 4} \frac{a}{2\sqrt{ax+b}} = \frac{a}{2\sqrt{4a+b}}$.
+                            </li>
+                            <li><b>Langkah 3:</b> Selesaikan untuk $a$ dan $b$.
+                                <br>Dari Langkah 1, kita tahu $\sqrt{4a+b}=3$. Maka limitnya adalah $\frac{a}{2(3)} = \frac{a}{6}$.
+                                <br>Diketahui nilai limit adalah $\frac{1}{3}$, jadi $\frac{a}{6} = \frac{1}{3} \implies 3a=6 \implies a=2$.
+                                <br>Substitusi $a=2$ ke persamaan dari Langkah 1: $4(2)+b=9 \implies 8+b=9 \implies b=1$.
+                                <br>Maka, $a+b = 2+1 = 3$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">6.</div>
+                <div class="soal-konten">
+                     Nilai dari $\lim\limits_{x \to \infty} x^2 \left(1 - \cos\left(\frac{2}{x}\right)\right)$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">0</li>
+                        <li data-option="B">1/2</li>
+                        <li data-option="C">1</li>
+                        <li data-option="D">2</li>
+                        <li data-option="E">4</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Limit di tak hingga yang melibatkan fungsi trigonometri seringkali dapat diselesaikan dengan substitusi.
+                        <ul>
+                           <li><b>Langkah 1:</b> Lakukan substitusi.
+                                <br>Misalkan $y = \frac{1}{x}$. Saat $x \to \infty$, maka $y \to 0$.
+                                <br>Maka $x = \frac{1}{y}$, sehingga $x^2 = \frac{1}{y^2}$.
+                            </li>
+                            <li><b>Langkah 2:</b> Ubah bentuk limit.
+                                <br>Limitnya menjadi $\lim\limits_{y \to 0} \frac{1}{y^2} \left(1 - \cos(2y)\right) = \lim\limits_{y \to 0} \frac{1 - \cos(2y)}{y^2}$.
+                            </li>
+                            <li><b>Langkah 3:</b> Gunakan identitas limit trigonometri.
+                                <br>Gunakan sifat $\lim\limits_{u \to 0} \frac{1-\cos(ku)}{u^2} = \frac{k^2}{2}$.
+                                <br>Dalam kasus ini, $u=y$ dan $k=2$.
+                                <br>Maka, nilai limitnya adalah $\frac{2^2}{2} = \frac{4}{2} = 2$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Baru untuk Soal Berikutnya -->
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">7.</div>
+                <div class="soal-konten">
+                     Diberikan $f(x) = \begin{cases} \frac{x^2-4}{x-2}, & x < 2 \\ ax+1, & x \ge 2 \end{cases}$. Agar fungsi $f(x)$ kontinu di $x=2$, maka nilai $a$ haruslah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">1/2</li>
+                        <li data-option="B">1</li>
+                        <li data-option="C">3/2</li>
+                        <li data-option="D">2</li>
+                        <li data-option="E">4</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Sebuah fungsi kontinu di suatu titik jika limit dari kiri sama dengan limit dari kanan, dan sama dengan nilai fungsi di titik tersebut.
+                        <ul>
+                           <li><b>Langkah 1:</b> Hitung limit dari kiri ($x \to 2^-$).
+                                <br>$\lim\limits_{x \to 2^-} f(x) = \lim\limits_{x \to 2^-} \frac{x^2-4}{x-2} = \lim\limits_{x \to 2^-} \frac{(x-2)(x+2)}{x-2} = \lim\limits_{x \to 2^-} (x+2) = 4$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung limit dari kanan ($x \to 2^+$).
+                                <br>$\lim\limits_{x \to 2^+} f(x) = \lim\limits_{x \to 2^+} (ax+1) = a(2)+1 = 2a+1$.
+                            </li>
+                             <li><b>Langkah 3:</b> Samakan kedua limit untuk kontinuitas.
+                                <br>Limit kiri = Limit kanan
+                                <br>$4 = 2a+1 \implies 3 = 2a \implies a = \frac{3}{2}$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                    Jika $\lim\limits_{x \to \infty} \left(\sqrt{x^2+x+1} - \sqrt{x^2-2x+3}\right) = L$, maka nilai dari $\lim\limits_{t \to L} \frac{2t^2-9t+9}{t-3}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">0</li>
+                        <li data-option="B">1/2</li>
+                        <li data-option="C">3/2</li>
+                        <li data-option="D">3</li>
+                        <li data-option="E">6</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Soal ini terdiri dari dua tahap: menghitung limit di tak hingga bentuk akar, lalu menghitung limit aljabar biasa.
+                        <ul>
+                           <li><b>Langkah 1:</b> Hitung nilai $L$.
+                                <br>Gunakan rumus cepat untuk $\lim\limits_{x \to \infty} (\sqrt{ax^2+bx+c} - \sqrt{px^2+qx+r})$ dimana $a=p$:
+                                <br>$L = \frac{b-q}{2\sqrt{a}}$.
+                                <br>Di sini, $a=1, b=1, p=1, q=-2$.
+                                <br>$L = \frac{1 - (-2)}{2\sqrt{1}} = \frac{3}{2}$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung limit kedua dengan $L=3/2$.
+                                <br>$\lim\limits_{t \to 3/2} \frac{2t^2-9t+9}{t-3}$.
+                                <br>Ini bukan bentuk tak tentu, jadi kita bisa substitusi langsung.
+                                <br>Pembilang: $2(\frac{3}{2})^2 - 9(\frac{3}{2}) + 9 = 2(\frac{9}{4}) - \frac{27}{2} + 9 = \frac{9}{2} - \frac{27}{2} + \frac{18}{2} = 0$.
+                                <br>Penyebut: $\frac{3}{2} - 3 = -\frac{3}{2}$.
+                                <br>Nilai limit: $\frac{0}{-3/2} = 0$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Halaman Baru untuk Soal Berikutnya -->
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                     Diberikan $g(x) = x+1$. Nilai dari $\lim\limits_{h \to 0} \frac{g(2+h)-g(2-h)}{h}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">0</li>
+                        <li data-option="B">1</li>
+                        <li data-option="C">2</li>
+                        <li data-option="D">3</li>
+                        <li data-option="E">4</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Limit ini dapat diselesaikan dengan substitusi langsung ke dalam fungsi atau dengan mengenali bentuk turunan.
+                        <ul>
+                           <li><b>Metode 1: Substitusi Langsung</b>
+                                <br>$g(2+h) = (2+h)+1 = 3+h$.
+                                <br>$g(2-h) = (2-h)+1 = 3-h$.
+                                <br>Substitusikan ke dalam limit:
+                                <br>$\lim\limits_{h \to 0} \frac{(3+h)-(3-h)}{h} = \lim\limits_{h \to 0} \frac{2h}{h} = \lim\limits_{h \to 0} 2 = 2$.
+                            </li>
+                            <li><b>Metode 2: Menggunakan Konsep Turunan</b>
+                                <br>Limit ini dikenal sebagai 'symmetric derivative' dan nilainya adalah $2g'(2)$.
+                                <br>Turunan dari $g(x)=x+1$ adalah $g'(x)=1$.
+                                <br>Maka $g'(2)=1$.
+                                <br>Nilai limit adalah $2 \times g'(2) = 2 \times 1 = 2$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">10.</div>
+                <div class="soal-konten">
+                     Jika $f(x) = \frac{\tan(x-a)}{x^2-a^2}$ dan $\lim\limits_{x \to a} f(x) = \frac{1}{4}$, maka nilai $a$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">1/4</li>
+                        <li data-option="B">1/2</li>
+                        <li data-option="C">1</li>
+                        <li data-option="D">2</li>
+                        <li data-option="E">4</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Gunakan sifat limit trigonometri $\lim\limits_{u \to 0} \frac{\tan u}{u}=1$.
+                        <ul>
+                           <li><b>Langkah 1:</b> Faktorkan penyebut.
+                                <br>$f(x) = \frac{\tan(x-a)}{(x-a)(x+a)}$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung limitnya.
+                                <br>$\lim\limits_{x \to a} f(x) = \lim\limits_{x \to a} \left(\frac{\tan(x-a)}{x-a} \cdot \frac{1}{x+a}\right)$.
+                                <br>Pisahkan limit: $\left(\lim\limits_{x \to a} \frac{\tan(x-a)}{x-a}\right) \cdot \left(\lim\limits_{x \to a} \frac{1}{x+a}\right)$.
+                                <br>Limit bagian pertama adalah 1. Limit bagian kedua adalah $\frac{1}{a+a} = \frac{1}{2a}$.
+                                <br>Jadi, nilai limitnya adalah $1 \cdot \frac{1}{2a} = \frac{1}{2a}$.
+                            </li>
+                             <li><b>Langkah 3:</b> Selesaikan untuk $a$.
+                                <br>Diketahui nilai limit adalah $\frac{1}{4}$.
+                                <br>$\frac{1}{2a} = \frac{1}{4} \implies 2a=4 \implies a=2$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Baru untuk Soal Berikutnya -->
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">11.</div>
+                <div class="soal-konten">
+                    Apakah $\lim\limits_{x \to 0} \frac{ax - \sin(bx)}{cx} = 0$?
+                    <br>(1) $a=b$.
+                    <br>(2) $c=1$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.</li>
+                        <li data-option="B">Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.</li>
+                        <li data-option="C">DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.</li>
+                        <li data-option="D">Pernyataan (1) SAJA cukup atau pernyataan (2) SAJA cukup.</li>
+                        <li data-option="E">Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Soal kecukupan data ini menguji pemahaman tentang kapan sebuah limit bernilai nol.
+                        <ul>
+                            <li><b>Langkah 1:</b> Evaluasi ekspresi limit.
+                            <br>$\lim\limits_{x \to 0} \left(\frac{ax}{cx} - \frac{\sin(bx)}{cx}\right) = \frac{a}{c} - \lim\limits_{x \to 0} \frac{\sin(bx)}{bx} \cdot \frac{b}{c}$.
+                            <br>Nilai limitnya adalah $\frac{a}{c} - 1 \cdot \frac{b}{c} = \frac{a-b}{c}$.
+                            </li>
+                             <li><b>Langkah 2:</b> Analisis kecukupan data.
+                            <br>Pertanyaannya adalah: Apakah $\frac{a-b}{c} = 0$? Ini benar jika dan hanya jika $a-b=0$ (dengan asumsi $c \neq 0$).
+                            <br><b>Pernyataan (1) $a=b$:</b> Ini secara langsung berarti $a-b=0$. Maka nilai limitnya adalah 0. Pernyataan (1) SAJA cukup.
+                            <br><b>Pernyataan (2) $c=1$:</b> Nilai limit menjadi $a-b$. Kita tidak tahu apakah $a=b$, jadi kita tidak bisa menyimpulkan nilainya 0. Pernyataan (2) SAJA tidak cukup.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">12.</div>
+                <div class="soal-konten">
+                     Apakah fungsi $f(x)$ kontinu di $x=c$?
+                    <br>(1) $\lim\limits_{x \to c} f(x)$ ada.
+                    <br>(2) $f(c)$ terdefinisi.
+                     <ol class="pilihan-ganda">
+                        <li data-option="A">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.</li>
+                        <li data-option="B">Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.</li>
+                        <li data-option="C">DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.</li>
+                        <li data-option="D">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.</li>
+                        <li data-option="E">Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Definisi kontinuitas di titik $x=c$ memiliki tiga syarat:
+                        <br> i. $f(c)$ harus terdefinisi.
+                        <br> ii. $\lim\limits_{x \to c} f(x)$ harus ada.
+                        <br> iii. $\lim\limits_{x \to c} f(x) = f(c)$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Analisis kecukupan data.
+                            <br><b>Pernyataan (1):</b> Memberitahu kita syarat (ii) terpenuhi. Tapi kita tidak tahu tentang syarat (i) dan (iii). Tidak cukup.
+                            <br><b>Pernyataan (2):</b> Memberitahu kita syarat (i) terpenuhi. Tapi kita tidak tahu tentang syarat (ii) dan (iii). Tidak cukup.
+                            <br><b>Pernyataan (1) dan (2) bersama-sama:</b> Kita tahu syarat (i) dan (ii) terpenuhi. Tapi kita masih belum tahu apakah nilai limit sama dengan nilai fungsi (syarat iii). Contohnya, fungsi bisa memiliki 'lubang' (removable discontinuity) dimana limitnya ada, nilai fungsinya ada, tetapi keduanya tidak sama. Jadi, kedua pernyataan bersama-sama pun tidak cukup.
+                            </li>
+                        </ul>
+                         <b>Jawaban: E</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Baru untuk Soal Berikutnya -->
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">13.</div>
+                <div class="soal-konten">
+                     Berapakah nilai dari $\lim\limits_{x \to 1} \frac{x^2+ax+b}{x-1}$?
+                    <br>(1) $1+a+b=0$.
+                    <br>(2) $a-b=3$.
+                     <ol class="pilihan-ganda">
+                        <li data-option="A">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.</li>
+                        <li data-option="B">Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.</li>
+                        <li data-option="C">DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.</li>
+                        <li data-option="D">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.</li>
+                        <li data-option="E">Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Untuk limit fungsi rasional ini ada dan berhingga, pembilangnya harus nol di $x=1$. Nilai limitnya dapat dicari dengan Aturan L'Hôpital.
+                        <ul>
+                            <li><b>Langkah 1:</b> Analisis ekspresi limit.
+                            <br>Agar limit ada, pembilang harus nol: $(1)^2+a(1)+b=0 \implies 1+a+b=0$.
+                            <br>Jika syarat ini terpenuhi, nilai limitnya adalah $\lim\limits_{x \to 1} \frac{2x+a}{1} = 2+a$.
+                            <br>Untuk menjawab pertanyaan, kita perlu menemukan nilai dari $2+a$.
+                            </li>
+                             <li><b>Langkah 2:</b> Analisis kecukupan data.
+                            <br><b>Pernyataan (1): $1+a+b=0$.</b> Ini hanya memberi tahu kita bahwa limitnya ada, tetapi tidak memberi tahu nilai $a$. Tidak cukup.
+                            <br><b>Pernyataan (2): $a-b=3$.</b> Informasi ini saja tidak cukup untuk menemukan $a$.
+                            <br><b>Pernyataan (1) dan (2) bersama-sama:</b> Kita punya sistem persamaan:
+                            <br>$a+b = -1$
+                            <br>$a-b = 3$
+                            <br>Dengan eliminasi (menjumlahkan kedua persamaan), kita dapatkan $2a=2 \implies a=1$.
+                            <br>Karena kita sudah menemukan nilai $a$, kita dapat menghitung nilai limit yaitu $2+a = 2+1=3$. Kedua pernyataan bersama-sama cukup.
+                            </li>
+                        </ul>
+                         <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">14.</div>
+                <div class="soal-konten">
+                    Diberikan $\lim\limits_{x \to \infty} (\sqrt{ax^2+kx+1} - \sqrt{4x^2-bx}) = L$. Berapakah nilai $k$?
+                    <br>(1) $a=4$ dan $L=3$.
+                    <br>(2) $b=2$.
+                     <ol class="pilihan-ganda">
+                        <li data-option="A">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.</li>
+                        <li data-option="B">Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.</li>
+                        <li data-option="C">DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.</li>
+                        <li data-option="D">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.</li>
+                        <li data-option="E">Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Agar limit $\lim\limits_{x \to \infty} (\sqrt{ax^2+...} - \sqrt{px^2+...})$ memiliki nilai berhingga, koefisien $x^2$ harus sama ($a=p$). Jika sama, nilainya adalah $\frac{k-(-b)}{2\sqrt{a}} = \frac{k+b}{2\sqrt{a}}$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Terapkan syarat dan rumus.
+                            <br>Agar limit ada, haruslah $a=4$.
+                            <br>Jika $a=4$, maka nilai limitnya $L = \frac{k+b}{2\sqrt{4}} = \frac{k+b}{4}$.
+                            <br>Kita ingin mencari nilai $k$.
+                            </li>
+                             <li><b>Langkah 2:</b> Analisis kecukupan data.
+                            <br><b>Pernyataan (1): $a=4$ dan $L=3$.</b> Kita substitusikan ke rumus: $3 = \frac{k+b}{4} \implies 12 = k+b$. Kita masih punya dua variabel ($k$ dan $b$). Tidak cukup.
+                            <br><b>Pernyataan (2): $b=2$.</b> Kita substitusikan ke rumus (dengan mengingat $a$ harus 4): $L = \frac{k+2}{4}$. Kita masih tidak tahu nilai $L$ atau $k$. Tidak cukup.
+                            <br><b>Pernyataan (1) dan (2) bersama-sama:</b> Kita tahu $L=3$ dan $b=2$. Substitusikan ke persamaan $12=k+b \implies 12 = k+2 \implies k=10$. Kita dapat menemukan nilai $k$. Cukup.
+                            </li>
+                        </ul>
+                         <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Halaman Baru untuk Soal Berikutnya -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">15.</div>
+                <div class="soal-konten">
+                     Grafik fungsi $g(x) = \frac{x^2+ax+b}{x-2}$ memiliki diskontinuitas yang dapat dihapus (lubang). Tentukan koordinat lubang tersebut.
+                    <br>(1) $a=-5$.
+                    <br>(2) $b=6$.
+                     <ol class="pilihan-ganda">
+                        <li data-option="A">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.</li>
+                        <li data-option="B">Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.</li>
+                        <li data-option="C">DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.</li>
+                        <li data-option="D">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.</li>
+                        <li data-option="E">Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Diskontinuitas yang dapat dihapus (lubang) terjadi di $x=c$ jika $\lim\limits_{x \to c} g(x)$ ada tetapi $g(c)$ tidak terdefinisi. Untuk fungsi rasional, ini terjadi ketika faktor $(x-c)$ ada di pembilang dan penyebut.
+                        <ul>
+                            <li><b>Langkah 1:</b> Analisis syarat lubang.
+                            <br>Lubang ada di $x=2$. Ini berarti $(x-2)$ adalah faktor dari pembilang, $x^2+ax+b$.
+                            <br>Ini juga berarti $x=2$ adalah akar dari pembilang: $(2)^2+a(2)+b=0 \implies 4+2a+b=0$.
+                            <br>Koordinat lubang adalah $(2, \lim\limits_{x \to 2} g(x))$. Untuk mencari limitnya, kita harus tahu bentuk $g(x)$ setelah disederhanakan.
+                            </li>
+                             <li><b>Langkah 2:</b> Analisis kecukupan data.
+                            <br><b>Pernyataan (1): $a=-5$.</b> Substitusikan ke syarat: $4+2(-5)+b=0 \implies 4-10+b=0 \implies b=6$. Dengan $a=-5$ dan $b=6$, kita tahu $g(x)=\frac{x^2-5x+6}{x-2}=\frac{(x-2)(x-3)}{x-2}=x-3$. Limitnya di $x=2$ adalah $2-3=-1$. Koordinat lubang adalah $(2, -1)$. Pernyataan (1) SAJA cukup.
+                            <br><b>Pernyataan (2): $b=6$.</b> Substitusikan ke syarat: $4+2a+6=0 \implies 2a=-10 \implies a=-5$. Sama seperti di atas, kita menemukan $a$ dan $b$, lalu bisa mencari koordinat lubang. Pernyataan (2) SAJA cukup.
+                            </li>
+                        </ul>
+                         <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">16.</div>
+                <div class="soal-konten">
+                    Jika $\lim\limits_{x \to c} f(x) = \infty$ dan $\lim\limits_{x \to c} g(x) = L$ dengan $L \in \mathbb{R}$, manakah kesimpulan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q16a" checked><label for="q16a">$\lim\limits_{x \to c} [f(x)+g(x)] = \infty$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16b" checked><label for="q16b">$\lim\limits_{x \to c} [f(x)g(x)] = \infty$ jika $L>0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16c" checked><label for="q16c">$\lim\limits_{x \to c} \frac{g(x)}{f(x)} = 0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16d"><label for="q16d">$\lim\limits_{x \to c} \frac{f(x)}{g(x)}$ adalah bentuk tak tentu jika $L=0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16e" checked><label for="q16e">Grafik fungsi $y=f(x)$ memiliki asimtot tegak di $x=c$.</label></div>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Analisis sifat-sifat limit yang melibatkan tak hingga.
+                        <ul>
+                            <li><b>Opsi A:</b> Menambahkan bilangan berhingga ($L$) ke bilangan yang sangat besar ($\infty$) akan tetap menghasilkan bilangan yang sangat besar. <b>Benar.</b></li>
+                            <li><b>Opsi B:</b> Mengalikan bilangan yang sangat besar ($\infty$) dengan bilangan positif ($L>0$) akan menghasilkan bilangan yang sangat besar. Jika $L<0$ hasilnya $-\infty$. Jika $L=0$ hasilnya bentuk tak tentu $0 \cdot \infty$. <b>Benar.</b></li>
+                            <li><b>Opsi C:</b> Membagi bilangan berhingga ($L$) dengan bilangan yang sangat besar ($\infty$) hasilnya akan mendekati nol. <b>Benar.</b></li>
+                            <li><b>Opsi D:</b> Bentuk $\frac{\infty}{0}$ bukan bentuk tak tentu. Hasilnya adalah tak hingga (bisa $+\infty$ atau $-\infty$). Bentuk tak tentu adalah $\frac{0}{0}$ atau $\frac{\infty}{\infty}$. <b>Salah.</b></li>
+                             <li><b>Opsi E:</b> Definisi dari asimtot tegak di $x=c$ adalah $\lim\limits_{x \to c} f(x) = \pm\infty$. <b>Benar.</b></li>
+                        </ul>
+                        <b>Jawaban: Pilihan yang benar adalah A, B, C, dan E.</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Baru -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">17.</div>
+                <div class="soal-konten">
+                    Diberikan $\lim\limits_{x \to 0} \frac{f(x)}{x^2} = 3$. Manakah pernyataan yang pasti benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q17a"><label for="q17a">$\lim\limits_{x \to 0} f(x) = 0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17b"><label for="q17b">$\lim\limits_{x \to 0} \frac{f(x)}{x} = 0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17c"><label for="q17c">$\lim\limits_{x \to 0} \frac{f(x)}{\sin^2 x} = 3$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17d"><label for="q17d">$f(x)$ berperilaku seperti $3x^2$ di dekat $x=0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17e"><label for="q17e">$\lim\limits_{x \to 0} \frac{\sqrt{f(x)+9}-3}{x^2} = \frac{1}{2}$.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Menganalisis implikasi dari suatu pernyataan limit.
+                        <ul>
+                            <li><b>Opsi A:</b> Kita bisa menulis $\lim\limits_{x \to 0} f(x) = \lim\limits_{x \to 0} \left(\frac{f(x)}{x^2} \cdot x^2\right) = (\lim\limits_{x \to 0} \frac{f(x)}{x^2}) \cdot (\lim\limits_{x \to 0} x^2) = 3 \cdot 0 = 0$. <b>Benar.</b></li>
+                            <li><b>Opsi B:</b> Sama seperti A, $\lim\limits_{x \to 0} \frac{f(x)}{x} = \lim\limits_{x \to 0} \left(\frac{f(x)}{x^2} \cdot x\right) = 3 \cdot 0 = 0$. <b>Benar.</b></li>
+                            <li><b>Opsi C:</b> $\lim\limits_{x \to 0} \frac{f(x)}{\sin^2 x} = \lim\limits_{x \to 0} \left(\frac{f(x)}{x^2} \cdot \frac{x^2}{\sin^2 x}\right) = (\lim\limits_{x \to 0} \frac{f(x)}{x^2}) \cdot (\lim\limits_{x \to 0} \frac{x}{\sin x})^2 = 3 \cdot 1^2 = 3$. <b>Benar.</b></li>
+                            <li><b>Opsi D:</b> Pernyataan $\lim\limits_{x \to 0} \frac{f(x)}{x^2} = 3$ secara definisi berarti bahwa untuk $x$ yang sangat dekat dengan 0, rasio $f(x)$ dan $x^2$ mendekati 3, atau $f(x) \approx 3x^2$. <b>Benar.</b></li>
+                            <li><b>Opsi E:</b> Kalikan dengan sekawan: $\lim\limits_{x \to 0} \frac{f(x)}{x^2(\sqrt{f(x)+9}+3)} = \lim\limits_{x \to 0} \frac{f(x)}{x^2} \cdot \frac{1}{\sqrt{f(x)+9}+3} = 3 \cdot \frac{1}{\sqrt{0+9}+3} = 3 \cdot \frac{1}{3+3} = \frac{3}{6} = \frac{1}{2}$. <b>Benar.</b></li>
+                        </ul>
+                         <b>Jawaban: Pilihan yang benar adalah A, B, C, D, dan E.</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">18.</div>
+                <div class="soal-konten">
+                    Manakah dari limit berikut yang ada dan nilainya berhingga? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q18a"><label for="q18a">$\lim\limits_{x \to 0} x \sin(1/x)$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18b"><label for="q18b">$\lim\limits_{x \to 1} \frac{|x-1|}{x-1}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18c"><label for="q18c">$\lim\limits_{x \to \infty} \frac{x+\sin x}{x}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18d"><label for="q18d">$\lim\limits_{x \to 0^+} \frac{\ln x}{x}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18e"><label for="q18e">$\lim\limits_{x \to \pi/2} \tan(x)$</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Mengevaluasi keberadaan limit untuk berbagai jenis fungsi.
+                        <ul>
+                            <li><b>Opsi A:</b> Menggunakan Teorema Apit. Karena $-1 \le \sin(1/x) \le 1$, maka $-|x| \le x\sin(1/x) \le |x|$. Saat $x \to 0$, kedua sisi menuju 0, maka limitnya adalah 0. <b>Ada.</b></li>
+                            <li><b>Opsi B:</b> Limit kiri ($x \to 1^-$) adalah $\frac{-(x-1)}{x-1}=-1$. Limit kanan ($x \to 1^+$) adalah $\frac{x-1}{x-1}=1$. Karena limit kiri $\neq$ limit kanan, limitnya tidak ada. <b>Tidak Ada.</b></li>
+                            <li><b>Opsi C:</b> $\lim\limits_{x \to \infty} (1 + \frac{\sin x}{x})$. Karena $\sin x$ terbatas dan $x \to \infty$, maka $\frac{\sin x}{x} \to 0$. Jadi, limitnya $1+0=1$. <b>Ada.</b></li>
+                            <li><b>Opsi D:</b> Saat $x \to 0^+$, $\ln x \to -\infty$ dan penyebut $x \to 0^+$. Bentuknya menjadi $-\infty/0^+$, yang hasilnya adalah $-\infty$. <b>Tidak Ada (tidak berhingga).</b></li>
+                            <li><b>Opsi E:</b> Saat $x \to (\pi/2)^-$, $\tan x \to +\infty$. Saat $x \to (\pi/2)^+$, $\tan x \to -\infty$. Limitnya tidak ada. <b>Tidak Ada.</b></li>
+                        </ul>
+                         <b>Jawaban: Pilihan yang benar adalah A dan C.</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Baru -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">19.</div>
+                <div class="soal-konten">
+                    Fungsi $f(x)$ kontinu dimana-mana kecuali di $x=a$, di mana $\lim\limits_{x \to a^-} f(x) = L$, $\lim\limits_{x \to a^+} f(x) = M$, dan $f(a) = N$. Manakah pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q19a"><label for="q19a">Jika $L=M \neq N$, fungsi memiliki diskontinuitas yang dapat dihapus.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19b"><label for="q19b">Jika $L \neq M$, fungsi memiliki diskontinuitas loncat.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19c"><label for="q19c">Agar kontinu, harus berlaku $L=M=N$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19d"><label for="q19d">Jika $L$ atau $M$ adalah $\pm\infty$, fungsi memiliki diskontinuitas tak hingga.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19e"><label for="q19e">Keberadaan $f(a)=N$ sudah cukup untuk menjamin kontinuitas.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Klasifikasi jenis-jenis diskontinuitas berdasarkan nilai limit kiri, kanan, dan nilai fungsi.
+                        <ul>
+                            <li><b>Opsi A:</b> Jika limit kiri sama dengan limit kanan ($L=M$), maka $\lim_{x \to a} f(x)$ ada. Jika nilai limit ini tidak sama dengan nilai fungsi di titik itu ($L \neq N$), ini adalah definisi dari diskontinuitas yang dapat dihapus (lubang). <b>Benar.</b></li>
+                            <li><b>Opsi B:</b> Jika limit kiri tidak sama dengan limit kanan ($L \neq M$) tetapi keduanya berhingga, ini adalah definisi dari diskontinuitas loncat. <b>Benar.</b></li>
+                            <li><b>Opsi C:</b> Ini adalah tiga syarat kontinuitas yang disatukan: limit dari kiri ($L$) harus sama dengan limit dari kanan ($M$), dan keduanya harus sama dengan nilai fungsi ($N$). <b>Benar.</b></li>
+                            <li><b>Opsi D:</b> Jika salah satu atau kedua limit satu sisi menuju tak hingga, ini adalah definisi dari diskontinuitas tak hingga (asimtot tegak). <b>Benar.</b></li>
+                            <li><b>Opsi E:</b> Hanya mengetahui $f(a)$ terdefinisi tidak cukup. Limitnya juga harus ada dan nilainya harus sama dengan $f(a)$. <b>Salah.</b></li>
+                        </ul>
+                         <b>Jawaban: Pilihan yang benar adalah A, B, C, dan D.</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">20.</div>
+                <div class="soal-konten">
+                    Diberikan $\lim\limits_{x \to \infty} f(x)=2$. Manakah pernyataan berikut yang dapat disimpulkan? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q20a"><label for="q20a">Grafik $y=f(x)$ memiliki asimtot datar $y=2$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20b"><label for="q20b">Untuk $x$ yang sangat besar, nilai $f(x)$ mendekati 2.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20c"><label for="q20c">$\lim\limits_{x \to \infty} \frac{1}{f(x)} = \frac{1}{2}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20d"><label for="q20d">$\lim\limits_{x \to \infty} (f(x)-2) = 0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20e"><label for="q20e">Grafik $y=f(x)$ tidak mungkin memotong garis $y=2$.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Interpretasi dari limit di tak hingga.
+                        <ul>
+                            <li><b>Opsi A:</b> Ini adalah definisi dari asimtot datar. <b>Benar.</b></li>
+                            <li><b>Opsi B:</b> Ini adalah interpretasi intuitif dari limit di tak hingga. <b>Benar.</b></li>
+                            <li><b>Opsi C:</b> Berdasarkan sifat limit, $\lim \frac{1}{f(x)} = \frac{1}{\lim f(x)} = \frac{1}{2}$ (karena limit penyebut tidak nol). <b>Benar.</b></li>
+                            <li><b>Opsi D:</b> Berdasarkan sifat limit, $\lim (f(x)-2) = \lim f(x) - \lim 2 = 2 - 2 = 0$. Pernyataan ini ekuivalen dengan pernyataan awal. <b>Benar.</b></li>
+                            <li><b>Opsi E:</b> Ini adalah miskonsepsi umum. Sebuah fungsi bisa memotong asimtot datarnya berkali-kali. Contoh: $f(x) = \frac{\sin x}{x} + 2$. Limitnya di tak hingga adalah 2, tetapi grafiknya memotong garis $y=2$ setiap kali $\sin x=0$. <b>Salah.</b></li>
+                        </ul>
+                         <b>Jawaban: Pilihan yang benar adalah A, B, C, dan D.</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Baru -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">21.</div>
+                <div class="soal-konten">
+                    Manakah dari fungsi berikut yang kontinu untuk semua $x \in \mathbb{R}$? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q21a"><label for="q21a">$f(x)=x^3 - 3x + 1$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21b"><label for="q21b">$g(x)=\frac{\sin x}{x^2+1}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21c"><label for="q21c">$h(x)=|x-2|$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21d"><label for="q21d">$k(x)=\sqrt{x^2+1}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21e"><label for="q21e">$m(x)=\frac{x}{x}$</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Mengidentifikasi fungsi yang terdefinisi dan tidak memiliki "lompatan" atau "lubang" di seluruh domain bilangan real.
+                        <ul>
+                            <li><b>Opsi A:</b> Semua fungsi polinomial kontinu di mana-mana. <b>Benar.</b></li>
+                            <li><b>Opsi B:</b> Fungsi sinus kontinu di mana-mana. Penyebut $x^2+1$ juga kontinu dan tidak pernah nol. Pembagian dua fungsi kontinu adalah kontinu selama penyebutnya tidak nol. <b>Benar.</b></li>
+                            <li><b>Opsi C:</b> Fungsi nilai mutlak kontinu di mana-mana. <b>Benar.</b></li>
+                            <li><b>Opsi D:</b> Argumen dari akar kuadrat, $x^2+1$, selalu positif untuk semua $x \in \mathbb{R}$. Jadi, fungsi ini terdefinisi dan kontinu di mana-mana. <b>Benar.</b></li>
+                            <li><b>Opsi E:</b> Fungsi ini tidak terdefinisi di $x=0$. Oleh karena itu, tidak kontinu di $x=0$, sehingga tidak kontinu untuk semua $x \in \mathbb{R}$. <b>Salah.</b></li>
+                        </ul>
+                         <b>Jawaban: Pilihan yang benar adalah A, B, C, dan D.</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">22.</div>
+                <div class="soal-konten">
+                     Jika $\lim\limits_{x \to a} f(x) = 0$ dan $\lim\limits_{x \to a} g(x) = 0$, maka $\lim\limits_{x \to a} \frac{f(x)}{g(x)}$... <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q22a"><label for="q22a">Mungkin bernilai 0.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22b"><label for="q22b">Mungkin bernilai tak hingga.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22c"><label for="q22c">Mungkin bernilai konstanta tak nol.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22d"><label for="q22d">Mungkin tidak ada.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22e"><label for="q22e">Pasti bernilai 1.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Menganalisis hasil yang mungkin dari bentuk tak tentu $0/0$.
+                        <ul>
+                            <li><b>Opsi A:</b> Contoh: $\lim\limits_{x \to 0} \frac{x^2}{x} = \lim\limits_{x \to 0} x = 0$. <b>Benar.</b></li>
+                            <li><b>Opsi B:</b> Contoh: $\lim\limits_{x \to 0^+} \frac{x}{x^2} = \lim\limits_{x \to 0^+} \frac{1}{x} = \infty$. <b>Benar.</b></li>
+                            <li><b>Opsi C:</b> Contoh: $\lim\limits_{x \to 0} \frac{5x}{x} = 5$. <b>Benar.</b></li>
+                            <li><b>Opsi D:</b> Contoh: $\lim\limits_{x \to 0} \frac{x \sin(1/x)}{x} = \lim\limits_{x \to 0} \sin(1/x)$, yang tidak ada. <b>Benar.</b></li>
+                            <li><b>Opsi E:</b> Jelas salah berdasarkan contoh-contoh di atas. <b>Salah.</b></li>
+                        </ul>
+                         <b>Jawaban: Pilihan yang benar adalah A, B, C, dan D.</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Baru -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">23.</div>
+                <div class="soal-konten">
+                    Berdasarkan Teorema Nilai Antara, jika $f$ kontinu pada $[a, b]$ dan $k$ adalah bilangan di antara $f(a)$ dan $f(b)$, maka ada $c \in (a,b)$ sehingga $f(c)=k$. Manakah kesimpulan yang valid dari teorema ini? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q23a"><label for="q23a">Polinomial $P(x) = x^3+x-1$ pasti memiliki akar real antara 0 dan 1.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23b"><label for="q23b">Jika fungsi kontinu memiliki nilai positif dan negatif pada suatu interval, ia pasti memotong sumbu-x di interval tersebut.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23c"><label for="q23c">Setiap polinomial berderajat ganjil pasti memiliki setidaknya satu akar real.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23d"><label for="q23d">Fungsi $f(x)=1/x$ pasti mengambil nilai antara $f(-1)=-1$ dan $f(1)=1$ pada interval $[-1,1]$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23e"><label for="q23e">Teorema ini menjamin keberadaan solusi, bukan cara menemukannya.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Aplikasi dan batasan dari Teorema Nilai Antara (IVT).
+                        <ul>
+                            <li><b>Opsi A:</b> $P(x)$ adalah polinomial, jadi kontinu. $P(0)=-1$ dan $P(1)=1$. Karena 0 berada di antara -1 dan 1, maka harus ada $c \in (0,1)$ sedemikian sehingga $P(c)=0$. <b>Benar.</b></li>
+                            <li><b>Opsi B:</b> Ini adalah kasus khusus dari IVT yang dikenal sebagai Teorema Bolzano, dimana $k=0$. Jika $f(a)<0$ dan $f(b)>0$, maka harus ada titik potong sumbu-x. <b>Benar.</b></li>
+                            <li><b>Opsi C:</b> Polinomial berderajat ganjil memiliki $\lim_{x \to \infty} P(x)$ dan $\lim_{x \to -\infty} P(x)$ dengan tanda berlawanan. Jadi, pasti ada nilai positif dan negatif, sehingga menurut (B), pasti ada akar real. <b>Benar.</b></li>
+                            <li><b>Opsi D:</b> IVT tidak berlaku karena $f(x)=1/x$ tidak kontinu pada interval $[-1,1]$ (diskontinu di $x=0$). <b>Salah.</b></li>
+                            <li><b>Opsi E:</b> IVT adalah teorema keberadaan (existence theorem), ia tidak memberikan metode untuk menemukan nilai $c$. <b>Benar.</b></li>
+                        </ul>
+                         <b>Jawaban: Pilihan yang benar adalah A, B, C, dan E.</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">24.</div>
+                <div class="soal-konten">
+                    Manakah generalisasi limit trigonometri yang benar? ($k$ adalah konstanta) <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q24a"><label for="q24a">$\lim\limits_{x \to 0} \frac{\sin(kx)}{x} = k$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24b"><label for="q24b">$\lim\limits_{x \to 0} \frac{1-\cos(kx)}{x^2} = \frac{k^2}{2}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24c"><label for="q24c">$\lim\limits_{x \to c} \frac{\sin(x-c)}{x-c} = 1$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24d"><label for="q24d">$\lim\limits_{x \to \infty} \sin(x)$ tidak ada.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24e"><label for="q24e">$\lim\limits_{x \to 0} \frac{\sin(\sin x)}{x} = 1$.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Mengidentifikasi rumus-rumus standar dan properti limit trigonometri.
+                        <ul>
+                            <li><b>Opsi A:</b> Ini adalah rumus standar, turunan dari $\lim_{u \to 0} \frac{\sin u}{u}=1$. <b>Benar.</b></li>
+                            <li><b>Opsi B:</b> Ini juga rumus standar, dapat dibuktikan dengan L'Hôpital atau identitas setengah sudut. <b>Benar.</b></li>
+                            <li><b>Opsi C:</b> Dengan substitusi $u=x-c$, saat $x \to c$, $u \to 0$. Limitnya menjadi $\lim_{u \to 0} \frac{\sin u}{u}=1$. <b>Benar.</b></li>
+                            <li><b>Opsi D:</b> Fungsi sinus berosilasi antara -1 dan 1 dan tidak mendekati satu nilai pun saat $x \to \infty$. <b>Benar.</b></li>
+                             <li><b>Opsi E:</b> $\lim\limits_{x \to 0} \frac{\sin(\sin x)}{\sin x} \cdot \frac{\sin x}{x} = 1 \cdot 1 = 1$. <b>Benar.</b></li>
+                        </ul>
+                         <b>Jawaban: Pilihan yang benar adalah A, B, C, D, dan E.</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Baru -->
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">25.</div>
+                <div class="soal-konten">
+                    Diberikan $f(x) = x^2$. Manakah dari ekspresi limit berikut yang mewakili turunan $f'(x)$ di $x=3$? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q25a"><label for="q25a">$\lim\limits_{h \to 0} \frac{(3+h)^2 - 3^2}{h}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25b"><label for="q25b">$\lim\limits_{x \to 3} \frac{x^2 - 9}{x-3}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25c"><label for="q25c">$6$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25d"><label for="q25d">$\lim\limits_{h \to 0} \frac{(x+h)^2 - x^2}{h}$ dievaluasi di $x=3$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25e"><label for="q25e">Gradien garis singgung kurva $y=x^2$ di titik $(3,9)$.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Definisi dan interpretasi turunan.
+                        <ul>
+                            <li><b>Opsi A:</b> Ini adalah definisi formal turunan $f'(a) = \lim_{h \to 0} \frac{f(a+h)-f(a)}{h}$ dengan $a=3$. <b>Benar.</b></li>
+                            <li><b>Opsi B:</b> Ini adalah definisi alternatif turunan $f'(a) = \lim_{x \to a} \frac{f(x)-f(a)}{x-a}$ dengan $a=3$. <b>Benar.</b></li>
+                            <li><b>Opsi C:</b> Turunan dari $f(x)=x^2$ adalah $f'(x)=2x$. Di $x=3$, nilainya $f'(3)=2(3)=6$. Ini adalah nilai dari turunan tersebut. <b>Benar.</b></li>
+                            <li><b>Opsi D:</b> Ekspresi limit ini mendefinisikan fungsi turunan $f'(x)$, yang jika dievaluasi di $x=3$ akan memberikan $f'(3)$. <b>Benar.</b></li>
+                            <li><b>Opsi E:</b> Interpretasi geometris dari turunan di suatu titik adalah gradien garis singgung di titik tersebut. <b>Benar.</b></li>
+                        </ul>
+                         <b>Jawaban: Pilihan yang benar adalah A, B, C, D, dan E.</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">26.</div>
+                <div class="soal-konten">
+                    <b>Gunakan informasi berikut untuk menjawab soal nomor 26-27.</b><br>Diberikan fungsi $f(x) = x\cos(\frac{1}{x})$.
+                    <br><br>
+                    Tentukan kebenaran pernyataan mengenai perilaku limit fungsi $f(x)$ di titik $x=0$.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. $\lim\limits_{x \to 0} \cos(1/x)$ tidak ada karena terjadi osilasi tak hingga.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Nilai $\cos(1/x)$ selalu terbatas antara -1 dan 1.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. $\lim\limits_{x \to 0} f(x)$ dapat dihitung menggunakan Teorema Apit.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. $\lim\limits_{x \to 0} f(x) = 0$.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Analisis limit menggunakan Teorema Apit (Squeeze Theorem) untuk kasus fungsi yang merupakan perkalian antara fungsi yang menuju nol dan fungsi yang terbatas.
+                        <ul>
+                            <li><b>Pernyataan A & B:</b> Saat $x \to 0$, $1/x \to \infty$. Argumen fungsi kosinus menjadi sangat besar, menyebabkan grafiknya berosilasi dengan cepat antara -1 dan 1 tanpa mendekati nilai tunggal. Jadi, limitnya tidak ada, tetapi nilainya selalu terbatas. <b>(Keduanya Benar)</b></li>
+                            <li><b>Pernyataan C & D:</b> Karena $-1 \le \cos(1/x) \le 1$, kita bisa kalikan dengan $|x|$ (untuk $x \neq 0$): $-|x| \le x\cos(1/x) \le |x|$. Karena $\lim_{x \to 0} -|x| = 0$ dan $\lim_{x \to 0} |x| = 0$, maka menurut Teorema Apit, limit fungsi yang di tengah juga harus 0. <b>(Keduanya Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Baru -->
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">27.</div>
+                <div class="soal-konten">
+                    Tentukan kebenaran pernyataan mengenai perilaku limit fungsi $f(x) = x\cos(\frac{1}{x})$ di tak hingga.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Saat $x \to \infty$, maka $1/x \to 0$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. $\lim\limits_{x \to \infty} \cos(1/x) = \cos(0) = 1$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. $\lim\limits_{x \to \infty} f(x)$ adalah bentuk tak tentu jenis $\infty \cdot 1$.</td><td></td><td>&#10004;</td></tr>
+                            <tr><td>D. $\lim\limits_{x \to \infty} f(x) = \infty$.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Analisis limit di tak hingga.
+                        <ul>
+                            <li><b>Pernyataan A:</b> Ini adalah properti dasar limit. <b>(Benar)</b></li>
+                            <li><b>Pernyataan B:</b> Karena $1/x \to 0$ dan fungsi kosinus kontinu, kita bisa substitusi: $\lim_{x \to \infty} \cos(1/x) = \cos(\lim_{x \to \infty} 1/x) = \cos(0) = 1$. <b>(Benar)</b></li>
+                            <li><b>Pernyataan C & D:</b> Limitnya adalah $\lim_{x \to \infty} x \cdot \lim_{x \to \infty} \cos(1/x) = \infty \cdot 1$. Ini bukan bentuk tak tentu. Hasil perkalian sesuatu yang menuju tak hingga dengan sesuatu yang menuju 1 adalah tak hingga. <b>(C Salah, D Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">28.</div>
+                <div class="soal-konten">
+                    <b>Gunakan informasi berikut untuk menjawab soal nomor 28-29.</b><br>Analisis fungsi $f(x) = \frac{\sqrt{4x^2+1}}{x-2}$.
+                    <br><br>
+                    Tentukan kebenaran dari pernyataan mengenai asimtot fungsi $f(x)$.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Fungsi memiliki asimtot tegak di $x=2$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. $\lim\limits_{x \to \infty} f(x) = 2$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. $\lim\limits_{x \to -\infty} f(x) = -2$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Fungsi ini memiliki dua asimtot datar yang berbeda.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Menentukan asimtot tegak dan datar.
+                        <ul>
+                            <li><b>A (Asimtot Tegak):</b> Terjadi saat penyebut nol dan pembilang tidak nol. Di $x=2$, penyebut adalah 0 dan pembilang adalah $\sqrt{4(2^2)+1} = \sqrt{17} \neq 0$. Jadi, $x=2$ adalah asimtot tegak. <b>(Benar)</b></li>
+                            <li><b>B (Asimtot Datar, $x \to \infty$):</b> $\lim_{x \to \infty} \frac{\sqrt{4x^2+1}}{x-2} = \lim_{x \to \infty} \frac{\sqrt{x^2(4+1/x^2)}}{x(1-2/x)} = \lim_{x \to \infty} \frac{|x|\sqrt{4+1/x^2}}{x(1-2/x)}$. Untuk $x>0$, $|x|=x$. Maka limitnya menjadi $\lim_{x \to \infty} \frac{x\sqrt{4}}{x} = 2$. <b>(Benar)</b></li>
+                            <li><b>C (Asimtot Datar, $x \to -\infty$):</b> Sama seperti di atas, tapi untuk $x<0$, $|x|=-x$. Maka limitnya menjadi $\lim_{x \to -\infty} \frac{-x\sqrt{4}}{x} = -2$. <b>(Benar)</b></li>
+                            <li><b>D:</b> Karena limit ke $+\infty$ dan $-\infty$ menghasilkan nilai yang berbeda ($2$ dan $-2$), fungsi ini memiliki dua asimtot datar. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Baru -->
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">29.</div>
+                <div class="soal-konten">
+                    Tentukan kebenaran pernyataan mengenai limit fungsi secara umum.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Jika $\lim\limits_{x \to c} f(x)$ ada, maka $\lim\limits_{x \to c^+} f(x) = \lim\limits_{x \to c^-} f(x)$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Limit menganalisis perilaku fungsi di sekitar titik, bukan tepat di titik tersebut.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Jika fungsi kontinu, limitnya di setiap titik dapat dicari dengan substitusi langsung.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Jika $\lim\limits_{x \to c} f(x) = L \neq 0$, maka $\lim\limits_{x \to c} \frac{1}{f(x)} = \frac{1}{L}$.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Pernyataan fundamental mengenai konsep limit dan kontinuitas.
+                        <ul>
+                            <li><b>A:</b> Ini adalah definisi dari keberadaan limit dua sisi. Limit ada jika dan hanya jika limit kiri sama dengan limit kanan. <b>(Benar)</b></li>
+                            <li><b>B:</b> Ini adalah ide inti dari limit. Nilai $f(c)$ itu sendiri tidak relevan untuk menentukan $\lim_{x \to c} f(x)$. <b>(Benar)</b></li>
+                            <li><b>C:</b> Ini adalah definisi dari kontinuitas. Sebuah fungsi $f$ kontinu di $c$ jika $\lim_{x \to c} f(x) = f(c)$. Jadi, limitnya bisa dicari dengan substitusi. <b>(Benar)</b></li>
+                            <li><b>D:</b> Ini adalah salah satu sifat aljabar dari limit (limit dari kebalikan). Ini berlaku selama limit penyebutnya tidak nol. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">30.</div>
+                <div class="soal-konten">
+                    Evaluasi pernyataan-pernyataan berikut yang sering menimbulkan miskonsepsi dalam topik limit.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Jika $\lim\limits_{x \to \infty} f(x)$ ada, maka $f(x)$ tidak boleh berosilasi.</td><td></td><td>&#10004;</td></tr>
+                            <tr><td>B. Bentuk tak tentu $0 \cdot \infty$ selalu menghasilkan 0.</td><td></td><td>&#10004;</td></tr>
+                            <tr><td>C. Untuk mencari limit, langkah pertama yang selalu valid adalah substitusi langsung.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Adanya asimtot tegak di $x=c$ berarti $\lim\limits_{x \to c} f(x)$ tidak ada.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Mengklarifikasi miskonsepsi umum dalam kalkulus.
+                        <ul>
+                            <li><b>A:</b> Fungsi bisa berosilasi dan tetap memiliki limit, selama amplitudonya mengecil menuju nol. Contohnya adalah $f(x)=\frac{\sin x}{x}$, yang berosilasi tetapi limitnya di tak hingga adalah 0. <b>(Salah)</b></li>
+                            <li><b>B:</b> Bentuk $0 \cdot \infty$ adalah tak tentu. Hasilnya bisa apa saja. Contoh: $\lim_{x \to \infty} x \cdot \frac{1}{x^2} = 0$, $\lim_{x \to \infty} x \cdot \frac{5}{x} = 5$, $\lim_{x \to \infty} x^2 \cdot \frac{1}{x} = \infty$. <b>(Salah)</b></li>
+                            <li><b>C:</b> Substitusi langsung adalah langkah pertama yang paling efisien. Jika hasilnya adalah bilangan real (untuk fungsi yang kontinu di titik tersebut), itulah jawabannya. Jika hasilnya bentuk tak tentu, kita perlu metode lain. Jika hasilnya bentuk seperti (bilangan non-nol)/0, kita tahu limitnya tak hingga. Ini adalah langkah diagnostik yang valid. <b>(Benar)</b></li>
+                            <li><b>D:</b> Asimtot tegak berarti $\lim_{x \to c} f(x)$ adalah $\infty$ atau $-\infty$, atau limit satu sisinya berbeda. Dalam semua kasus ini, limitnya tidak ada sebagai suatu bilangan berhingga. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
+
