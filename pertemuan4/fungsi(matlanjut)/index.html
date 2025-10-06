@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Latihan & Pembahasan - Analisis Fungsi</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            counter-reset: page;
+        }
+
+        .page-container {
+            /* This container helps in centering the pages */
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 2.5cm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 10pt;
+            color: #888;
+        }
+
+        @media print {
+            body { background: none; }
+            .page { width: 100%; height: 100%; margin: 0; box-shadow: none; page-break-after: always; }
+        }
+
+        .content-wrapper { position: relative; z-index: 1; width: 100%; }
+        
+        h1 { font-size: 22pt; text-align: center; border-bottom: 2px solid var(--primary-text); padding-bottom: 10px; margin-bottom: 25px; font-weight: 700; }
+        h2 { font-size: 14pt; font-weight: 700; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        
+        .soal-latihan {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 25px;
+            break-inside: avoid;
+            text-align: justify;
+        }
+
+        .soal-nomor {
+            font-weight: bold;
+            flex-shrink: 0;
+            min-width: 20px;
+        }
+
+        .soal-konten {
+            flex-grow: 1;
+        }
+        
+        .pembahasan { 
+            background-color: #f9f9f9; 
+            border: 1px solid var(--border-color); 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-top: 20px; 
+            text-align: left;
+        }
+        
+        .pembahasan ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        ol.pilihan-ganda { list-style-type: none; padding-left: 0; margin-top: 10px; text-align: left; }
+        
+        ol.pilihan-ganda li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        ol.pilihan-ganda li::before {
+            content: attr(data-option) ". ";
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .kategori-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .kategori-table th, .kategori-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+        .kategori-table th {
+            background-color: #f2f2f2;
+        }
+        .kategori-table td:not(:first-child) {
+            text-align: center;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-left: 5px;
+            text-align: left;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 12px;
+            min-width: 18px;
+            min-height: 18px;
+        }
+
+        .checkbox-option label {
+            display: block;
+        }
+
+        .petunjuk-box {
+            background-color: #f0f4ff;
+            border-left: 4px solid #4a69bd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <section class="page">
+        <div class="content-wrapper">
+            <h1>Soal Latihan & Pembahasan Analisis Fungsi</h1>
+            
+            <h2>Tipe 1a: Pilihan Ganda (Satu Jawaban Benar)</h2>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">1.</div>
+                <div class="soal-konten">
+                    Domain dari fungsi $f(x) = \sqrt{\frac{x^2-x-2}{x-4}}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$[-1, 2] \cup (4, \infty)$</li>
+                        <li data-option="B">$(-\infty, -1] \cup [2, 4)$</li>
+                        <li data-option="C">$[-1, 2] \cup [4, \infty)$</li>
+                        <li data-option="D">$(-\infty, -1]$</li>
+                        <li data-option="E">$[2, 4)$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Domain dari fungsi akar kuadrat $\sqrt{g(x)}$ adalah himpunan semua $x$ di mana $g(x) \ge 0$. Untuk fungsi rasional, penyebutnya tidak boleh nol.
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan syarat agar ekspresi di dalam akar tidak negatif.
+                                <br>$\frac{x^2-x-2}{x-4} \ge 0 \implies \frac{(x-2)(x+1)}{x-4} \ge 0$.
+                            </li>
+                            <li><b>Langkah 2:</b> Tentukan titik-titik pembuat nol dari pembilang dan penyebut.
+                                <br>Pembilang: $x=2, x=-1$. Penyebut: $x=4$.
+                            </li>
+                            <li><b>Langkah 3:</b> Buat garis bilangan dan uji interval.
+                                <br>Garis bilangan dibagi oleh -1, 2, dan 4.
+                                <br>Uji $x=5$: $\frac{(+)(+)}{(+)} = +$.
+                                <br>Uji $x=3$: $\frac{(+)(+)}{(-)} = -$.
+                                <br>Uji $x=0$: $\frac{(-)(+)}{(-)} = +$.
+                                <br>Uji $x=-2$: $\frac{(-)(-)}{(-)} = -$.
+                                <br>Kita mencari interval yang hasilnya positif atau nol: $[-1, 2] \cup [4, \infty)$.
+                            </li>
+                             <li><b>Langkah 4:</b> Tentukan syarat penyebut tidak boleh nol.
+                                <br>$x-4 \neq 0 \implies x \neq 4$.
+                            </li>
+                             <li><b>Langkah 5:</b> Gabungkan kedua syarat.
+                                <br>Dari langkah 3, kita punya $[-1, 2] \cup [4, \infty)$. Dari langkah 4, kita harus mengeluarkan $x=4$.
+                                <br>Jadi, domain akhirnya adalah $[-1, 2] \cup (4, \infty)$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">2.</div>
+                <div class="soal-konten">
+                    Range dari fungsi $f(x) = 5 - 3^{|\cos(x)|}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$[2, 4]$</li>
+                        <li data-option="B">$[4, 5)$</li>
+                        <li data-option="C">$(2, 4]$</li>
+                        <li data-option="D">$[2, 5)$</li>
+                        <li data-option="E">$(-\infty, 4]$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Untuk mencari range, kita analisis nilai dari bagian terdalam fungsi lalu ke bagian terluar.
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan range dari $|\cos(x)|$.
+                                <br>Nilai $\cos(x)$ berada pada interval $[-1, 1]$. Maka nilai $|\cos(x)|$ berada pada interval $[0, 1]$.
+                            </li>
+                            <li><b>Langkah 2:</b> Tentukan range dari $3^{|\cos(x)|}$.
+                                <br>Karena basis eksponen (3) lebih dari 1, fungsi $3^u$ monoton naik.
+                                <br>Untuk $u_{min}=0$, nilainya $3^0=1$.
+                                <br>Untuk $u_{max}=1$, nilainya $3^1=3$.
+                                <br>Jadi, range dari $3^{|\cos(x)|}$ adalah $[1, 3]$.
+                            </li>
+                            <li><b>Langkah 3:</b> Tentukan range dari $f(x) = 5 - 3^{|\cos(x)|}$.
+                                <br>Kita mengurangkan nilai pada range $[1, 3]$ dari 5.
+                                <br>Nilai maksimum $f(x)$ terjadi saat pengurangnya minimum: $5 - 1 = 4$.
+                                <br>Nilai minimum $f(x)$ terjadi saat pengurangnya maksimum: $5 - 3 = 2$.
+                                <br>Jadi, range dari $f(x)$ adalah $[2, 4]$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">3.</div>
+                <div class="soal-konten">
+                    Jika sisa pembagian polinomial $P(x)$ oleh $x^2-1$ adalah $3x-1$ dan oleh $x^2-4$ adalah $x+5$, maka sisa pembagian $P(x)$ oleh $x^2-3x+2$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$5x-3$</li>
+                        <li data-option="B">$2x+4$</li>
+                        <li data-option="C">$-x+7$</li>
+                        <li data-option="D">$4x-2$</li>
+                        <li data-option="E">$3x-1$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Teorema Sisa menyatakan bahwa jika polinomial $P(x)$ dibagi oleh $(x-a)$, sisanya adalah $P(a)$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Uraikan informasi yang diberikan.
+                                <br>$P(x)$ dibagi $x^2-1 = (x-1)(x+1)$ sisa $3x-1$. Ini berarti:
+                                <br>$P(1) = 3(1)-1 = 2$.
+                                <br>$P(-1) = 3(-1)-1 = -4$.
+                                <br>$P(x)$ dibagi $x^2-4 = (x-2)(x+2)$ sisa $x+5$. Ini berarti:
+                                <br>$P(2) = 2+5 = 7$.
+                                <br>$P(-2) = -2+5 = 3$.
+                            </li>
+                            <li><b>Langkah 2:</b> Tentukan bentuk sisa yang dicari.
+                                <br>$P(x)$ dibagi oleh $x^2-3x+2 = (x-1)(x-2)$. Karena pembagi berderajat 2, sisa pembagiannya berderajat paling tinggi 1. Misalkan sisa $S(x)=ax+b$.
+                            </li>
+                            <li><b>Langkah 3:</b> Gunakan informasi dari Langkah 1 untuk mencari $a$ dan $b$.
+                                <br>Menurut teorema sisa, $P(x)$ dibagi $(x-1)(x-2)$ akan bersisa $S(x)$.
+                                <br>Maka $P(1) = S(1) \implies 2 = a(1)+b \implies a+b=2$.
+                                <br>Dan $P(2) = S(2) \implies 7 = a(2)+b \implies 2a+b=7$.
+                            </li>
+                             <li><b>Langkah 4:</b> Selesaikan sistem persamaan linear.
+                                <br>$(2a+b) - (a+b) = 7 - 2 \implies a=5$.
+                                <br>Substitusi kembali: $5+b=2 \implies b=-3$.
+                                <br>Jadi, sisa pembagiannya adalah $S(x) = 5x-3$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+
+             <div class="soal-latihan">
+                <div class="soal-nomor">4.</div>
+                <div class="soal-konten">
+                    Banyaknya solusi dari persamaan trigonometri $2\cos^2(x) - \sin(x) - 1 = 0$ pada interval $[-\pi, \pi]$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">1</li>
+                        <li data-option="B">2</li>
+                        <li data-option="C">3</li>
+                        <li data-option="D">4</li>
+                        <li data-option="E">5</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Gunakan identitas trigonometri $\cos^2(x) = 1-\sin^2(x)$ untuk mengubah persamaan menjadi bentuk kuadrat dalam $\sin(x)$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Ubah persamaan ke dalam satu variabel trigonometri.
+                                <br>$2(1-\sin^2(x)) - \sin(x) - 1 = 0$.
+                                <br>$2 - 2\sin^2(x) - \sin(x) - 1 = 0$.
+                                <br>$-2\sin^2(x) - \sin(x) + 1 = 0$.
+                                <br>$2\sin^2(x) + \sin(x) - 1 = 0$.
+                            </li>
+                            <li><b>Langkah 2:</b> Selesaikan persamaan kuadrat.
+                                <br>Misalkan $y = \sin(x)$, maka $2y^2+y-1=0$.
+                                <br>Faktorkan: $(2y-1)(y+1)=0$.
+                                <br>Maka solusinya adalah $y=1/2$ atau $y=-1$.
+                            </li>
+                            <li><b>Langkah 3:</b> Cari solusi untuk $x$ pada interval $[-\pi, \pi]$.
+                                <br><b>Kasus 1:</b> $\sin(x) = 1/2$.
+                                <br>Pada interval $[-\pi, \pi]$, sinus bernilai positif di kuadran I dan II. Solusinya adalah $x=\pi/6$ dan $x=5\pi/6$.
+                                <br><b>Kasus 2:</b> $\sin(x) = -1$.
+                                <br>Pada interval $[-\pi, \pi]$, solusinya adalah $x=-\pi/2$.
+                            </li>
+                             <li><b>Langkah 4:</b> Hitung total solusi.
+                                <br>Solusi yang ditemukan adalah $\{\pi/6, 5\pi/6, -\pi/2\}$. Terdapat 3 solusi.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">5.</div>
+                <div class="soal-konten">
+                    Luas daerah yang dibatasi oleh grafik fungsi $f(x) = 8 - |x-2| - |x+2|$ dan sumbu-x adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">16</li>
+                        <li data-option="B">20</li>
+                        <li data-option="C">24</li>
+                        <li data-option="D">28</li>
+                        <li data-option="E">32</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Fungsi dengan nilai mutlak dapat dianalisis dengan membaginya menjadi beberapa interval berdasarkan titik kritis (pembuat nol di dalam nilai mutlak).
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan titik kritis.
+                                <br>Titik kritis adalah $x=2$ dan $x=-2$. Ini membagi garis bilangan menjadi tiga interval.
+                            </li>
+                            <li><b>Langkah 2:</b> Uraikan fungsi pada setiap interval.
+                                <br><b>Untuk $x \ge 2$:</b> $f(x) = 8 - (x-2) - (x+2) = 8-x+2-x-2 = 8-2x$.
+                                <br><b>Untuk $-2 \le x < 2$:</b> $f(x) = 8 - (-(x-2)) - (x+2) = 8 + x-2-x-2 = 4$.
+                                <br><b>Untuk $x < -2$:</b> $f(x) = 8 - (-(x-2)) - (-(x+2)) = 8+x-2+x+2 = 8+2x$.
+                            </li>
+                            <li><b>Langkah 3:</b> Tentukan titik potong sumbu-x (y=0) untuk menemukan batas-batas daerah.
+                                <br>Untuk $x \ge 2$: $8-2x=0 \implies x=4$.
+                                <br>Untuk $x < -2$: $8+2x=0 \implies x=-4$.
+                                <br>Daerah yang dimaksud dibatasi dari $x=-4$ sampai $x=4$.
+                            </li>
+                            <li><b>Langkah 4:</b> Hitung luas.
+                                <br>Bentuk daerahnya adalah trapesium.
+                                <br>Alas atasnya adalah dari $x=-2$ sampai $x=2$, panjangnya 4.
+                                <br>Alas bawahnya adalah dari $x=-4$ sampai $x=4$, panjangnya 8.
+                                <br>Tingginya adalah nilai konstan fungsi di interval tengah, yaitu 4.
+                                <br>Luas = $\frac{1}{2} \times (\text{jumlah sisi sejajar}) \times \text{tinggi} = \frac{1}{2} \times (4+8) \times 4 = \frac{1}{2} \times 12 \times 4 = 24$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">6.</div>
+                <div class="soal-konten">
+                    Asimtot miring dari grafik fungsi $f(x) = \frac{2x^3 - 3x^2 + x - 1}{x^2 - x + 1}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$y=2x$</li>
+                        <li data-option="B">$y=2x+1$</li>
+                        <li data-option="C">$y=2x-1$</li>
+                        <li data-option="D">$y=2x-3$</li>
+                        <li data-option="E">$y=-2x+1$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Asimtot miring ada jika derajat pembilang adalah tepat satu lebih besar dari derajat penyebut. Asimtot miringnya adalah hasil bagi dari pembagian polinomial.
+                        <ul>
+                            <li><b>Langkah 1:</b> Lakukan pembagian polinomial panjang.
+                                <br>Bagilah $2x^3 - 3x^2 + x - 1$ dengan $x^2 - x + 1$.
+                                <br>Langkah pertama, bagi $2x^3$ dengan $x^2$, hasilnya $2x$.
+                                <br>$2x(x^2 - x + 1) = 2x^3 - 2x^2 + 2x$.
+                                <br>Kurangkan: $(2x^3 - 3x^2 + x - 1) - (2x^3 - 2x^2 + 2x) = -x^2 - x - 1$.
+                                <br>Langkah kedua, bagi $-x^2$ dengan $x^2$, hasilnya $-1$.
+                                <br>$-1(x^2 - x + 1) = -x^2 + x - 1$.
+                                <br>Kurangkan: $(-x^2 - x - 1) - (-x^2 + x - 1) = -2x$.
+                            </li>
+                            <li><b>Langkah 2:</b> Identifikasi hasil bagi.
+                                <br>Hasil pembagian adalah $2x-1$ dengan sisa $-2x$.
+                                <br>Maka, $f(x) = (2x-1) + \frac{-2x}{x^2 - x + 1}$.
+                            </li>
+                            <li><b>Langkah 3:</b> Tentukan asimtot miring.
+                                <br>Saat $x \to \pm\infty$, suku sisa $\frac{-2x}{x^2 - x + 1}$ akan mendekati 0.
+                                <br>Sehingga, grafik fungsi akan mendekati garis $y=2x-1$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">7.</div>
+                <div class="soal-konten">
+                    Domain dari fungsi $f(x) = \log_{x-2}(16-x^2)$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$(2, 4)$</li>
+                        <li data-option="B">$(2, 3) \cup (3, 4)$</li>
+                        <li data-option="C">$(-4, 4)$</li>
+                        <li data-option="D">$(3, 4)$</li>
+                        <li data-option="E">$(-4, 2) \cup (2, 3)$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Domain fungsi logaritma $\log_b(a)$ memiliki tiga syarat: (1) Numerus (argumen) $a > 0$, (2) Basis (bilangan pokok) $b > 0$, dan (3) Basis $b \neq 1$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Syarat numerus.
+                                <br>$16-x^2 > 0 \implies (4-x)(4+x) > 0$.
+                                <br>Pembuat nol adalah $x=4$ dan $x=-4$. Parabola terbuka ke bawah, jadi solusi positif ada di antara akar: $-4 < x < 4$.
+                            </li>
+                            <li><b>Langkah 2:</b> Syarat basis.
+                                <br>$x-2 > 0 \implies x > 2$.
+                            </li>
+                            <li><b>Langkah 3:</b> Syarat basis tidak sama dengan 1.
+                                <br>$x-2 \neq 1 \implies x \neq 3$.
+                            </li>
+                             <li><b>Langkah 4:</b> Gabungkan (iriskan) ketiga syarat.
+                                <br>Dari (1): $(-4, 4)$.
+                                <br>Dari (2): $(2, \infty)$.
+                                <br>Dari (3): $x \neq 3$.
+                                <br>Irisan dari $(-4, 4)$ dan $(2, \infty)$ adalah $(2, 4)$. Kemudian kita keluarkan $x=3$ dari interval ini.
+                                <br>Hasil akhirnya adalah $(2, 3) \cup (3, 4)$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                    Jumlah semua nilai $x$ yang memenuhi persamaan $4^x - 3 \cdot 2^{x+2} + 32 = 0$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">3</li>
+                        <li data-option="B">5</li>
+                        <li data-option="C">8</li>
+                        <li data-option="D">12</li>
+                        <li data-option="E">32</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Persamaan eksponensial ini dapat diubah menjadi bentuk kuadrat dengan substitusi yang tepat.
+                        <ul>
+                            <li><b>Langkah 1:</b> Sederhanakan persamaan.
+                                <br>$(2^2)^x - 3 \cdot 2^x \cdot 2^2 + 32 = 0$.
+                                <br>$(2^x)^2 - 3 \cdot 4 \cdot 2^x + 32 = 0$.
+                                <br>$(2^x)^2 - 12 \cdot (2^x) + 32 = 0$.
+                            </li>
+                            <li><b>Langkah 2:</b> Lakukan substitusi dan selesaikan persamaan kuadrat.
+                                <br>Misalkan $y=2^x$. Persamaan menjadi $y^2 - 12y + 32 = 0$.
+                                <br>Faktorkan: $(y-4)(y-8)=0$.
+                                <br>Solusinya adalah $y=4$ atau $y=8$.
+                            </li>
+                            <li><b>Langkah 3:</b> Substitusi kembali untuk menemukan nilai $x$.
+                                <br><b>Kasus 1:</b> $y=4 \implies 2^x = 4 \implies 2^x = 2^2 \implies x_1 = 2$.
+                                <br><b>Kasus 2:</b> $y=8 \implies 2^x = 8 \implies 2^x = 2^3 \implies x_2 = 3$.
+                            </li>
+                             <li><b>Langkah 4:</b> Hitung jumlah semua nilai $x$.
+                                <br>Jumlah solusi = $x_1 + x_2 = 2 + 3 = 5$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                    Jika $f(x) = |x-1|$ dan $g(x) = |x-3|$, maka himpunan penyelesaian dari $(f \circ g)(x) < 2$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$(2, 4)$</li>
+                        <li data-option="B">$(0, 2)$</li>
+                        <li data-option="C">$(0, 4)$</li>
+                        <li data-option="D">$(0, 6)$</li>
+                        <li data-option="E">$(-\infty, 0) \cup (4, \infty)$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Pertidaksamaan nilai mutlak $|u| < k$ ekuivalen dengan $-k < u < k$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan fungsi komposisi $(f \circ g)(x)$.
+                                <br>$(f \circ g)(x) = f(g(x)) = f(|x-3|) = ||x-3| - 1|$.
+                            </li>
+                            <li><b>Langkah 2:</b> Selesaikan pertidaksamaan.
+                                <br>$||x-3| - 1| < 2$.
+                                <br>Berdasarkan teori dasar, ini menjadi: $-2 < |x-3| - 1 < 2$.
+                            </li>
+                            <li><b>Langkah 3:</b> Isolasi nilai mutlak di tengah.
+                                <br>Tambahkan 1 ke semua ruas: $-2+1 < |x-3| < 2+1$.
+                                <br>$-1 < |x-3| < 3$.
+                            </li>
+                            <li><b>Langkah 4:</b> Pecah menjadi dua pertidaksamaan.
+                                <br><b>Pertidaksamaan pertama:</b> $|x-3| > -1$. Ini selalu benar karena nilai mutlak selalu $\ge 0$.
+                                <br><b>Pertidaksamaan kedua:</b> $|x-3| < 3$. Ini ekuivalen dengan $-3 < x-3 < 3$.
+                            </li>
+                             <li><b>Langkah 5:</b> Selesaikan untuk $x$.
+                                <br>Tambahkan 3 ke semua ruas dari pertidaksamaan kedua: $-3+3 < x < 3+3$.
+                                <br>$0 < x < 6$.
+                                <br>Himpunan penyelesaiannya adalah $(0, 6)$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">10.</div>
+                <div class="soal-konten">
+                    Sebuah polinomial $P(x)=x^3+ax^2+bx+c$ memiliki titik stasioner di $x=-1$ dan $x=3$. Jika $P(0)=5$, maka nilai $P(2)$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">-17</li>
+                        <li data-option="B">-11</li>
+                        <li data-option="C">-1</li>
+                        <li data-option="D">3</li>
+                        <li data-option="E">5</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Titik stasioner terjadi ketika turunan pertama dari fungsi bernilai nol, yaitu $P'(x)=0$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Cari turunan pertama $P(x)$.
+                                <br>$P'(x) = 3x^2 + 2ax + b$.
+                            </li>
+                            <li><b>Langkah 2:</b> Gunakan informasi titik stasioner.
+                                <br>Karena titik stasioner ada di $x=-1$ dan $x=3$, maka $x=-1$ dan $x=3$ adalah akar-akar dari $P'(x)=0$.
+                                <br>Dari sifat akar-akar persamaan kuadrat:
+                                <br>Jumlah akar: $(-1) + 3 = -\frac{2a}{3} \implies 2 = -\frac{2a}{3} \implies a=-3$.
+                                <br>Hasil kali akar: $(-1)(3) = \frac{b}{3} \implies -3 = \frac{b}{3} \implies b=-9$.
+                            </li>
+                            <li><b>Langkah 3:</b> Tentukan nilai $c$.
+                                <br>Diketahui $P(0)=5$.
+                                <br>$P(0) = (0)^3 + a(0)^2 + b(0) + c = 5 \implies c=5$.
+                            </li>
+                            <li><b>Langkah 4:</b> Susun polinomial lengkap dan hitung $P(2)$.
+                                <br>$P(x) = x^3 - 3x^2 - 9x + 5$.
+                                <br>$P(2) = (2)^3 - 3(2)^2 - 9(2) + 5 = 8 - 3(4) - 18 + 5 = 8 - 12 - 18 + 5 = -17$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <h2>Tipe 1b: Kecukupan Data</h2>
+            <div class="petunjuk-box">
+                <b>Petunjuk:</b>
+                <ul>
+                    <li><b>A.</b> Pernyataan (1) SAJA cukup, tetapi pernyataan (2) SAJA tidak cukup.</li>
+                    <li><b>B.</b> Pernyataan (2) SAJA cukup, tetapi pernyataan (1) SAJA tidak cukup.</li>
+                    <li><b>C.</b> DUA pernyataan BERSAMA-SAMA cukup, tetapi SATU pernyataan SAJA tidak cukup.</li>
+                    <li><b>D.</b> Pernyataan (1) SAJA cukup dan pernyataan (2) SAJA cukup.</li>
+                    <li><b>E.</b> Pernyataan (1) dan pernyataan (2) tidak cukup.</li>
+                </ul>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">11.</div>
+                <div class="soal-konten">
+                    Apakah fungsi rasional $f(x) = \frac{x^2-a}{x-2}$ memiliki lubang (removable discontinuity) pada grafiknya?
+                    <br>(1) $a=4$.
+                    <br>(2) $\lim_{x \to 2} f(x)$ ada dan berhingga.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Fungsi rasional memiliki lubang di $x=c$ jika $(x-c)$ adalah faktor dari pembilang dan penyebut, yang berarti $\lim_{x \to c} f(x)$ ada (bentuk $0/0$).
+                        <ul>
+                            <li><b>Analisis Pertanyaan:</b> Agar ada lubang di $x=2$, maka pembilang harus nol saat $x=2$. Yaitu, $(2)^2-a=0 \implies 4-a=0 \implies a=4$. Pertanyaannya adalah, "apakah $a=4$?".</li>
+                            <li><b>Pernyataan (1) $a=4$:</b> Ini secara langsung menjawab pertanyaan. Jika $a=4$, maka $f(x)=\frac{x^2-4}{x-2}=\frac{(x-2)(x+2)}{x-2}$, yang memiliki lubang di $x=2$. <b>Cukup.</b></li>
+                            <li><b>Pernyataan (2) $\lim_{x \to 2} f(x)$ ada:</b> Karena penyebut menjadi 0 di $x=2$, satu-satunya cara agar limitnya ada adalah jika pembilangnya juga 0 (bentuk $0/0$). Ini memaksa kondisi $a=4$ harus terpenuhi. <b>Cukup.</b></li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">12.</div>
+                <div class="soal-konten">
+                    Berapakah nilai dari $f(g(1))$ jika $f(x) = \log_a x$ dan $g(x) = x^2+1$?
+                    <br>(1) $f(4)=2$.
+                    <br>(2) Grafik $f(x)$ melalui titik $(8,3)$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Untuk mengevaluasi fungsi, kita perlu mengetahui semua parameter yang tidak diketahui.
+                        <ul>
+                            <li><b>Analisis Pertanyaan:</b> Pertama, hitung $g(1) = 1^2+1=2$. Pertanyaannya menjadi, "Berapakah nilai $f(2) = \log_a 2$?". Untuk menjawab ini, kita perlu mengetahui nilai basis $a$.</li>
+                            <li><b>Pernyataan (1) $f(4)=2$:</b> Ini berarti $\log_a 4 = 2 \implies a^2 = 4$. Karena basis logaritma harus positif, maka $a=2$. Dengan $a=2$, kita bisa menghitung $\log_2 2 = 1$. <b>Cukup.</b></li>
+                            <li><b>Pernyataan (2) Grafik $f(x)$ melalui titik $(8,3)$:</b> Ini berarti $f(8)=3$, atau $\log_a 8 = 3 \implies a^3 = 8$. Maka $a=2$. Dengan $a=2$, kita bisa menghitung $\log_2 2 = 1$. <b>Cukup.</b></li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">13.</div>
+                <div class="soal-konten">
+                     Apakah nilai $f(\pi/4) = \sqrt{2}$? Diketahui $f(x) = A\sin(x) + A\cos(x)$.
+                    <br>(1) Nilai maksimum fungsi adalah 2.
+                    <br>(2) $f(x)$ dapat ditulis sebagai $A\sqrt{2}\sin(x+\pi/4)$.
+                    <ol class="pilihan-ganda">
+                         <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Nilai maksimum dari fungsi $C\sin(x)+D\cos(x)$ adalah $\sqrt{C^2+D^2}$.
+                        <ul>
+                            <li><b>Analisis Pertanyaan:</b> Hitung $f(\pi/4) = A\sin(\pi/4)+A\cos(\pi/4) = A(\frac{\sqrt{2}}{2}) + A(\frac{\sqrt{2}}{2}) = A\sqrt{2}$. Pertanyaannya adalah, "apakah $A\sqrt{2} = \sqrt{2}$?", yang ekuivalen dengan "apakah $A=1$?".</li>
+                            <li><b>Pernyataan (1) Nilai maksimum fungsi adalah 2:</b> Nilai maksimum dari $A\sin(x)+A\cos(x)$ adalah $\sqrt{A^2+A^2} = \sqrt{2A^2} = |A|\sqrt{2}$. Jadi, $|A|\sqrt{2} = 2 \implies |A|=\sqrt{2}$. Ini berarti $A=\sqrt{2}$ atau $A=-\sqrt{2}$. Kita tidak bisa memastikan $A=1$. <b>Tidak Cukup.</b></li>
+                            <li><b>Pernyataan (2) $f(x) = A\sqrt{2}\sin(x+\pi/4)$:</b> Ini adalah identitas trigonometri. $A\sqrt{2}(\sin x \cos(\pi/4) + \cos x \sin(\pi/4)) = A\sqrt{2}(\sin x \frac{\sqrt{2}}{2} + \cos x \frac{\sqrt{2}}{2}) = A(\sin x + \cos x)$. Pernyataan ini benar untuk semua $A$ dan tidak memberikan informasi baru tentang nilai $A$. <b>Tidak Cukup.</b></li>
+                            <li><b>Bersama-sama:</b> Kedua pernyataan tidak memberikan informasi yang cukup untuk menentukan apakah $A=1$. <b>Tidak Cukup.</b></li>
+                        </ul>
+                        <b>Jawaban: E</b>
+                    </div>
+                </div>
+            </div>
+
+             <div class="soal-latihan">
+                <div class="soal-nomor">14.</div>
+                <div class="soal-konten">
+                    Apakah persamaan $|x-a|=b$ memiliki dua solusi real yang berbeda?
+                    <br>(1) $b > 0$.
+                    <br>(2) $a$ adalah bilangan real.
+                    <ol class="pilihan-ganda">
+                         <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Persamaan nilai mutlak $|u|=k$ memiliki:
+                        <ul>
+                            <li>Dua solusi jika $k>0$.</li>
+                            <li>Satu solusi jika $k=0$.</li>
+                            <li>Tidak ada solusi jika $k<0$.</li>
+                        </ul>
+                        <ul>
+                            <li><b>Analisis Pertanyaan:</b> Pertanyaan ini menanyakan apakah kondisi untuk dua solusi terpenuhi. Kondisi tersebut adalah $b>0$.</li>
+                            <li><b>Pernyataan (1) $b>0$:</b> Ini adalah persis kondisi yang dibutuhkan untuk menjamin dua solusi real yang berbeda. <b>Cukup.</b></li>
+                            <li><b>Pernyataan (2) $a$ adalah bilangan real:</b> Ini tidak memberikan informasi apa pun tentang $b$. Kita tidak bisa menentukan jumlah solusi. <b>Tidak Cukup.</b></li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">15.</div>
+                <div class="soal-konten">
+                    Diketahui $P(x)$ adalah polinomial berderajat 3. Apakah $P(x)$ memiliki tiga akar real berbeda?
+                    <br>(1) $P(x)$ memiliki dua titik stasioner, $x_1$ dan $x_2$, dengan $P(x_1) \cdot P(x_2) < 0$.
+                    <br>(2) Koefisien $x^3$ adalah positif.
+                    <ol class="pilihan-ganda">
+                         <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Polinomial berderajat 3 memiliki tiga akar real berbeda jika dan hanya jika nilai ekstrem lokalnya (nilai di titik stasioner) memiliki tanda yang berlawanan.
+                        <ul>
+                            <li><b>Analisis Pertanyaan:</b> Pertanyaan ini menanyakan apakah kondisi untuk tiga akar real berbeda terpenuhi.</li>
+                            <li><b>Pernyataan (1) $P(x_1) \cdot P(x_2) < 0$:</b> Ini berarti nilai fungsi di dua titik stasioner ($P(x_1)$ dan $P(x_2)$) memiliki tanda yang berlawanan (satu positif, satu negatif). Secara geometris, ini berarti grafik "naik" melewati sumbu-x, "turun" kembali melewati sumbu-x, dan "naik" lagi (atau sebaliknya), sehingga memotong sumbu-x di tiga titik berbeda. Ini adalah kondisi yang cukup. <b>Cukup.</b></li>
+                            <li><b>Pernyataan (2) Koefisien $x^3$ adalah positif:</b> Ini hanya memberitahu perilaku ujung grafik (turun di kiri, naik di kanan). Grafik seperti ini bisa saja hanya memotong sumbu-x satu kali. <b>Tidak Cukup.</b></li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Tipe 2: Pilihan Ganda Kompleks</h2>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">16.</div>
+                <div class="soal-konten">
+                    Diberikan fungsi $f(x) = \frac{x^2-x-6}{x^2-4}$. Manakah pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q16a" checked><label for="q16a">Memiliki asimtot tegak di $x=2$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16b" checked><label for="q16b">Memiliki asimtot datar di $y=1$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16c" checked><label for="q16c">Memiliki lubang (removable discontinuity) di $x=-2$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16d" checked><label for="q16d">Memotong sumbu-x di $x=3$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16e" checked><label for="q16e">Domain fungsi adalah $\{x \in \mathbb{R} | x \neq 2, x \neq -2 \}$.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Analisis fungsi rasional dengan memfaktorkan pembilang dan penyebut.
+                        <br>$f(x) = \frac{x^2-x-6}{x^2-4} = \frac{(x-3)(x+2)}{(x-2)(x+2)}$.
+                        <ul>
+                            <li><b>A:</b> Asimtot tegak terjadi saat penyebut nol tapi pembilang tidak. Ini terjadi pada $x=2$. <b>Benar.</b></li>
+                            <li><b>B:</b> Asimtot datar. Karena derajat pembilang (2) sama dengan derajat penyebut (2), asimtot datarnya adalah rasio koefisien utama: $y = 1/1 = 1$. <b>Benar.</b></li>
+                            <li><b>C:</b> Lubang terjadi saat ada faktor yang sama di pembilang dan penyebut. Faktor $(x+2)$ dapat dibatalkan, sehingga ada lubang di $x=-2$. <b>Benar.</b></li>
+                            <li><b>D:</b> Titik potong sumbu-x terjadi saat pembilang nol tapi penyebut tidak. Ini terjadi pada $x=3$. <b>Benar.</b></li>
+                            <li><b>E:</b> Domain adalah semua bilangan real kecuali pembuat nol penyebut. Penyebut nol di $x=2$ dan $x=-2$. <b>Benar.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">17.</div>
+                <div class="soal-konten">
+                    Grafik fungsi eksponensial $f(x)=a \cdot b^x$ melalui titik $(1, 6)$ dan $(2, 18)$. Manakah pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q17a" checked><label for="q17a">$b=3$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17b" checked><label for="q17b">$a=2$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17c" checked><label for="q17c">Fungsi ini monoton naik.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17d" checked><label for="q17d">Grafik memotong sumbu-y di $(0,2)$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17e" checked><label for="q17e">Asimtot datarnya adalah sumbu-x.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Substitusi titik-titik yang diketahui ke dalam persamaan fungsi untuk menemukan parameter $a$ dan $b$.
+                        <ul>
+                            <li><b>Untuk A dan B:</b>
+                                <br>Substitusi $(1,6) \implies 6 = a \cdot b^1 \implies 6=ab$.
+                                <br>Substitusi $(2,18) \implies 18 = a \cdot b^2$.
+                                <br>Bagi persamaan kedua dengan yang pertama: $\frac{18}{6} = \frac{ab^2}{ab} \implies 3=b$. (Pernyataan A <b>Benar</b>).
+                                <br>Substitusi balik $b=3$ ke $6=ab \implies 6=a(3) \implies a=2$. (Pernyataan B <b>Benar</b>).
+                                <br>Fungsinya adalah $f(x)=2 \cdot 3^x$.
+                            </li>
+                             <li><b>C:</b> Karena basis $b=3 > 1$, fungsi eksponensial ini monoton naik. <b>Benar.</b></li>
+                             <li><b>D:</b> Titik potong sumbu-y terjadi saat $x=0$. $f(0)=2 \cdot 3^0 = 2 \cdot 1 = 2$. Titiknya adalah $(0,2)$. <b>Benar.</b></li>
+                             <li><b>E:</b> Asimtot datar untuk fungsi $y=a \cdot b^x + c$ adalah $y=c$. Di sini $c=0$, jadi asimtotnya adalah $y=0$ (sumbu-x). <b>Benar.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">18.</div>
+                <div class="soal-konten">
+                    Jika $f(x)$ adalah fungsi polinomial yang dapat diturunkan, manakah dari pernyataan berikut yang selalu benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q18a" checked><label for="q18a">Jika $f'(c)=0$ dan $f''(c) < 0$, maka $x=c$ adalah titik maksimum lokal.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18b" checked><label for="q18b">Antara dua akar real dari $f(x)$, pasti ada setidaknya satu akar dari $f'(x)$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18c" checked><label for="q18c">Jika $f(x)$ memiliki akar kembar di $x=c$, maka $f'(c)=0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18d" checked><label for="q18d">Jika $f''(c)=0$ dan tanda $f''(x)$ berubah di sekitar $c$, maka $x=c$ adalah titik belok.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18e" checked><label for="q18e">Jika $f(x)$ adalah fungsi ganjil, maka $f'(x)$ adalah fungsi genap.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Pernyataan-pernyataan ini adalah teorema-teorema dasar dalam kalkulus diferensial.
+                        <ul>
+                            <li><b>A:</b> Ini adalah pernyataan dari Uji Turunan Kedua untuk maksimum lokal. <b>Benar.</b></li>
+                            <li><b>B:</b> Ini adalah pernyataan dari Teorema Rolle. <b>Benar.</b></li>
+                            <li><b>C:</b> Akar kembar (multiplisitas $\ge 2$) berarti grafik menyinggung sumbu-x, sehingga gradiennya nol di titik tersebut. <b>Benar.</b></li>
+                            <li><b>D:</b> Ini adalah definisi dari titik belok. <b>Benar.</b></li>
+                            <li><b>E:</b> Jika $f(-x)=-f(x)$, turunkan kedua sisi: $f'(-x) \cdot (-1) = -f'(x) \implies f'(-x) = f'(x)$, yang merupakan definisi fungsi genap. <b>Benar.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">19.</div>
+                <div class="soal-konten">
+                    Diberikan fungsi $f(x) = ||x-1|-2|$. Manakah pernyataan berikut yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q19a" checked><label for="q19a">Grafik fungsi tidak pernah bernilai negatif.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19b" checked><label for="q19b">Memotong sumbu-x di $x=-1$ dan $x=3$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19c" checked><label for="q19c">Nilai maksimum lokal fungsi adalah 2.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19d" checked><label for="q19d">Grafik simetris terhadap garis $x=1$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19e" checked><label for="q19e">Range fungsi adalah $[0, \infty)$.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Analisis grafik fungsi nilai mutlak bertingkat.
+                        <ul>
+                            <li><b>A & E:</b> Adanya nilai mutlak terluar memastikan bahwa hasil fungsi $f(x)$ selalu non-negatif ($ \ge 0$). Ini berarti range-nya adalah $[0, \infty)$. <b>(Keduanya Benar)</b></li>
+                            <li><b>B:</b> Titik potong sumbu-x terjadi saat $f(x)=0$. $||x-1|-2|=0 \implies |x-1|-2=0 \implies |x-1|=2$. Ini memberikan dua solusi: $x-1=2 \implies x=3$ dan $x-1=-2 \implies x=-1$. <b>Benar.</b></li>
+                            <li><b>C:</b> Grafik $y=|x-1|$ adalah bentuk 'V' dengan puncak di $(1,0)$. Grafik $y=|x-1|-2$ adalah 'V' yang digeser ke bawah 2 unit, puncaknya di $(1,-2)$. Grafik $f(x)=||x-1|-2|$ membalik bagian negatif ke atas, sehingga puncak $(1,-2)$ menjadi $(1,2)$. Ini adalah titik maksimum lokal. <b>Benar.</b></li>
+                            <li><b>D:</b> Fungsi dasar $|x-1|$ simetris terhadap garis vertikal $x=1$. Operasi selanjutnya (menggeser ke bawah dan mengambil nilai mutlak) menjaga simetri ini. <b>Benar.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="soal-latihan">
+                <div class="soal-nomor">20.</div>
+                <div class="soal-konten">
+                    Diberikan fungsi $f(x) = \log_2(x^2-4)$. Pernyataan yang benar adalah... <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q20a" checked><label for="q20a">Domain fungsi adalah $(-\infty, -2) \cup (2, \infty)$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20b" checked><label for="q20b">Fungsi memiliki asimtot tegak di $x=2$ dan $x=-2$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20c" checked><label for="q20c">Grafik fungsi simetris terhadap sumbu-y.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20d" checked><label for="q20d">Range fungsi adalah seluruh bilangan real.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20e" checked><label for="q20e">Fungsi memotong sumbu-x di $x=\sqrt{5}$ dan $x=-\sqrt{5}$.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Analisis lengkap fungsi logaritma.
+                        <ul>
+                            <li><b>A (Domain):</b> Syarat logaritma adalah argumennya harus positif: $x^2-4 > 0 \implies (x-2)(x+2)>0$. Solusinya adalah $x<-2$ atau $x>2$. Domainnya $(-\infty, -2) \cup (2, \infty)$. <b>Benar.</b></li>
+                            <li><b>B (Asimtot Tegak):</b> Terjadi saat argumen logaritma mendekati nol, yaitu saat $x^2-4 \to 0^+$. Ini terjadi saat $x \to 2^+$ dan $x \to -2^-$. <b>Benar.</b></li>
+                            <li><b>C (Simetri):</b> Cek apakah fungsi genap/ganjil. $f(-x) = \log_2((-x)^2-4) = \log_2(x^2-4) = f(x)$. Ini adalah fungsi genap, jadi simetris terhadap sumbu-y. <b>Benar.</b></li>
+                            <li><b>D (Range):</b> Argumen $x^2-4$ dapat mengambil nilai apa pun di $(0, \infty)$. Fungsi logaritma dengan domain $(0, \infty)$ akan menghasilkan range $(-\infty, \infty)$ atau seluruh bilangan real. <b>Benar.</b></li>
+                            <li><b>E (Titik potong sumbu-x):</b> Terjadi saat $f(x)=0$. $\log_2(x^2-4)=0 \implies x^2-4 = 2^0 = 1 \implies x^2=5 \implies x = \pm\sqrt{5}$. <b>Benar.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">21.</div>
+                <div class="soal-konten">
+                     Fungsi $f(x) = \tan(x)$ memiliki sifat... <b>(bisa pilih lebih dari satu jawaban)</b>
+                     <div class="checkbox-option"><input type="checkbox" id="q21a" checked><label for="q21a">Domainnya adalah $\{x \in \mathbb{R} | x \neq \frac{\pi}{2} + k\pi, k \in \mathbb{Z} \}$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q21b" checked><label for="q21b">Merupakan fungsi ganjil.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q21c" checked><label for="q21c">Periodik dengan periode $\pi$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q21d" checked><label for="q21d">Asimtot tegak terjadi saat $\cos(x)=0$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q21e" checked><label for="q21e">Merupakan fungsi yang selalu monoton naik pada setiap interval terdefinisi di domainnya.</label></div>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Sifat-sifat dasar fungsi tangen.
+                        <ul>
+                            <li><b>A & D:</b> Fungsi $\tan(x) = \sin(x)/\cos(x)$ tidak terdefinisi saat penyebutnya, $\cos(x)$, bernilai nol. Ini terjadi di $x=\pi/2, 3\pi/2, ...$ atau secara umum $x = \frac{\pi}{2} + k\pi$. Ini adalah lokasi asimtot tegaknya. <b>(Keduanya Benar)</b></li>
+                            <li><b>B:</b> $\tan(-x) = \frac{\sin(-x)}{\cos(-x)} = \frac{-\sin(x)}{\cos(x)} = -\tan(x)$. Ini adalah definisi fungsi ganjil. <b>Benar.</b></li>
+                            <li><b>C:</b> Grafik fungsi tangen mengulang dirinya setiap $\pi$ radian. <b>Benar.</b></li>
+                            <li><b>E:</b> Turunan dari $\tan(x)$ adalah $\sec^2(x) = 1/\cos^2(x)$. Karena kuadrat, nilainya selalu positif di mana pun ia terdefinisi. Turunan positif menandakan fungsi selalu naik. <b>Benar.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">22.</div>
+                <div class="soal-konten">
+                     Jika $f(x)=|x|$ dan $g(x)=\sin(x)$, maka... <b>(bisa pilih lebih dari satu jawaban)</b>
+                     <div class="checkbox-option"><input type="checkbox" id="q22a" checked><label for="q22a">$(g \circ f)(x) = \sin|x|$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q22b" checked><label for="q22b">$(f \circ g)(x) = |\sin(x)|$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q22c" checked><label for="q22c">Grafik $(g \circ f)(x)$ adalah fungsi genap.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q22d" checked><label for="q22d">Nilai minimum dari $(f \circ g)(x)$ adalah 0.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q22e" checked><label for="q22e">Periode fundamental dari $(f \circ g)(x)$ adalah $\pi$.</label></div>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Operasi komposisi fungsi dan sifat-sifatnya.
+                        <ul>
+                            <li><b>A:</b> $(g \circ f)(x) = g(f(x)) = g(|x|) = \sin|x|$. <b>Benar.</b></li>
+                            <li><b>B:</b> $(f \circ g)(x) = f(g(x)) = f(\sin(x)) = |\sin(x)|$. <b>Benar.</b></li>
+                            <li><b>C:</b> Misalkan $h(x) = \sin|x|$. Maka $h(-x) = \sin|-x| = \sin|x| = h(x)$. Ini adalah fungsi genap. <b>Benar.</b></li>
+                            <li><b>D:</b> Fungsi $|\sin(x)|$ berosilasi antara 0 dan 1. Nilai minimumnya adalah 0. <b>Benar.</b></li>
+                            <li><b>E:</b> Periode $\sin(x)$ adalah $2\pi$. Fungsi $|\sin(x)|$ "membalik" bagian negatif ke atas, sehingga grafiknya berulang setiap $\pi$ radian. <b>Benar.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">23.</div>
+                <div class="soal-konten">
+                     Diketahui $P(x)$ adalah polinomial berderajat 4 dengan akar-akar $c, c, d, d$ di mana $c \neq d$. Manakah pernyataan yang pasti benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                     <div class="checkbox-option"><input type="checkbox" id="q23a" checked><label for="q23a">$P(x)$ dapat ditulis sebagai $A(x-c)^2(x-d)^2$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q23b" checked><label for="q23b">Turunan $P'(x)$ memiliki akar di $x=c$ dan $x=d$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q23c" checked><label for="q23c">$P'(x)$ memiliki akar ketiga di $\frac{c+d}{2}$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q23d" checked><label for="q23d">Grafik $y=P(x)$ menyinggung sumbu-x di $x=c$ dan $x=d$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q23e" checked><label for="q23e">Polinomial $P(x)$ memiliki tepat 3 titik ekstrem.</label></div>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Sifat akar-akar polinomial dan hubungannya dengan turunan.
+                        <ul>
+                            <li><b>A & D:</b> Akar $c$ dengan multiplisitas 2 berarti $(x-c)^2$ adalah faktor. Hal yang sama berlaku untuk $d$. Ini berarti grafik menyinggung sumbu-x (tidak memotong) di titik-titik tersebut. <b>(Keduanya Benar)</b></li>
+                            <li><b>B & C:</b> Jika $x=c$ adalah akar ganda dari $P(x)$, maka $x=c$ juga merupakan akar dari $P'(x)$. Hal yang sama berlaku untuk $x=d$. Menurut Teorema Rolle, karena $P(c)=P(d)=0$, harus ada titik di antara $c$ dan $d$ di mana $P'(x)=0$. Dengan menghitung turunan $P'(x)$ dari bentuk di A, kita akan menemukan bahwa akar ketiga dari $P'(x)$ persis di titik tengah $\frac{c+d}{2}$. <b>(Keduanya Benar)</b></li>
+                            <li><b>E:</b> Titik ekstrem terjadi di titik stasioner (di mana $P'(x)=0$). Karena $P'(x)$ memiliki tiga akar real berbeda ($c$, $d$, dan $(c+d)/2$), maka $P(x)$ memiliki tepat 3 titik ekstrem. <b>Benar.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">24.</div>
+                <div class="soal-konten">
+                     Jika $f(x)$ adalah fungsi ganjil dan $g(x)$ adalah fungsi genap, maka... <b>(bisa pilih lebih dari satu jawaban)</b>
+                     <div class="checkbox-option"><input type="checkbox" id="q24a" checked><label for="q24a">$f(x)g(x)$ adalah fungsi ganjil.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q24b" checked><label for="q24b">$f(g(x))$ adalah fungsi genap.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q24c" checked><label for="q24c">$g(f(x))$ adalah fungsi genap.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q24d" checked><label for="q24d">$f(x)+g(x)$ bukan fungsi ganjil maupun genap (kecuali salah satunya adalah fungsi nol).</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q24e" checked><label for="q24e">$f(x)/g(x)$ adalah fungsi ganjil (jika $g(x) \neq 0$).</label></div>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Ganjil: $f(-x)=-f(x)$. Genap: $g(-x)=g(x)$.
+                        <ul>
+                            <li><b>A:</b> Misalkan $h(x)=f(x)g(x)$. $h(-x)=f(-x)g(-x) = (-f(x))(g(x)) = -h(x)$. Ini ganjil. <b>Benar.</b></li>
+                            <li><b>B:</b> Misalkan $h(x)=f(g(x))$. $h(-x)=f(g(-x)) = f(g(x)) = h(x)$. Ini genap. <b>Benar.</b></li>
+                            <li><b>C:</b> Misalkan $h(x)=g(f(x))$. $h(-x)=g(f(-x)) = g(-f(x))$. Karena $g$ genap, $g(-u)=g(u)$, jadi $g(-f(x))=g(f(x)) = h(x)$. Ini genap. <b>Benar.</b></li>
+                            <li><b>D:</b> Misalkan $h(x)=f(x)+g(x)$. $h(-x)=f(-x)+g(-x) = -f(x)+g(x)$. Ini tidak sama dengan $h(x)$ atau $-h(x)$. <b>Benar.</b></li>
+                            <li><b>E:</b> Seperti perkalian, $h(x)=f(x)/g(x)$. $h(-x)=f(-x)/g(-x) = -f(x)/g(x) = -h(x)$. Ini ganjil. <b>Benar.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">25.</div>
+                <div class="soal-konten">
+                     Diberikan fungsi trigonometri $f(x) = \cos(2x) + 2\sin^2(x)$. Pernyataan yang benar adalah... <b>(bisa pilih lebih dari satu jawaban)</b>
+                     <div class="checkbox-option"><input type="checkbox" id="q25a" checked><label for="q25a">$f(x) = 1$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q25b" checked><label for="q25b">Amplitudo fungsi adalah 0.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q25c" checked><label for="q25c">Fungsi ini adalah fungsi konstan.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q25d" checked><label for="q25d">Range fungsi adalah $\{1\}$.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q25e" checked><label for="q25e">Periodenya tidak terdefinisi.</label></div>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Menggunakan identitas sudut ganda $\cos(2x) = 1 - 2\sin^2(x)$.
+                        <ul>
+                            <li><b>A, C, D:</b> Substitusi identitas: $f(x) = (1 - 2\sin^2(x)) + 2\sin^2(x) = 1$. Fungsi ini adalah fungsi konstan dengan nilai 1. Ini berarti range-nya hanya $\{1\}$. <b>(Ketiganya Benar)</b></li>
+                            <li><b>B:</b> Fungsi konstan tidak memiliki osilasi, sehingga amplitudonya adalah 0. <b>Benar.</b></li>
+                            <li><b>E:</b> Fungsi konstan secara teknis periodik dengan periode bilangan real positif apa pun. Karena tidak ada periode *fundamental* (terkecil), sering dikatakan periodenya tidak terdefinisi. <b>Benar.</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Tipe 3: Pilihan Ganda Kompleks (Kategori)</h2>
+             
+            <div class="soal-latihan">
+                <div class="soal-nomor">26.</div>
+                <div class="soal-konten">
+                    <b>Gunakan informasi berikut untuk menjawab soal nomor 26-27.</b><br>Diberikan fungsi $f(x) = |2^x - 2|$.
+                    <br><br>
+                    Tentukan kebenaran pernyataan mengenai domain, range, dan titik potong dari fungsi $f(x)$.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Domain fungsi adalah seluruh bilangan real.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Range fungsi adalah $[0, \infty)$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Grafik memotong sumbu-y di titik $(0, 1)$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Grafik memotong sumbu-x di titik $(1, 0)$.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A (Domain):</b> Fungsi $g(x)=2^x-2$ terdefinisi untuk semua $x$ real. Fungsi nilai mutlak tidak mengubah domain. <b>(Benar)</b></li>
+                            <li><b>B (Range):</b> Range dari $2^x-2$ adalah $(-2, \infty)$. Setelah dikenai nilai mutlak, semua nilai negatif menjadi positif. Range menjadi $[0, \infty)$. <b>(Benar)</b></li>
+                            <li><b>C (Titik potong sumbu-y):</b> Terjadi saat $x=0$. $f(0)=|2^0-2|=|1-2|=|-1|=1$. Titiknya $(0,1)$. <b>(Benar)</b></li>
+                            <li><b>D (Titik potong sumbu-x):</b> Terjadi saat $f(x)=0$. $|2^x-2|=0 \implies 2^x-2=0 \implies 2^x=2 \implies x=1$. Titiknya $(1,0)$. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">27.</div>
+                <div class="soal-konten">
+                     Tentukan kebenaran pernyataan mengenai sifat grafik dan asimtot dari fungsi $f(x)=|2^x-2|$.
+                     <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Fungsi monoton turun untuk $x < 1$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Fungsi monoton naik untuk $x > 1$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Grafik memiliki asimtot datar di $y=2$ saat $x \to -\infty$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Grafik memiliki "sudut tajam" (tidak dapat diturunkan) di titik $(1,0)$.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A & B (Monotonisitas):</b> Di $x=1$, fungsi "memantul". Untuk $x<1$, $2^x-2$ negatif, jadi $f(x)=-(2^x-2)=2-2^x$, yang merupakan fungsi monoton turun. Untuk $x>1$, $2^x-2$ positif, jadi $f(x)=2^x-2$, yang merupakan fungsi monoton naik. <b>(Keduanya Benar)</b></li>
+                            <li><b>C (Asimtot):</b> Saat $x \to -\infty$, $2^x \to 0$. Maka $f(x) \to |0-2|=2$. Jadi $y=2$ adalah asimtot datar. <b>(Benar)</b></li>
+                            <li><b>D (Diferensiabilitas):</b> Fungsi nilai mutlak umumnya tidak dapat diturunkan di titik "patahan" atau "sudut tajam" nya, yang terjadi saat argumennya nol. Ini terjadi di $x=1$. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">28.</div>
+                <div class="soal-konten">
+                     <b>Gunakan informasi berikut untuk menjawab soal nomor 28-29.</b><br>Analisis fungsi rasional $f(x) = \frac{P(x)}{Q(x)}$ dimana $P(x)$ dan $Q(x)$ adalah polinomial.
+                    <br><br>
+                     Tentukan kebenaran pernyataan mengenai asimtot.
+                     <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                             <tr><td>A. Jika derajat $P(x)$ < derajat $Q(x)$, maka asimtot datarnya adalah $y=0$.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>B. Jika derajat $P(x)$ = derajat $Q(x)$, maka asimtot datarnya adalah rasio dari koefisien utama.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>C. Jika derajat $P(x)$ = derajat $Q(x)$ + 1, maka grafik memiliki asimtot miring.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>D. Asimtot tegak terjadi pada akar-akar real dari $Q(x)=0$ yang bukan merupakan akar dari $P(x)$.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                     <div class="pembahasan">
+                        <ul>
+                            <li><b>A, B, C:</b> Ini adalah tiga aturan standar untuk menentukan asimtot datar dan miring dari fungsi rasional berdasarkan perbandingan derajat pembilang dan penyebut. <b>(Ketiganya Benar)</b></li>
+                            <li><b>D:</b> Ini adalah definisi dari asimtot tegak. Jika sebuah akar dari penyebut juga merupakan akar dari pembilang, itu akan menghasilkan lubang, bukan asimtot. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">29.</div>
+                <div class="soal-konten">
+                     Tentukan kebenaran pernyataan mengenai titik potong dan diskontinuitas.
+                     <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                             <tr><td>A. Titik potong sumbu-x terjadi pada akar-akar real dari $P(x)=0$ yang bukan akar $Q(x)$.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>B. Titik potong sumbu-y adalah $(0, P(0)/Q(0))$, jika $Q(0) \neq 0$.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>C. Jika $(x-c)$ adalah faktor dari $P(x)$ dan $Q(x)$ dengan multiplisitas yang sama atau lebih besar di $P(x)$, maka ada lubang di $x=c$.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>D. Domain dari $f(x)$ adalah semua bilangan real kecuali akar-akar dari $Q(x)=0$.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                     <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> Definisi titik potong sumbu-x (akar fungsi). Jika akar pembilang juga akar penyebut, itu adalah lubang pada sumbu-x. <b>(Benar)</b></li>
+                            <li><b>B:</b> Definisi titik potong sumbu-y, yaitu $f(0)$. <b>(Benar)</b></li>
+                            <li><b>C:</b> Definisi yang lebih presisi dari lubang (removable discontinuity). Jika multiplisitas di penyebut lebih besar, itu akan menjadi asimtot. <b>(Benar)</b></li>
+                            <li><b>D:</b> Definisi domain dari fungsi rasional. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">30.</div>
+                <div class="soal-konten">
+                     Analisis fungsi $f(x)=\frac{\sin(x)}{x}$. Tentukan kebenaran pernyataan berikut.
+                     <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                             <tr><td>A. Fungsi ini memiliki asimtot datar di $y=0$ saat $x \to \pm\infty$.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>B. Fungsi ini tidak terdefinisi di $x=0$, tetapi memiliki diskontinuitas yang dapat dihapus (lubang) di $x=0$.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>C. Ini adalah fungsi genap.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>D. Terdapat tak hingga banyaknya perpotongan dengan sumbu-x.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                     <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> Menggunakan Teorema Apit. Karena $-1 \le \sin(x) \le 1$, maka untuk $x>0$, $\frac{-1}{x} \le \frac{\sin x}{x} \le \frac{1}{x}$. Saat $x \to \infty$, kedua batas menuju 0, sehingga limitnya 0. Asimtot datar $y=0$. <b>(Benar)</b></li>
+                            <li><b>B:</b> Fungsi tidak terdefinisi di $x=0$. Namun, $\lim_{x\to 0}\frac{\sin x}{x} = 1$. Karena limitnya ada, ini adalah diskontinuitas yang dapat dihapus. <b>(Benar)</b></li>
+                            <li><b>C:</b> $f(-x) = \frac{\sin(-x)}{-x} = \frac{-\sin(x)}{-x} = \frac{\sin x}{x} = f(x)$. Ini adalah fungsi genap. <b>(Benar)</b></li>
+                            <li><b>D:</b> Titik potong sumbu-x terjadi saat $\sin(x)=0$ dan $x \neq 0$. Ini terjadi di $x = k\pi$ untuk semua bilangan bulat $k$ yang tidak nol. Ada tak hingga banyaknya. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
+
