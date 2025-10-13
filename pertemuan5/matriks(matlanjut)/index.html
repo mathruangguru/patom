@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Latihan & Pembahasan - Analisis Matriks Lanjut</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            counter-reset: page;
+        }
+        .page-container {
+            /* This container helps in centering the pages */
+        }
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 2.5cm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 10pt;
+            color: #888;
+        }
+        @media print {
+            body { background: none; }
+            .page { width: 100%; height: 100%; margin: 0; box-shadow: none; page-break-after: always; }
+        }
+        .content-wrapper { position: relative; z-index: 1; width: 100%; }
+        h1 { font-size: 22pt; text-align: center; border-bottom: 2px solid var(--primary-text); padding-bottom: 10px; margin-bottom: 25px; font-weight: 700; }
+        h2 { font-size: 14pt; font-weight: 700; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        .soal-latihan {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 25px;
+            break-inside: avoid;
+            text-align: justify;
+        }
+        .soal-nomor {
+            font-weight: bold;
+            flex-shrink: 0;
+            min-width: 20px;
+        }
+        .soal-konten {
+            flex-grow: 1;
+        }
+        .pembahasan {
+             background-color: #f9f9f9;
+             border: 1px solid var(--border-color);
+             padding: 15px;
+             border-radius: 8px;
+             margin-top: 20px;
+             text-align: left;
+        }
+        .pembahasan ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        ol.pilihan-ganda { list-style-type: none; padding-left: 0; margin-top: 10px; text-align: left; }
+        ol.pilihan-ganda li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        ol.pilihan-ganda li::before {
+            content: attr(data-option) ". ";
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .kategori-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .kategori-table th, .kategori-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+        .kategori-table th {
+            background-color: #f2f2f2;
+        }
+        .kategori-table td:not(:first-child) {
+            text-align: center;
+        }
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-left: 5px;
+            text-align: left;
+        }
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 12px;
+            min-width: 18px;
+            min-height: 18px;
+        }
+        .checkbox-option label {
+            display: block;
+        }
+        .petunjuk-box {
+            background-color: #f0f4ff;
+            border-left: 4px solid #4a69bd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="page-container">
+    <section class="page">
+        <div class="content-wrapper">
+            <h1>Soal Latihan & Pembahasan Analisis Matriks Lanjut</h1>
+            <h2>Tipe 1a: Pilihan Ganda (Satu Jawaban Benar)</h2>
+            <div class="soal-latihan">
+                <div class="soal-nomor">1.</div>
+                <div class="soal-konten">
+                    Jika matriks $A = \begin{pmatrix} 4 & 1 \\ -2 & 1 \end{pmatrix}$ dan $I$ adalah matriks identitas, maka himpunan semua nilai $k$ (nilai eigen) sehingga matriks $(A-kI)$ menjadi singular adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\{-2, -3\}$</li>
+                        <li data-option="B">$\{2, 3\}$</li>
+                        <li data-option="C">$\{-1, 6\}$</li>
+                        <li data-option="D">$\{1, -6\}$</li>
+                        <li data-option="E">$\{2, -3\}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Sebuah matriks disebut singular jika determinannya sama dengan nol. Nilai eigen ($k$ atau $\lambda$) dari sebuah matriks $A$ adalah nilai skalar yang memenuhi persamaan karakteristik det$(A-kI)=0$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Bentuk matriks $(A-kI)$.<br>
+                                $A-kI = \begin{pmatrix} 4 & 1 \\ -2 & 1 \end{pmatrix} - k\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 4-k & 1 \\ -2 & 1-k \end{pmatrix}$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung determinan dari $(A-kI)$ dan samakan dengan nol.<br>
+                                det$(A-kI) = (4-k)(1-k) - (1)(-2) = 0$.
+                            </li>
+                            <li><b>Langkah 3:</b> Selesaikan persamaan kuadrat untuk $k$.<br>
+                                $4 - 4k - k + k^2 + 2 = 0$<br>
+                                $k^2 - 5k + 6 = 0$<br>
+                                $(k-2)(k-3) = 0$<br>
+                                Solusinya adalah $k=2$ atau $k=3$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <div class="soal-nomor">2.</div>
+                <div class="soal-konten">
+                    Jika $P$ adalah matriks $2 \times 2$ dengan det(P)=2 dan $Q = \begin{pmatrix} 1 & 2 \\ 2 & 5 \end{pmatrix}$, maka nilai dari det($P^2 Q^{-1} P^T$) adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$2$</li>
+                        <li data-option="B">$4$</li>
+                        <li data-option="C">$8$</li>
+                        <li data-option="D">$16$</li>
+                        <li data-option="E">$32$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Sifat-sifat determinan yang digunakan:
+                        <ul>
+                            <li>det($AB$) = det($A$)det($B$)</li>
+                            <li>det($A^n$) = (det($A$))$^n$</li>
+                            <li>det($A^{-1}$) = 1/det($A$)</li>
+                            <li>det($A^T$) = det($A$)</li>
+                        </ul>
+                        <ul>
+                            <li><b>Langkah 1:</b> Uraikan ekspresi determinan menggunakan sifat-sifat di atas.<br>
+                                $$ \begin{aligned} \text{det}(P^2 Q^{-1} P^T) &= \text{det}(P^2) \cdot \text{det}(Q^{-1}) \cdot \text{det}(P^T) \\ &= (\text{det}(P))^2 \cdot \frac{1}{\text{det}(Q)} \cdot \text{det}(P) \end{aligned} $$
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung determinan matriks $Q$.<br>
+                                det($Q$) = $(1)(5) - (2)(2) = 5 - 4 = 1$.
+                            </li>
+                            <li><b>Langkah 3:</b> Substitusikan semua nilai yang diketahui.<br>
+                                det($P$) = 2 dan det($Q$) = 1.<br>
+                                Nilai = $(2)^2 \cdot \frac{1}{1} \cdot 2 = 4 \cdot 1 \cdot 2 = 8$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">3.</div>
+                <div class="soal-konten">
+                    Sebuah pabrik merakit dua produk, A dan B. Proses perakitan membutuhkan dua jenis tenaga kerja: teknisi dan operator. Kebutuhan jam kerja per unit produk disajikan dalam matriks $K = \begin{pmatrix} 2 & 3 \\ 4 & 1 \end{pmatrix}$ (baris 1: jam teknisi, baris 2: jam operator; kolom 1: produk A, kolom 2: produk B). Biaya per jam untuk setiap jenis tenaga kerja adalah $B = \begin{pmatrix} 50 \\ 30 \end{pmatrix}$ (baris 1: biaya teknisi/jam, baris 2: biaya operator/jam, dalam ribu rupiah). Berapakah total biaya tenaga kerja untuk memproduksi satu unit produk A?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">Rp180.000</li>
+                        <li data-option="B">Rp200.000</li>
+                        <li data-option="C">Rp220.000</li>
+                        <li data-option="D">Rp240.000</li>
+                        <li data-option="E">Rp250.000</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Total biaya dapat dihitung dengan mengalikan matriks biaya per jam dengan matriks kebutuhan jam. Untuk mendapatkan total biaya per produk, kita dapat menggunakan perkalian matriks $B^T K$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan matriks yang akan dikalikan.
+                                <br>Biaya (sudah ditranspos): $B^T = \begin{pmatrix} 50 & 30 \end{pmatrix}$.
+                                <br>Kebutuhan Jam: $K = \begin{pmatrix} 2 & 3 \\ 4 & 1 \end{pmatrix}$.
+                            </li>
+                            <li><b>Langkah 2:</b> Lakukan perkalian matriks $B^T K$.<br>
+                                $$ \begin{aligned} B^T K &= \begin{pmatrix} 50 & 30 \end{pmatrix} \begin{pmatrix} 2 & 3 \\ 4 & 1 \end{pmatrix} \\ &= \begin{pmatrix} (50 \cdot 2 + 30 \cdot 4) & (50 \cdot 3 + 30 \cdot 1) \end{pmatrix} \\ &= \begin{pmatrix} (100 + 120) & (150 + 30) \end{pmatrix} \\ &= \begin{pmatrix} 220 & 180 \end{pmatrix} \end{aligned} $$
+                            </li>
+                            <li><b>Langkah 3:</b> Interpretasikan hasilnya.
+                                <br>Hasil perkalian adalah matriks $1 \times 2$ yang berisi total biaya tenaga kerja untuk produk A (elemen pertama) dan produk B (elemen kedua).
+                                <br>Biaya untuk produk A adalah 220 ribu rupiah atau Rp220.000.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <div class="soal-nomor">4.</div>
+                <div class="soal-konten">
+                    Jika matriks $M = \begin{pmatrix} x-3 & x \\ 1 & x-1 \end{pmatrix}$ adalah matriks singular, maka hasil kali semua nilai $x$ yang mungkin adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$-3$</li>
+                        <li data-option="B">$-1$</li>
+                        <li data-option="C">$1$</li>
+                        <li data-option="D">$3$</li>
+                        <li data-option="E">$4$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Matriks singular adalah matriks yang determinannya sama dengan nol. Untuk persamaan kuadrat $ax^2+bx+c=0$, hasil kali akar-akarnya adalah $c/a$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Hitung determinan matriks $M$ dan samakan dengan nol.<br>
+                                det($M$) = $(x-3)(x-1) - (x)(1) = 0$.
+                            </li>
+                            <li><b>Langkah 2:</b> Sederhanakan persamaan.<br>
+                                $x^2 - x - 3x + 3 - x = 0$<br>
+                                $x^2 - 5x + 3 = 0$.
+                            </li>
+                            <li><b>Langkah 3:</b> Tentukan hasil kali semua nilai $x$ yang mungkin.
+                                <br>Persamaan di atas adalah persamaan kuadrat. Kita tidak perlu mencari nilai $x$ satu per satu. Cukup gunakan rumus hasil kali akar-akar ($x_1 \cdot x_2 = c/a$).
+                                <br>Dari $x^2 - 5x + 3 = 0$, kita punya $a=1, b=-5, c=3$.
+                                <br>Hasil kali nilai $x$ = $c/a = 3/1 = 3$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">5.</div>
+                <div class="soal-konten">
+                    Diberikan matriks $A = \begin{pmatrix} 2 & 1 \\ 0 & -1 \end{pmatrix}$. Jika $I$ adalah matriks identitas, maka matriks $A^{-1}$ dapat dinyatakan sebagai...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\frac{1}{2}(A-I)$</li>
+                        <li data-option="B">$\frac{1}{2}(A+I)$</li>
+                        <li data-option="C">$A-I$</li>
+                        <li data-option="D">$A+I$</li>
+                        <li data-option="E">$\frac{1}{2}(I-A)$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Metode pertama adalah mencari invers secara langsung. Metode kedua adalah menggunakan Teorema Cayley-Hamilton yang menyatakan bahwa setiap matriks persegi memenuhi persamaan karakteristiknya sendiri. Persamaan karakteristik adalah det$(A-\lambda I)=0$.
+                        <ul>
+                             <li><b>Langkah 1 (Metode Langsung):</b> Cari invers $A$.<br>
+                                det($A$) = $(2)(-1) - (1)(0) = -2$.<br>
+                                $A^{-1} = \frac{1}{\text{det}(A)} \begin{pmatrix} -1 & -1 \\ 0 & 2 \end{pmatrix} = \frac{1}{-2} \begin{pmatrix} -1 & -1 \\ 0 & 2 \end{pmatrix} = \begin{pmatrix} 1/2 & 1/2 \\ 0 & -1 \end{pmatrix}$.
+                            </li>
+                            <li><b>Langkah 2:</b> Uji setiap pilihan jawaban.
+                                <br>Pilihan A: $\frac{1}{2}(A-I) = \frac{1}{2}\left(\begin{pmatrix} 2 & 1 \\ 0 & -1 \end{pmatrix} - \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}\right) = \frac{1}{2}\begin{pmatrix} 1 & 1 \\ 0 & -2 \end{pmatrix} = \begin{pmatrix} 1/2 & 1/2 \\ 0 & -1 \end{pmatrix}$.
+                                <br>Hasil ini cocok dengan $A^{-1}$ yang dihitung.
+                            </li>
+                             <li><b>Langkah Alternatif (Cayley-Hamilton):</b><br>
+                                Persamaan karakteristik: det$(A-\lambda I) = (2-\lambda)(-1-\lambda)-0 = 0 \implies \lambda^2 - \lambda - 2 = 0$.<br>
+                                Menurut teorema, $A^2 - A - 2I = O$.<br>
+                                Kalikan kedua sisi dengan $A^{-1}$: $A - I - 2A^{-1} = O$.<br>
+                                $2A^{-1} = A - I \implies A^{-1} = \frac{1}{2}(A-I)$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <div class="soal-nomor">6.</div>
+                <div class="soal-konten">
+                    Dua perusahaan, P dan Q, bersaing di pasar. Setiap tahun, 20% pelanggan P beralih ke Q, dan 30% pelanggan Q beralih ke P. Sisanya tetap setia. Jika pada awal tahun 2024, pangsa pasar mereka seimbang (50% P, 50% Q), berapakah prediksi pangsa pasar perusahaan P pada awal tahun 2026?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">55%</li>
+                        <li data-option="B">56.5%</li>
+                        <li data-option="C">57.5%</li>
+                        <li data-option="D">58%</li>
+                        <li data-option="E">59.5%</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Proses ini dapat dimodelkan menggunakan matriks transisi (Rantai Markov). Misalkan $S_n = \begin{pmatrix} P_n \\ Q_n \end{pmatrix}$ adalah vektor keadaan pangsa pasar pada tahun ke-n. Maka $S_{n+1} = T \cdot S_n$, di mana $T$ adalah matriks transisi.
+                        <ul>
+                            <li><b>Langkah 1:</b> Buat matriks transisi $T$.<br>
+                                Kolom pertama merepresentasikan P, kolom kedua Q. Baris pertama adalah pangsa P tahun berikutnya, baris kedua pangsa Q tahun berikutnya.<br>
+                                P yang tetap: $100\% - 20\% = 80\% = 0.8$.
+                                Q yang beralih ke P: $30\% = 0.3$.
+                                P yang beralih ke Q: $20\% = 0.2$.
+                                Q yang tetap: $100\% - 30\% = 70\% = 0.7$.
+                                <br>$T = \begin{pmatrix} 0.8 & 0.3 \\ 0.2 & 0.7 \end{pmatrix}$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung pangsa pasar awal tahun 2025.<br>
+                                Vektor keadaan awal (2024): $S_0 = \begin{pmatrix} 0.5 \\ 0.5 \end{pmatrix}$.<br>
+                                $$ \begin{aligned} S_1 = T S_0 &= \begin{pmatrix} 0.8 & 0.3 \\ 0.2 & 0.7 \end{pmatrix} \begin{pmatrix} 0.5 \\ 0.5 \end{pmatrix} \\ &= \begin{pmatrix} 0.8(0.5) + 0.3(0.5) \\ 0.2(0.5) + 0.7(0.5) \end{pmatrix} \\ &= \begin{pmatrix} 0.4 + 0.15 \\ 0.1 + 0.35 \end{pmatrix} = \begin{pmatrix} 0.55 \\ 0.45 \end{pmatrix} \end{aligned} $$
+                                Pada awal 2025, pangsa P adalah 55%.
+                            </li>
+                            <li><b>Langkah 3:</b> Hitung pangsa pasar awal tahun 2026.<br>
+                                $$ \begin{aligned} S_2 = T S_1 &= \begin{pmatrix} 0.8 & 0.3 \\ 0.2 & 0.7 \end{pmatrix} \begin{pmatrix} 0.55 \\ 0.45 \end{pmatrix} \\ &= \begin{pmatrix} 0.8(0.55) + 0.3(0.45) \\ 0.2(0.55) + 0.7(0.45) \end{pmatrix} \\ &= \begin{pmatrix} 0.44 + 0.135 \\ 0.11 + 0.315 \end{pmatrix} = \begin{pmatrix} 0.575 \\ 0.425 \end{pmatrix} \end{aligned} $$
+                                <br>Pada awal 2026, pangsa pasar P adalah 57.5%.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">7.</div>
+                <div class="soal-konten">
+                    Jika $A$ adalah matriks berordo $3 \times 3$ dengan det(A) = 3, maka nilai dari det($(2A)^{-1}$) adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$1/24$</li>
+                        <li data-option="B">$1/18$</li>
+                        <li data-option="C">$1/6$</li>
+                        <li data-option="D">$2/3$</li>
+                        <li data-option="E">$6$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Sifat-sifat determinan yang digunakan:
+                        <ul>
+                            <li>det($kA$) = $k^n \cdot$ det($A$), di mana $n$ adalah ordo matriks.</li>
+                            <li>det($A^{-1}$) = 1/det($A$).</li>
+                        </ul>
+                        <ul>
+                            <li><b>Langkah 1:</b> Hitung determinan dari $2A$.
+                                <br>Karena $A$ berordo $3 \times 3$, maka $n=3$.
+                                <br>det($2A$) = $2^3 \cdot$ det($A$) = $8 \cdot 3 = 24$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung determinan dari inversnya.<br>
+                                det($(2A)^{-1}$) = $\frac{1}{\text{det}(2A)} = \frac{1}{24}$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                    Jika $A$ adalah matriks $3 \times 3$ yang dapat dibalik dan $Adj(A)$ adalah matriks adjoinnya. Jika det($Adj(A)$)=16, maka nilai dari det($2A$) adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\pm 4$</li>
+                        <li data-option="B">$\pm 8$</li>
+                        <li data-option="C">$\pm 16$</li>
+                        <li data-option="D">$\pm 32$</li>
+                        <li data-option="E">$\pm 64$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Sifat-sifat determinan yang digunakan:
+                        <ul>
+                            <li>det(Adj($A$)) = (det($A$))$^{n-1}$, di mana $n$ adalah ordo matriks.</li>
+                            <li>det($kA$) = $k^n \cdot$ det($A$).</li>
+                        </ul>
+                        <ul>
+                            <li><b>Langkah 1:</b> Cari det($A$) menggunakan informasi det(Adj($A$)).
+                                <br>Ordo matriks $n=3$.
+                                <br>det(Adj($A$)) = (det($A$))$^{3-1}$ = (det($A$))$^2$.
+                                <br>$16 = (\text{det}(A))^2 \implies \text{det}(A) = \pm\sqrt{16} = \pm 4$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung det($2A$).<br>
+                                det($2A$) = $2^3 \cdot$ det($A$) = $8 \cdot (\pm 4) = \pm 32$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                    Dalam kriptografi, sebuah pesan dikodekan menggunakan matriks enkripsi $E=\begin{pmatrix} 2 & 3 \\ 1 & 2 \end{pmatrix}$. Jika sebuah pesan terenkripsi diterima sebagai matriks $C = \begin{pmatrix} 11 \\ 7 \end{pmatrix}$, maka matriks pesan asli $P$ sebelum dienkripsi adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\begin{pmatrix} 1 \\ 3 \end{pmatrix}$</li>
+                        <li data-option="B">$\begin{pmatrix} 2 \\ 1 \end{pmatrix}$</li>
+                        <li data-option="C">$\begin{pmatrix} 3 \\ 2 \end{pmatrix}$</li>
+                        <li data-option="D">$\begin{pmatrix} 4 \\ 1 \end{pmatrix}$</li>
+                        <li data-option="E">$\begin{pmatrix} 1 \\ 4 \end{pmatrix}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Proses enkripsi dimodelkan sebagai $EP=C$. Untuk mendekripsi (menemukan pesan asli $P$), kita menggunakan matriks invers: $P = E^{-1}C$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Cari matriks dekripsi, yaitu $E^{-1}$.
+                                <br>det($E$) = $(2)(2) - (3)(1) = 4 - 3 = 1$.
+                                <br>$E^{-1} = \frac{1}{\text{det}(E)} \begin{pmatrix} 2 & -3 \\ -1 & 2 \end{pmatrix} = \frac{1}{1} \begin{pmatrix} 2 & -3 \\ -1 & 2 \end{pmatrix} = \begin{pmatrix} 2 & -3 \\ -1 & 2 \end{pmatrix}$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung pesan asli $P$ dengan mengalikan $E^{-1}$ dengan $C$.<br>
+                                $$ \begin{aligned} P = E^{-1}C &= \begin{pmatrix} 2 & -3 \\ -1 & 2 \end{pmatrix} \begin{pmatrix} 11 \\ 7 \end{pmatrix} \\ &= \begin{pmatrix} 2(11) + (-3)(7) \\ -1(11) + 2(7) \end{pmatrix} \\ &= \begin{pmatrix} 22 - 21 \\ -11 + 14 \end{pmatrix} = \begin{pmatrix} 1 \\ 3 \end{pmatrix} \end{aligned} $$
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <div class="soal-nomor">10.</div>
+                <div class="soal-konten">
+                    Jika $A = \begin{pmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{pmatrix}$, maka matriks $A^{2024}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\begin{pmatrix} \cos (2024\theta) & -\sin (2024\theta) \\ \sin (2024\theta) & \cos (2024\theta) \end{pmatrix}$</li>
+                        <li data-option="B">$\begin{pmatrix} \cos^{2024} \theta & -\sin^{2024} \theta \\ \sin^{2024} \theta & \cos^{2024} \theta \end{pmatrix}$</li>
+                        <li data-option="C">$\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$</li>
+                        <li data-option="D">$\begin{pmatrix} 2024\cos \theta & -2024\sin \theta \\ 2024\sin \theta & 2024\cos \theta \end{pmatrix}$</li>
+                        <li data-option="E">$\begin{pmatrix} \cos \theta^{2024} & -\sin \theta^{2024} \\ \sin \theta^{2024} & \cos \theta^{2024} \end{pmatrix}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Matriks $A$ adalah matriks rotasi sebesar $\theta$ berlawanan arah jarum jam. Melakukan rotasi sebesar $\theta$ sebanyak $n$ kali sama dengan melakukan rotasi sebesar $n\theta$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Kenali bentuk matriks. Ini adalah matriks rotasi standar $R(\theta)$.
+                            </li>
+                            <li><b>Langkah 2 (Pola Induktif):</b> Hitung $A^2$.<br>
+                                $$ \begin{aligned} A^2 &= \begin{pmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{pmatrix} \begin{pmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{pmatrix} \\ &= \begin{pmatrix} \cos^2\theta - \sin^2\theta & -\cos\theta\sin\theta - \sin\theta\cos\theta \\ \sin\theta\cos\theta + \cos\theta\sin\theta & -\sin^2\theta + \cos^2\theta \end{pmatrix} \end{aligned} $$
+                                Menggunakan identitas sudut ganda ($\cos(2\theta) = \cos^2\theta - \sin^2\theta$ dan $\sin(2\theta) = 2\sin\theta\cos\theta$):<br>
+                                $A^2 = \begin{pmatrix} \cos(2\theta) & -\sin(2\theta) \\ \sin(2\theta) & \cos(2\theta) \end{pmatrix}$.
+                            </li>
+                            <li><b>Langkah 3:</b> Generalisasikan polanya.
+                                <br>Dapat dibuktikan dengan induksi bahwa $A^n = \begin{pmatrix} \cos(n\theta) & -\sin(n\theta) \\ \sin(n\theta) & \cos(n\theta) \end{pmatrix}$.
+                                <br>Maka untuk $n=2024$:<br>
+                                $A^{2024} = \begin{pmatrix} \cos (2024\theta) & -\sin (2024\theta) \\ \sin (2024\theta) & \cos (2024\theta) \end{pmatrix}$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+            <h2>Tipe 1b: Kecukupan Data</h2>
+            <div class="petunjuk-box">
+                <b>Petunjuk:</b>
+                <ul>
+                    <li><b>A.</b> Pernyataan (1) SAJA cukup, tetapi pernyataan (2) SAJA tidak cukup.</li>
+                    <li><b>B.</b> Pernyataan (2) SAJA cukup, tetapi pernyataan (1) SAJA tidak cukup.</li>
+                    <li><b>C.</b> DUA pernyataan BERSAMA-SAMA cukup, tetapi SATU pernyataan SAJA tidak cukup.</li>
+                    <li><b>D.</b> Pernyataan (1) SAJA cukup dan pernyataan (2) SAJA cukup.</li>
+                    <li><b>E.</b> Pernyataan (1) dan pernyataan (2) tidak cukup.</li>
+                </ul>
+            </div>
+            <div class="soal-latihan">
+                <div class="soal-nomor">11.</div>
+                <div class="soal-konten">
+                    Diberikan matriks $A = \begin{pmatrix} x & 2 \\ 8 & x \end{pmatrix}$. Apakah matriks $A$ memiliki invers?
+                    <br>(1) $x$ adalah bilangan prima genap.
+                    <br>(2) $x^2 \neq 16$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Sebuah matriks memiliki invers jika dan hanya jika determinannya tidak sama dengan nol.
+                        <ul>
+                            <li><b>Analisis Pertanyaan:</b> det($A$) = $x \cdot x - 2 \cdot 8 = x^2 - 16$. Pertanyaannya menjadi, "Apakah $x^2 - 16 \neq 0$?".</li>
+                            <li><b>Pernyataan (1): $x$ adalah bilangan prima genap.</b>
+                                <br>Satu-satunya bilangan prima genap adalah 2. Jadi $x=2$.
+                                <br>det($A$) = $2^2 - 16 = 4 - 16 = -12$.
+                                <br>Karena determinan $\neq 0$, matriks A memiliki invers. Pernyataan (1) memberikan jawaban pasti "Ya". <b>Cukup.</b>
+                            </li>
+                            <li><b>Pernyataan (2): $x^2 \neq 16$.</b>
+                                <br>Pernyataan ini secara langsung menyatakan bahwa $x^2 - 16 \neq 0$, yang merupakan syarat agar det($A$) $\neq 0$. Pernyataan (2) memberikan jawaban pasti "Ya". <b>Cukup.</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <div class="soal-nomor">12.</div>
+                <div class="soal-konten">
+                    Diberikan matriks $A=\begin{pmatrix} 1 & k \\ 0 & 2 \end{pmatrix}$. Berapakah nilai $k$?
+                    <br>(1) Matriks $A-A^T$ adalah matriks singular.
+                    <br>(2) $A$ bersifat komutatif terhadap perkalian dengan matriks $B=\begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Matriks singular memiliki determinan nol. Dua matriks A dan B komutatif jika $AB=BA$.
+                        <ul>
+                            <li><b>Analisis Pertanyaan:</b> Kita perlu menemukan nilai spesifik untuk $k$.</li>
+                            <li><b>Pernyataan (1): Matriks $A-A^T$ adalah matriks singular.</b>
+                                <br>$A^T = \begin{pmatrix} 1 & 0 \\ k & 2 \end{pmatrix}$.
+                                <br>$A-A^T = \begin{pmatrix} 1-1 & k-0 \\ 0-k & 2-2 \end{pmatrix} = \begin{pmatrix} 0 & k \\ -k & 0 \end{pmatrix}$.
+                                <br>det($A-A^T$) = $(0)(0) - (k)(-k) = k^2$.
+                                <br>Karena singular, det($A-A^T$) = 0, maka $k^2 = 0 \implies k=0$.
+                                <br>Pernyataan ini memberikan nilai $k=0$. <b>Cukup.</b>
+                            </li>
+                            <li><b>Pernyataan (2): $A$ bersifat komutatif dengan $B$.</b>
+                                <br>$AB = \begin{pmatrix} 1 & k \\ 0 & 2 \end{pmatrix} \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 2 & k \\ 0 & 2 \end{pmatrix}$.
+                                <br>$BA = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & k \\ 0 & 2 \end{pmatrix} = \begin{pmatrix} 2 & 2k \\ 0 & 2 \end{pmatrix}$.
+                                <br>$AB=BA \implies \begin{pmatrix} 2 & k \\ 0 & 2 \end{pmatrix} = \begin{pmatrix} 2 & 2k \\ 0 & 2 \end{pmatrix}$.
+                                <br>Dari elemen baris 1, kolom 2, kita dapatkan $k=2k \implies k=0$.
+                                <br>Pernyataan ini memberikan nilai $k=0$. <b>Cukup.</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">13.</div>
+                <div class="soal-konten">
+                    Diberikan matriks $A$ dan $B$ berordo $2 \times 2$. Apakah $AB=BA$?
+                    <br>(1) $A$ adalah matriks diagonal dan $B$ adalah matriks identitas.
+                    <br>(2) $(A+B)(A-B) = A^2 - B^2$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Perkalian matriks tidak selalu komutatif. Matriks identitas $I$ bersifat komutatif dengan matriks manapun ($AI=IA=A$).
+                        <ul>
+                            <li><b>Analisis Pertanyaan:</b> Pertanyaan ini menanyakan apakah matriks A dan B komutatif.</li>
+                            <li><b>Pernyataan (1): $A$ adalah matriks diagonal dan $B$ adalah matriks identitas.</b>
+                                <br>Misal $B=I$. Maka $AI = A$ dan $IA = A$. Jadi $AI=IA$.
+                                <br>Pernyataan ini memberikan jawaban pasti "Ya". <b>Cukup.</b>
+                            </li>
+                            <li><b>Pernyataan (2): $(A+B)(A-B) = A^2 - B^2$.</b>
+                                <br>Jabarkan ruas kiri: $(A+B)(A-B) = A(A-B) + B(A-B) = A^2 - AB + BA - B^2$.
+                                <br>Jadi persamaannya menjadi: $A^2 - AB + BA - B^2 = A^2 - B^2$.
+                                <br>Sederhanakan: $-AB + BA = O \implies BA = AB$.
+                                <br>Pernyataan ini adalah syarat aljabar yang ekuivalen dengan $AB=BA$. Pernyataan ini memberikan jawaban pasti "Ya". <b>Cukup.</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">14.</div>
+                <div class="soal-konten">
+                    Berapakah determinan dari matriks $M = \begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i \end{pmatrix}$?
+                    <br>(1) Baris pertama dan baris ketiga matriks $M$ identik.
+                    <br>(2) Matriks $M$ adalah matriks segitiga atas dengan elemen diagonal $a=1, e=2, i=3$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Jika sebuah matriks memiliki dua baris (atau kolom) yang identik atau merupakan kelipatan satu sama lain, determinannya adalah nol. Determinan dari matriks segitiga (atas atau bawah) adalah hasil kali elemen-elemen diagonal utamanya.
+                        <ul>
+                            <li><b>Analisis Pertanyaan:</b> Kita perlu menemukan nilai numerik dari det($M$).</li>
+                            <li><b>Pernyataan (1): Baris pertama dan baris ketiga matriks $M$ identik.</b>
+                                <br>Berdasarkan sifat determinan, jika ada dua baris yang identik, maka det($M$) = 0.
+                                <br>Pernyataan ini memberikan nilai det($M$) = 0. <b>Cukup.</b>
+                            </li>
+                            <li><b>Pernyataan (2): $M$ adalah matriks segitiga atas dengan $a=1, e=2, i=3$.</b>
+                                <br>Determinan matriks segitiga adalah hasil kali elemen diagonalnya.
+                                <br>det($M$) = $a \cdot e \cdot i = 1 \cdot 2 \cdot 3 = 6$.
+                                <br>Pernyataan ini memberikan nilai det($M$) = 6. <b>Cukup.</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">15.</div>
+                <div class="soal-konten">
+                    Diketahui matriks $A$ berordo $3 \times 3$ dan $B = kA$ untuk suatu skalar $k$. Berapakah nilai $k$?
+                    <br>(1) det($B$) = 8 det($A$).
+                    <br>(2) Matriks $A$ adalah matriks non-singular.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Untuk matriks $A$ berordo $n \times n$, berlaku det($kA$) = $k^n \cdot$ det($A$).
+                        <ul>
+                            <li><b>Analisis Pertanyaan:</b> Kita perlu mencari nilai skalar $k$.</li>
+                            <li><b>Pernyataan (1): det($B$) = 8 det($A$).</b>
+                                <br>Kita tahu $B=kA$ dan $A$ berordo $n=3$.
+                                <br>Maka det($B$) = det($kA$) = $k^3 \cdot$ det($A$).
+                                <br>Substitusikan ke persamaan yang diberikan: $k^3 \cdot$ det($A$) = $8 \cdot$ det($A$).
+                                <br>Jika det($A$) $\neq 0$, kita bisa membagi kedua sisi dengan det($A$) untuk mendapatkan $k^3=8 \implies k=2$.
+                                <br>Namun, jika det($A$) = 0, maka persamaan menjadi $0=0$, yang benar untuk nilai $k$ berapapun. Jadi pernyataan ini saja belum cukup.
+                            </li>
+                            <li><b>Pernyataan (2): Matriks $A$ adalah matriks non-singular.</b>
+                                <br>Ini berarti det($A$) $\neq 0$. Pernyataan ini saja tidak memberikan informasi apapun tentang hubungan antara $A$ dan $B$ atau nilai $k$. <b>Tidak Cukup.</b>
+                            </li>
+                            <li><b>Bersama-sama:</b>
+                                <br>Pernyataan (1) memberikan persamaan $k^3 \cdot$ det($A$) = $8 \cdot$ det($A$).
+                                <br>Pernyataan (2) menjamin bahwa det($A$) $\neq 0$, sehingga kita dapat membagi kedua sisi dengan det($A$).
+                                <br>$k^3 = 8 \implies k=2$.
+                                <br>Kedua pernyataan bersama-sama memberikan nilai $k=2$. <b>Cukup.</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+            <h2>Tipe 2: Pilihan Ganda Kompleks</h2>
+            <div class="soal-latihan">
+                <div class="soal-nomor">16.</div>
+                <div class="soal-konten">
+                    Diberikan matriks $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$ dan $B = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$. Manakah pernyataan berikut yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q16a"><label for="q16a">det(AB) = 2</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16b"><label for="q16b">$A+B = \begin{pmatrix} 1 & 3 \\ 4 & 4 \end{pmatrix}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16c"><label for="q16c">$(BA)^{-1} = A^{-1}B^{-1}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16d"><label for="q16d">Matriks $A-B$ adalah matriks non-singular.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16e"><label for="q16e">Trace(AB) = 5</label></div>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> det($A$) = $1(4)-2(3)=-2$. det($B$) = $0(0)-1(1)=-1$. det(AB) = det(A)det(B) = $(-2)(-1)=2$. <b>Benar.</b></li>
+                            <li><b>B:</b> $A+B = \begin{pmatrix} 1+0 & 2+1 \\ 3+1 & 4+0 \end{pmatrix} = \begin{pmatrix} 1 & 3 \\ 4 & 4 \end{pmatrix}$. <b>Benar.</b></li>
+                            <li><b>C:</b> Sifat umum dari invers perkalian matriks adalah $(XY)^{-1} = Y^{-1}X^{-1}$. Jika kita substitusi $X=B$ dan $Y=A$, kita mendapatkan $(BA)^{-1} = A^{-1}B^{-1}$. Pernyataan ini benar sesuai dengan sifat umum. <b>Benar.</b></li>
+                            <li><b>D:</b> $A-B = \begin{pmatrix} 1-0 & 2-1 \\ 3-1 & 4-0 \end{pmatrix} = \begin{pmatrix} 1 & 1 \\ 2 & 4 \end{pmatrix}$. det($A-B$) = $1(4)-1(2)=2 \neq 0$. Jadi, non-singular. <b>Benar.</b></li>
+                            <li><b>E:</b> $AB = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 1(0)+2(1) & 1(1)+2(0) \\ 3(0)+4(1) & 3(1)+4(0) \end{pmatrix} = \begin{pmatrix} 2 & 1 \\ 4 & 3 \end{pmatrix}$. Trace(AB) = $2+3=5$. <b>Benar.</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">17.</div>
+                <div class="soal-konten">
+                    Jika $A$ adalah matriks berordo $2 \times 2$ yang memenuhi $A^2 - 3A + 2I = O$, di mana $I$ adalah matriks identitas dan $O$ adalah matriks nol. Manakah pernyataan berikut yang mungkin benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q17a"><label for="q17a">$A$ adalah matriks singular.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17b"><label for="q17b">det($A$) = 2</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17c"><label for="q17c">Invers dari $A$ adalah $\frac{1}{2}(3I - A)$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17d"><label for="q17d">$A = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17e"><label for="q17e">Trace($A$) = 3</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Ini adalah persamaan polinomial matriks (Teorema Cayley-Hamilton). Persamaan karakteristiknya adalah $\lambda^2 - 3\lambda + 2 = 0$, yang memberikan nilai eigen $\lambda=1$ dan $\lambda=2$. Determinan adalah hasil kali nilai eigen, dan trace adalah jumlah nilai eigen.
+                        <ul>
+                            <li><b>A:</b> Karena nilai eigen (1 dan 2) keduanya tidak nol, maka det($A$) = $1 \cdot 2 = 2 \neq 0$. Jadi A tidak singular. <b>Salah.</b></li>
+                            <li><b>B:</b> det($A$) adalah hasil kali nilai eigen, yaitu $1 \times 2 = 2$. <b>Benar.</b></li>
+                            <li><b>C:</b> Dari $A^2 - 3A + 2I = O$, kita bisa manipulasi: $2I = 3A - A^2 = A(3I-A)$. Kalikan dengan $\frac{1}{2}A^{-1}$: $A^{-1}I = \frac{1}{2}A^{-1}A(3I-A) \implies A^{-1} = \frac{1}{2}(3I-A)$. <b>Benar.</b></li>
+                            <li><b>D:</b> Uji matriks ini. $A^2 = \begin{pmatrix} 1 & 0 \\ 0 & 4 \end{pmatrix}$, $3A = \begin{pmatrix} 3 & 0 \\ 0 & 6 \end{pmatrix}$, $2I = \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix}$. Maka $A^2-3A+2I = \begin{pmatrix} 1-3+2 & 0 \\ 0 & 4-6+2 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix} = O$. Persamaan terpenuhi. <b>Benar.</b></li>
+                            <li><b>E:</b> Trace($A$) adalah jumlah nilai eigen, yaitu $1+2=3$. <b>Benar.</b></li>
+                        </ul>
+                        <b>Jawaban: B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">18.</div>
+                <div class="soal-konten">
+                    Untuk matriks $A$ dan $B$ yang berordo $n \times n$ dan dapat dibalik (invertible), sifat-sifat berikut selalu berlaku. <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q18a"><label for="q18a">$(AB)^{-1} = B^{-1}A^{-1}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18b"><label for="q18b">det($A^T$) = det($A$)</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18c"><label for="q18c">$(A^{-1})^T = (A^T)^{-1}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18d"><label for="q18d">det($ABA^{-1}$) = det($B$)</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18e"><label for="q18e">Jika $A^2=A$ (idempoten), maka $A=I$.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Ini adalah pertanyaan tentang sifat-sifat dasar matriks, determinan, dan invers.
+                        <ul>
+                            <li><b>A:</b> Ini adalah sifat standar dari invers perkalian matriks. Urutannya dibalik. <b>Benar.</b></li>
+                            <li><b>B:</b> Ini adalah sifat dasar dari determinan. <b>Benar.</b></li>
+                            <li><b>C:</b> Transpos dari invers sama dengan invers dari transpos. Ini adalah sifat standar. <b>Benar.</b></li>
+                            <li><b>D:</b> det($ABA^{-1}$) = det(A)det(B)det($A^{-1}$) = det(A)det(B)(1/det(A)) = det(B). <b>Benar.</b></li>
+                            <li><b>E:</b> Jika $A^2=A$ dan A dapat dibalik, kita bisa kalikan kedua sisi dengan $A^{-1}$: $A^{-1}A^2 = A^{-1}A \implies (A^{-1}A)A = I \implies IA = I \implies A=I$. Pernyataan ini benar dengan syarat A dapat dibalik. <b>Benar.</b> (Catatan: Jika A tidak dapat dibalik, misal matriks nol, pernyataan tidak berlaku, tapi soal menyatakan A invertible).</li>
+                        </ul>
+                         <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">19.</div>
+                <div class="soal-konten">
+                    Diberikan matriks $A = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 1 & 0 & 1 \end{pmatrix}$. Manakah pernyataan yang benar mengenai matriks ini? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q19a"><label for="q19a">det(A) = 2.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19b"><label for="q19b">Matriks $A$ merupakan matriks non-singular.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19c"><label for="q19c">Jumlah elemen-elemen minor $M_{11}$ dan $M_{22}$ adalah 2.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19d"><label for="q19d">Kofaktor $C_{13}$ bernilai $-1$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19e"><label for="q19e">Elemen pada baris ke-2 kolom ke-3 dari $A^{-1}$ adalah $-1/2$.</label></div>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> det(A) = $1(1\cdot1 - 1\cdot0) - 1(0\cdot1 - 1\cdot1) + 0(...) = 1(1) - 1(-1) = 1+1=2$. <b>Benar.</b></li>
+                            <li><b>B:</b> Karena det(A) = $2 \neq 0$, maka A adalah non-singular. <b>Benar.</b></li>
+                            <li><b>C:</b> Minor $M_{11} = \text{det}\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix} = 1$. Minor $M_{22} = \text{det}\begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix} = 1$. Jumlahnya $1+1=2$. <b>Benar.</b></li>
+                            <li><b>D:</b> Kofaktor $C_{13} = (-1)^{1+3} M_{13} = (1) \cdot \text{det}\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = 1 \cdot (0-1) = -1$. <b>Benar.</b></li>
+                            <li><b>E:</b> Elemen baris i kolom j dari $A^{-1}$ adalah $\frac{C_{ji}}{\text{det}(A)}$. Kita mencari elemen (2,3), jadi kita butuh kofaktor $C_{32}$.
+                            $C_{32} = (-1)^{3+2} M_{32} = (-1) \cdot \text{det}\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = -1(1) = -1$.
+                            Elemen (2,3) dari $A^{-1}$ adalah $\frac{C_{32}}{\text{det}(A)} = \frac{-1}{2}$. <b>Benar.</b></li>
+                        </ul>
+                         <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <div class="soal-nomor">20.</div>
+                <div class="soal-konten">
+                    Suatu sistem persamaan linear homogen $AX=O$ memiliki solusi non-trivial (selain solusi nol). Manakah kesimpulan yang dapat ditarik? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q20a"><label for="q20a">Matriks koefisien $A$ adalah matriks singular.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20b"><label for="q20b">det($A$) = 0.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20c"><label for="q20c">Matriks $A$ tidak memiliki invers.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20d"><label for="q20d">Sistem tersebut memiliki tak hingga banyaknya solusi.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20e"><label for="q20e">Rank dari matriks $A$ kurang dari ordenya.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Teorema Matriks Invertible menyatakan serangkaian kondisi yang ekuivalen untuk matriks persegi. Salah satunya adalah hubungan antara solusi sistem homogen dan determinan.
+                        <ul>
+                            <li><b>A, B, C:</b> Agar SPL homogen $AX=O$ memiliki solusi selain $X=O$, matriks $A$ harus tidak dapat dibalik. Ini berarti $A$ adalah matriks singular, yang ekuivalen dengan det($A$)=0. <b>(Ketiganya Benar)</b></li>
+                            <li><b>D:</b> Jika ada satu solusi non-trivial, katakanlah $X_1$, maka setiap kelipatan skalar dari $X_1$ (yaitu $kX_1$) juga merupakan solusi. Ini berarti ada tak hingga banyaknya solusi. <b>Benar.</b></li>
+                            <li><b>E:</b> Rank matriks adalah jumlah baris/kolom yang bebas linear. Jika det(A)=0, baris/kolomnya dependen secara linear, sehingga rank-nya pasti kurang dari jumlah baris/kolom (ordenya). <b>Benar.</b></li>
+                        </ul>
+                         <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">21.</div>
+                <div class="soal-konten">
+                    Matriks $P = \begin{pmatrix} \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{pmatrix}$ merepresentasikan sebuah transformasi geometri. Manakah pernyataan yang benar? <br><b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q21a"><label for="q21a">Transformasi tersebut adalah rotasi sebesar $45^{\circ}$ berlawanan arah jarum jam.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21b"><label for="q21b">det(P) = 1.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21c"><label for="q21c">Invers dari matriks P adalah $P^T$ (matriks ortogonal).</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21d"><label for="q21d">Transformasi ini mempertahankan luas bangun datar.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21e"><label for="q21e">$P^8$ adalah matriks identitas.</label></div>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> Matriks ini cocok dengan bentuk matriks rotasi $\begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}$ dengan $\cos\theta = 1/\sqrt{2}$ dan $\sin\theta = 1/\sqrt{2}$. Ini sesuai dengan $\theta = 45^{\circ}$. <b>Benar.</b></li>
+                            <li><b>B:</b> det(P) = $(\frac{1}{\sqrt{2}})(\frac{1}{\sqrt{2}}) - (-\frac{1}{\sqrt{2}})(\frac{1}{\sqrt{2}}) = \frac{1}{2} + \frac{1}{2} = 1$. <b>Benar.</b></li>
+                            <li><b>C:</b> Cek apakah $P^T P = I$. $P^T = \begin{pmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{pmatrix}$. $P^T P = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = I$. Jadi P adalah matriks ortogonal dan $P^{-1}=P^T$. <b>Benar.</b></li>
+                            <li><b>D:</b> Faktor skala luas dari sebuah transformasi linear adalah |det(P)|. Karena |det(P)| = 1, luasnya tetap. <b>Benar.</b></li>
+                            <li><b>E:</b> $P$ adalah rotasi $45^{\circ}$. $P^8$ adalah rotasi $8 \times 45^{\circ} = 360^{\circ}$. Rotasi $360^{\circ}$ sama dengan tidak ada rotasi, yang direpresentasikan oleh matriks identitas. <b>Benar.</b></li>
+                        </ul>
+                         <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">22.</div>
+                <div class="soal-konten">
+                     Jika $A$ adalah matriks simetris ($A=A^T$) dan $B$ adalah matriks skew-simetris ($B=-B^T$), manakah dari matriks berikut yang dijamin merupakan matriks simetris? <b>(bisa pilih lebih dari satu jawaban)</b>
+                     <div class="checkbox-option"><input type="checkbox" id="q22a"><label for="q22a">$A^n$ (n bilangan bulat positif)</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q22b"><label for="q22b">$B^2$</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q22c"><label for="q22c">$AB+BA$</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q22d"><label for="q22d">$A+A^T$</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q22e"><label for="q22e">$B^T B$</label></div>
+                     <div class="pembahasan">
+                        <b>Teori Dasar:</b> Sebuah matriks X adalah simetris jika $X^T = X$. Kita gunakan sifat $(XY)^T = Y^T X^T$.
+                        <ul>
+                            <li><b>A:</b> $(A^n)^T = (A^T)^n = A^n$. Simetris. <b>Benar.</b></li>
+                            <li><b>B:</b> $(B^2)^T = (B^T)^2 = (-B)^2 = B^2$. Simetris. <b>Benar.</b></li>
+                            <li><b>C:</b> 
+                                $$ \begin{aligned} (AB+BA)^T &= (AB)^T + (BA)^T \\ &= B^T A^T + A^T B^T \\ &= (-B)(A) + (A)(-B) \\ &= -BA - AB \\ &= -(AB+BA) \end{aligned} $$
+                                Ini adalah definisi matriks skew-simetris, bukan simetris. <b>Salah.</b>
+                            </li>
+                            <li><b>D:</b> Karena A simetris, $A+A^T = A+A = 2A$. $(2A)^T = 2A^T = 2A$. Simetris. <b>Benar.</b></li>
+                            <li><b>E:</b> $(B^T B)^T = B^T (B^T)^T = B^T B$. Simetris. <b>Benar.</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, D, E</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">23.</div>
+                <div class="soal-konten">
+                     Jika $M$ adalah matriks $3 \times 3$ dan det($M$) = -4. Pernyataan yang benar adalah... <b>(bisa pilih lebih dari satu jawaban)</b>
+                     <div class="checkbox-option"><input type="checkbox" id="q23a"><label for="q23a">det($M^2$) = 16</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q23b"><label for="q23b">det(3M) = -108</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q23c"><label for="q23c">det($-M$) = 4</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q23d"><label for="q23d">Matriks M pasti memiliki invers.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q23e"><label for="q23e">det(Adj(M))=16</label></div>
+                     <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> det($M^2$) = (det(M))$^2 = (-4)^2 = 16$. <b>Benar.</b></li>
+                            <li><b>B:</b> det(3M) = $3^3 \cdot$ det(M) = $27 \cdot (-4) = -108$. <b>Benar.</b></li>
+                            <li><b>C:</b> det($-M$) = det((-1)M) = $(-1)^3 \cdot$ det(M) = $-1 \cdot (-4) = 4$. <b>Benar.</b></li>
+                            <li><b>D:</b> Matriks memiliki invers jika determinannya tidak nol. Karena det(M)=-4 $\neq$ 0, M pasti memiliki invers. <b>Benar.</b></li>
+                            <li><b>E:</b> det(Adj(M)) = (det(M))$^{n-1} = (-4)^{3-1} = (-4)^2 = 16$. <b>Benar.</b></li>
+                        </ul>
+                         <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">24.</div>
+                <div class="soal-konten">
+                    Manakah di antara matriks-matriks berikut yang tidak dapat di-inverskan (singular)? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q24a"><label for="q24a">$\begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{pmatrix}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24b"><label for="q24b">Matriks proyeksi ortogonal ke sebuah garis.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24c"><label for="q24c">Matriks yang salah satu barisnya adalah kombinasi linear dari baris-baris lain.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24d"><label for="q24d">$\begin{pmatrix} 1 & 1 & 1 \\ a & b & c \\ a^2 & b^2 & c^2 \end{pmatrix}$ jika $a=b$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24e"><label for="q24e">Matriks $AB$ jika $A$ non-singular dan $B$ singular.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Matriks singular jika determinannya nol. Ini terjadi jika baris/kolomnya tidak bebas linear.
+                        <ul>
+                            <li><b>A:</b> Baris kedua (4,5,6) adalah rata-rata baris pertama dan ketiga. Atau $B_2 - B_1 = (3,3,3)$ dan $B_3-B_2=(3,3,3)$, jadi $B_3-B_2 = B_2-B_1 \implies 2B_2 = B_1+B_3$. Barisnya dependen, jadi determinannya 0. <b>Benar.</b></li>
+                            <li><b>B:</b> Proyeksi memetakan seluruh ruang ke sebuah garis (subruang berdimensi lebih rendah). Transformasi semacam ini selalu singular. <b>Benar.</b></li>
+                            <li><b>C:</b> Ini adalah definisi dari matriks yang baris-barisnya dependen secara linear, yang merupakan syarat agar determinannya nol. <b>Benar.</b></li>
+                            <li><b>D:</b> Ini adalah matriks Vandermonde. Jika $a=b$, maka kolom pertama dan kedua menjadi identik, sehingga determinannya nol. <b>Benar.</b></li>
+                            <li><b>E:</b> det(AB) = det(A)det(B). Jika B singular, det(B)=0. Maka det(AB) = det(A) $\cdot$ 0 = 0. Jadi AB singular. <b>Benar.</b></li>
+                        </ul>
+                         <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">25.</div>
+                <div class="soal-konten">
+                     Diberikan matriks $A = \begin{pmatrix} 1 & a \\ 0 & 1 \end{pmatrix}$. Manakah pernyataan berikut yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                     <div class="checkbox-option"><input type="checkbox" id="q25a"><label for="q25a">$A^2 = \begin{pmatrix} 1 & 2a \\ 0 & 1 \end{pmatrix}$</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q25b"><label for="q25b">$A^n = \begin{pmatrix} 1 & na \\ 0 & 1 \end{pmatrix}$ untuk $n \in \mathbb{N}$</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q25c"><label for="q25c">$A^{-1} = \begin{pmatrix} 1 & -a \\ 0 & 1 \end{pmatrix}$</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q25d"><label for="q25d">Matriks ini merepresentasikan transformasi geser (shear) horizontal.</label></div>
+                     <div class="checkbox-option"><input type="checkbox" id="q25e"><label for="q25e">Nilai eigen dari $A$ adalah 1 dengan multiplisitas aljabar 2.</label></div>
+                     <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> $A^2 = \begin{pmatrix} 1 & a \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & a \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 & a+a \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 & 2a \\ 0 & 1 \end{pmatrix}$. <b>Benar.</b></li>
+                            <li><b>B:</b> Dari pola di A, dapat dibuktikan dengan induksi bahwa $A^n = \begin{pmatrix} 1 & na \\ 0 & 1 \end{pmatrix}$. <b>Benar.</b></li>
+                            <li><b>C:</b> det(A) = 1. $A^{-1} = \frac{1}{1}\begin{pmatrix} 1 & -a \\ 0 & 1 \end{pmatrix}$. <b>Benar.</b></li>
+                            <li><b>D:</b> Transformasi $\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} 1 & a \\ 0 & 1 \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix}$ menghasilkan $x'=x+ay$ dan $y'=y$. Ini adalah geser horizontal. <b>Benar.</b></li>
+                            <li><b>E:</b> Nilai eigen adalah solusi dari det($A-\lambda I$)=0. $(1-\lambda)^2=0 \implies \lambda=1$. Karena ini adalah akar ganda, multiplisitas aljabarnya adalah 2. <b>Benar.</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+            <h2>Tipe 3: Pilihan Ganda Kompleks (Kategori)</h2>
+            <div class="soal-latihan">
+                <div class="soal-nomor">26.</div>
+                <div class="soal-konten">
+                    <b>Gunakan informasi berikut untuk menjawab soal nomor 26-27.</b><br>Diberikan matriks $A = \begin{pmatrix} 2 & 3 \\ 1 & 2 \end{pmatrix}$ dan $B = \begin{pmatrix} 1 & 2 \\ -1 & 1 \end{pmatrix}$.
+                    <br><br>
+                    Tentukan kebenaran pernyataan mengenai operasi dan properti matriks A dan B.
+                    <table class="kategori-table">
+                        <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                        <tbody>
+                            <tr><td>A. Determinan dari matriks $A+B$ adalah 9.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Matriks $AB$ sama dengan matriks $BA$.</td><td></td><td>&#10004;</td></tr>
+                            <tr><td>C. Trace dari matriks $(A-B^T)$ adalah 2.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> $A+B = \begin{pmatrix} 2+1 & 3+2 \\ 1-1 & 2+1 \end{pmatrix} = \begin{pmatrix} 3 & 5 \\ 0 & 3 \end{pmatrix}$. det($A+B$) = $3(3)-5(0)=9$. <b>(Benar)</b></li>
+                            <li><b>B:</b> $AB = \begin{pmatrix} 2(1)+3(-1) & 2(2)+3(1) \\ 1(1)+2(-1) & 1(2)+2(1) \end{pmatrix} = \begin{pmatrix} -1 & 7 \\ -1 & 4 \end{pmatrix}$. $BA = \begin{pmatrix} 1(2)+2(1) & 1(3)+2(2) \\ -1(2)+1(1) & -1(3)+1(2) \end{pmatrix} = \begin{pmatrix} 4 & 7 \\ -1 & -1 \end{pmatrix}$. $AB \neq BA$. <b>(Salah)</b></li>
+                            <li><b>C:</b> $B^T = \begin{pmatrix} 1 & -1 \\ 2 & 1 \end{pmatrix}$. $A-B^T = \begin{pmatrix} 2-1 & 3-(-1) \\ 1-2 & 2-1 \end{pmatrix} = \begin{pmatrix} 1 & 4 \\ -1 & 1 \end{pmatrix}$. Trace = $1+1=2$. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">27.</div>
+                <div class="soal-konten">
+                     Tentukan kebenaran pernyataan mengenai invers dan determinan.
+                     <table class="kategori-table">
+                        <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                        <tbody>
+                            <tr><td>A. $A^{-1} = \begin{pmatrix} 2 & -3 \\ -1 & 2 \end{pmatrix}$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Sifat det($A$) + det($B$) = det($A+B$) berlaku untuk matriks ini.</td><td></td><td>&#10004;</td></tr>
+                            <tr><td>C. det($(AB)^{-1}$) = $1/3$.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> det(A) = $2(2)-3(1)=1$. $A^{-1} = \frac{1}{1}\begin{pmatrix} 2 & -3 \\ -1 & 2 \end{pmatrix}$. <b>(Benar)</b></li>
+                            <li><b>B:</b> det(A)=1. det(B)=$1(1)-2(-1)=3$. det(A+B)=9 (dari soal 26). $1+3=4 \neq 9$. Sifat ini secara umum tidak berlaku. <b>(Salah)</b></li>
+                            <li><b>C:</b> det(AB) = det(A)det(B) = $1 \cdot 3 = 3$. det($(AB)^{-1}$) = $1/\text{det}(AB) = 1/3$. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">28.</div>
+                <div class="soal-konten">
+                     <b>Gunakan informasi berikut untuk menjawab soal nomor 28-30.</b><br>Sebuah sistem persamaan linear (SPL) diberikan oleh $AX=B$, dengan $A = \begin{pmatrix} 1 & 2 & 1 \\ 0 & 1 & 1 \\ 1 & 2 & k \end{pmatrix}$, $X=\begin{pmatrix} x \\ y \\ z \end{pmatrix}$, dan $B=\begin{pmatrix} 3 \\ 2 \\ m \end{pmatrix}$.
+                    <br><br>
+                     Tentukan kebenaran pernyataan mengenai kondisi solusi SPL tersebut.
+                     <table class="kategori-table">
+                        <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                        <tbody>
+                            <tr><td>A. SPL memiliki solusi tunggal jika dan hanya jika $k \neq 1$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Jika $k=1$, tidak ada kondisi $m$ yang dapat membuat SPL memiliki solusi tunggal.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Jika $k=1$ dan $m=3$, SPL memiliki tak hingga solusi yang membentuk sebuah garis di ruang 3D.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Jika $k=1$ dan $m=5$, secara geometris, terdapat dua bidang yang sejajar dan tidak berimpit.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Solusi SPL bergantung pada determinan matriks koefisien A. Jika det(A) $\neq$ 0, solusi tunggal. Jika det(A) = 0, bisa tak hingga solusi atau tidak ada solusi.
+                        <ul>
+                             <li><b>det(A):</b> $1(k-2) - 2(0-1) + 1(0-1) = k-2+2-1=k-1$.</li>
+                             <li><b>A:</b> Solusi tunggal ada jika det(A) $\neq$ 0, yaitu $k-1 \neq 0 \implies k \neq 1$. <b>(Benar)</b></li>
+                             <li><b>B:</b> Jika $k=1$, maka det(A)=0. Sistem tidak mungkin memiliki solusi tunggal. <b>(Benar)</b></li>
+                             <li><b>C:</b> Jika $k=1, m=3$, matriks augmented-nya $\begin{pmatrix} 1 & 2 & 1 & | & 3 \\ 0 & 1 & 1 & | & 2 \\ 1 & 2 & 1 & | & 3 \end{pmatrix}$. Baris 1 dan 3 identik. Ini berarti sistem konsisten dengan tak hingga solusi. <b>(Benar)</b></li>
+                             <li><b>D:</b> Jika $k=1, m=5$, matriks augmented-nya $\begin{pmatrix} 1 & 2 & 1 & | & 3 \\ 0 & 1 & 1 & | & 2 \\ 1 & 2 & 1 & | & 5 \end{pmatrix}$. Baris 1 ($x+2y+z=3$) dan baris 3 ($x+2y+z=5$) merepresentasikan dua bidang dengan normal yang sama tapi konstanta berbeda. Mereka sejajar dan tidak berimpit, sehingga tidak ada solusi. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <section class="page">
+        <div class="content-wrapper">
+             <div class="soal-latihan">
+                <div class="soal-nomor">29.</div>
+                <div class="soal-konten">
+                     Pasangkan kondisi matriks A dengan properti yang sesuai.
+                     <table class="kategori-table">
+                        <thead><tr><th>Kondisi Matriks A</th><th>Properti</th><th>Sesuai</th><th>Tidak Sesuai</th></tr></thead>
+                        <tbody>
+                            <tr><td>A. $k=2$</td><td>det(A)=1</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. $k=1$</td><td>Matriks A singular</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Untuk setiap $k \in \mathbb{R}$</td><td>Trace(A) = $2+k$</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                         <ul>
+                             <li><b>A:</b> det(A) = $k-1$. Jika $k=2$, det(A) = $2-1=1$. <b>(Sesuai)</b></li>
+                             <li><b>B:</b> Matriks singular jika det(A)=0. $k-1=0 \implies k=1$. <b>(Sesuai)</b></li>
+                             <li><b>C:</b> Trace adalah jumlah elemen diagonal utama. Trace(A) = $1+1+k = 2+k$. Ini berlaku untuk semua k. <b>(Sesuai)</b></li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+             <div class="soal-latihan">
+                <div class="soal-nomor">30.</div>
+                <div class="soal-konten">
+                     Tentukan kebenaran pernyataan umum mengenai matriks dan SPL.
+                     <table class="kategori-table">
+                        <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                        <tbody>
+                             <tr><td>A. Jika det(A) $\neq$ 0, maka solusi SPL $AX=B$ dapat ditemukan dengan Aturan Cramer.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>B. Jika $A$ dan $B$ adalah matriks simetris yang komutatif ($AB=BA$), maka $AB$ juga simetris.</td><td>&#10004;</td><td></td></tr>
+                             <tr><td>C. Setiap matriks elementer memiliki determinan yang tidak sama dengan nol.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> Aturan Cramer adalah metode untuk menyelesaikan SPL menggunakan determinan. Syarat utamanya adalah matriks koefisien harus non-singular (det(A) $\neq$ 0). <b>(Benar)</b></li>
+                            <li><b>B:</b> Untuk mengecek simetri, kita transposkan: $(AB)^T = B^T A^T$. Karena A dan B simetris, $A^T=A$ dan $B^T=B$. Jadi $(AB)^T=BA$. Karena A dan B komutatif, $BA=AB$. Maka $(AB)^T=AB$, yang berarti AB simetris. <b>(Benar)</b></li>
+                            <li><b>C:</b> Matriks elementer merepresentasikan operasi baris elementer (menukar baris, mengalikan baris dengan skalar tak nol, menambah kelipatan baris ke baris lain). Semua operasi ini menghasilkan matriks dengan determinan tak nol. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
+
