@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Latihan & Pembahasan - Analisis Konsep Vektor</title>
+    <!-- Konfigurasi MathJax -->
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+    <!-- Impor Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS untuk Halaman A4-style -->
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+            --jawaban-color: #0d6efd; /* Biru untuk jawaban */
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0; /* Latar belakang abu-abu untuk kontras */
+            margin: 0;
+            padding: 0;
+            counter-reset: page;
+        }
+        .page-container {
+            /* Kontainer untuk memusatkan halaman */
+        }
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 2.5cm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .page::after {
+            /* Penomoran halaman otomatis */
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 10pt;
+            color: #888;
+        }
+        @media print {
+            body { background: none; }
+            .page { width: 100%; height: 100%; margin: 0; box-shadow: none; page-break-after: always; }
+        }
+        .content-wrapper { position: relative; z-index: 1; width: 100%; }
+        
+        /* Judul Halaman */
+        h1 { 
+            font-size: 22pt; 
+            text-align: center; 
+            border-bottom: 2px solid var(--primary-text); 
+            padding-bottom: 10px; 
+            margin-bottom: 25px; 
+            font-weight: 700; 
+            color: #4f46e5; /* Warna Indigo dari file asli */
+        }
+        /* Judul Tipe Soal */
+        h2 { 
+            font-size: 14pt; 
+            font-weight: 700; 
+            margin-top: 25px; 
+            margin-bottom: 15px; 
+            border-bottom: 1px solid #6366f1; /* Warna Indigo */
+            padding-bottom: 5px; 
+            color: #334155; /* Warna Slate */
+        }
+        
+        /* Kontainer Soal */
+        .soal-latihan {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 25px;
+            break-inside: avoid;
+            text-align: justify;
+        }
+        .soal-nomor {
+            font-weight: bold;
+            flex-shrink: 0;
+            min-width: 20px;
+        }
+        .soal-konten {
+            flex-grow: 1;
+        }
+        
+        /* Kotak Pembahasan */
+        .pembahasan {
+            background-color: #f8fafc; /* Slate 50 */
+            border: 1px solid #e2e8f0; /* Slate 200 */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+            border-left: 4px solid var(--jawaban-color);
+        }
+        .pembahasan ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        .pembahasan b {
+            color: var(--jawaban-color);
+        }
+        
+        /* Opsi Pilihan Ganda */
+        ol.pilihan-ganda { 
+            list-style-type: none; 
+            padding-left: 0; 
+            margin-top: 10px; 
+            text-align: left; 
+        }
+        ol.pilihan-ganda li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        ol.pilihan-ganda li::before {
+            content: attr(data-option) ". ";
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        /* Tabel Benar/Salah */
+        .kategori-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .kategori-table th, .kategori-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+        .kategori-table th {
+            background-color: #f1f5f9; /* Slate 100 */
+        }
+        .kategori-table td:not(:first-child) {
+            text-align: center;
+        }
+        
+        /* Opsi PG Kompleks */
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-left: 5px;
+            text-align: left;
+        }
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 12px;
+            min-width: 16px;
+            min-height: 16px;
+        }
+        .checkbox-option label {
+            display: block;
+        }
+        
+        /* Kotak Petunjuk */
+        .petunjuk-box {
+            background-color: #eef2ff; /* Indigo 50 */
+            border-left: 4px solid #4f46e5; /* Indigo 600 */
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 9pt;
+        }
+        .petunjuk-box ul {
+            padding-left: 20px;
+            margin: 5px 0 0 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <!-- Halaman 1 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <h1>Soal Latihan & Pembahasan<br>Analisis Konsep Vektor</h1>
+            
+            <h2>Tipe 1a: Pilihan Ganda (Satu Jawaban Benar)</h2>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">1.</div>
+                <div class="soal-konten">
+                    Diketahui vektor $\vec{a} = 2\vec{i} - 2\vec{j} + \vec{k}$ dan $\vec{b} = 3\vec{i} + 4\vec{k}$. Panjang proyeksi ortogonal vektor $\vec{a}$ pada $\vec{b}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$1$</li>
+                        <li data-option="B">$2$</li>
+                        <li data-option="C">$3$</li>
+                        <li data-option="D">$4$</li>
+                        <li data-option="E">$5$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Panjang proyeksi skalar ortogonal $\vec{a}$ pada $\vec{b}$ (kita sebut $\vec{c}$) dirumuskan sebagai:
+                        $$ |\vec{c}| = \frac{|\vec{a} \cdot \vec{b}|}{|\vec{b}|} $$
+                        <ul>
+                            <li><b>Langkah 1:</b> Hitung dot product $\vec{a} \cdot \vec{b}$.<br>
+                                $\vec{a} \cdot \vec{b} = (2\vec{i} - 2\vec{j} + \vec{k}) \cdot (3\vec{i} + 0\vec{j} + 4\vec{k})$<br>
+                                $\vec{a} \cdot \vec{b} = (2)(3) + (-2)(0) + (1)(4) = 6 + 0 + 4 = 10$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung panjang vektor $\vec{b}$.<br>
+                                $|\vec{b}| = \sqrt{3^2 + 0^2 + 4^2} = \sqrt{9 + 0 + 16} = \sqrt{25} = 5$.
+                            </li>
+                            <li><b>Langkah 3:</b> Hitung panjang proyeksi.<br>
+                                $|\vec{c}| = \frac{|10|}{5} = 2$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">2.</div>
+                <div class="soal-konten">
+                    Diberikan vektor $\vec{u} = (2, p, 1)$ dan $\vec{v} = (1, -2, 2)$. Jika kedua vektor tersebut saling tegak lurus, maka nilai $p$ yang memenuhi adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$-2$</li>
+                        <li data-option="B">$-1$</li>
+                        <li data-option="C">$0$</li>
+                        <li data-option="D">$1$</li>
+                        <li data-option="E">$2$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Dua vektor $\vec{u}$ dan $\vec{v}$ saling tegak lurus jika dan hanya jika hasil dot product-nya sama dengan nol ($\vec{u} \cdot \vec{v} = 0$).
+                        <ul>
+                            <li><b>Langkah 1:</b> Hitung dot product $\vec{u} \cdot \vec{v}$ dan samakan dengan nol.<br>
+                                $\vec{u} \cdot \vec{v} = (2)(1) + (p)(-2) + (1)(2) = 0$
+                            </li>
+                            <li><b>Langkah 2:</b> Selesaikan persamaan untuk $p$.<br>
+                                $2 - 2p + 2 = 0$<br>
+                                $4 - 2p = 0$<br>
+                                $4 = 2p$<br>
+                                $p = 2$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: E</b>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">3.</div>
+                <div class="soal-konten">
+                    Diketahui titik $A(1, 0, -2)$, $B(2, 1, -1)$, dan $C(2, 1, -3)$. Jika $\vec{u} = \vec{AB}$ dan $\vec{v} = \vec{AC}$, maka kosinus sudut antara $\vec{u}$ dan $\vec{v}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\frac{1}{3}$</li>
+                        <li data-option="B">$\frac{1}{2}$</li>
+                        <li data-option="C">$\frac{1}{\sqrt{6}}$</li>
+                        <li data-option="D">$\frac{2}{3}$</li>
+                        <li data-option="E">$\frac{1}{\sqrt{3}}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Kosinus sudut ($\theta$) antara dua vektor $\vec{u}$ dan $\vec{v}$ dirumuskan sebagai:
+                        $$ \cos \theta = \frac{\vec{u} \cdot \vec{v}}{|\vec{u}| |\vec{v}|} $$
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan vektor $\vec{u}$ dan $\vec{v}$.<br>
+                                $\vec{u} = \vec{AB} = B - A = (2-1, 1-0, -1-(-2)) = (1, 1, 1)$.<br>
+                                $\vec{v} = \vec{AC} = C - A = (2-1, 1-0, -3-(-2)) = (1, 1, -1)$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung dot product $\vec{u} \cdot \vec{v}$.<br>
+                                $\vec{u} \cdot \vec{v} = (1)(1) + (1)(1) + (1)(-1) = 1 + 1 - 1 = 1$.
+                            </li>
+                            <li><b>Langkah 3:</b> Hitung panjang $|\vec{u}|$ dan $|\vec{v}|$.<br>
+                                $|\vec{u}| = \sqrt{1^2 + 1^2 + 1^2} = \sqrt{3}$.<br>
+                                $|\vec{v}| = \sqrt{1^2 + 1^2 + (-1)^2} = \sqrt{3}$.
+                            </li>
+                            <li><b>Langkah 4:</b> Hitung $\cos \theta$.<br>
+                                $\cos \theta = \frac{1}{\sqrt{3} \cdot \sqrt{3}} = \frac{1}{3}$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Halaman 2 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">4.</div>
+                <div class="soal-konten">
+                    Sebuah drone berada pada koordinat $A(1, 2, 5)$. Drone tersebut bergerak lurus ke titik $B(5, -1, 9)$. Jarak yang ditempuh drone tersebut adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\sqrt{29}$</li>
+                        <li data-option="B">$\sqrt{33}$</li>
+                        <li data-option="C">$\sqrt{41}$</li>
+                        <li data-option="D">$2\sqrt{10}$</li>
+                        <li data-option="E">$2\sqrt{11}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Jarak antara dua titik A dan B di ruang 3D adalah panjang (magnitude) dari vektor $\vec{AB}$.
+                        $$ \text{Jarak} = |\vec{AB}| = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2} $$
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan vektor perpindahan $\vec{AB}$.<br>
+                                $\vec{AB} = B - A = (5-1, -1-2, 9-5) = (4, -3, 4)$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung panjang vektor $\vec{AB}$.<br>
+                                $|\vec{AB}| = \sqrt{4^2 + (-3)^2 + 4^2} = \sqrt{16 + 9 + 16} = \sqrt{41}$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">5.</div>
+                <div class="soal-konten">
+                    Diberikan vektor $\vec{a} = 3\vec{i} + \vec{j} - 2\vec{k}$ dan $\vec{b} = \vec{i} + 2\vec{j} + \vec{k}$. Luas jajar genjang yang dibentuk oleh vektor $ (\vec{a}+\vec{b}) $ dan $ (\vec{a}-\vec{b}) $ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$10\sqrt{3}$</li>
+                        <li data-option="B">$10\sqrt{5}$</li>
+                        <li data-option="C">$12\sqrt{3}$</li>
+                        <li data-option="D">$12\sqrt{5}$</li>
+                        <li data-option="E">$20\sqrt{3}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Luas jajar genjang yang dibentuk oleh dua vektor $\vec{p}$ dan $\vec{q}$ adalah panjang (magnitude) dari cross product-nya, yaitu $\text{Luas} = |\vec{p} \times \vec{q}|$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan kedua vektor pembentuk, $\vec{p} = \vec{a}+\vec{b}$ dan $\vec{q} = \vec{a}-\vec{b}$.<br>
+                                $\vec{p} = (3+1, 1+2, -2+1) = (4, 3, -1)$.<br>
+                                $\vec{q} = (3-1, 1-2, -2-1) = (2, -1, -3)$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung cross product $\vec{p} \times \vec{q}$.<br>
+                                $$ \vec{p} \times \vec{q} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ 4 & 3 & -1 \\ 2 & -1 & -3 \end{vmatrix} $$
+                                $= \vec{i}((3)(-3) - (-1)(-1)) - \vec{j}((4)(-3) - (-1)(2)) + \vec{k}((4)(-1) - (3)(2))$<br>
+                                $= \vec{i}(-9 - 1) - \vec{j}(-12 + 2) + \vec{k}(-4 - 6)$<br>
+                                $= -10\vec{i} + 10\vec{j} - 10\vec{k}$.
+                            </li>
+                            <li><b>Langkah 3:</b> Hitung panjang dari vektor hasil cross product.<br>
+                                $\text{Luas} = |(-10, 10, -10)| = \sqrt{(-10)^2 + 10^2 + (-10)^2} = \sqrt{100 + 100 + 100} = \sqrt{300}$.<br>
+                                $\sqrt{300} = \sqrt{100 \times 3} = 10\sqrt{3}$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">6.</div>
+                <div class="soal-konten">
+                    Sebuah perahu menyeberangi sungai yang lebarnya 120 m. Kecepatan arus air adalah 4 m/s. Perahu diarahkan tegak lurus arus dengan kecepatan 3 m/s. Panjang lintasan yang ditempuh perahu hingga sampai ke seberang sungai adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$120$ m</li>
+                        <li data-option="B">$150$ m</li>
+                        <li data-option="C">$160$ m</li>
+                        <li data-option="D">$200$ m</li>
+                        <li data-option="E">$240$ m</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Gerak perahu adalah hasil komposisi dua vektor kecepatan: kecepatan perahu ($\vec{v}_p$) dan kecepatan arus ($\vec{v}_a$).
+                        <ul>
+                            <li><b>Langkah 1:</b> Hitung waktu ($t$) yang dibutuhkan untuk menyeberang. Waktu ini hanya ditentukan oleh komponen kecepatan yang tegak lurus dengan tepi sungai.<br>
+                                $t = \frac{\text{Lebar Sungai}}{\text{Kecepatan Tegak Lurus}} = \frac{120 \text{ m}}{3 \text{ m/s}} = 40 \text{ s}$.
+                            </li>
+                            <li><b>Langkah 2:</b> Selama 40 detik tersebut, perahu juga terseret ke hilir oleh arus. Hitung jarak seret ($d_a$).<br>
+                                $d_a = v_a \times t = 4 \text{ m/s} \times 40 \text{ s} = 160 \text{ m}$.
+                            </li>
+                            <li><b>Langkah 3:</b> Lintasan total perahu adalah hipotenusa dari segitiga siku-siku yang dibentuk oleh lebar sungai (120 m) dan jarak seret (160 m).<br>
+                                $\text{Panjang Lintasan} = \sqrt{(\text{Lebar})^2 + (d_a)^2} = \sqrt{120^2 + 160^2}$.<br>
+                                Ini adalah triple Pythagoras 3-4-5 yang dikalikan 40. ($3 \times 40 = 120$, $4 \times 40 = 160$).<br>
+                                Maka hipotenusa adalah $5 \times 40 = 200$ m.
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Halaman 3 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">7.</div>
+                <div class="soal-konten">
+                    Diketahui $|\vec{a}|=4$, $|\vec{b}|=6$, dan $|\vec{a}+\vec{b}|=8$. Nilai dari $|\vec{a}-\vec{b}|$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$2\sqrt{10}$</li>
+                        <li data-option="B">$2\sqrt{11}$</li>
+                        <li data-option="C">$3\sqrt{5}$</li>
+                        <li data-option="D">$\sqrt{38}$</li>
+                        <li data-option="E">$6$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Kita menggunakan sifat $|\vec{x}|^2 = \vec{x} \cdot \vec{x} = |\vec{x}|^2$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Uraikan $|\vec{a}+\vec{b}|^2$ untuk menemukan nilai $\vec{a} \cdot \vec{b}$.<br>
+                                $|\vec{a}+\vec{b}|^2 = (\vec{a}+\vec{b}) \cdot (\vec{a}+\vec{b}) = |\vec{a}|^2 + |\vec{b}|^2 + 2(\vec{a} \cdot \vec{b})$<br>
+                                $8^2 = 4^2 + 6^2 + 2(\vec{a} \cdot \vec{b})$<br>
+                                $64 = 16 + 36 + 2(\vec{a} \cdot \vec{b})$<br>
+                                $64 = 52 + 2(\vec{a} \cdot \vec{b})$<br>
+                                $12 = 2(\vec{a} \cdot \vec{b})$.
+                            </li>
+                            <li><b>Langkah 2:</b> Uraikan $|\vec{a}-\vec{b}|^2$ dan substitusikan nilai yang ditemukan.<br>
+                                $|\vec{a}-\vec{b}|^2 = (\vec{a}-\vec{b}) \cdot (\vec{a}-\vec{b}) = |\vec{a}|^2 + |\vec{b}|^2 - 2(\vec{a} \cdot \vec{b})$<br>
+                                $|\vec{a}-\vec{b}|^2 = 16 + 36 - (12)$<br>
+                                $|\vec{a}-\vec{b}|^2 = 52 - 12 = 40$.
+                            </li>
+                            <li><b>Langkah 3:</b> Akar kuadratkan hasilnya.<br>
+                                $|\vec{a}-\vec{b}| = \sqrt{40} = \sqrt{4 \times 10} = 2\sqrt{10}$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                    Sebuah gaya $\vec{F} = (2\vec{i} + 2\vec{j} + 3\vec{k})$ N menyebabkan sebuah objek berpindah sejauh $\vec{d} = (3\vec{i} - 2\vec{j} + 2\vec{k})$ m. Besar usaha yang dilakukan oleh gaya tersebut adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">6 J</li>
+                        <li data-option="B">8 J</li>
+                        <li data-option="C">10 J</li>
+                        <li data-option="D">12 J</li>
+                        <li data-option="E">16 J</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Usaha (Work, $W$) dalam fisika didefinisikan sebagai dot product antara vektor gaya ($\vec{F}$) dan vektor perpindahan ($\vec{d}$).
+                        $$ W = \vec{F} \cdot \vec{d} $$
+                        <ul>
+                            <li><b>Langkah 1:</b> Hitung dot product dari $\vec{F}$ dan $\vec{d}$.<br>
+                                $W = (2, 2, 3) \cdot (3, -2, 2)$<br>
+                                $W = (2)(3) + (2)(-2) + (3)(2)$<br>
+                                $W = 6 - 4 + 6 = 8$.
+                            </li>
+                            <li><b>Langkah 2:</b> Tentukan satuan. Karena gaya dalam Newton (N) dan perpindahan dalam meter (m), usaha dalam Joule (J).
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                    Diberikan titik $A(3, 2, -1)$, $B(1, -2, 1)$, dan $C(7, p-1, -5)$. Agar ketiga titik tersebut segaris (kolinear), maka nilai $p$ harus...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$-7$</li>
+                        <li data-option="B">$-9$</li>
+                        <li data-option="C">$9$</li>
+                        <li data-option="D">$11$</li>
+                        <li data-option="E">$12$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Tiga titik A, B, dan C segaris jika vektor $\vec{AB}$ merupakan kelipatan skalar dari vektor $\vec{BC}$ (atau $\vec{AC}$).
+                        $$ \vec{AB} = k \cdot \vec{BC} $$
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan vektor $\vec{AB}$ dan $\vec{BC}$.<br>
+                                $\vec{AB} = B - A = (1-3, -2-2, 1-(-1)) = (-2, -4, 2)$.<br>
+                                $\vec{BC} = C - B = (7-1, (p-1)-(-2), -5-1) = (6, p+1, -6)$.
+                            </li>
+                            <li><b>Langkah 2:</b> Terapkan syarat kolinear dan cari nilai $k$.<br>
+                                $(-2, -4, 2) = k \cdot (6, p+1, -6)$.<br>
+                                Kita bisa gunakan komponen $x$ atau $z$ untuk mencari $k$.<br>
+                                Dari komponen $x$: $-2 = k \cdot 6 \implies k = -1/3$.<br>
+                                (Cek komponen $z$: $2 = k \cdot (-6) \implies k = -2/6 = -1/3$. Konsisten.)
+                            </li>
+                            <li><b>Langkah 3:</b> Gunakan nilai $k$ untuk mencari $p$ dari komponen $y$.<br>
+                                $-4 = k \cdot (p+1)$<br>
+                                $-4 = (-1/3) \cdot (p+1)$<br>
+                                $12 = p+1$<br>
+                                $p = 11$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">10.</div>
+                <div class="soal-konten">
+                    Diketahui $\vec{u}$ dan $\vec{v}$ adalah vektor-vektor satuan yang membentuk sudut $120^\circ$. Nilai dari $|2\vec{u} + 3\vec{v}|$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\sqrt{5}$</li>
+                        <li data-option="B">$\sqrt{7}$</li>
+                        <li data-option="C">$3$</li>
+                        <li data-option="D">$\sqrt{13}$</li>
+                        <li data-option="E">$\sqrt{19}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b> Kita gunakan sifat $|\vec{x}|^2 = \vec{x} \cdot \vec{x}$. Diketahui $\vec{u}$ dan $\vec{v}$ adalah vektor satuan, artinya $|\vec{u}|=1$ dan $|\vec{v}|=1$. Sudut $\theta = 120^\circ$, maka $\cos 120^\circ = -1/2$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Kuadratkan ekspresi yang dicari.<br>
+                                $|2\vec{u} + 3\vec{v}|^2 = (2\vec{u} + 3\vec{v}) \cdot (2\vec{u} + 3\vec{v})$
+                            </li>
+                            <li><b>Langkah 2:</b> Uraikan dot product.<br>
+                                $= 4(\vec{u} \cdot \vec{u}) + 6(\vec{u} \cdot \vec{v}) + 6(\vec{v} \cdot \vec{u}) + 9(\vec{v} \cdot \vec{v})$<br>
+                                $= 4|\vec{u}|^2 + 12(\vec{u} \cdot \vec{v}) + 9|\vec{v}|^2$
+                            </li>
+                            <li><b>Langkah 3:</b> Substitusikan nilai-nilai yang diketahui.<br>
+                                $= 4(1)^2 + 12(|\vec{u}| |\vec{v}| \cos 120^\circ) + 9(1)^2$<br>
+                                $= 4 + 12(1 \cdot 1 \cdot (-1/2)) + 9$<br>
+                                $= 4 - 6 + 9 = 7$.
+                            </li>
+                            <li><b>Langkah 4:</b> Akar kuadratkan hasilnya.<br>
+                                $|2\vec{u} + 3\vec{v}| = \sqrt{7}$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Halaman 4 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <h2>Tipe 1b: Kecukupan Data</h2>
+            
+            <div class="petunjuk-box">
+                <b>Petunjuk:</b>
+                <ul>
+                    <li><b>A.</b> Pernyataan (1) SAJA cukup, tetapi pernyataan (2) SAJA tidak cukup.</li>
+                    <li><b>B.</b> Pernyataan (2) SAJA cukup, tetapi pernyataan (1) SAJA tidak cukup.</li>
+                    <li><b>C.</b> DUA pernyataan BERSAMA-SAMA cukup, tetapi SATU pernyataan SAJA tidak cukup.</li>
+                    <li><b>D.</b> Pernyataan (1) SAJA cukup dan pernyataan (2) SAJA cukup.</li>
+                    <li><b>E.</b> Pernyataan (1) dan pernyataan (2) tidak cukup.</li>
+                </ul>
+            </div>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">11.</div>
+                <div class="soal-konten">
+                    Diberikan vektor $\vec{u} = (k, -1, 2)$ dan $\vec{v} = (2, -2k, -1)$. Apakah vektor $\vec{u}$ dan $\vec{v}$ saling tegak lurus?
+                    <br>(1) $k$ adalah bilangan bulat positif.
+                    <br>(2) $k$ adalah akar dari persamaan kuadrat $x^2 - 4 = 0$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Analisis Pertanyaan:</b> Vektor $\vec{u}$ dan $\vec{v}$ tegak lurus jika $\vec{u} \cdot \vec{v} = 0$.
+                        Mari kita hitung dot product-nya:<br>
+                        $\vec{u} \cdot \vec{v} = (k)(2) + (-1)(-2k) + (2)(-1) = 2k + 2k - 2 = 4k - 2$.
+                        Pertanyaannya menjadi: "Apakah $4k - 2 = 0$?" atau "Apakah $k = 1/2$?".
+                        <ul>
+                            <li><b>Pernyataan (1): $k$ adalah bilangan bulat positif.</b><br>
+                                Ini berarti $k$ bisa bernilai $1, 2, 3, ...$. Tak satu pun dari nilai ini adalah $1/2$. Maka, pernyataan ini menjamin bahwa $k \neq 1/2$, sehingga jawabannya adalah "Tidak, mereka tidak tegak lurus". Ini adalah jawaban yang pasti. <b>Cukup.</b>
+                            </li>
+                            <li><b>Pernyataan (2): $k$ adalah akar dari $x^2 - 4 = 0$.</b><br>
+                                Persamaan $x^2 - 4 = 0$ memiliki akar $x = 2$ atau $x = -2$. Jadi, $k=2$ atau $k=-2$. Tak satu pun dari nilai ini adalah $1/2$. Maka, pernyataan ini menjamin bahwa $k \neq 1/2$, sehingga jawabannya adalah "Tidak". Ini adalah jawaban yang pasti. <b>Cukup.</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">12.</div>
+                <div class="soal-konten">
+                    Berapakah panjang proyeksi vektor $\vec{a} = (1, 2, -1)$ pada vektor $\vec{b}$?
+                    <br>(1) $\vec{b}$ adalah vektor satuan yang tegak lurus $\vec{a}$.
+                    <br>(2) $\vec{b}$ sejajar dengan vektor $\vec{c} = (2, -2, 1)$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Analisis Pertanyaan:</b> Kita perlu mencari nilai dari panjang proyeksi skalar, $L = \frac{|\vec{a} \cdot \vec{b}|}{|\vec{b}|}$.
+                        <ul>
+                            <li><b>Pernyataan (1): $\vec{b}$ adalah vektor satuan yang tegak lurus $\vec{a}$.</b><br>
+                                Vektor satuan berarti $|\vec{b}| = 1$.<br>
+                                Tegak lurus $\vec{a}$ berarti $\vec{a} \cdot \vec{b} = 0$.<br>
+                                $L = \frac{|0|}{1} = 0$. Pernyataan ini memberikan nilai pasti. <b>Cukup.</b>
+                            </li>
+                            <li><b>Pernyataan (2): $\vec{b}$ sejajar dengan vektor $\vec{c} = (2, -2, 1)$.</b><br>
+                                Ini berarti $\vec{b} = m \cdot \vec{c} = (2m, -2m, m)$ untuk suatu skalar $m \neq 0$.<br>
+                                $\vec{a} \cdot \vec{b} = (1)(2m) + (2)(-2m) + (-1)(m) = 2m - 4m - m = -3m$.<br>
+                                $|\vec{b}| = |(2m, -2m, m)| = \sqrt{(2m)^2 + (-2m)^2 + m^2} = \sqrt{4m^2 + 4m^2 + m^2} = \sqrt{9m^2} = 3|m|$.<br>
+                                $L = \frac{|-3m|}{3|m|} = \frac{3|m|}{3|m|} = 1$. Pernyataan ini memberikan nilai pasti. <b>Cukup.</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">13.</div>
+                <div class="soal-konten">
+                    Titik $A(1,1,1)$, $B(2,3,2)$, $C(4, y, z)$. Apakah titik A, B, dan C segaris?
+                    <br>(1) $y = 7$.
+                    <br>(2) Vektor $\vec{AC}$ adalah kelipatan dari vektor $\vec{AB}$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Analisis Pertanyaan:</b> Titik A, B, C segaris jika $\vec{AC} = k \cdot \vec{AB}$ untuk suatu skalar $k$.
+                        $\vec{AB} = B-A = (2-1, 3-1, 2-1) = (1, 2, 1)$.<br>
+                        $\vec{AC} = C-A = (4-1, y-1, z-1) = (3, y-1, z-1)$.<br>
+                        Agar segaris, harus berlaku $(3, y-1, z-1) = k(1, 2, 1)$.<br>
+                        Dari komponen $x$: $3 = k \cdot 1 \implies k=3$.<br>
+                        Maka, kita harus cek apakah $y-1 = k \cdot 2 = 3 \cdot 2 = 6 \implies y=7$.<br>
+                        Dan apakah $z-1 = k \cdot 1 = 3 \cdot 1 = 3 \implies z=4$.
+                        Pertanyaannya adalah: "Apakah $y=7$ DAN $z=4$?"
+                        <ul>
+                            <li><b>Pernyataan (1): $y = 7$.</b><br>
+                                Ini memenuhi satu syarat, tapi kita tidak tahu nilai $z$. Jika $z=4$, jawabannya "Ya". Jika $z=5$, jawabannya "Tidak". <b>Tidak Cukup.</b>
+                            </li>
+                            <li><b>Pernyataan (2): Vektor $\vec{AC}$ adalah kelipatan dari vektor $\vec{AB}$.</b><br>
+                                This is the definition of collinearity (segaris). Pernyataan ini secara langsung menjawab "Ya". <b>Cukup.</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Halaman 5 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">14.</div>
+                <div class="soal-konten">
+                    Diberikan vektor $\vec{a}$ dan $\vec{b}$. Apakah $\vec{a}$ dan $\vec{b}$ membentuk sudut tumpul?
+                    <br>(1) $|\vec{a}+\vec{b}| < |\vec{a}-\vec{b}|$.
+                    <br>(2) Proyeksi skalar $\vec{a}$ pada $\vec{b}$ bernilai negatif.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Analisis Pertanyaan:</b> Sudut tumpul ($\theta$) berarti $90^\circ < \theta \le 180^\circ$. Ini ekuivalen dengan $\cos \theta < 0$, yang juga berarti $\vec{a} \cdot \vec{b} < 0$ (karena $|\vec{a}|$ dan $|\vec{b}|$ positif).
+                        Pertanyaannya adalah: "Apakah $\vec{a} \cdot \vec{b} < 0$?"
+                        <ul>
+                            <li><b>Pernyataan (1): $|\vec{a}+\vec{b}| < |\vec{a}-\vec{b}|$.</b><br>
+                                Kita kuadratkan kedua sisi (keduanya positif):<br>
+                                $|\vec{a}+\vec{b}|^2 < |\vec{a}-\vec{b}|^2$<br>
+                                $|\vec{a}|^2 + |\vec{b}|^2 + 2(\vec{a} \cdot \vec{b}) < |\vec{a}|^2 + |\vec{b}|^2 - 2(\vec{a} \cdot \vec{b})$<br>
+                                $2(\vec{a} \cdot \vec{b}) < -2(\vec{a} \cdot \vec{b})$<br>
+                                $4(\vec{a} \cdot \vec{b}) < 0 \implies \vec{a} \cdot \vec{b} < 0$.<br>
+                                Ini menjawab "Ya". <b>Cukup.</b>
+                            </li>
+                            <li><b>Pernyataan (2): Proyeksi skalar $\vec{a}$ pada $\vec{b}$ bernilai negatif.</b><br>
+                                Rumus proyeksi skalar adalah $L = \frac{\vec{a} \cdot \vec{b}}{|\vec{b}|}$.<br>
+                                Diberikan $L < 0$. Karena $|\vec{b}|$ (panjang vektor) adalah positif, maka $\vec{a} \cdot \vec{b}$ haruslah negatif agar hasilnya negatif.<br>
+                                $\vec{a} \cdot \vec{b} < 0$. Ini menjawab "Ya". <b>Cukup.</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">15.</div>
+                <div class="soal-konten">
+                    Vektor $\vec{u}$ dan $\vec{v}$ adalah vektor tak nol di $\mathbb{R}^3$. Apakah $\vec{u}$ sejajar dengan $\vec{v}$?
+                    <br>(1) $|\vec{u} \cdot \vec{v}| = |\vec{u}| |\vec{v}|$.
+                    <br>(2) $\vec{u} \times \vec{v} = \vec{0}$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Analisis Pertanyaan:</b> Vektor $\vec{u}$ dan $\vec{v}$ sejajar jika sudut $\theta$ di antara keduanya adalah $0^\circ$ atau $180^\circ$.
+                        <ul>
+                            <li><b>Pernyataan (1): $|\vec{u} \cdot \vec{v}| = |\vec{u}| |\vec{v}|$.</b><br>
+                                Kita tahu $\vec{u} \cdot \vec{v} = |\vec{u}| |\vec{v}| \cos \theta$.<br>
+                                Substitusikan: $|| \vec{u}| |\vec{v}| \cos \theta | = |\vec{u}| |\vec{v}|$.<br>
+                                Karena $|\vec{u}|$ dan $|\vec{v}|$ positif: $|\vec{u}| |\vec{v}| |\cos \theta| = |\vec{u}| |\vec{v}|$.<br>
+                                $|\cos \theta| = 1$. Ini terjadi jika $\cos \theta = 1$ ($\theta=0^\circ$) atau $\cos \theta = -1$ ($\theta=180^\circ$). Keduanya berarti sejajar. Ini menjawab "Ya". <b>Cukup.</b>
+                            </li>
+                            <li><b>Pernyataan (2): $\vec{u} \times \vec{v} = \vec{0}$.</b><br>
+                                Panjang dari cross product adalah $|\vec{u} \times \vec{v}| = |\vec{u}| |\vec{v}| \sin \theta$.<br>
+                                Jika $\vec{u} \times \vec{v} = \vec{0}$ (vektor nol), maka panjangnya juga 0.<br>
+                                $|\vec{u}| |\vec{v}| \sin \theta = 0$.<br>
+                                Karena $\vec{u}$ dan $\vec{v}$ tak nol, maka $\sin \theta = 0$. Ini terjadi jika $\theta=0^\circ$ atau $\theta=180^\circ$. Keduanya berarti sejajar. Ini menjawab "Ya". <b>Cukup.</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Tipe 2: Pilihan Ganda Kompleks</h2>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">16.</div>
+                <div class="soal-konten">
+                    Diketahui vektor $\vec{p} = \vec{i} - 2\vec{j} + 2\vec{k}$ dan $\vec{q} = 3\vec{i} + \vec{j} - \vec{k}$. Manakah pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q16a"><label for="q16a">Panjang vektor $\vec{p}$ adalah 3.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16b"><label for="q16b">Vektor satuan dari $\vec{p}$ adalah $\frac{1}{3}\vec{i} - \frac{2}{3}\vec{j} + \frac{2}{3}\vec{k}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16c"><label for="q16c">Hasil $\vec{p} \cdot \vec{q}$ adalah $-1$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16d"><label for="q16d">Vektor $\vec{p} + \vec{q} = 4\vec{i} - \vec{j} + \vec{k}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16e"><label for="q16e">Vektor $\vec{p}$ dan $\vec{q}$ membentuk sudut tumpul.</label></div>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> $|\vec{p}| = \sqrt{1^2 + (-2)^2 + 2^2} = \sqrt{1+4+4} = \sqrt{9} = 3$. <b>(Benar)</b></li>
+                            <li><b>B:</b> Vektor satuan $\hat{p} = \frac{\vec{p}}{|\vec{p}|} = \frac{(1, -2, 2)}{3} = (\frac{1}{3}, -\frac{2}{3}, \frac{2}{3})$. <b>(Benar)</b></li>
+                            <li><b>C:</b> $\vec{p} \cdot \vec{q} = (1)(3) + (-2)(1) + (2)(-1) = 3 - 2 - 2 = -1$. <b>(Benar)</b></li>
+                            <li><b>D:</b> $\vec{p} + \vec{q} = (1+3, -2+1, 2-1) = (4, -1, 1)$. <b>(Benar)</b></li>
+                            <li><b>E:</b> Karena $\vec{p} \cdot \vec{q} = -1$ (negatif), maka $\cos \theta < 0$, yang berarti sudutnya tumpul. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Halaman 6 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">17.</div>
+                <div class="soal-konten">
+                    Vektor posisi titik-titik sudut jajar genjang ABCD adalah $\vec{a}, \vec{b}, \vec{c}, \vec{d}$. Manakah pernyataan yang secara umum benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q17a"><label for="q17a">$\vec{a} + \vec{c} = \vec{b} + \vec{d}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17b"><label for="q17b">$\vec{AB} = \vec{DC}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17c"><label for="q17c">Luas jajar genjang adalah $|\vec{AB} \times \vec{AD}|$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17d"><label for="q17d">Vektor diagonalnya adalah $\vec{c}-\vec{a}$ dan $\vec{d}-\vec{b}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17e"><label for="q17e">Titik potong diagonalnya memiliki vektor posisi $\frac{1}{2}(\vec{a}+\vec{c})$.</label></div>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> Sifat jajar genjang: titik tengah diagonal $\vec{AC}$ sama dengan titik tengah diagonal $\vec{BD}$. $\frac{\vec{a}+\vec{c}}{2} = \frac{\vec{b}+\vec{d}}{2} \implies \vec{a}+\vec{c} = \vec{b}+\vec{d}$. <b>(Benar)</b></li>
+                            <li><b>B:</b> Sifat jajar genjang: sisi $\vec{AB}$ sejajar dan sama panjang dengan sisi $\vec{DC}$. $\vec{AB} = \vec{b}-\vec{a}$. $\vec{DC} = \vec{c}-\vec{d}$. $\vec{b}-\vec{a} = \vec{c}-\vec{d} \implies \vec{b}+\vec{d} = \vec{a}+\vec{c}$. Ini ekuivalen dengan A. <b>(Benar)</b></li>
+                            <li><b>C:</b> Luas jajar genjang adalah panjang cross product dari dua vektor sisi yang bertetangga, seperti $\vec{AB}$ dan $\vec{AD}$. <b>(Benar)</b></li>
+                            <li><b>D:</b> Vektor diagonal pertama adalah $\vec{AC} = \vec{c}-\vec{a}$. Vektor diagonal kedua adalah $\vec{BD} = \vec{d}-\vec{b}$. <b>(Benar)</b></li>
+                            <li><b>E:</b> Titik potong diagonal adalah titik tengah, misalnya, dari diagonal $\vec{AC}$. Vektor posisinya adalah $\frac{\vec{a}+\vec{c}}{2}$. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">18.</div>
+                <div class="soal-konten">
+                    Diberikan tiga titik berbeda $A, B, C$. Manakah kondisi berikut yang menjamin bahwa segitiga $ABC$ siku-siku di $A$? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q18a"><label for="q18a">$\vec{AB} \cdot \vec{AC} = 0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18b"><label for="q18b">$|\vec{BC}|^2 = |\vec{AB}|^2 + |\vec{AC}|^2$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18c"><label for="q18c">Vektor proyeksi $\vec{AB}$ pada $\vec{AC}$ adalah vektor nol.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18d"><label for="q18d">$\vec{BA} \cdot \vec{CA} = 0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18e"><label for="q18e">Sudut antara $\vec{AB}$ dan $\vec{AC}$ adalah $90^\circ$.</label></div>
+                    <div class="pembahasan">
+                        Siku-siku di A berarti vektor yang "keluar" dari A, yaitu $\vec{AB}$ dan $\vec{AC}$, saling tegak lurus.
+                        <ul>
+                            <li><b>A:</b> $\vec{AB} \cdot \vec{AC} = 0$. Ini adalah definisi dari $\vec{AB} \perp \vec{AC}$. <b>(Benar)</b></li>
+                            <li><b>B:</b> $|\vec{BC}|^2 = |\vec{AB}|^2 + |\vec{AC}|^2$. Ini adalah Teorema Pythagoras, di mana $\vec{BC}$ adalah hipotenusa. Ini mengimplikasikan sudut di A adalah $90^\circ$. <b>(Benar)</b></li>
+                            <li><b>C:</b> Rumus proyeksi vektor $\vec{AB}$ pada $\vec{AC}$ adalah $\frac{\vec{AB} \cdot \vec{AC}}{|\vec{AC}|^2} \vec{AC}$. Hasil ini adalah $\vec{0}$ jika dan hanya jika $\vec{AB} \cdot \vec{AC} = 0$. Ekuivalen dengan A. <b>(Benar)</b></li>
+                            <li><b>D:</b> $\vec{BA} = -\vec{AB}$ dan $\vec{CA} = -\vec{AC}$. Maka $\vec{BA} \cdot \vec{CA} = (-\vec{AB}) \cdot (-\vec{AC}) = \vec{AB} \cdot \vec{AC} = 0$. Ekuivalen dengan A. <b>(Benar)</b></li>
+                            <li><b>E:</b> Ini adalah definisi verbal dari siku-siku di A. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">19.</div>
+                <div class="soal-konten">
+                    Diketahui $\vec{u} = (2, -1, 1)$ dan $\vec{v} = (1, 1, 2)$. Jika $\vec{w} = \vec{u} \times \vec{v}$, maka... <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q19a"><label for="q19a">$\vec{w} = (-3, -3, 3)$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19b"><label for="q19b">$\vec{w}$ tegak lurus dengan bidang yang memuat $\vec{u}$ dan $\vec{v}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19c"><label for="q19c">$|\vec{w}|$ merepresentasikan luas jajar genjang yang dibentuk oleh $\vec{u}$ dan $\vec{v}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19d"><label for="q19d">$\vec{w} \cdot \vec{u} = 0$ dan $\vec{w} \cdot \vec{v} = 0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19e"><label for="q19e">Panjang $\vec{w}$ adalah $3\sqrt{3}$.</label></div>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> $\vec{w} = \vec{u} \times \vec{v} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ 2 & -1 & 1 \\ 1 & 1 & 2 \end{vmatrix}$<br>
+                                $= \vec{i}((-1)(2) - (1)(1)) - \vec{j}((2)(2) - (1)(1)) + \vec{k}((2)(1) - (-1)(1))$<br>
+                                $= \vec{i}(-2 - 1) - \vec{j}(4 - 1) + \vec{k}(2 + 1) = -3\vec{i} - 3\vec{j} + 3\vec{k} = (-3, -3, 3)$. <b>(Benar)</b></li>
+                            <li><b>B:</b> Sifat fundamental dari cross product adalah hasilnya ($\vec{w}$) tegak lurus pada kedua vektor asalnya ($\vec{u}$ dan $\vec{v}$), dan oleh karena itu tegak lurus pada bidang yang dibentuk oleh $\vec{u}$ dan $\vec{v}$. <b>(Benar)</b></li>
+                            <li><b>C:</b> Sifat geometris dari cross product adalah panjangnya, $|\vec{w}|$, sama dengan luas jajar genjang yang direntang oleh $\vec{u}$ dan $\vec{v}$. <b>(Benar)</b></li>
+                            <li><b>D:</b> Karena $\vec{w}$ tegak lurus $\vec{u}$ dan $\vec{v}$ (dari B), maka dot product-nya dengan $\vec{u}$ dan $\vec{v}$ harus nol. <b>(Benar)</b></li>
+                            <li><b>E:</b> $|\vec{w}| = |(-3, -3, 3)| = \sqrt{(-3)^2 + (-3)^2 + 3^2} = \sqrt{9+9+9} = \sqrt{27} = \sqrt{9 \times 3} = 3\sqrt{3}$. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Halaman 7 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">20.</div>
+                <div class="soal-konten">
+                    Vektor-vektor posisi dari titik P, Q, R pada kubus ABCD.EFGH dengan rusuk $a$ dan A di titik asal adalah $\vec{p}=\vec{AP}$, $\vec{q}=\vec{AQ}$, dan $\vec{r}=\vec{AR}$ dimana P, Q, R adalah titik tengah rusuk AE, BF, dan CG. Manakah pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q20a"><label for="q20a">Titik P, Q, R, dan S (titik tengah DH) koplanar.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20b"><label for="q20b">Vektor $\vec{PQ}$ sejajar dengan vektor $\vec{AB}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20c"><label for="q20c">Luas segitiga PQR adalah $\frac{1}{2} a^2$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20d"><label for="q20d">Vektor $\vec{PR}$ adalah $(a, a, 0)$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20e"><label for="q20e">$\vec{PQ}$ tegak lurus $\vec{QR}$.</label></div>
+                    <div class="pembahasan">
+                        Asumsikan A=(0,0,0), B=(a,0,0), D=(0,a,0), E=(0,0,a). Maka:
+                        F=(a,0,a), C=(a,a,0), G=(a,a,a), H=(0,a,a).<br>
+                        P = titik tengah AE = (0, 0, a/2).<br>
+                        Q = titik tengah BF = (a, 0, a/2).<br>
+                        R = titik tengah CG = (a, a, a/2).<br>
+                        S = titik tengah DH = (0, a, a/2).
+                        <ul>
+                            <li><b>A:</b> Semua titik P, Q, R, S memiliki koordinat $z = a/2$. Mereka semua terletak pada bidang $z = a/2$, sehingga mereka koplanar. <b>(Benar)</b></li>
+                            <li><b>B:</b> $\vec{PQ} = Q - P = (a-0, 0-0, a/2-a/2) = (a, 0, 0)$. Vektor $\vec{AB} = B - A = (a, 0, 0)$. Keduanya identik, jadi sejajar. <b>(Benar)</b></li>
+                            <li><b>C:</b> Luas segitiga PQR = $\frac{1}{2} |\vec{PQ} \times \vec{PR}|$.
+                                $\vec{PQ} = (a, 0, 0)$.
+                                $\vec{PR} = R - P = (a-0, a-0, a/2-a/2) = (a, a, 0)$.
+                                $\vec{PQ} \times \vec{PR} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ a & 0 & 0 \\ a & a & 0 \end{vmatrix} = \vec{k}(a \cdot a - 0 \cdot a) = a^2\vec{k}$.
+                                Luas = $\frac{1}{2} |a^2\vec{k}| = \frac{1}{2} a^2$. <b>(Benar)</b></li>
+                            <li><b>D:</b> $\vec{PR} = R - P = (a, a, 0)$. <b>(Benar)</b></li>
+                            <li><b>E:</b> $\vec{PQ} = (a, 0, 0)$. $\vec{QR} = R - Q = (a-a, a-0, a/2-a/2) = (0, a, 0)$.
+                                $\vec{PQ} \cdot \vec{QR} = (a)(0) + (0)(a) + (0)(0) = 0$. Karena dot product-nya 0, mereka tegak lurus. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">21.</div>
+                <div class="soal-konten">
+                    Jika $\vec{a}$, $\vec{b}$, dan $\vec{c}$ adalah tiga vektor yang koplanar (sebidang) dan tidak ada yang sejajar, manakah pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q21a"><label for="q21a">$\vec{c}$ dapat dinyatakan sebagai $\vec{c} = m\vec{a} + n\vec{b}$ untuk suatu skalar $m, n$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21b"><label for="q21b">$\vec{a} \cdot (\vec{b} \times \vec{c}) = 0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21c"><label for="q21c">Vektor $\vec{b} \times \vec{c}$ tegak lurus dengan $\vec{a}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21d"><label for="q21d">Ketiga vektor tersebut saling bergantung linear.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21e"><label for="q21e">Volume paralelepipedum yang dibentuk oleh ketiga vektor adalah nol.</label></div>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> Karena $\vec{a}$ dan $\vec{b}$ tidak sejajar, mereka membentuk basis untuk bidang tersebut. Setiap vektor lain ($\vec{c}$) di bidang yang sama dapat dinyatakan sebagai kombinasi linear dari $\vec{a}$ dan $\vec{b}$. <b>(Benar)</b></li>
+                            <li><b>B:</b> $\vec{b} \times \vec{c}$ menghasilkan vektor $\vec{n}$ yang tegak lurus pada bidang yang memuat $\vec{b}$ dan $\vec{c}$. Karena $\vec{a}$ koplanar (ada di bidang yang sama), $\vec{a}$ pasti tegak lurus dengan $\vec{n}$. Dot product dua vektor tegak lurus adalah 0. Jadi $\vec{a} \cdot \vec{n} = \vec{a} \cdot (\vec{b} \times \vec{c}) = 0$. <b>(Benar)</b></li>
+                            <li><b>C:</b> Seperti dijelaskan di B, $\vec{b} \times \vec{c}$ adalah vektor normal bidang, yang tegak lurus pada semua vektor di bidang itu, termasuk $\vec{a}$. <b>(Benar)</b></li>
+                            <li><b>D:</b> Karena $\vec{c} = m\vec{a} + n\vec{b}$ (dari A), ini adalah definisi dari himpunan vektor yang bergantung linear (salah satu vektor adalah kombinasi linear dari yang lain). <b>(Benar)</b></li>
+                            <li><b>E:</b> Volume paralelepipedum diberikan oleh nilai absolut dari scalar triple product, $|\vec{a} \cdot (\vec{b} \times \vec{c})|$. Dari B, kita tahu $\vec{a} \cdot (\vec{b} \times \vec{c}) = 0$. Volumenya 0 (bangunnya "gepeng"). <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Halaman 8 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">22.</div>
+                <div class="soal-konten">
+                    Jika $|\vec{a}|=3$, $|\vec{b}|=5$, dan sudut antara $\vec{a}$ dan $\vec{b}$ adalah $60^\circ$, maka pernyataan berikut yang benar adalah... <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q22a"><label for="q22a">$\vec{a} \cdot \vec{b} = 7.5$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22b"><label for="q22b">$|\vec{a}+\vec{b}| = 7$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22c"><label for="q22c">$|\vec{a}-\vec{b}| = \sqrt{19}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22d"><label for="q22d">Proyeksi skalar $\vec{a}$ pada $\vec{b}$ adalah 1.5.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22e"><label for="q22e">Luas segitiga yang dibentuk oleh $\vec{a}$ dan $\vec{b}$ adalah $\frac{15\sqrt{3}}{4}$.</label></div>
+                    <div class="pembahasan">
+                        Diketahui: $|\vec{a}|=3$, $|\vec{b}|=5$, $\theta=60^\circ$. $\cos 60^\circ = 1/2$, $\sin 60^\circ = \sqrt{3}/2$.
+                        <ul>
+                            <li><b>A:</b> $\vec{a} \cdot \vec{b} = |\vec{a}| |\vec{b}| \cos \theta = (3)(5)(1/2) = 7.5$. <b>(Benar)</b></li>
+                            <li><b>B:</b> $|\vec{a}+\vec{b}|^2 = |\vec{a}|^2 + |\vec{b}|^2 + 2(\vec{a} \cdot \vec{b}) = 3^2 + 5^2 + 2(7.5) = 9 + 25 + 15 = 49$. Maka $|\vec{a}+\vec{b}| = \sqrt{49} = 7$. <b>(Benar)</b></li>
+                            <li><b>C:</b> $|\vec{a}-\vec{b}|^2 = |\vec{a}|^2 + |\vec{b}|^2 - 2(\vec{a} \cdot \vec{b}) = 9 + 25 - 15 = 19$. Maka $|\vec{a}-\vec{b}| = \sqrt{19}$. <b>(Benar)</b></li>
+                            <li><b>D:</b> Proyeksi skalar $\vec{a}$ pada $\vec{b}$ = $\frac{\vec{a} \cdot \vec{b}}{|\vec{b}|} = \frac{7.5}{5} = 1.5$. <b>(Benar)</b></li>
+                            <li><b>E:</b> Luas segitiga = $\frac{1}{2} |\vec{a} \times \vec{b}| = \frac{1}{2} (|\vec{a}| |\vec{b}| \sin \theta) = \frac{1}{2} (3 \cdot 5 \cdot \frac{\sqrt{3}}{2}) = \frac{15\sqrt{3}}{4}$. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">23.</div>
+                <div class="soal-konten">
+                    Diketahui vektor $\vec{u}$ dan $\vec{v}$. Manakah dari operasi berikut yang hasilnya adalah sebuah skalar (bilangan real)? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q23a"><label for="q23a">$\vec{u} \cdot \vec{v}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23b"><label for="q23b">$|\vec{u} \times \vec{v}|$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23c"><label for="q23c">$(\vec{u} + \vec{v}) \cdot (\vec{u} - \vec{v})$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23d"><label for="q23d">Panjang proyeksi $\vec{u}$ pada $\vec{v}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23e"><label for="q23e">$3\vec{u} \cdot (2\vec{v})$.</label></div>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> $\vec{u} \cdot \vec{v}$ (Dot product) selalu menghasilkan skalar. <b>(Benar)</b></li>
+                            <li><b>B:</b> $\vec{u} \times \vec{v}$ (Cross product) menghasilkan *vektor*. Tapi $|\vec{u} \times \vec{v}|$ adalah *panjang* (magnitude) dari vektor tersebut, yang merupakan skalar. <b>(Benar)</b></li>
+                            <li><b>C:</b> $(\vec{u} + \vec{v})$ adalah vektor. $(\vec{u} - \vec{v})$ adalah vektor. Dot product dari dua vektor adalah skalar. <b>(Benar)</b></li>
+                            <li><b>D:</b> "Panjang proyeksi" (proyeksi skalar) adalah skalar. (Berbeda dengan "vektor proyeksi" yang hasilnya vektor). <b>(Benar)</b></li>
+                            <li><b>E:</b> $3\vec{u}$ adalah vektor. $2\vec{v}$ adalah vektor. Dot product dari keduanya, $6(\vec{u} \cdot \vec{v})$, adalah skalar. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">24.</div>
+                <div class="soal-konten">
+                    Vektor $\vec{a}$ dan $\vec{b}$ adalah vektor-vektor tak nol. Jika $|\vec{a}+\vec{b}| = |\vec{a}| + |\vec{b}|$, maka... <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q24a"><label for="q24a">Vektor $\vec{a}$ dan $\vec{b}$ searah.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24b"><label for="q24b">Sudut antara $\vec{a}$ dan $\vec{b}$ adalah $0^\circ$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24c"><label for="q24c">$\vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24d"><label for="q24d">$\vec{a} = k\vec{b}$ untuk suatu skalar $k>0$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24e"><label for="q24e">$|\vec{a} \times \vec{b}|=0$.</label></div>
+                    <div class="pembahasan">
+                        Kondisi $|\vec{a}+\vec{b}| = |\vec{a}| + |\vec{b}|$ adalah kasus kesetaraan dalam Ketaksamaan Segitiga. Ini hanya terjadi jika kedua vektor $\vec{a}$ dan $\vec{b}$ menunjuk ke arah yang sama persis.
+                        Mari kita buktikan dengan mengkuadratkan:
+                        $|\vec{a}+\vec{b}|^2 = (|\vec{a}| + |\vec{b}|)^2$<br>
+                        $|\vec{a}|^2 + |\vec{b}|^2 + 2(\vec{a} \cdot \vec{b}) = |\vec{a}|^2 + |\vec{b}|^2 + 2|\vec{a}||\vec{b}|$<br>
+                        $2(\vec{a} \cdot \vec{b}) = 2|\vec{a}||\vec{b}| \implies \vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|$.<br>
+                        Karena $\vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos\theta$, maka $\cos\theta = 1$, yang berarti $\theta = 0^\circ$.
+                        <ul>
+                            <li><b>A:</b> $\theta = 0^\circ$ berarti searah. <b>(Benar)</b></li>
+                            <li><b>B:</b> $\theta = 0^\circ$. <b>(Benar)</b></li>
+                            <li><b>C:</b> $\vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|$. Ini adalah hasil dari analisis kita. <b>(Benar)</b></li>
+                            <li><b>D:</b> $\vec{a} = k\vec{b}$ dengan $k>0$ adalah definisi dari dua vektor yang searah. <b>(Benar)</b></li>
+                            <li><b>E:</b> $|\vec{a} \times \vec{b}| = |\vec{a}||\vec{b}| \sin\theta = |\vec{a}||\vec{b}| \sin(0^\circ) = 0$. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Halaman 9 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">25.</div>
+                <div class="soal-konten">
+                    Diberikan titik $A(1,2,3)$, $B(2,4,1)$, dan $C(3,1,2)$. Pernyataan yang benar adalah... <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <div class="checkbox-option"><input type="checkbox" id="q25a"><label for="q25a">Vektor $\vec{AB} = (1, 2, -2)$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25b"><label for="q25b">$\vec{AB}$ dan $\vec{BC}$ membentuk sudut tumpul.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25c"><label for="q25c">Jarak antara titik A dan B adalah 3.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25d"><label for="q25d">Titik D sehingga ABCD jajar genjang adalah $(2, -1, 4)$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25e"><label for="q25e">Luas segitiga ABC adalah $\frac{5\sqrt{2}}{2}$.</label></div>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> $\vec{AB} = B - A = (2-1, 4-2, 1-3) = (1, 2, -2)$. <b>(Benar)</b></li>
+                            <li><b>B:</b> $\vec{BC} = C - B = (3-2, 1-4, 2-1) = (1, -3, 1)$.
+                                $\vec{AB} \cdot \vec{BC} = (1)(1) + (2)(-3) + (-2)(1) = 1 - 6 - 2 = -7$.
+                                Karena dot product-nya negatif, sudutnya tumpul. <b>(Benar)</b></li>
+                            <li><b>C:</b> Jarak AB = $|\vec{AB}| = |(1, 2, -2)| = \sqrt{1^2 + 2^2 + (-2)^2} = \sqrt{1+4+4} = \sqrt{9} = 3$. <b>(Benar)</b></li>
+                            <li><b>D:</b> Untuk jajar genjang ABCD, $\vec{AB} = \vec{DC} \implies \vec{b}-\vec{a} = \vec{c}-\vec{d}$.
+                                $\vec{d} = \vec{c} - \vec{b} + \vec{a} = (3,1,2) - (2,4,1) + (1,2,3) = (3-2+1, 1-4+2, 2-1+3) = (2, -1, 4)$. <b>(Benar)</b></li>
+                            <li><b>E:</b> Luas segitiga ABC = $\frac{1}{2} |\vec{AB} \times \vec{AC}|$.
+                                $\vec{AC} = C - A = (3-1, 1-2, 2-3) = (2, -1, -1)$.
+                                $\vec{AB} \times \vec{AC} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ 1 & 2 & -2 \\ 2 & -1 & -1 \end{vmatrix}$<br>
+                                $= \vec{i}(-2 - 2) - \vec{j}(-1 - (-4)) + \vec{k}(-1 - 4) = (-4, -3, -5)$.
+                                Luas = $\frac{1}{2} |(-4, -3, -5)| = \frac{1}{2} \sqrt{(-4)^2 + (-3)^2 + (-5)^2} = \frac{1}{2} \sqrt{16+9+25} = \frac{1}{2} \sqrt{50} = \frac{5\sqrt{2}}{2}$. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Tipe 3: Pilihan Ganda Kompleks (Kategori)</h2>
+            <div class="soal-latihan">
+                <div class="soal-nomor"></div>
+                <div class="soal-konten">
+                    <b>Gunakan informasi berikut untuk menjawab soal nomor 26-27.</b><br>
+                    Sebuah drone lepas landas dari titik asal O. Posisi drone pada waktu $t$ (dalam detik) diberikan oleh vektor posisi $\vec{r}(t) = (10t)\vec{i} + (40t-5t^2)\vec{j}$.
+                </div>
+            </div>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">26.</div>
+                <div class="soal-konten">
+                    Tentukan kebenaran pernyataan mengenai vektor kecepatan $\vec{v}(t)$ dan percepatan $\vec{a}(t)$ drone.
+                    <table class="kategori-table">
+                        <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                        <tbody>
+                            <tr><td>A. Vektor kecepatan drone pada $t=2$ adalah $\vec{v}(2)=(10, 20)$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Vektor percepatan drone konstan, yaitu $\vec{a}(t) = (0, -10)$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Drone mencapai ketinggian maksimum pada $t=4$ detik.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Kelajuan drone pada $t=0$ adalah 40 m/s.</td><td></td><td>&#10004;</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        $\vec{r}(t) = (10t, 40t-5t^2)$.<br>
+                        Vektor kecepatan $\vec{v}(t) = \vec{r}'(t) = \frac{d}{dt} (10t, 40t-5t^2) = (10, 40-10t)$.<br>
+                        Vektor percepatan $\vec{a}(t) = \vec{v}'(t) = \frac{d}{dt} (10, 40-10t) = (0, -10)$.
+                        <ul>
+                            <li><b>A:</b> $\vec{v}(2) = (10, 40-10(2)) = (10, 40-20) = (10, 20)$. <b>(Benar)</b></li>
+                            <li><b>B:</b> $\vec{a}(t) = (0, -10)$, yang merupakan vektor konstan. <b>(Benar)</b></li>
+                            <li><b>C:</b> Ketinggian maksimum (komponen y) dicapai saat $v_y = 0$. $40-10t = 0 \implies 10t = 40 \implies t=4$ s. <b>(Benar)</b></li>
+                            <li><b>D:</b> Kelajuan adalah panjang vektor kecepatan, $|\vec{v}(t)|$.
+                                $\vec{v}(0) = (10, 40-10(0)) = (10, 40)$.
+                                Kelajuan pada $t=0$ adalah $|\vec{v}(0)| = \sqrt{10^2 + 40^2} = \sqrt{100 + 1600} = \sqrt{1700} \neq 40$. <b>(Salah)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Halaman 10 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">27.</div>
+                <div class="soal-konten">
+                    Tentukan kebenaran pernyataan mengenai posisi dan perpindahan drone. (Info dari soal 26)
+                    <table class="kategori-table">
+                        <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                        <tbody>
+                            <tr><td>A. Ketinggian maksimum yang dicapai drone adalah 80 meter.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Drone kembali ke ketinggian awal ($y=0$) pada $t=8$ detik.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Jarak horizontal drone dari titik asal saat mendarat adalah 80 meter.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Vektor perpindahan dari $t=1$ ke $t=3$ adalah $(20, 40)$.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        $\vec{r}(t) = (10t, 40t-5t^2)$.
+                        <ul>
+                            <li><b>A:</b> Ketinggian max terjadi pada $t=4$ (dari soal 26).
+                                $y(4) = 40(4) - 5(4^2) = 160 - 5(16) = 160 - 80 = 80$ m. <b>(Benar)</b></li>
+                            <li><b>B:</b> Ketinggian awal ($y=0$) terjadi saat $y(t) = 0$.
+                                $40t - 5t^2 = 0 \implies 5t(8 - t) = 0$.
+                                Solusinya $t=0$ (lepas landas) dan $t=8$ (mendarat). <b>(Benar)</b></li>
+                            <li><b>C:</b> Drone mendarat pada $t=8$. Jarak horizontal adalah $x(t)$.
+                                $x(8) = 10(8) = 80$ m. <b>(Benar)</b></li>
+                            <li><b>D:</b> Vektor perpindahan = $\vec{r}(3) - \vec{r}(1)$.
+                                $\vec{r}(3) = (10(3), 40(3)-5(3^2)) = (30, 120-45) = (30, 75)$.
+                                $\vec{r}(1) = (10(1), 40(1)-5(1^2)) = (10, 40-5) = (10, 35)$.
+                                Perpindahan = $(30-10, 75-35) = (20, 40)$. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor"></div>
+                <div class="soal-konten">
+                    <b>Gunakan informasi berikut untuk menjawab soal nomor 28-30.</b><br>
+                    Sebuah partikel bergerak dari titik $P(1, 4, 3)$ ke titik $Q(2, 2, 1)$ karena tiga gaya konstan $\vec{F_1}=(3, -1, 2)$, $\vec{F_2}=(1, 3, -1)$, dan $\vec{F_3}=(-2, 1, -2)$. Semua satuan dalam SI.
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">28.</div>
+                <div class="soal-konten">
+                    Tentukan kebenaran pernyataan mengenai perpindahan dan resultan gaya.
+                    <table class="kategori-table">
+                        <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                        <tbody>
+                            <tr><td>A. Vektor perpindahan partikel, $\vec{d}$, adalah $(1, -2, -2)$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Jarak perpindahan partikel adalah 3 meter.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Resultan gaya yang bekerja pada partikel adalah $\vec{F}_{total} = (2, 3, -1)$.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Besar resultan gaya adalah $\sqrt{14}$ Newton.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <ul>
+                            <li><b>A:</b> Vektor perpindahan $\vec{d} = Q - P = (2-1, 2-4, 1-3) = (1, -2, -2)$. <b>(Benar)</b></li>
+                            <li><b>B:</b> Jarak = panjang $\vec{d} = |\vec{d}| = \sqrt{1^2 + (-2)^2 + (-2)^2} = \sqrt{1+4+4} = \sqrt{9} = 3$ m. <b>(Benar)</b></li>
+                            <li><b>C:</b> Resultan gaya $\vec{F}_{total} = \vec{F_1} + \vec{F_2} + \vec{F_3} = (3+1-2, -1+3+1, 2-1-2) = (2, 3, -1)$. <b>(Benar)</b></li>
+                            <li><b>D:</b> Besar resultan gaya = $|\vec{F}_{total}| = \sqrt{2^2 + 3^2 + (-1)^2} = \sqrt{4+9+1} = \sqrt{14}$ N. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Halaman 11 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="soal-latihan">
+                <div class="soal-nomor">29.</div>
+                <div class="soal-konten">
+                    Tentukan kebenaran pernyataan mengenai usaha (Work) yang dilakukan oleh masing-masing gaya. (Info dari soal 28)
+                    <table class="kategori-table">
+                        <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                        <tbody>
+                            <tr><td>A. Usaha yang dilakukan oleh gaya $\vec{F_1}$ adalah 1 Joule.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Usaha yang dilakukan oleh gaya $\vec{F_2}$ adalah -3 Joule.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Usaha yang dilakukan oleh gaya $\vec{F_3}$ adalah 0 Joule.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Usaha total yang dilakukan oleh ketiga gaya adalah -2 Joule.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        Usaha $W = \vec{F} \cdot \vec{d}$, dengan $\vec{d} = (1, -2, -2)$.
+                        <ul>
+                            <li><b>A:</b> $W_1 = \vec{F_1} \cdot \vec{d} = (3, -1, 2) \cdot (1, -2, -2) = (3)(1) + (-1)(-2) + (2)(-2) = 3 + 2 - 4 = 1$ J. <b>(Benar)</b></li>
+                            <li><b>B:</b> $W_2 = \vec{F_2} \cdot \vec{d} = (1, 3, -1) \cdot (1, -2, -2) = (1)(1) + (3)(-2) + (-1)(-2) = 1 - 6 + 2 = -3$ J. <b>(Benar)</b></li>
+                            <li><b>C:</b> $W_3 = \vec{F_3} \cdot \vec{d} = (-2, 1, -2) \cdot (1, -2, -2) = (-2)(1) + (1)(-2) + (-2)(-2) = -2 - 2 + 4 = 0$ J. <b>(Benar)</b></li>
+                            <li><b>D:</b> Usaha total $W_{total} = W_1 + W_2 + W_3 = 1 + (-3) + 0 = -2$ J.
+                                (Atau $W_{total} = \vec{F}_{total} \cdot \vec{d} = (2, 3, -1) \cdot (1, -2, -2) = 2 - 6 + 2 = -2$ J). <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">30.</div>
+                <div class="soal-konten">
+                    Tentukan kebenaran pernyataan mengenai hubungan antara gaya dan perpindahan. (Info dari soal 28)
+                    <table class="kategori-table">
+                        <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                        <tbody>
+                            <tr><td>A. Gaya $\vec{F_1}$ membentuk sudut lancip dengan arah perpindahan.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Gaya $\vec{F_2}$ membentuk sudut tumpul dengan arah perpindahan.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Gaya $\vec{F_3}$ tegak lurus dengan arah perpindahan.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>D. Gaya resultan $\vec{F}_{total}$ membentuk sudut tumpul dengan arah perpindahan.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        Tanda dari usaha ($W = \vec{F} \cdot \vec{d}$) menentukan jenis sudut:
+                        <ul>
+                            <li>$W > 0 \implies$ Sudut Lancip ($< 90^\circ$)</li>
+                            <li>$W < 0 \implies$ Sudut Tumpul ($> 90^\circ$)</li>
+                            <li>$W = 0 \implies$ Sudut Siku-siku ($= 90^\circ$)</li>
+                        </ul>
+                        Dari soal 29, kita tahu:
+                        <ul>
+                            <li><b>A:</b> $W_1 = 1$ (Positif). Maka sudutnya lancip. <b>(Benar)</b></li>
+                            <li><b>B:</b> $W_2 = -3$ (Negatif). Maka sudutnya tumpul. <b>(Benar)</b></li>
+                            <li><b>C:</b> $W_3 = 0$. Maka sudutnya siku-siku (tegak lurus). <b>(Benar)</b></li>
+                            <li><b>D:</b> $W_{total} = -2$ (Negatif). Maka sudutnya tumpul. <b>(Benar)</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+</body>
+</html>
+
