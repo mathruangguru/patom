@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Latihan & Pembahasan - Barisan dan Deret</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+        }
+                
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            counter-reset: page;
+        }
+        .page-container {
+            /* This container helps in centering the pages */
+        }
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 2.5cm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }                
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 10pt;
+            color: #888;
+        }
+        @media print {
+            body { background: none; }
+            .page { width: 100%; height: 100%; margin: 0; box-shadow: none; page-break-after: always; }
+        }
+        .content-wrapper { position: relative; z-index: 1; width: 100%; }                
+        h1 { font-size: 22pt; text-align: center; border-bottom: 2px solid var(--primary-text); padding-bottom: 10px; margin-bottom: 25px; font-weight: 700; }                
+        
+        h2 {
+            font-size: 16pt;
+            font-weight: 700;
+            color: #444;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .soal-latihan {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 25px;
+            break-inside: avoid;
+            text-align: justify;
+        }
+        .soal-nomor {
+            font-weight: bold;
+            flex-shrink: 0;
+            min-width: 30px; /* Diberi ruang lebih untuk bintang */
+        }
+        .soal-konten {
+            flex-grow: 1;
+        }                
+        .pembahasan {             
+             background-color: #f9f9f9;             
+             border: 1px solid var(--border-color);             
+             padding: 15px;             
+             border-radius: 8px;             
+             margin-top: 20px;             
+             text-align: left;
+        }                
+        .pembahasan ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        ol.pilihan-ganda { list-style-type: none; padding-left: 0; margin-top: 10px; text-align: left; }                
+        ol.pilihan-ganda li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }                
+        ol.pilihan-ganda li::before {
+            content: attr(data-option) ". ";
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }                
+        .kategori-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .kategori-table th, .kategori-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+        .kategori-table th {
+            background-color: #f2f2f2;
+        }
+        .kategori-table td:not(:first-child) {
+            text-align: center;
+        }                
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start; /* Ubah ke flex-start agar sejajar */
+            margin-bottom: 8px;
+            padding-left: 5px;
+            text-align: left;
+        }
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 12px;
+            min-width: 16px; /* Sesuaikan ukuran */
+            min-height: 16px; /* Sesuaikan ukuran */
+            margin-top: 3px; /* Sejajarkan dengan baris pertama teks */
+        }
+        .checkbox-option label {
+            display: block;
+            flex-grow: 1;
+        }
+        
+        .instruction-box {
+            background-color: #f0f4f8;
+            border: 1px solid #d0dbe5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 9pt;
+        }
+        .instruction-box ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+        
+        .star-marker {
+            color: #E00; /* Merah */
+            font-size: 1.1em;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <section class="page">
+        <div class="content-wrapper">
+            <h1>Soal Latihan & Pembahasan<br>Barisan dan Deret (Level Analisis)</h1>
+
+            <!-- Tipe 1a -->
+            <h2>Tipe 1a: Pilihan Ganda (Satu Jawaban Benar)</h2>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">1.</div>
+                <div class="soal-konten">
+                    Tiga bilangan $a, b, c$ membentuk barisan geometri dengan jumlah 26. Jika suku tengah ditambah 4, maka terbentuk barisan aritmetika. Jika diasumsikan rasio barisan geometri tersebut lebih besar dari 1, maka nilai $c-a$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">10</li>
+                        <li data-option="B">12</li>
+                        <li data-option="C">14</li>
+                        <li data-option="D">16</li>
+                        <li data-option="E">18</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Barisan Geometri (BG): $U_n = ar^{n-1}$. Tiga suku: $a, ar, ar^2$.
+                        <br>Barisan Aritmetika (BA): $U_n = a + (n-1)d$. Sifat: $2U_2 = U_1 + U_3$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Definisikan barisan geometri.
+                                <br>Suku-suku: $a, b, c \implies a, ar, ar^2$.
+                                <br>Jumlah: $a + ar + ar^2 = 26 \implies a(1+r+r^2) = 26$. (Persamaan 1)
+                            </li>
+                            <li><b>Langkah 2:</b> Definisikan barisan aritmetika.
+                                <br>Suku-suku baru: $a, b+4, c \implies a, ar+4, ar^2$.
+                                <br>Gunakan sifat BA: $2U_2 = U_1 + U_3$.
+                                <br>$2(ar+4) = a + ar^2$
+                                <br>$2ar + 8 = a + ar^2$
+                                <br>$8 = a - 2ar + ar^2$
+                                <br>$8 = a(1 - 2r + r^2) \implies 8 = a(r-1)^2$. (Persamaan 2)
+                            </li>
+                            <li><b>Langkah 3:</b> Selesaikan sistem persamaan.
+                                <br>Dari (2), $a = \frac{8}{(r-1)^2}$. Substitusikan ke (1):
+                                <br>$\frac{8}{(r-1)^2} (1+r+r^2) = 26$
+                                <br>$8(1+r+r^2) = 26(r-1)^2$
+                                <br>$4(1+r+r^2) = 13(r^2 - 2r + 1)$
+                                <br>$4+4r+4r^2 = 13r^2 - 26r + 13$
+                                <br>$0 = 9r^2 - 30r + 9$
+                                <br>Bagi 3: $3r^2 - 10r + 3 = 0$
+                                <br>$(3r - 1)(r - 3) = 0$. Maka $r = 1/3$ atau $r = 3$.
+                            </li>
+                            <li><b>Langkah 4:</b> Pilih rasio yang sesuai.
+                                <br>Soal meminta $r > 1$, maka kita pilih $r=3$.
+                            </li>
+                             <li><b>Langkah 5:</b> Cari nilai $a$ dan $c$.
+                                <br>$a = \frac{8}{(3-1)^2} = \frac{8}{2^2} = \frac{8}{4} = 2$.
+                                <br>$c = ar^2 = 2 \cdot (3^2) = 2 \cdot 9 = 18$.
+                            </li>
+                            <li><b>Langkah 6:</b> Hitung $c-a$.
+                                <br>$c-a = 18 - 2 = 16$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="soal-latihan">
+                <div class="soal-nomor">2. <span class="star-marker" title="Soal Sulit">&#9733;</span></div>
+                <div class="soal-konten">
+                    Suatu barisan geometri tak hingga memiliki jumlah 1. Jika setiap suku pada barisan tersebut dipangkatkan tiga, deret baru yang terbentuk memiliki jumlah $\frac{1}{7}$. Suku pertama dari barisan awal adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\frac{1}{2}$</li>
+                        <li data-option="B">$\frac{2}{3}$</li>
+                        <li data-option="C">$\frac{3}{4}$</li>
+                        <li data-option="D">$\frac{1}{4}$</li>
+                        <li data-option="E">$\frac{1}{3}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Jumlah deret geometri tak hingga: $S_\infty = \frac{a}{1-r}$, dengan syarat $|r| < 1$.
+                        <br>Jika deret awal $a, ar, ar^2, \dots$, maka deret pangkat tiga $a^3, a^3r^3, a^3r^6, \dots$ memiliki suku pertama $a' = a^3$ dan rasio $r' = r^3$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Bentuk persamaan dari deret awal.
+                                <br>$S_1 = \frac{a}{1-r} = 1 \implies a = 1-r$. (Persamaan 1)
+                            </li>
+                            <li><b>Langkah 2:</b> Bentuk persamaan dari deret pangkat tiga.
+                                <br>$S_2 = \frac{a^3}{1-r^3} = \frac{1}{7}$. (Persamaan 2)
+                            </li>
+                            <li><b>Langkah 3:</b> Substitusikan (1) ke (2).
+                                <br>$\frac{(1-r)^3}{1-r^3} = \frac{1}{7}$
+                                <br>Gunakan faktorisasi: $1-r^3 = (1-r)(1+r+r^2)$.
+                                <br>$\frac{(1-r)(1-r)^2}{(1-r)(1+r+r^2)} = \frac{1}{7}$
+                                <br>$\frac{(1-r)^2}{1+r+r^2} = \frac{1}{7}$
+                                <br>$\frac{1-2r+r^2}{1+r+r^2} = \frac{1}{7}$
+                            </li>
+                            <li><b>Langkah 4:</b> Selesaikan persamaan untuk $r$.
+                                <br>$7(1-2r+r^2) = 1(1+r+r^2)$
+                                <br>$7 - 14r + 7r^2 = 1 + r + r^2$
+                                <br>$6r^2 - 15r + 6 = 0$
+                                <br>Bagi 3: $2r^2 - 5r + 2 = 0$
+                                <br>$(2r-1)(r-2) = 0$. Maka $r = 1/2$ atau $r = 2$.
+                            </li>
+                            <li><b>Langkah 5:</b> Pilih rasio yang valid.
+                                <br>Karena deret awal konvergen, syarat $|r| < 1$ harus terpenuhi. Maka, kita pilih $r=1/2$.
+                            </li>
+                             <li><b>Langkah 6:</b> Cari nilai $a$.
+                                <br>Dari (1), $a = 1-r = 1 - 1/2 = 1/2$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">3.</div>
+                <div class="soal-konten">
+                    Diketahui jumlah $n$ suku pertama dari suatu deret aritmetika adalah $S_n = an^2 + bn$. Jika $U_2 = 7$ dan $U_5 = 19$, maka nilai dari $a+b$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">3</li>
+                        <li data-option="B">4</li>
+                        <li data-option="C">5</li>
+                        <li data-option="D">6</li>
+                        <li data-option="E">7</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Pada deret aritmetika, $U_n = S_n - S_{n-1}$.
+                        <br>Jika $S_n$ berbentuk $an^2+bn$, maka beda ($d$) $= 2a$ dan $U_n = 2an + (b-a)$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Cari beda ($d$) dan suku pertama ($a_1$) dari $U_n$.
+                                <br>$U_5 = a_1 + 4d = 19$
+                                <br>$U_2 = a_1 + d = 7$
+                                <br>-------------------- (Kurangkan)
+                                <br>$3d = 12 \implies d = 4$.
+                                <br>Substitusi $d=4$ ke $U_2$: $a_1 + 4 = 7 \implies a_1 = 3$.
+                            </li>
+                            <li><b>Langkah 2:</b> Susun rumus $S_n$ berdasarkan $a_1$ dan $d$.
+                                <br>$S_n = \frac{n}{2} [2a_1 + (n-1)d]$
+                                <br>$S_n = \frac{n}{2} [2(3) + (n-1)4]$
+                                <br>$S_n = \frac{n}{2} [6 + 4n - 4]$
+                                <br>$S_n = \frac{n}{2} [4n + 2]$
+                                <br>$S_n = n(2n + 1) = 2n^2 + n$.
+                            </li>
+                            <li><b>Langkah 3:</b> Bandingkan dengan rumus $S_n$ dari soal.
+                                <br>$S_n = an^2 + bn$ (Soal)
+                                <br>$S_n = 2n^2 + 1n$ (Perhitungan)
+                                <br>Maka, $a = 2$ dan $b = 1$.
+                            </li>
+                             <li><b>Langkah 4:</b> Hitung $a+b$.
+                                <br>$a+b = 2 + 1 = 3$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">4.</div>
+                <div class="soal-konten">
+                    Sebuah persegi $ABCD$ dengan panjang sisi 1 satuan. Di dalamnya dibuat persegi kedua $A'B'C'D'$ dengan titik sudut $A', B', C', D'$ masing-masing berada di tengah sisi $AB, BC, CD, DA$. Proses ini dilanjutkan tak hingga kali. Jumlah luas semua persegi yang terbentuk adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">1.5</li>
+                        <li data-option="B">2</li>
+                        <li data-option="C">2.5</li>
+                        <li data-option="D">3</li>
+                        <li data-option="E">4</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Jumlah deret geometri tak hingga: $S_\infty = \frac{a}{1-r}$.
+                        <br>Teorema Pythagoras: $a^2 + b^2 = c^2$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Hitung Luas persegi pertama ($L_1$).
+                                <br>Sisi $s_1 = 1$.
+                                <br>$L_1 = s_1^2 = 1^2 = 1$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung Luas persegi kedua ($L_2$).
+                                <br>Sisi $s_2$ adalah hipotenusa dari segitiga siku-siku dengan sisi penyiku $\frac{1}{2}s_1 = 0.5$.
+                                <br>$s_2^2 = (0.5)^2 + (0.5)^2 = 0.25 + 0.25 = 0.5$.
+                                <br>$L_2 = s_2^2 = 0.5$.
+                            </li>
+                            <li><b>Langkah 3:</b> Hitung Luas persegi ketiga ($L_3$).
+                                <br>Sisi $s_3$ adalah hipotenusa dari segitiga siku-siku dengan sisi penyiku $\frac{1}{2}s_2$.
+                                <br>$s_3^2 = (\frac{s_2}{2})^2 + (\frac{s_2}{2})^2 = 2 \cdot \frac{s_2^2}{4} = \frac{s_2^2}{2}$.
+                                <br>$L_3 = s_3^2 = \frac{L_2}{2} = \frac{0.5}{2} = 0.25$.
+                            </li>
+                            <li><b>Langkah 4:</b> Identifikasi deret luas.
+                                <br>Deret Luas: $L_1 + L_2 + L_3 + \dots = 1 + 0.5 + 0.25 + \dots$
+                                <br>Ini adalah deret geometri dengan suku pertama $a = 1$ dan rasio $r = \frac{0.5}{1} = 0.5$.
+                            </li>
+                             <li><b>Langkah 5:</b> Hitung jumlah tak hingga.
+                                <br>$S_\infty = \frac{a}{1-r} = \frac{1}{1 - 0.5} = \frac{1}{0.5} = 2$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">5. <span class="star-marker" title="Soal Sulit">&#9733;</span></div>
+                <div class="soal-konten">
+                    Jika tiga suku pertama dari deret geometri adalah $x-1$, $x+1$, dan $3x-1$, maka himpunan semua nilai $x$ yang mungkin agar deret tersebut konvergen adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\{0\}$</li>
+                        <li data-option="B">$\{3\}$</li>
+                        <li data-option="C">$\{0, 3\}$</li>
+                        <li data-option="D">$(-1, 1)$</li>
+                        <li data-option="E">Himpunan kosong</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Sifat BG: Rasio konstan $\implies \frac{U_2}{U_1} = \frac{U_3}{U_2} \implies (U_2)^2 = U_1 \cdot U_3$.
+                        <br>Syarat deret konvergen: $|r| < 1 \implies -1 < r < 1$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Cari nilai $x$ agar membentuk BG.
+                                <br>$(x+1)^2 = (x-1)(3x-1)$
+                                <br>$x^2 + 2x + 1 = 3x^2 - x - 3x + 1$
+                                <br>$x^2 + 2x + 1 = 3x^2 - 4x + 1$
+                                <br>$0 = 2x^2 - 6x$
+                                <br>$0 = 2x(x - 3)$.
+                                <br>Nilai $x$ yang mungkin adalah $x=0$ atau $x=3$.
+                            </li>
+                            <li><b>Langkah 2:</b> Cek syarat konvergensi untuk setiap $x$.
+                                <br>Rasio $r = \frac{U_2}{U_1} = \frac{x+1}{x-1}$.
+                                <br><b>Kasus $x=0$:</b>
+                                <br>Deret: $(0-1), (0+1), (0-1) \implies -1, 1, -1, \dots$
+                                <br>Rasio $r = \frac{1}{-1} = -1$.
+                                <br>Syarat $|r| < 1$ tidak terpenuhi, karena $|-1| = 1$. Deret tidak konvergen.
+                                <br><b>Kasus $x=3$:</b>
+                                <br>Deret: $(3-1), (3+1), (3\cdot 3-1) \implies 2, 4, 8, \dots$
+                                <br>Rasio $r = \frac{4}{2} = 2$.
+                                <br>Syarat $|r| < 1$ tidak terpenuhi. Deret divergen.
+                            </li>
+                            <li><b>Langkah 3:</b> Kesimpulan.
+                                <br>Tidak ada nilai $x$ yang memenuhi kedua kondisi (membentuk BG dan konvergen).
+                            </li>
+                        </ul>
+                        <b>Jawaban: E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">6. <span class="star-marker" title="Soal Sulit">&#9733;</span></div>
+                <div class="soal-konten">
+                    Ali menabung sejumlah uang $M$ dengan bunga majemuk $i$ per tahun. Budi juga menabung uang $M$ dengan bunga tunggal $2i$ per tahun. Tepat setelah tahun kedua, jumlah tabungan Ali sama dengan jumlah tabungan Budi. Nilai $i$ (dalam persen) adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">100%</li>
+                        <li data-option="B">200%</li>
+                        <li data-option="C">50%</li>
+                        <li data-option="D">25%</li>
+                        <li data-option="E">150%</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Bunga Majemuk (setelah $n$ periode): $M_n = M(1+i)^n$.
+                        <br>Bunga Tunggal (setelah $n$ periode): $M_n = M(1 + n \cdot i')$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Hitung tabungan Ali (Bunga Majemuk).
+                                <br>$n=2$, bunga $= i$.
+                                <br>$M_{Ali} = M(1+i)^2 = M(1 + 2i + i^2)$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung tabungan Budi (Bunga Tunggal).
+                                <br>$n=2$, bunga $i' = 2i$.
+                                <br>$M_{Budi} = M(1 + n \cdot i') = M(1 + 2 \cdot (2i)) = M(1 + 4i)$.
+                            </li>
+                            <li><b>Langkah 3:</b> Samakan kedua tabungan.
+                                <br>$M_{Ali} = M_{Budi}$
+                                <br>$M(1 + 2i + i^2) = M(1 + 4i)$
+                                <br>$1 + 2i + i^2 = 1 + 4i$
+                                <br>$i^2 - 2i = 0$
+                                <br>$i(i - 2) = 0$.
+                            </li>
+                            <li><b>Langkah 4:</b> Tentukan nilai $i$.
+                                <br>Kemungkinannya $i=0$ (tidak ada bunga) atau $i=2$.
+                                <br>Karena ada bunga, kita ambil $i=2$.
+                            </li>
+                            <li><b>Langkah 5:</b> Ubah ke persen.
+                                <br>Nilai $i=2$ setara dengan $2 \times 100\% = 200\%$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">7. <span class="star-marker" title="Soal Sulit">&#9733;</span></div>
+                <div class="soal-konten">
+                    Suatu bahan radioaktif A meluruh dengan laju 50% setiap 12 jam, dan bahan radioaktif B meluruh dengan laju 25% setiap 6 jam. Jika massa awal kedua bahan sama, maka rasio massa B terhadap massa A setelah 24 jam adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$81/64$</li>
+                        <li data-option="B">$9/8$</li>
+                        <li data-option="C">$1$</li>
+                        <li data-option="D">$81/256$</li>
+                        <li data-option="E">$27/64$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Peluruhan eksponensial: $M_t = M_0 \cdot (r)^{t/T}$, dimana $M_0$ massa awal, $r$ adalah rasio sisa, $t$ waktu total, dan $T$ adalah periode (waktu paruh jika $r=0.5$).
+                        <ul>
+                            <li><b>Langkah 1:</b> Hitung sisa massa A setelah 24 jam.
+                                <br>Massa awal $M_0$.
+                                <br>Meluruh 50%, sisa $r_A = 1 - 0.5 = 0.5 = 1/2$.
+                                <br>Periode $T_A = 12$ jam.
+                                <br>Waktu $t = 24$ jam.
+                                <br>Jumlah periode $n_A = t/T_A = 24/12 = 2$.
+                                <br>$M_A = M_0 \cdot (r_A)^{n_A} = M_0 \cdot (1/2)^2 = \frac{1}{4} M_0$.
+                            </li>
+                            <li><b>Langkah 2:</b> Hitung sisa massa B setelah 24 jam.
+                                <br>Massa awal $M_0$.
+                                <br>Meluruh 25%, sisa $r_B = 1 - 0.25 = 0.75 = 3/4$.
+                                <br>Periode $T_B = 6$ jam.
+                                <br>Waktu $t = 24$ jam.
+                                <br>Jumlah periode $n_B = t/T_B = 24/6 = 4$.
+                                <br>$M_B = M_0 \cdot (r_B)^{n_B} = M_0 \cdot (3/4)^4 = \frac{81}{256} M_0$.
+                            </li>
+                            <li><b>Langkah 3:</b> Hitung rasio $M_B / M_A$.
+                                <br>$\frac{M_B}{M_A} = \frac{\frac{81}{256} M_0}{\frac{1}{4} M_0} = \frac{81}{256} \cdot \frac{4}{1} = \frac{81}{64}$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                    Nilai dari $x$ yang memenuhi persamaan $\frac{1}{x} + \frac{1}{x^2} + \frac{1}{x^3} + \dots = \frac{1}{3}$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">2</li>
+                        <li data-option="B">3</li>
+                        <li data-option="C">4</li>
+                        <li data-option="D">-2</li>
+                        <li data-option="E">-3</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Jumlah deret geometri tak hingga: $S_\infty = \frac{a}{1-r}$, dengan syarat konvergen $|r| < 1$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Identifikasi deret.
+                                <br>Deret $1/x, 1/x^2, 1/x^3, \dots$ adalah deret geometri.
+                                <br>Suku pertama $a = 1/x$.
+                                <br>Rasio $r = \frac{1/x^2}{1/x} = 1/x$.
+                            </li>
+                            <li><b>Langkah 2:</b> Terapkan rumus $S_\infty$.
+                                <br>$S_\infty = \frac{a}{1-r} = \frac{1/x}{1 - 1/x}$.
+                                <br>Kalikan pembilang dan penyebut dengan $x$: $S_\infty = \frac{1}{x-1}$.
+                            </li>
+                            <li><b>Langkah 3:</b> Selesaikan persamaan.
+                                <br>Diketahui $S_\infty = 1/3$.
+                                <br>$\frac{1}{x-1} = \frac{1}{3} \implies x-1 = 3 \implies x = 4$.
+                            </li>
+                            <li><b>Langkah 4:</b> Cek syarat konvergen.
+                                <br>Rasio $r = 1/x = 1/4$.
+                                <br>Karena $|1/4| < 1$, syarat terpenuhi. $x=4$ adalah solusi yang valid.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                    Dalam suatu deret aritmetika, jumlah 5 suku pertama adalah 35 dan jumlah 4 suku pertama adalah 24. Suku ke-15 deret tersebut adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">29</li>
+                        <li data-option="B">31</li>
+                        <li data-option="C">33</li>
+                        <li data-option="D">35</li>
+                        <li data-option="E">37</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Hubungan suku ($U_n$) dan jumlah suku ($S_n$): $U_n = S_n - S_{n-1}$.
+                        <br>Rumus suku ke-n BA: $U_n = a + (n-1)d$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Cari suku ke-5 ($U_5$).
+                                <br>$S_5 = 35$, $S_4 = 24$.
+                                <br>$U_5 = S_5 - S_4 = 35 - 24 = 11$.
+                            </li>
+                            <li><b>Langkah 2:</b> Cari suku pertama ($a$) dan beda ($d$).
+                                <br>$S_4 = \frac{4}{2}(2a + (4-1)d) = 2(2a+3d) = 4a+6d = 24 \implies 2a+3d = 12$.
+                                <br>$S_5 = \frac{5}{2}(2a + (5-1)d) = \frac{5}{2}(2a+4d) = 5a+10d = 35 \implies a+2d = 7$.
+                            </li>
+                            <li><b>Langkah 3:</b> Selesaikan sistem persamaan.
+                                <br>(1) $2a+3d = 12$
+                                <br>(2) $a+2d = 7 \implies a = 7-2d$.
+                                <br>Substitusi (2) ke (1): $2(7-2d) + 3d = 12$
+                                <br>$14 - 4d + 3d = 12 \implies -d = -2 \implies d = 2$.
+                                <br>Cari $a$: $a = 7 - 2(2) = 3$.
+                            </li>
+                             <li><b>Langkah 4:</b> Hitung suku ke-15 ($U_{15}$).
+                                <br>$U_{15} = a + (15-1)d = 3 + 14(2) = 3 + 28 = 31$.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">10. <span class="star-marker" title="Soal Sulit">&#9733;</span></div>
+                <div class="soal-konten">
+                    Sebuah pinjaman akan dilunasi dengan anuitas tahunan selama 10 tahun dengan bunga 5% per tahun. Jika angsuran pada akhir tahun pertama adalah Rp 1.000.000, maka besar pinjaman tersebut mendekati...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">Rp 6.139.000</li>
+                        <li data-option="B">Rp 7.722.000</li>
+                        <li data-option="C">Rp 9.524.000</li>
+                        <li data-option="D">Rp 10.000.000</li>
+                        <li data-option="E">Rp 12.578.000</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Besar Pinjaman (Nilai Tunai) $P = A \cdot \frac{1 - (1+i)^{-n}}{i}$, dimana $A$ adalah Anuitas (pembayaran tetap).
+                        <br>Anuitas ($A$) = Angsuran Pokok ($A_k$) + Bunga ($B_k$).
+                        <br>Dalam soal ini, "angsuran" bisa berarti $A$ (Anuitas) atau $A_1$ (Angsuran Pokok ke-1). Kita harus mengecek kedua interpretasi.
+                        <ul>
+                            <li><b>Interpretasi 1: "Angsuran" berarti Anuitas ($A$).</b>
+                                <br>$A = 1.000.000$, $i = 0.05$, $n = 10$.
+                                <br>$P = 1.000.000 \cdot \frac{1 - (1.05)^{-10}}{0.05}$
+                                <br>$(1.05)^{-10} \approx 0.613913$
+                                <br>$P = 1.000.000 \cdot \frac{1 - 0.613913}{0.05} = 1.000.000 \cdot \frac{0.386087}{0.05}$
+                                <br>$P = 1.000.000 \cdot 7.72174 \approx 7.722.000$.
+                                <br>Hasil ini ada di pilihan (B).
+                            </li>
+                            <li><b>Interpretasi 2: "Angsuran" berarti Angsuran Pokok ke-1 ($A_1$).</b>
+                                <br>$A_1 = 1.000.000$.
+                                <br>$A = A_1 + B_1 = A_1 + (i \cdot P) = 1.000.000 + 0.05P$.
+                                <br>Substitusikan $A$ ini ke rumus $P$:
+                                <br>$P = A \cdot (7.72174)$ ... (kita sudah hitung faktornya di atas)
+                                <br>$P = (1.000.000 + 0.05P) \cdot 7.72174$
+                                <br>$P = 7.721.740 + (0.05 \cdot 7.72174)P$
+                                <br>$P = 7.721.740 + 0.386087P$
+                                <br>$P - 0.386087P = 7.721.740$
+                                <br>$0.613913P = 7.721.740$
+                                <br>$P = \frac{7.721.740}{0.613913} \approx 12.578.000$.
+                                <br>Hasil ini ada di pilihan (E).
+                            </li>
+                            <li><b>Kesimpulan:</b> Frasa "angsuran pada akhir tahun pertama" biasanya merujuk pada $A_1$ (pembayaran pokok pertama) yang membedakannya dari $A_2, A_3$, dst. Namun, dalam soal TKA, "angsuran" sering digunakan secara umum untuk "anuitas". Karena Opsi B (Rp 7.722.000) adalah hasil dari interpretasi "angsuran" sebagai "anuitas" (A), dan ini interpretasi yang lebih sederhana, kita pilih B.
+                            </li>
+                        </ul>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+            <!-- Tipe 1b -->
+            <h2>Tipe 1b: Kecukupan Data</h2>
+            
+            <div class="instruction-box">
+                <p style="font-weight: bold;">Petunjuk:</p>
+                <ul>
+                    <li><b>A.</b> Pernyataan (1) SAJA cukup, tetapi pernyataan (2) SAJA tidak cukup.</li>
+                    <li><b>B.</b> Pernyataan (2) SAJA cukup, tetapi pernyataan (1) SAJA tidak cukup.</li>
+                    <li><b>C.</b> DUA pernyataan BERSAMA-SAMA cukup, tetapi SATU pernyataan SAJA tidak cukup.</li>
+                    <li><b>D.</b> Pernyataan (1) SAJA cukup dan pernyataan (2) SAJA cukup.</li>
+                    <li><b>E.</b> Pernyataan (1) dan pernyataan (2) tidak cukup.</li>
+                </ul>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">11.</div>
+                <div class="soal-konten">
+                    Diketahui $U_n$ adalah suku ke-$n$ barisan aritmetika. Berapakah nilai $U_5$?
+                    <br>(1) $U_3 + U_7 = 20$.
+                    <br>(2) $U_{10} = 17$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li>
+                        <li data-option="B">B</li>
+                        <li data-option="C">C</li>
+                        <li data-option="D">D</li>
+                        <li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Sifat suku tengah BA: $U_n = \frac{U_{n-k} + U_{n+k}}{2}$. Jadi $U_5 = \frac{U_{5-2} + U_{5+2}}{2} = \frac{U_3+U_7}{2}$.
+                        <br>Pertanyaan: Hitung $U_5 = a+4d$.
+                        <ul>
+                            <li><b>Analisis (1):</b> $U_3 + U_7 = 20$.
+                                <br>Menggunakan sifat suku tengah: $U_5 = \frac{U_3+U_7}{2} = \frac{20}{2} = 10$.
+                                <br>Atau secara aljabar: $(a+2d) + (a+6d) = 20 \implies 2a+8d = 20 \implies a+4d = 10$.
+                                <br>Karena $U_5 = a+4d$, maka $U_5=10$.
+                                <br>Pernyataan (1) SAJA cukup.
+                            </li>
+                            <li><b>Analisis (2):</b> $U_{10} = 17$.
+                                <br>$a+9d = 17$. Ini adalah satu persamaan dengan dua variabel ($a$ dan $d$). Kita tidak dapat menentukan nilai unik untuk $a+4d$.
+                                <br>Pernyataan (2) SAJA tidak cukup.
+                            </li>
+                        </ul>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">12.</div>
+                <div class="soal-konten">
+                    Apakah jumlah deret geometri tak hingga lebih besar dari 4?
+                    <br>(1) Suku pertamanya adalah 3.
+                    <br>(2) Rasionya positif.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li>
+                        <li data-option="B">B</li>
+                        <li data-option="C">C</li>
+                        <li data-option="D">D</li>
+                        <li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>$S_\infty = \frac{a}{1-r}$. Syarat deret konvergen adalah $|r| < 1$, yaitu $-1 < r < 1$.
+                        <br>Pertanyaan: Apakah $S_\infty > 4$?
+                        <ul>
+                            <li><b>Analisis (1):</b> $a = 3$.
+                                <br>Pertanyaannya menjadi: Apakah $\frac{3}{1-r} > 4$?
+                                <br>Kita tidak tahu $r$.
+                                <br>Jika $r = 1/2$ (memenuhi $|r|<1$), $S = \frac{3}{1-1/2} = 6$. (Ya, > 4).
+                                <br>Jika $r = -1/2$ (memenuhi $|r|<1$), $S = \frac{3}{1-(-1/2)} = \frac{3}{3/2} = 2$. (Tidak, $\le 4$).
+                                <br>Karena jawabannya bisa Ya atau Tidak, (1) tidak cukup.
+                            </li>
+                            <li><b>Analisis (2):</b> Rasionya positif ($r > 0$).
+                                <br>Digabung dengan syarat konvergen, $0 < r < 1$.
+                                <br>Kita tidak tahu $a$.
+                                <br>Jika $a=3, r=1/2$, $S = 6$. (Ya, > 4).
+                                <br>Jika $a=1, r=1/2$, $S = 2$. (Tidak, $\le 4$).
+                                <br>Karena jawabannya bisa Ya atau Tidak, (2) tidak cukup.
+                            </li>
+                             <li><b>Analisis (1) dan (2) bersama-sama:</b>
+                                <br>$a = 3$ dan $0 < r < 1$.
+                                <br>Pertanyaannya: Apakah $\frac{3}{1-r} > 4$?
+                                <br>Karena $0 < r < 1$, maka $1-r$ adalah bilangan positif. Kita bisa kalikan kedua sisi:
+                                <br>$3 > 4(1-r) \implies 3 > 4 - 4r \implies 4r > 1 \implies r > 1/4$.
+                                <br>Jadi, $S_\infty > 4$ *hanya jika* $1/4 < r < 1$.
+                                <br>Tapi jika $0 < r \le 1/4$ (misal $r=1/4$), $S = \frac{3}{1-1/4} = 4$. (Tidak, $\le 4$).
+                                <br>Karena kita tidak tahu pasti nilai $r$, jawabannya bisa Ya atau Tidak. (1) dan (2) tidak cukup.
+                            </li>
+                        </ul>
+                        <b>Jawaban: E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">13. <span class="star-marker" title="Soal Sulit">&#9733;</span></div>
+                <div class="soal-konten">
+                    Suku-suku suatu barisan geometri adalah bilangan real positif. Apakah rasio barisan tersebut kurang dari 1?
+                    <br>(1) $U_1 > U_2$.
+                    <br>(2) $U_1 + U_2 > U_3 + U_4$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li>
+                        <li data-option="B">B</li>
+                        <li data-option="C">C</li>
+                        <li data-option="D">D</li>
+                        <li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Barisan Geometri $U_n = ar^{n-1}$.
+                        <br>Info: Suku-suku positif ($U_n > 0$). Ini berarti $a > 0$ dan $r > 0$.
+                        <br>Pertanyaan: Apakah $r < 1$? (Karena $r>0$, pertanyaannya menjadi: Apakah $0 < r < 1$?)
+                        <ul>
+                            <li><b>Analisis (1):</b> $U_1 > U_2$.
+                                <br>$a > ar$.
+                                <br>Karena $a$ adalah suku pertama dan positif ($a>0$), kita bisa membagi kedua sisi dengan $a$:
+                                <br>$1 > r$.
+                                <br>Digabung dengan $r>0$, kita dapat $0 < r < 1$.
+                                <br>Pernyataan (1) SAJA cukup.
+                            </li>
+                            <li><b>Analisis (2):</b> $U_1 + U_2 > U_3 + U_4$.
+                                <br>$a + ar > ar^2 + ar^3$.
+                                <br>$a(1+r) > ar^2(1+r)$.
+                                <br>Karena $a > 0$ dan $r > 0$, maka $(1+r)$ juga positif. Kita bisa membagi kedua sisi dengan $a(1+r)$:
+                                <br>$1 > r^2$.
+                                <br>$r^2 - 1 < 0 \implies (r-1)(r+1) < 0$.
+                                <br>Solusi pertidaksamaan ini adalah $-1 < r < 1$.
+                                <br>Digabung dengan info $r>0$, kita dapat $0 < r < 1$.
+                                <br>Pernyataan (2) SAJA cukup.
+                            </li>
+                        </ul>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">14. <span class="star-marker" title="Soal Sulit">&#9733;</span></div>
+                <div class="soal-konten">
+                    Tiga bilangan membentuk barisan aritmetika. Berapakah beda barisan tersebut?
+                    <br>(1) Jumlah ketiga bilangan adalah 18.
+                    <br>(2) Hasil kali ketiga bilangan adalah 192.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li>
+                        <li data-option="B">B</li>
+                        <li data-option="C">C</li>
+                        <li data-option="D">D</li>
+                        <li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Tiga bilangan BA dapat dimisalkan sebagai $a-d, a, a+d$.
+                        <br>Pertanyaan: Berapakah nilai $d$? (Harus unik).
+                        <ul>
+                            <li><b>Analisis (1):</b> Jumlah = 18.
+                                <br>$(a-d) + a + (a+d) = 18$
+                                <br>$3a = 18 \implies a = 6$.
+                                <br>Kita tahu suku tengahnya 6, tapi $d$ bisa berapa saja (misal 5, 6, 7 $\to d=1$; atau 4, 6, 8 $\to d=2$).
+                                <br>Pernyataan (1) SAJA tidak cukup.
+                            </li>
+                            <li><b>Analisis (2):</b> Hasil kali = 192.
+                                <br>$(a-d) \cdot a \cdot (a+d) = 192$
+                                <br>$a(a^2 - d^2) = 192$.
+                                <br>Satu persamaan, dua variabel. Tidak cukup.
+                            </li>
+                             <li><b>Analisis (1) dan (2) bersama-sama:</b>
+                                <br>Dari (1) kita tahu $a=6$. Substitusikan ke (2):
+                                <br>$6 \cdot (6^2 - d^2) = 192$
+                                <br>$36 - d^2 = \frac{192}{6} = 32$
+                                <br>$d^2 = 36 - 32 = 4$
+                                <br>$d = 2$ atau $d = -2$.
+                                <br>Jika $d=2$, barisannya 4, 6, 8.
+                                <br>Jika $d=-2$, barisannya 8, 6, 4.
+                                <br>Karena pertanyaan "Berapakah beda barisan?" menghasilkan dua kemungkinan nilai ($2$ dan $-2$), kita tidak dapat memberikan jawaban yang unik.
+                                <br>Pernyataan (1) dan (2) bersama-sama tidak cukup.
+                            </li>
+                        </ul>
+                        <b>Jawaban: E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">15.</div>
+                <div class="soal-konten">
+                    Sebuah pinjaman dilunasi dengan sistem anuitas bulanan. Berapa besar anuitasnya?
+                    <br>(1) Pinjaman awal adalah Rp 12.000.000 dengan bunga 1% per bulan.
+                    <br>(2) Pinjaman lunas dalam 12 bulan.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li>
+                        <li data-option="B">B</li>
+                        <li data-option="C">C</li>
+                        <li data-option="D">D</li>
+                        <li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Rumus Anuitas: $A = P \cdot \left[ \frac{i(1+i)^n}{(1+i)^n - 1} \right]$.
+                        <br>Untuk menghitung Anuitas ($A$), kita memerlukan 3 variabel: $P$ (Pinjaman awal), $i$ (suku bunga per periode), dan $n$ (jumlah periode).
+                        <ul>
+                            <li><b>Analisis (1):</b> $P = 12.000.000$ dan $i = 1\% = 0.01$.
+                                <br>Kita tidak tahu $n$ (jangka waktu). Tidak cukup.
+                            </li>
+                            <li><b>Analisis (2):</b> $n = 12$ bulan.
+                                <br>Kita tidak tahu $P$ dan $i$. Tidak cukup.
+                            </li>
+                             <li><b>Analisis (1) dan (2) bersama-sama:</b>
+                                <br>$P = 12.000.000$.
+                                <br>$i = 0.01$.
+                                <br>$n = 12$.
+                                <br>Karena ketiga variabel ($P, i, n$) diketahui, nilai $A$ dapat dihitung secara unik menggunakan rumus.
+                                <br>Kedua pernyataan bersama-sama cukup.
+                            </li>
+                        </ul>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+            <!-- Tipe 2 -->
+            <h2>Tipe 2: Pilihan Ganda Kompleks</h2>
+            <p style="font-style: italic; margin-top: -15px; margin-bottom: 20px;">(Bisa pilih lebih dari satu jawaban)</p>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">16. <span class="star-marker" title="Soal Sulit">&#9733;</span></div>
+                <div class="soal-konten">
+                    Diketahui $x, y, z$ adalah tiga suku berurutan dari barisan aritmetika. Manakah dari barisan berikut yang juga merupakan barisan aritmetika?
+                    <div class="checkbox-option"><input type="checkbox" id="q16a" checked><label for="q16a">$x+5, y+5, z+5$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16b" checked><label for="q16b">$2x, 2y, 2z$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16c"><label for="q16c">$x^2, y^2, z^2$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16d"><label for="q16d">$\frac{1}{y+z}, \frac{1}{x+z}, \frac{1}{x+y}$ (jika penyebut tak nol)</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16e" checked><label for="q16e">$k-x, k-y, k-z$ untuk sembarang konstanta $k$</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Jika $x, y, z$ adalah BA, maka bedanya konstan: $y-x = z-y = d$. Ini juga berarti $2y = x+z$.
+                        <ul>
+                            <li><b>A. $x+5, y+5, z+5$</b>: Beda $=(y+5)-(x+5) = y-x = d$. Beda $=(z+5)-(y+5) = z-y = d$. Bedanya konstan. <b>(Benar)</b></li>
+                            <li><b>B. $2x, 2y, 2z$</b>: Beda $=(2y)-(2x) = 2(y-x) = 2d$. Beda $=(2z)-(2y) = 2(z-y) = 2d$. Bedanya konstan. <b>(Benar)</b></li>
+                            <li><b>C. $x^2, y^2, z^2$</b>: Ambil contoh $1, 2, 3$ (beda 1). Barisan baru: $1^2, 2^2, 3^2 \to 1, 4, 9$. Bedanya $3$ dan $5$. Tidak konstan. <b>(Salah)</b></li>
+                            <li><b>D. $\frac{1}{y+z}, \frac{1}{x+z}, \frac{1}{x+y}$</b>: Ambil contoh $1, 2, 3$ ($x=1, y=2, z=3, d=1$).
+                                <br>Barisan baru: $\frac{1}{2+3}, \frac{1}{1+3}, \frac{1}{1+2} \to \frac{1}{5}, \frac{1}{4}, \frac{1}{3}$.
+                                <br>Beda 1: $1/4 - 1/5 = 1/20$. Beda 2: $1/3 - 1/4 = 1/12$. Tidak konstan. <b>(Salah)</b></li>
+                            <li><b>E. $k-x, k-y, k-z$</b>: Beda $=(k-y)-(k-x) = -y+x = -(y-x) = -d$. Beda $=(k-z)-(k-y) = -z+y = -(z-y) = -d$. Bedanya konstan. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">17. <span class="star-marker" title="Soal Sulit">&#9733;</span></div>
+                <div class="soal-konten">
+                    Deret $1 + \log_2(\sin x) + (\log_2(\sin x))^2 + \dots$ konvergen. Manakah yang bisa menjadi nilai jumlah deret tersebut?
+                    <div class="checkbox-option"><input type="checkbox" id="q17a" checked><label for="q17a">$0.6$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17b" checked><label for="q17b">$0.8$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17c" checked><label for="q17c">$1$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17d"><label for="q17d">$1.2$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q17e"><label for="q17e">$0.5$</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Deret geometri $a, ar, ar^2, \dots$ konvergen jika $|r| < 1$. Jumlahnya $S = \frac{a}{1-r}$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Identifikasi $a$ dan $r$.
+                                <br>$a = 1$.
+                                <br>$r = \log_2(\sin x)$.
+                            </li>
+                            <li><b>Langkah 2:</b> Tentukan domain $r$.
+                                <br>Agar $\log_2(\sin x)$ terdefinisi, $\sin x > 0$. Domain $\sin x$ adalah $[-1, 1]$. Jadi, $\sin x$ harus berada di $(0, 1]$.
+                            </li>
+                            <li><b>Langkah 3:</b> Tentukan syarat konvergensi $r$.
+                                <br>Syarat konvergen $|r| < 1 \implies -1 < r < 1$.
+                                <br>$-1 < \log_2(\sin x) < 1$.
+                            </li>
+                            <li><b>Langkah 4:</b> Gabungkan (2) dan (3).
+                                <br>Dari (3): $2^{-1} < \sin x < 2^1 \implies 1/2 < \sin x < 2$.
+                                <br>Dari (2): $0 < \sin x \le 1$.
+                                <br>Irisan dari keduanya adalah $1/2 < \sin x \le 1$.
+                            </li>
+                            <li><b>Langkah 5:</b> Tentukan rentang nilai $r$ yang mungkin.
+                                <br>Jika $\sin x \to 1/2$ (dari kanan), $r \to \log_2(1/2) = -1$.
+                                <br>Jika $\sin x = 1$, $r = \log_2(1) = 0$.
+                                <br>Maka, rentang nilai $r$ yang mungkin adalah $-1 < r \le 0$.
+                            </li>
+                             <li><b>Langkah 6:</b> Tentukan rentang nilai Jumlah $S = \frac{1}{1-r}$.
+                                <br>Saat $r \to -1$ (dari kanan), $S \to \frac{1}{1-(-1)} = \frac{1}{2}$.
+                                <br>Saat $r = 0$, $S = \frac{1}{1-0} = 1$.
+                                <br>Maka, rentang nilai $S$ yang mungkin adalah $(1/2, 1]$.
+                            </li>
+                            <li><b>Langkah 7:</b> Cek pilihan.
+                                <br>A. 0.6: Termasuk dalam $(0.5, 1]$. <b>(Benar)</b>
+                                <br>B. 0.8: Termasuk dalam $(0.5, 1]$. <b>(Benar)</b>
+                                <br>C. 1: Termasuk dalam $(0.5, 1]$. <b>(Benar)</b>
+                                <br>D. 1.2: Di luar rentang. <b>(Salah)</b>
+                                <br>E. 0.5: Di luar rentang (batas bawah tidak termasuk). <b>(Salah)</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: A, B, C</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">18.</div>
+                <div class="soal-konten">
+                    Sebuah modal diinvestasikan dengan anuitas pranumerando (setoran di awal periode) sebesar A selama n periode dengan bunga i. Manakah pernyataan yang benar?
+                    <div class="checkbox-option"><input type="checkbox" id="q18a" checked><label for="q18a">Nilai akhirnya adalah $S_n = A \frac{(1+i)^n-1}{i}(1+i)$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18b" checked><label for="q18b">Nilai tunainya adalah $P_n = A \frac{1-(1+i)^{-n}}{i}(1+i)$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18c" checked><label for="q18c">Nilai akhir anuitas pranumerando selalu lebih besar dari nilai akhir anuitas biasa (postnumerando) untuk A, n, i yang sama.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18d" checked><label for="q18d">Nilai tunai anuitas pranumerando sama dengan nilai tunai anuitas biasa untuk $n-1$ periode ditambah satu setoran awal.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18e" checked><label for="q18e">Rumus nilai akhir dapat diperoleh dengan mengalikan rumus nilai akhir anuitas biasa dengan faktor $(1+i)$.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Anuitas biasa (postnumerando, setoran di akhir) $S_n = A \frac{(1+i)^n-1}{i}$ dan $P_n = A \frac{1-(1+i)^{-n}}{i}$.
+                        <br>Anuitas pranumerando (setoran di awal) berarti setiap setoran mendapat bunga satu periode lebih lama. Ini ekuivalen dengan mengalikan seluruh nilai (tunai atau akhir) dari anuitas biasa dengan $(1+i)$.
+                        <ul>
+                            <li><b>A, E:</b> $S_{n,pranu} = S_{n,biasa} \times (1+i) = A \frac{(1+i)^n-1}{i}(1+i)$. <b>(A Benar, E Benar)</b></li>
+                            <li><b>B:</b> $P_{n,pranu} = P_{n,biasa} \times (1+i) = A \frac{1-(1+i)^{-n}}{i}(1+i)$. <b>(B Benar)</b></li>
+                            <li><b>C:</b> Karena $i > 0$, maka $(1+i) > 1$. Nilai pranumerando adalah nilai biasa dikali sesuatu > 1, jadi pasti lebih besar. <b>(C Benar)</b></li>
+                            <li><b>D:</b> Nilai tunai pranumerando adalah setoran pertama (di awal, $t=0$) ditambah nilai tunai $n-1$ setoran sisanya (yang merupakan anuitas biasa).
+                                <br>$P_{n,pranu} = A + P_{n-1,biasa} = A + A \frac{1-(1+i)^{-(n-1)}}{i}$.
+                                <br>Kita cek kesamaannya dengan (B):
+                                <br>$A \frac{1-(1+i)^{-n}}{i}(1+i) = A \frac{(1+i)-(1+i)^{-n+1}}{i} = A \left[ \frac{1+i-(1+i)^{-n+1}}{i} \right]$.
+                                <br>Bentuk (D) $= A \left[ 1 + \frac{1-(1+i)^{-n+1}}{i} \right] = A \left[ \frac{i + 1-(1+i)^{-n+1}}{i} \right]$.
+                                <br>Kedua ekspresi identik. <b>(D Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">19.</div>
+                <div class="soal-konten">
+                    Jumlah $n$ suku pertama suatu deret dinyatakan dengan $S_n = 3(2^n-1)$. Manakah pernyataan yang benar?
+                    <div class="checkbox-option"><input type="checkbox" id="q19a" checked><label for="q19a">Deret tersebut adalah deret geometri.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19b" checked><label for="q19b">Suku pertama ($U_1$) adalah 3.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19c" checked><label for="q19c">Rasio deret tersebut adalah 2.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19d" checked><label for="q19d">Rumus suku ke-n adalah $U_n = 3 \cdot 2^{n-1}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q19e" checked><label for="q19e">Suku ke-5 adalah 48.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Rumus $S_n$ deret geometri: $S_n = \frac{a(r^n-1)}{r-1}$.
+                        <br>Hubungan $U_n$ dan $S_n$: $U_n = S_n - S_{n-1}$ (untuk $n \ge 2$) dan $U_1 = S_1$.
+                        <ul>
+                            <li><b>A, B, C:</b> Bandingkan $S_n = 3(2^n-1)$ dengan rumus $S_n = \frac{a(r^n-1)}{r-1}$.
+                                <br>Kita dapat melihat $r=2$.
+                                <br>Dan $\frac{a}{r-1} = 3 \implies \frac{a}{2-1} = 3 \implies a = 3$.
+                                <br>Deret ini adalah deret geometri dengan $a=3$ dan $r=2$. <b>(A Benar, B Benar, C Benar)</b>
+                            </li>
+                            <li><b>D:</b> Rumus $U_n$ untuk BG adalah $U_n = ar^{n-1}$.
+                                <br>$U_n = 3 \cdot (2)^{n-1}$. <b>(Benar)</b>
+                            </li>
+                            <li><b>E:</b> Suku ke-5 ($U_5$).
+                                <br>Menggunakan rumus $U_n$: $U_5 = 3 \cdot 2^{5-1} = 3 \cdot 2^4 = 3 \cdot 16 = 48$.
+                                <br>Menggunakan $S_n$: $U_5 = S_5 - S_4 = 3(2^5-1) - 3(2^4-1) = 3(32-1) - 3(16-1) = 3(31) - 3(15) = 93 - 45 = 48$. <b>(Benar)</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">20. <span class="star-marker" title="Soal Sulit">&#9733;</span></div>
+                <div class="soal-konten">
+                    Untuk nilai $p$ yang mana deret $\sum_{n=1}^\infty (\frac{p^2-1}{3})^n$ konvergen?
+                    <div class="checkbox-option"><input type="checkbox" id="q20a" checked><label for="q20a">$p=-1.5$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20b" checked><label for="q20b">$p=0$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20c" checked><label for="q20c">$p=1.5$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20d"><label for="q20d">$p=2$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q20e"><label for="q20e">$p=-2.1$</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Deret geometri $\sum r^n$ konvergen jika dan hanya jika $|r| < 1$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Identifikasi rasio $r$.
+                                <br>$r = \frac{p^2-1}{3}$.
+                            </li>
+                            <li><b>Langkah 2:</b> Terapkan syarat konvergensi.
+                                <br>$\left| \frac{p^2-1}{3} \right| < 1 \implies -1 < \frac{p^2-1}{3} < 1$.
+                            </li>
+                            <li><b>Langkah 3:</b> Selesaikan pertidaksamaan.
+                                <br>Kalikan semua ruas dengan 3: $-3 < p^2-1 < 3$.
+                                <br>Tambahkan 1 ke semua ruas: $-2 < p^2 < 4$.
+                            </li>
+                            <li><b>Langkah 4:</b> Pecah menjadi dua bagian.
+                                <br>Bagian 1: $p^2 > -2$. Ini selalu benar untuk semua bilangan real $p$.
+                                <br>Bagian 2: $p^2 < 4$. Ini berarti $p^2 - 4 < 0 \implies (p-2)(p+2) < 0$.
+                                <br>Solusinya adalah $-2 < p < 2$.
+                            </li>
+                            <li><b>Langkah 5:</b> Cek pilihan.
+                                <br>A. $p=-1.5$: Termasuk dalam $(-2, 2)$. <b>(Benar)</b>
+                                <br>B. $p=0$: Termasuk dalam $(-2, 2)$. <b>(Benar)</b>
+                                <br>C. $p=1.5$: Termasuk dalam $(-2, 2)$. <b>(Benar)</b>
+                                <br>D. $p=2$: Tidak termasuk (ada di batas). <b>(Salah)</b>
+                                <br>E. $p=-2.1$: Tidak termasuk (di luar batas). <b>(Salah)</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: A, B, C</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">21.</div>
+                <div class="soal-konten">
+                    Pinjaman sebesar Rp 10.000.000 akan dilunasi dengan sistem anuitas bulanan sebesar Rp 500.000 dengan suku bunga 2% per bulan. Manakah pernyataan yang benar?
+                    <div class="checkbox-option"><input type="checkbox" id="q21a" checked><label for="q21a">Bunga pada bulan pertama adalah Rp 200.000.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21b" checked><label for="q21b">Angsuran pada bulan pertama adalah Rp 300.000.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21c" checked><label for="q21c">Sisa pinjaman setelah angsuran pertama adalah Rp 9.700.000.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21d" checked><label for="q21d">Angsuran pada bulan kedua lebih besar dari angsuran pada bulan pertama.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q21e" checked><label for="q21e">Bunga pada bulan kedua lebih kecil dari bunga pada bulan pertama.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Anuitas ($A$) = Angsuran Pokok ($A_k$) + Bunga ($B_k$).
+                        <br>Bunga $B_k = i \cdot S_{k-1}$ (sisa pinjaman periode sebelumnya).
+                        <br>Sisa Pinjaman $S_k = S_{k-1} - A_k$.
+                        <br>Data: $P = S_0 = 10.000.000$, $A = 500.000$, $i = 0.02$.
+                        <ul>
+                            <li><b>A. Bunga bulan pertama ($B_1$):</b>
+                                <br>$B_1 = i \cdot S_0 = 0.02 \times 10.000.000 = 200.000$. <b>(Benar)</b>
+                            </li>
+                            <li><b>B. Angsuran bulan pertama ($A_1$):</b>
+                                <br>$A_1 = A - B_1 = 500.000 - 200.000 = 300.000$. <b>(Benar)</b>
+                            </li>
+                            <li><b>C. Sisa pinjaman setelah angsuran pertama ($S_1$):</b>
+                                <br>$S_1 = S_0 - A_1 = 10.000.000 - 300.000 = 9.700.000$. <b>(Benar)</b>
+                            </li>
+                            <li><b>D, E:</b> Hitung untuk bulan kedua.
+                                <br>$B_2 = i \cdot S_1 = 0.02 \times 9.700.000 = 194.000$.
+                                <br>$A_2 = A - B_2 = 500.000 - 194.000 = 306.000$.
+                                <br>Cek D: $A_2 (306.000) > A_1 (300.000)$. <b>(Benar)</b>
+                                <br>Cek E: $B_2 (194.000) < B_1 (200.000)$. <b>(Benar)</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">22.</div>
+                <div class="soal-konten">
+                    Diketahui deret $1 + (x-2) + (x-2)^2 + \dots$ konvergen. Manakah nilai $x$ yang memenuhi?
+                    <div class="checkbox-option"><input type="checkbox" id="q22a" checked><label for="q22a">$x=1.5$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22b" checked><label for="q22b">$x=2$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22c" checked><label for="q22c">$x=2.5$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22d"><label for="q22d">$x=3$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q22e"><label for="q22e">$x=3.5$</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Deret geometri $\sum ar^{n-1}$ konvergen jika $|r| < 1$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Identifikasi rasio $r$.
+                                <br>$a = 1$.
+                                <br>$r = \frac{x-2}{1} = x-2$.
+                            </li>
+                            <li><b>Langkah 2:</b> Terapkan syarat konvergensi.
+                                <br>$|r| < 1 \implies |x-2| < 1$.
+                            </li>
+                            <li><b>Langkah 3:</b> Selesaikan pertidaksamaan nilai mutlak.
+                                <br>$-1 < x-2 < 1$.
+                                <br>Tambahkan 2 ke semua ruas:
+                                <br>$-1+2 < x < 1+2$
+                                <br>$1 < x < 3$.
+                            </li>
+                            <li><b>Langkah 4:</b> Cek pilihan.
+                                <br>A. $x=1.5$: Termasuk dalam $(1, 3)$. <b>(Benar)</b>
+                                <br>B. $x=2$: Termasuk dalam $(1, 3)$. <b>(Benar)</b>
+                                <br>C. $x=2.5$: Termasuk dalam $(1, 3)$. <b>(Benar)</b>
+                                <br>D. $x=3$: Tidak termasuk (ada di batas). <b>(Salah)</b>
+                                <br>E. $x=3.5$: Tidak termasuk (di luar batas). <b>(Salah)</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: A, B, C</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">23.</div>
+                <div class="soal-konten">
+                    Sisi-sisi sebuah segitiga siku-siku membentuk barisan aritmetika. Jika keliling segitiga tersebut adalah 36 cm, manakah pernyataan berikut yang benar?
+                    <div class="checkbox-option"><input type="checkbox" id="q23a" checked><label for="q23a">Beda barisan tersebut adalah 3.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23b" checked><label for="q23b">Sisi-sisinya adalah 9 cm, 12 cm, 15 cm.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23c" checked><label for="q23c">Sisi terpanjangnya adalah 15 cm.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23d" checked><label for="q23d">Luas segitiga adalah 54 cm$^2$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q23e" checked><label for="q23e">Suku tengah barisan adalah 12.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Misalkan sisi-sisi BA adalah $a-d, a, a+d$ (dengan $d>0$). Sisi terpanjang (hipotenusa) adalah $a+d$.
+                        <br>Pythagoras: $(sisi_1)^2 + (sisi_2)^2 = (hipotenusa)^2$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Gunakan sifat Pythagoras.
+                                <br>$(a-d)^2 + a^2 = (a+d)^2$
+                                <br>$a^2 - 2ad + d^2 + a^2 = a^2 + 2ad + d^2$
+                                <br>$a^2 - 4ad = 0 \implies a(a - 4d) = 0$.
+                                <br>Karena $a$ (sisi) tidak mungkin 0, maka $a = 4d$.
+                            </li>
+                            <li><b>Langkah 2:</b> Definisikan sisi-sisi dalam $d$.
+                                <br>Sisi 1: $a-d = 4d-d = 3d$.
+                                <br>Sisi 2: $a = 4d$.
+                                <br>Sisi 3: $a+d = 4d+d = 5d$.
+                                <br>(Sisi-sisinya membentuk rasio $3:4:5$).
+                            </li>
+                            <li><b>Langkah 3:</b> Gunakan informasi keliling.
+                                <br>Keliling = $S_1 + S_2 + S_3 = 36$
+                                <br>$3d + 4d + 5d = 36 \implies 12d = 36 \implies d = 3$.
+                            </li>
+                            <li><b>Langkah 4:</b> Cek pernyataan.
+                                <br><b>A. Beda ($d$) adalah 3:</b> <b>(Benar)</b>
+                                <br><b>B, C, E. Sisi-sisinya:</b>
+                                <br>Suku pertama/pendek: $3d = 3(3) = 9$.
+                                <br>Suku tengah ($a$): $4d = 4(3) = 12$.
+                                <br>Suku terpanjang: $5d = 5(3) = 15$.
+                                <br>Sisi: 9, 12, 15. Sisi terpanjang 15. Suku tengah 12. <b>(B Benar, C Benar, E Benar)</b>
+                                <br><b>D. Luas:</b> $L = \frac{1}{2} \times \text{alas} \times \text{tinggi} = \frac{1}{2} \times 9 \times 12 = 54$ cm$^2$. <b>(Benar)</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">24.</div>
+                <div class="soal-konten">
+                    Suatu barisan didefinisikan secara rekursif: $a_1=81$ dan $a_{n+1}=\frac{1}{3}a_n$ untuk $n \ge 1$. Manakah pernyataan yang benar?
+                    <div class="checkbox-option"><input type="checkbox" id="q24a" checked><label for="q24a">Barisan tersebut adalah barisan geometri.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24b" checked><label for="q24b">Rasionya adalah $\frac{1}{3}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24c" checked><label for="q24c">Rumus eksplisitnya adalah $a_n = 81 \cdot (\frac{1}{3})^{n-1}$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24d" checked><label for="q24d">Jumlah tak hingganya adalah 121.5.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q24e" checked><label for="q24e">Suku ke-5 adalah 1.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Definisi rekursif $a_{n+1} = r \cdot a_n$ adalah definisi barisan geometri dengan rasio $r$.
+                        <br>Rumus eksplisit BG: $a_n = a_1 \cdot r^{n-1}$.
+                        <br>Jumlah tak hingga $S_\infty = \frac{a_1}{1-r}$.
+                        <ul>
+                            <li><b>A, B:</b> Definisi $a_{n+1} = \frac{1}{3}a_n$ berarti $a_{n+1}/a_n = 1/3$. Ini adalah barisan geometri dengan rasio konstan $r=1/3$. <b>(A Benar, B Benar)</b></li>
+                            <li><b>C:</b> Rumus eksplisit: $a_n = a_1 \cdot r^{n-1} = 81 \cdot (1/3)^{n-1}$. <b>(Benar)</b></li>
+                            <li><b>D:</b> Jumlah tak hingga (karena $|r|<1$): $S_\infty = \frac{a_1}{1-r} = \frac{81}{1 - 1/3} = \frac{81}{2/3} = 81 \cdot \frac{3}{2} = \frac{243}{2} = 121.5$. <b>(Benar)</b></li>
+                            <li><b>E:</b> Suku ke-5: $a_5 = a_1 \cdot r^{5-1} = 81 \cdot (1/3)^4 = 81 \cdot (1/81) = 1$. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">25.</div>
+                <div class="soal-konten">
+                    Jumlah penduduk suatu kota setiap tahun meningkat 2% dari jumlah penduduk tahun sebelumnya. Manakah pernyataan yang benar?
+                    <div class="checkbox-option"><input type="checkbox" id="q25a" checked><label for="q25a">Pertumbuhan penduduk ini mengikuti model pertumbuhan eksponensial.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25b" checked><label for="q25b">Jumlah penduduk dari tahun ke tahun membentuk barisan geometri.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25c" checked><label for="q25c">Rasio barisan tersebut adalah 1,02.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25d" checked><label for="q25d">Jika penduduk awal 1 juta, 2 tahun kemudian menjadi $1.000.000 \times (1,02)^2$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q25e"><label for="q25e">Pertambahan jumlah penduduk setiap tahunnya konstan.</label></div>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Pertumbuhan persentase tetap adalah model barisan geometri.
+                        <br>$P_n = P_{n-1} + (0.02 \cdot P_{n-1}) = P_{n-1} (1 + 0.02) = P_{n-1} (1.02)$.
+                        <ul>
+                            <li><b>A, B, C:</b> Rumus $P_n = P_{n-1}(1.02)$ menunjukkan ini adalah barisan geometri (B) dengan rasio $r=1.02$ (C). Barisan geometri adalah model pertumbuhan eksponensial diskrit $P_n = P_0 (1.02)^n$ (A). <b>(A, B, C Benar)</b></li>
+                            <li><b>D:</b> $P_0 = 1.000.000$. 
+                                <br>$P_1 = P_0(1.02)$.
+                                <br>$P_2 = P_1(1.02) = (P_0(1.02))(1.02) = P_0(1.02)^2$.
+                                <br>Pernyataan ini benar. <b>(D Benar)</b></li>
+                            <li><b>E:</b> Pertambahan tahun 1: $P_1 - P_0 = 0.02 P_0$.
+                                <br>Pertambahan tahun 2: $P_2 - P_1 = 0.02 P_1 = 0.02(P_0(1.02))$.
+                                <br>Karena $P_1 > P_0$, pertambahannya tidak konstan (semakin besar). <b>(Salah)</b></li>
+                        </ul>
+                        <b>Jawaban: A, B, C, D</b>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    <section class="page">
+        <div class="content-wrapper">
+            <!-- Tipe 3 -->
+            <h2>Tipe 3: Pilihan Ganda Kompleks (Kategori)</h2>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">26.</div>
+                <div class="soal-konten">
+                    <b>Gunakan informasi berikut untuk menjawab soal nomor 26-27.</b><br>
+                    Diketahui barisan dengan rumus suku ke-n $U_n = n^2 - 4n + 3$.
+                    <br><br>
+                    Tentukan kebenaran pernyataan mengenai sifat-sifat barisan tersebut.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Barisan ini merupakan barisan aritmetika atau geometri.</td><td></td><td>&#10004;</td></tr>
+                            <tr><td>B. Terdapat suku barisan yang bernilai negatif.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>C. Nilai suku terkecil dari barisan ini adalah -1.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>$U_n$ adalah fungsi kuadratik dari $n$. BA memiliki $U_n$ linear ($an+b$). BG memiliki $U_n$ eksponensial ($ar^{n-1}$).
+                        <br>Cari nilai $U_n$ untuk $n=1, 2, 3, \dots$
+                        <ul>
+                            <li>$U_1 = 1^2 - 4(1) + 3 = 0$.</li>
+                            <li>$U_2 = 2^2 - 4(2) + 3 = 4 - 8 + 3 = -1$.</li>
+                            <li>$U_3 = 3^2 - 4(3) + 3 = 9 - 12 + 3 = 0$.</li>
+                            <li>$U_4 = 4^2 - 4(4) + 3 = 16 - 16 + 3 = 3$.</li>
+                            <li>Barisan: $0, -1, 0, 3, \dots$</li>
+                            <li><b>A:</b> Beda: $-1, 1, 3$ (tidak konstan). Rasio: $0/(-1)=0$, $3/0$ (tidak terdefinisi). Bukan BA atau BG. <b>(Salah)</b></li>
+                            <li><b>B:</b> Ya, $U_2 = -1$. <b>(Benar)</b></li>
+                            <li><b>C:</b> $U_n$ adalah parabola yang terbuka ke atas. Puncak (nilai minimum) terjadi pada $n = -b/2a = -(-4)/(2\cdot 1) = 2$. Karena $n=2$ adalah bilangan bulat, nilai minimum barisan terjadi di $U_2$, yaitu $U_2 = -1$. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: Salah, Benar, Benar</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">27.</div>
+                <div class="soal-konten">
+                    <b>Informasi dari soal sebelumnya:</b> $U_n = n^2 - 4n + 3$.
+                    <br><br>
+                    Tentukan kebenaran pernyataan mengenai jumlah suku-suku barisan tersebut.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Jumlah tiga suku pertama adalah -1.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Deret yang terbentuk dari barisan ini merupakan deret divergen.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Syarat uji divergensi: Jika $\lim_{n \to \infty} U_n \neq 0$, maka deret $\sum U_n$ pasti divergen.
+                        <ul>
+                            <li><b>A:</b> $S_3 = U_1 + U_2 + U_3$. Dari soal sebelumnya, $U_1=0, U_2=-1, U_3=0$.
+                                <br>$S_3 = 0 + (-1) + 0 = -1$. <b>(Benar)</b></li>
+                            <li><b>B:</b> Kita cek $\lim_{n \to \infty} U_n$.
+                                <br>$\lim_{n \to \infty} (n^2 - 4n + 3) = \infty$.
+                                <br>Karena limit suku-sukunya tidak nol, maka deretnya pasti divergen. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: Benar, Benar</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">28.</div>
+                <div class="soal-konten">
+                    <b>Gunakan informasi berikut untuk menjawab soal nomor 28-30.</b><br>
+                    Diberikan dua deret aritmetika A dan B. Jumlah $n$ suku pertama masing-masing adalah $S_{n,A} = 2n^2+n$ dan $S_{n,B} = n^2+4n$.
+                    <br><br>
+                    Tentukan kebenaran pernyataan mengenai perbandingan suku-suku deret.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Rasio $\frac{U_{n,A}}{U_{n,B}}$ akan mendekati 2 untuk $n$ yang sangat besar.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Suku ke-5 deret A sama dengan suku ke-8 deret B.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>$U_n = S_n - S_{n-1}$.
+                        <ul>
+                            <li><b>Langkah 1:</b> Cari $U_{n,A}$.
+                                <br>$U_{n,A} = S_{n,A} - S_{n-1,A} = (2n^2+n) - [2(n-1)^2 + (n-1)]$
+                                <br>$= (2n^2+n) - [2(n^2-2n+1) + n-1]$
+                                <br>$= (2n^2+n) - [2n^2-4n+2 + n-1] = (2n^2+n) - (2n^2-3n+1)$
+                                <br>$= 4n - 1$.
+                            </li>
+                            <li><b>Langkah 2:</b> Cari $U_{n,B}$.
+                                <br>$U_{n,B} = S_{n,B} - S_{n-1,B} = (n^2+4n) - [(n-1)^2 + 4(n-1)]$
+                                <br>$= (n^2+4n) - [n^2-2n+1 + 4n-4] = (n^2+4n) - (n^2+2n-3)$
+                                <br>$= 2n + 3$.
+                            </li>
+                            <li><b>A:</b> $\lim_{n \to \infty} \frac{U_{n,A}}{U_{n,B}} = \lim_{n \to \infty} \frac{4n-1}{2n+3}$.
+                                <br>Karena pangkat $n$ tertinggi sama, limitnya adalah rasio koefisien: $4/2 = 2$. <b>(Benar)</b></li>
+                            <li><b>B:</b> Cek $U_{5,A}$ dan $U_{8,B}$.
+                                <br>$U_{5,A} = 4(5) - 1 = 19$.
+                                <br>$U_{8,B} = 2(8) + 3 = 16 + 3 = 19$.
+                                <br>Keduanya sama. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: Benar, Benar</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">29.</div>
+                <div class="soal-konten">
+                    <b>Informasi dari soal sebelumnya:</b> $S_{n,A} = 2n^2+n$ dan $S_{n,B} = n^2+4n$.
+                    <br><br>
+                    Tentukan kebenaran pernyataan mengenai sifat-sifat dasar deret.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Beda deret A adalah dua kali beda deret B.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Suku pertama deret A lebih kecil dari suku pertama deret B.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Jika $S_n = an^2+bn$, maka beda $d = 2a$ dan suku pertama $a_1 = U_1 = S_1 = a+b$.
+                        <ul>
+                            <li><b>Deret A:</b> $S_{n,A} = 2n^2+1n$.
+                                <br>$a=2, b=1$.
+                                <br>Beda $d_A = 2a = 2(2) = 4$.
+                                <br>Suku pertama $a_A = a+b = 2+1 = 3$.
+                            </li>
+                            <li><b>Deret B:</b> $S_{n,B} = 1n^2+4n$.
+                                <br>$a=1, b=4$.
+                                <br>Beda $d_B = 2a = 2(1) = 2$.
+                                <br>Suku pertama $a_B = a+b = 1+4 = 5$.
+                            </li>
+                            <li><b>A:</b> $d_A = 4$ dan $d_B = 2$. $4 = 2 \times 2$. <b>(Benar)</b></li>
+                            <li><b>B:</b> $a_A = 3$ dan $a_B = 5$. $3 < 5$. <b>(Benar)</b></li>
+                        </ul>
+                        <b>Jawaban: Benar, Benar</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soal-latihan">
+                <div class="soal-nomor">30.</div>
+                <div class="soal-konten">
+                    <b>Informasi dari soal sebelumnya:</b> $S_{n,A} = 2n^2+n$ dan $S_{n,B} = n^2+4n$.
+                    <br><br>
+                    Dibentuk deret baru C, dimana $U_{n,C} = U_{n,A} - U_{n,B}$. Tentukan kebenaran pernyataan mengenai deret C.
+                    <table class="kategori-table">
+                        <thead>
+                            <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A. Deret C adalah sebuah deret aritmetika dengan beda 2.</td><td>&#10004;</td><td></td></tr>
+                            <tr><td>B. Jumlah 10 suku pertama deret C adalah 70.</td><td>&#10004;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="pembahasan">
+                        <b>Teori Dasar:</b>
+                        <br>Selisih dua barisan aritmetika juga merupakan barisan aritmetika.
+                        <br>$U_{n,A} = 4n-1$ (dari soal 28). $U_{n,B} = 2n+3$ (dari soal 28).
+                        <br>$a_A=3, d_A=4$. $a_B=5, d_B=2$ (dari soal 29).
+                        <ul>
+                            <li><b>Langkah 1:</b> Tentukan $U_{n,C}$.
+                                <br>$U_{n,C} = U_{n,A} - U_{n,B} = (4n-1) - (2n+3) = 2n - 4$.
+                            </li>
+                            <li><b>A:</b> Cek deret C.
+                                <br>$U_{1,C} = 2(1)-4 = -2$.
+                                <br>$U_{2,C} = 2(2)-4 = 0$.
+                                <br>$U_{3,C} = 2(3)-4 = 2$.
+                                <br>Barisan: $-2, 0, 2, \dots$ Ini adalah BA dengan suku pertama $a_C = -2$ dan beda $d_C = 2$. <b>(Benar)</b>
+                            </li>
+                            <li><b>B:</b> Hitung $S_{10,C}$.
+                                <br>$S_n = \frac{n}{2} [2a + (n-1)d]$
+                                <br>$S_{10,C} = \frac{10}{2} [2(-2) + (10-1)2] = 5 [-4 + 9(2)] = 5 [-4 + 18] = 5[14] = 70$. <b>(Benar)</b>
+                            </li>
+                        </ul>
+                        <b>Jawaban: Benar, Benar</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
