@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Soal Pilihan - Trigonometri (Matematika Wajib)</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+            --title-grad-1: #4a4a4a;
+            --title-grad-2: #000000;
+        }
+                
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Nunito', sans-serif;
+            font-size: 10pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            counter-reset: page;
+        }
+        .page {
+            background: white;
+            width: 176mm;
+            min-height: 250mm;
+            padding: 20mm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+                
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 10pt;
+            color: #888;
+        }
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 3px solid #444;
+            height: 250mm;
+        }
+                
+        .cover-page::after {
+            content: ''; /* No page number on cover */
+        }
+        .cover-page img {
+            max-width: 250px;
+            margin-bottom: 40px;
+        }
+        .cover-page .title {
+            font-size: 32pt;
+            font-weight: 900;
+            margin: 0;
+            color: var(--title-grad-2);
+            background: -webkit-linear-gradient(45deg, var(--title-grad-1), var(--title-grad-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        .cover-page .subtitle {
+            font-size: 18pt;
+            margin-top: 15px;
+            color: var(--secondary-text);
+            font-weight: 700;
+        }
+        @media print {
+            body { background: none; }
+            .page { width: 100%; height: 100%; margin: 0; box-shadow: none; page-break-after: always; }
+        }
+                
+        .watermark-container .page::before {
+            content: '';
+            background-image: url('https://imgix3.ruangguru.com/assets/miscellaneous/png_zekej2_3984.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 12cm;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; height: 100%;
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
+        }
+                
+        .cover-page::before { opacity: 0; }
+        .content-wrapper { position: relative; z-index: 1; width: 100%; }
+                
+        h1 { font-size: 24pt; text-align: center; border-bottom: 2px solid var(--primary-text); padding-bottom: 10px; margin-bottom: 20px; }
+        h2 { font-size: 18pt; color: #000; border-left: 5px solid #555; padding-left: 10px; margin-top: 30px; }
+                
+        .latihan-item {
+            display: grid;
+            grid-template-columns: 1fr 0.7fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            break-inside: avoid;
+        }
+        .latihan-item:first-of-type { /* Use first-of-type to avoid matching after h2 */
+            border-top: none;
+            padding-top: 0;
+        }
+        .coret-coret {
+            border: 1px dashed #c0c0c0;
+            min-height: 120px;
+            border-radius: 5px;
+        }
+        .soal-latihan {
+            break-inside: avoid; overflow-wrap: break-word; word-wrap: break-word;    
+            text-align: justify;
+        }
+                
+        ol { padding-left: 0; }
+        ol.pilihan-ganda { list-style-type: none; padding-left: 0; margin-top: 10px; }
+        ol.pilihan-ganda li { margin-bottom: 8px; padding-left: 20px; position: relative; }
+        ol.pilihan-ganda li::before {    
+             content: attr(data-option) ".";    
+             font-weight: bold;    
+             position: absolute;
+            left: 0;
+        }
+                
+        .petunjuk-box {
+            background-color: #f0f4ff;
+            border-left: 4px solid #4a69bd;
+            padding: 12px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-size: 9pt;
+        }
+                
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start; /* Ganti ke flex-start */
+            margin-top: 10px;
+            text-align: left;
+        }
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 10px;
+            min-width: 16px;
+            min-height: 16px;
+            margin-top: 4px; /* Sesuaikan agar sejajar */
+        }
+        .checkbox-option label {
+            display: block;
+        }
+        .kategori-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .kategori-table th, .kategori-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+        .kategori-table th {
+            background-color: #f2f2f2;
+        }
+        .kategori-table td:not(:first-child) {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="watermark-container">
+    <!-- Cover Page -->
+    <section class="page cover-page">
+        <div class="content-wrapper">
+            <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_zekej2_3984.png" alt="Logo">
+            <h1 class="title">KUMPULAN SOAL SULIT</h1>
+            <p class="subtitle">Trigonometri (Matematika Wajib)</p>
+        </div>
+    </section>
+
+    <!-- Soal Page 1 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <h2>Bagian 1: Pilihan Ganda</h2>
+            
+            <div class="latihan-item">
+                <div class="soal-latihan">
+                    <b>1.</b> Sebuah lampu sorot di tanah menyorot sebuah mural pada dinding vertikal. Lampu berada 12 meter dari dinding. Jika sudut elevasi dari lampu ke puncak mural adalah $60^\circ$ dan ke dasar mural adalah $30^\circ$, berapakah tinggi mural tersebut?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$4\sqrt{3}$ m</li>
+                        <li data-option="B">$6\sqrt{3}$ m</li>
+                        <li data-option="C">$8\sqrt{3}$ m</li>
+                        <li data-option="D">$12\sqrt{3}$ m</li>
+                        <li data-option="E">$24\sqrt{3}$ m</li>
+                    </ol>
+                </div>
+                <div class="coret-coret"></div>
+            </div>
+            
+            <h2>Bagian 2: Pilihan Ganda Kompleks</h2>
+
+            <div class="latihan-item">
+                <div class="soal-latihan">
+                    <b>2.</b> Diberikan segitiga sembarang ABC. Manakah dari identitas berikut yang berlaku secara universal untuk segitiga tersebut? <i>(bisa pilih lebih dari satu)</i>
+                    <div class="checkbox-option"><input type="checkbox" id="q2a"><label for="q2a">$\frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C}$ (Aturan Sinus)</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q2b"><label for="q2b">$c^2 = a^2+b^2 - 2ab \cos C$ (Aturan Cosinus)</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q2c"><label for="q2c">Luas = $\sqrt{s(s-a)(s-b)(s-c)}$ dimana $s$ adalah semi-perimeter (Rumus Heron)</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q2d"><label for="q2d">$A+B+C = 180^\circ$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q2e"><label for="q2e">$\tan\left(\frac{A-B}{2}\right) = \frac{a-b}{a+b}\cot\left(\frac{C}{2}\right)$ (Hukum Tangen Napier)</label></div>
+                </div>
+                <div class="coret-coret"></div>
+            </div>
+        </div>
+    </section>
+        
+    <!-- Soal Page 2 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <h2>Bagian 3: Kecukupan Data</h2>
+            
+            <div class="petunjuk-box">
+                <b>Petunjuk Pengerjaan:</b><br>
+                <b>A.</b> Pernyataan (1) SAJA cukup, tetapi pernyataan (2) SAJA tidak cukup.<br>
+                <b>B.</b> Pernyataan (2) SAJA cukup, tetapi pernyataan (1) SAJA tidak cukup.<br>
+                <b>C.</b> DUA pernyataan BERSAMA-SAMA cukup, tetapi SATU pernyataan SAJA tidak cukup.<br>
+                <b>D.</b> Pernyataan (1) SAJA cukup dan pernyataan (2) SAJA cukup.<br>
+                <b>E.</b> Pernyataan (1) dan pernyataan (2) tidak cukup.
+            </div>
+            
+            <div class="latihan-item">
+                <div class="soal-latihan">
+                    <b>3.</b> Diketahui $f(x) = a \sin(x) + b \cos(x)$. Berapakah nilai maksimum dari $f(x)$?
+                    <br><br>
+                    (1) $a=3$.<br>
+                    (2) $a^2+b^2 = 25$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                </div>
+                <div class="coret-coret"></div>
+            </div>
+
+            <div class="latihan-item">
+                <div class="soal-latihan">
+                    <b>4.</b> Pada segitiga siku-siku ABC, dengan siku-siku di C, berapakah luas segitiga tersebut?
+                    <br><br>
+                    (1) Panjang sisi miring $c=13$.<br>
+                    (2) Keliling segitiga adalah 30.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li><li data-option="B">B</li><li data-option="C">C</li><li data-option="D">D</li><li data-option="E">E</li>
+                    </ol>
+                </div>
+                <div class="coret-coret"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soal Page 3 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <h2>Bagian 4: Kategori (Benar/Salah)</h2>
+
+            <div class="petunjuk-box" style="background-color: #fef9e7; border-left-color: #f39c12;">
+              <b>Informasi untuk soal nomor 5:</b><br>
+              Perhatikan segitiga siku-siku ABC, dengan siku-siku di C, sisi $a=8$ dan $b=15$.
+            </div>
+            
+            <div class="latihan-item">
+              <div class="soal-latihan">
+                <b>5.</b> Tentukan kebenaran pernyataan mengenai segitiga tersebut.
+                <table class="kategori-table">
+                  <thead>
+                    <tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>A. Luas lingkaran luar (circumcircle) segitiga tersebut adalah $\frac{289}{4}\pi$.</td><td></td><td></td></tr>
+                    <tr><td>B. Nilai dari $\sin(A+B) = 1$.</td><td></td><td></td></tr>
+                    <tr><td>C. Nilai dari $\cos B = \frac{8}{17}$.</td><td></td><td></td></tr>
+                    <tr><td>D. Luas lingkaran dalam (incircle) segitiga tersebut adalah $9\pi$.</td><td></td><td></td></tr>
+                    <tr><td>E. Sudut $A$ lebih kecil dari sudut $B$.</td><td></td><td></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="coret-coret"></div>
+            </div>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>
