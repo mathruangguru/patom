@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Latihan & Pembahasan - Trigonometri (Selected)</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            counter-reset: page;
+        }
+
+        .page-container {
+            /* This container helps in centering the pages */
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 2.5cm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 10pt;
+            color: #888;
+        }
+
+        @media print {
+            body { background: none; }
+            .page { width: 100%; height: 100%; margin: 0; box-shadow: none; page-break-after: always; }
+        }
+
+        .content-wrapper { position: relative; z-index: 1; width: 100%; }
+        
+        h1 { font-size: 22pt; text-align: center; border-bottom: 2px solid var(--primary-text); padding-bottom: 10px; margin-bottom: 25px; font-weight: 700; }
+                
+        h2 {
+            font-size: 16pt;
+            font-weight: 700;
+            color: #444;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .soal-latihan {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 25px;
+            break-inside: avoid;
+            text-align: justify;
+        }
+
+        .soal-nomor {
+            font-weight: bold;
+            flex-shrink: 0;
+            min-width: 30px;
+        }
+
+        .soal-konten {
+            flex-grow: 1;
+        }
+        
+        .ref-number {
+            font-size: 0.85em;
+            color: #d32f2f;
+            font-weight: bold;
+            background-color: #ffebee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .pembahasan {
+            background-color: #f9f9f9;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .pembahasan ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        ol.pilihan-ganda { list-style-type: none; padding-left: 0; margin-top: 10px; text-align: left; }
+        
+        ol.pilihan-ganda li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        ol.pilihan-ganda li::before {
+            content: attr(data-option) ". ";
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .kategori-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .kategori-table th, .kategori-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .kategori-table th {
+            background-color: #f2f2f2;
+        }
+
+        .kategori-table td:not(:first-child) {
+            text-align: center;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            padding-left: 5px;
+            text-align: left;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 12px;
+            min-width: 16px;
+            min-height: 16px;
+            margin-top: 3px;
+        }
+
+        .checkbox-option label {
+            display: block;
+            flex-grow: 1;
+        }
+        
+        .instruction-box {
+            background-color: #f0f4f8;
+            border: 1px solid #d0dbe5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 9pt;
+        }
+
+        .instruction-box ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+        
+        .star-marker {
+            color: #E00;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <!-- HALAMAN 1 -->
+    <section class="page">
+        <div class="content-wrapper">
+            <h1>10 Soal Tersulit Trigonometri<br>(Revisi Final)</h1>
+
+            <!-- Tipe 1a -->
+            <h2>Tipe 1a: Pilihan Ganda (Satu Jawaban Benar)</h2>
+
+            <!-- Soal 1 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">1.</div>
+                <div class="soal-konten">
+                    <div class="ref-number">[Nomor Asli di Web: 3]</div>
+                    Jika $\sin(x) + \cos(x) = \frac{1}{2}$ dan $x$ berada di kuadran IV, maka nilai dari $\sin(x) - \cos(x)$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\frac{\sqrt{7}}{2}$</li>
+                        <li data-option="B">$-\frac{\sqrt{7}}{2}$</li>
+                        <li data-option="C">$\frac{\sqrt{5}}{2}$</li>
+                        <li data-option="D">$-\frac{\sqrt{5}}{2}$</li>
+                        <li data-option="E">$-\frac{1}{2}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Pembahasan:</b>
+                        Kuadratkan kedua ruas: $(\sin x + \cos x)^2 = (1/2)^2 \to 1 + \sin 2x = 1/4 \to \sin 2x = -3/4$.<br>
+                        Misal $M = \sin x - \cos x$. Maka $M^2 = 1 - \sin 2x = 1 - (-3/4) = 7/4$.<br>
+                        $M = \pm \frac{\sqrt{7}}{2}$. Karena kuadran IV ($\sin < 0, \cos > 0$), maka $M$ negatif.<br>
+                        <b>Jawaban: B</b>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soal 2 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">2.</div>
+                <div class="soal-konten">
+                    <div class="ref-number">[Nomor Asli di Web: 6]</div>
+                    Jika $A$ dan $B$ adalah sudut lancip, $A+B = 90^\circ$ dan $\cos A = \frac{1}{3}$, maka nilai dari $\sin(2A) - \tan A$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\frac{10\sqrt{2}}{9}$</li>
+                        <li data-option="B">$0$</li>
+                        <li data-option="C">$\frac{2\sqrt{2}}{9}$</li>
+                        <li data-option="D">$-\frac{14\sqrt{2}}{9}$</li>
+                        <li data-option="E">$-2\sqrt{2}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Pembahasan:</b>
+                        $\cos A = 1/3 \to$ sisi depan $\sqrt{8} = 2\sqrt{2}$.<br>
+                        $\sin A = \frac{2\sqrt{2}}{3}, \tan A = 2\sqrt{2}$.<br>
+                        $\sin 2A = 2 \sin A \cos A = 2 (\frac{2\sqrt{2}}{3}) (\frac{1}{3}) = \frac{4\sqrt{2}}{9}$.<br>
+                        Hasil = $\frac{4\sqrt{2}}{9} - 2\sqrt{2} = \frac{4\sqrt{2} - 18\sqrt{2}}{9} = -\frac{14\sqrt{2}}{9}$.<br>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soal 3 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">3.</div>
+                <div class="soal-konten">
+                    <div class="ref-number">[Nomor Asli di Web: 7]</div>
+                    Diketahui vektor $\vec{u}$ dan $\vec{v}$ dengan $|\vec{u}|=|\vec{v}|=k$. Jika sudut antara kedua vektor adalah $120^\circ$, dan $\alpha$ adalah sudut antara vektor resultan $(\vec{u}+\vec{v})$ dengan vektor $\vec{u}$, maka nilai dari $\sec^2 \alpha$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$1$</li>
+                        <li data-option="B">$2$</li>
+                        <li data-option="C">$3$</li>
+                        <li data-option="D">$4$</li>
+                        <li data-option="E">$\frac{4}{3}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Pembahasan:</b>
+                        Karena panjang vektor sama, resultan membagi sudut apit sama besar.<br>
+                        $\alpha = 120^\circ / 2 = 60^\circ$.<br>
+                        $\sec 60^\circ = 2$. Maka $\sec^2 \alpha = 4$.<br>
+                        <b>Jawaban: D</b>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soal 4 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">4.</div>
+                <div class="soal-konten">
+                    <div class="ref-number">[Nomor Asli di Web: 9]</div>
+                    Dalam sebuah segi-12 beraturan yang tertulis dalam lingkaran berjari-jari $R$, panjang satu sisinya adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$R\sqrt{2-\sqrt{3}}$</li>
+                        <li data-option="B">$R\sqrt{2+\sqrt{3}}$</li>
+                        <li data-option="C">$R$</li>
+                        <li data-option="D">$R\sqrt{2}$</li>
+                        <li data-option="E">$R\sqrt{3}$</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Pembahasan:</b>
+                        Sudut pusat = $360/12 = 30^\circ$. Aturan Cosinus:<br>
+                        $s^2 = R^2 + R^2 - 2R^2 \cos 30^\circ = 2R^2 - R^2\sqrt{3}$.<br>
+                        $s = R\sqrt{2-\sqrt{3}}$.<br>
+                        <b>Jawaban: A</b>
+                    </div>
+                </div>
+            </div>
+            
+             <!-- Soal 5 -->
+             <div class="soal-latihan">
+                <div class="soal-nomor">5.</div>
+                <div class="soal-konten">
+                    <div class="ref-number">[Nomor Asli di Web: 10]</div>
+                    Sebuah satelit mengorbit bumi dalam lintasan melingkar pada ketinggian tertentu sehingga ia menyelesaikan satu orbit penuh ($360^\circ$) dalam 90 menit. Jika seorang pengamat di stasiun bumi melihat satelit tersebut melintasi busur langit sebesar $60^\circ$ dari barat ke timur, berapa lama waktu yang dibutuhkan satelit untuk melintasi busur tersebut?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$10$ menit</li>
+                        <li data-option="B">$12$ menit</li>
+                        <li data-option="C">$15$ menit</li>
+                        <li data-option="D">$20$ menit</li>
+                        <li data-option="E">$30$ menit</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Pembahasan:</b>
+                        Kecepatan sudut konstan. Waktu total orbit ($360^\circ$) = 90 menit.<br>
+                        Waktu tempuh busur $60^\circ = \frac{60}{360} \times 90$ menit = $\frac{1}{6} \times 90 = 15$ menit.<br>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- HALAMAN 2 -->
+    <section class="page">
+        <div class="content-wrapper">
+            
+            <h2>Tipe 1b: Kecukupan Data</h2>
+            <div class="instruction-box">
+                <p style="font-weight: bold;">Petunjuk:</p>
+                <ul>
+                    <li><b>A.</b> Pernyataan (1) SAJA cukup, tetapi (2) tidak.</li>
+                    <li><b>B.</b> Pernyataan (2) SAJA cukup, tetapi (1) tidak.</li>
+                    <li><b>C.</b> DUA pernyataan BERSAMA-SAMA cukup.</li>
+                    <li><b>D.</b> (1) cukup, (2) cukup.</li>
+                    <li><b>E.</b> Keduanya tidak cukup.</li>
+                </ul>
+            </div>
+
+            <!-- Soal 6 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">6.</div>
+                <div class="soal-konten">
+                    <div class="ref-number">[Nomor Asli di Web: 13]</div>
+                    Tentukan nilai dari $\sin \theta + \cos \theta$.
+                    <br>(1) $\sin\theta \cos\theta = -\frac{12}{25}$.
+                    <br>(2) $\theta$ berada di kuadran II.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li>
+                        <li data-option="B">B</li>
+                        <li data-option="C">C</li>
+                        <li data-option="D">D</li>
+                        <li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Pembahasan:</b>
+                        $(\sin + \cos)^2 = 1 + 2(-12/25) = 1/25$. Maka $\sin + \cos = \pm 1/5$.<br>
+                        Kuadran II saja tidak cukup menentukan tanda karena tergantung besar mana antara $|\sin|$ dan $|\cos|$.<br>
+                        <b>Jawaban: E</b>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soal 7 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">7.</div>
+                <div class="soal-konten">
+                    <div class="ref-number">[Nomor Asli di Web: 14]</div>
+                    Berapakah tinggi sebuah gedung?
+                    <br>(1) Dari titik A di tanah, sudut elevasi ke puncak gedung adalah $45^\circ$.
+                    <br>(2) Dari titik B, yang berada 20 meter lebih dekat ke gedung dari titik A, sudut elevasi ke puncak adalah $60^\circ$.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">A</li>
+                        <li data-option="B">B</li>
+                        <li data-option="C">C</li>
+                        <li data-option="D">D</li>
+                        <li data-option="E">E</li>
+                    </ol>
+                    <div class="pembahasan">
+                        <b>Pembahasan:</b>
+                        (1) Hanya memberi rasio tinggi:jarak = 1:1. (Tidak Cukup)<br>
+                        (2) Hanya memberi rasio tinggi:jarak = $\sqrt{3}:1$. (Tidak Cukup)<br>
+                        Gabungan: Sistem persamaan linear dua variabel ($h = x+20$ dan $h = x\sqrt{3}$) bisa diselesaikan.<br>
+                        <b>Jawaban: C</b>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Tipe 2: Pilihan Ganda Kompleks</h2>
+            <p style="font-style: italic; margin-top: -15px; margin-bottom: 20px;">(Bisa pilih lebih dari satu jawaban)</p>
+
+            <!-- Soal 8 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                    <div class="ref-number">[Nomor Asli di Web: 16]</div>
+                    Titik $P(-5, 12)$ terletak pada sisi terminal sudut $\theta$ dalam posisi standar. Manakah pernyataan berikut yang benar?
+                    <div class="checkbox-option"><input type="checkbox" id="q16a" checked><label for="q16a">Jari-jari $r = 13$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16b" checked><label for="q16b">$\cos \theta = -5/13$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16c" checked><label for="q16c">$\tan \theta = -12/5$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16d" checked><label for="q16d">$\csc \theta = 13/12$.</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q16e" checked><label for="q16e">Sudut $\theta$ berada di kuadran II.</label></div>
+                    <div class="pembahasan">
+                        <b>Pembahasan:</b>
+                        $x=-5, y=12 \to r = \sqrt{25+144}=13$. (A Benar)<br>
+                        $x$ negatif, $y$ positif = Kuadran II. (E Benar)<br>
+                        $\cos \theta = x/r = -5/13$. (B Benar)<br>
+                        $\tan \theta = y/x = -12/5$. (C Benar)<br>
+                        $\csc \theta = r/y = 13/12$. (D Benar)<br>
+                        <b>Jawaban: A, B, C, D, E</b>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Soal 9 -->
+             <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                    <div class="ref-number">[Nomor Asli di Web: 18]</div>
+                    Manakah nilai $x$ dalam interval $[0, 2\pi]$ yang memenuhi persamaan $2\cos^2(x) + 3\sin(x) - 3 = 0$?
+                    <div class="checkbox-option"><input type="checkbox" id="q18a" checked><label for="q18a">$\frac{\pi}{6}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18b" checked><label for="q18b">$\frac{\pi}{2}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18c" checked><label for="q18c">$\frac{5\pi}{6}$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18d"><label for="q18d">$\pi$</label></div>
+                    <div class="checkbox-option"><input type="checkbox" id="q18e"><label for="q18e">$\frac{7\pi}{6}$</label></div>
+                    <div class="pembahasan">
+                        <b>Pembahasan:</b>
+                        $2(1-\sin^2 x) + 3\sin x - 3 = 0 \to 2\sin^2 x - 3\sin x + 1 = 0$.<br>
+                        $(2\sin x - 1)(\sin x - 1) = 0$.<br>
+                        $\sin x = 1/2 \to x = \pi/6, 5\pi/6$.<br>
+                        $\sin x = 1 \to x = \pi/2$.<br>
+                        <b>Jawaban: A, B, C</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- HALAMAN 3 -->
+    <section class="page">
+        <div class="content-wrapper">
+
+            <!-- Soal 10 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">10.</div>
+                <div class="soal-konten">
+                    <div class="ref-number">[Nomor Asli di Web: 26-30]</div>
+                    <b>Gunakan informasi berikut untuk menjawab soal tabel.</b><br>
+                    Untuk sebuah sudut $\theta$ di kuadran IV, diketahui $\cos \theta = \frac{3}{5}$. Tentukan apakah pernyataan-pernyataan berikut "Benar" atau "Salah".
+                    
+                    <table class="kategori-table">
+                        <thead>
+                            <tr>
+                                <th>Pernyataan</th>
+                                <th>Benar</th>
+                                <th>Salah</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1. Nilai $\sin \theta = -\frac{4}{5}$.</td>
+                                <td>&#10004;</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>2. Nilai $\tan(2\theta) = \frac{24}{7}$.</td>
+                                <td>&#10004;</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>3. Nilai $\sin(\frac{\theta}{2}) = -\frac{1}{\sqrt{5}}$.</td>
+                                <td></td>
+                                <td>&#10004;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="pembahasan">
+                        <b>Pembahasan:</b>
+                        1. Kuadran IV, sin negatif. $\sin \theta = -4/5$. (Benar)<br>
+                        2. $\tan \theta = -4/3$. $\tan 2\theta = \frac{2(-4/3)}{1-(-4/3)^2} = \frac{-8/3}{-7/9} = 24/7$. (Benar)<br>
+                        3. $\sin(\theta/2) = \pm \sqrt{\frac{1-3/5}{2}} = \pm \frac{1}{\sqrt{5}}$.<br>
+                        Cek kuadran $\theta/2$: Jika $270 < \theta < 360$, maka $135 < \theta/2 < 180$ (Kuadran II).<br>
+                        Di Kuadran II, sinus positif. Harusnya $+1/\sqrt{5}$. (Salah)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
