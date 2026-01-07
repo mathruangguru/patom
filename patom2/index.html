@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Soal PATOM 2 - Matematika</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          packages: { "[+]": ["ams"] },
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --header-top-bg: #e0f7fa;
+        --header-bottom-bg: #f0f0f0;
+        --header-title-color: #00838f;
+        --grey-text: #8d8e8d;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 8.5pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page-container {
+        counter-reset: page;
+      }
+
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .page-header {
+        margin: -1.8cm -2.5cm 20px -2.5cm;
+        width: 21cm;
+      }
+
+      .header-top-box {
+        background-color: var(--header-top-bg);
+        padding: 10px 2.5cm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+
+      .header-title-main {
+        font-size: 18pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        line-height: 1.2;
+      }
+
+      .header-title-sub {
+        font-size: 9pt;
+        font-weight: 400;
+        color: var(--primary-text);
+      }
+
+      .header-bottom-box {
+        padding: 8px 2.5cm;
+      }
+
+      .header-bottom-text {
+        background-color: var(--header-bottom-bg);
+        padding: 8px 15px;
+        font-weight: 700;
+        font-size: 8.5pt;
+        color: var(--secondary-text);
+        display: block;
+        border-radius: 4px;
+        white-space: normal;
+        text-align: left;
+      }
+
+      .header-logo {
+        max-height: 60px;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        flex-grow: 1;
+      }
+
+      .manual-flex-layout {
+        display: flex;
+        gap: 15mm;
+        align-items: flex-start;
+      }
+      .manual-flex-layout .kolom {
+        flex: 1;
+        width: 50%;
+      }
+
+      .soal-latihan {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        margin-bottom: 20px;
+        break-inside: avoid;
+        text-align: justify;
+      }
+
+      .soal-nomor {
+        font-weight: bold;
+        flex-shrink: 0;
+        min-width: 18px;
+      }
+
+      .soal-konten {
+        flex-grow: 1;
+      }
+
+      .soal-sumber {
+        font-size: 7.5pt;
+        color: #777;
+        font-style: italic;
+        margin-top: 4px;
+        margin-bottom: 8px;
+        display: block;
+        text-align: center;
+      }
+
+      .soal-gambar {
+        max-width: 100%;
+        height: auto;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      ol {
+        padding-left: 0;
+      }
+      ol.pilihan-ganda {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        text-align: left;
+      }
+      ol.pilihan-ganda li {
+        margin-bottom: 8px;
+        padding-left: 20px;
+        text-indent: -20px;
+        text-align: left;
+      }
+      ol.pilihan-ganda li::before {
+        content: attr(data-option) ". ";
+        font-weight: bold;
+        padding-right: 5px;
+      }
+
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+
+        body {
+          background-color: white;
+          margin: 0;
+        }
+
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+
+        .page-header {
+          display: block;
+          margin: -1.8cm -2.5cm 20px -2.5cm;
+          position: relative;
+        }
+
+        .header-top-box,
+        .header-bottom-text {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- HALAMAN 1 (Soal 1-5) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Soal PATOM 2</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Soal-soal level Ujian Mandiri
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            <div class="kolom">
+              <!-- Soal 1 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">1.</div>
+                <div class="soal-konten">
+                  Bentuk sederhana dari
+                  $$ \frac{\sqrt{143}+\sqrt{165}+\sqrt{195}+13}{\sqrt{11}+2\sqrt{13}+\sqrt{15}} $$
+                  adalah...
+                  <span class="soal-sumber">[Sumber: SIMAK UI 2015 Kode 567]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">
+                      $\frac{1}{2} \left( \sqrt{15} + \sqrt{13} \right )$
+                    </li>
+                    <li data-option="B">
+                      $\frac{1}{2} \frac{\left( \sqrt{15} - \sqrt{13} \right )}{\left( \sqrt{15} + \sqrt{13} \right )}$
+                    </li>
+                    <li data-option="C">
+                      $\frac{1}{2} \left( \sqrt{15} - \sqrt{11} \right )$
+                    </li>
+                    <li data-option="D">
+                      $\frac{1}{2} \left( \sqrt{15} + \sqrt{11} \right )$
+                    </li>
+                    <li data-option="E">
+                      $\frac{\left( \sqrt{15} - \sqrt{11} \right )}{\left( \sqrt{15} + \sqrt{11} \right )}$
+                    </li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 2 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">2.</div>
+                <div class="soal-konten">
+                  Bilangan bulat positif terkecil $n$ yang memenuhi pertidaksamaan
+                  $$ \sqrt{n}-\sqrt{n-1} < 0,01 $$
+                  adalah...
+                  <span class="soal-sumber">[Sumber: SIMAK UI 2013 Kode 333]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">2499</li>
+                    <li data-option="B">2500</li>
+                    <li data-option="C">2501</li>
+                    <li data-option="D">10000</li>
+                    <li data-option="E">Tidak ada bilangan bulat yang memenuhi</li>
+                  </ol>
+                </div>
+              </div>
+              
+              <!-- Soal 3 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">3.</div>
+                <div class="soal-konten">
+                  Jika diketahui:
+                  $$ \sqrt{7x^{2}-2x+432}+\sqrt{7x^{2}-2x-423}=285 $$
+                  maka nilai dari $\sqrt{7x^{2}-2x+432}-\sqrt{7x^{2}-2x-423}$ adalah...
+                  <span class="soal-sumber">[Sumber: UM UNDIP 2008 Kode 581]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">1</li>
+                    <li data-option="B">2</li>
+                    <li data-option="C">3</li>
+                    <li data-option="D">4</li>
+                    <li data-option="E">5</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="kolom">
+              <!-- Soal 4 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">4.</div>
+                <div class="soal-konten">
+                  Nilai dari bentuk akar berulang tak hingga berikut:
+                  $$ \sqrt{4 +\sqrt{ 16 + \sqrt{64 + \sqrt{256 + \sqrt{\cdots}}}}} $$
+                  adalah...
+                  <span class="soal-sumber">[Sumber: Latihan Bentuk Akar SMA]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">2</li>
+                    <li data-option="B">3</li>
+                    <li data-option="C">4</li>
+                    <li data-option="D">5</li>
+                    <li data-option="E">6</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 5 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">5.</div>
+                <div class="soal-konten">
+                  Bentuk sederhana dari operasi bilangan akar berikut ini adalah...
+                  $$ \left( \sqrt{52+6\sqrt{43}} \right )^{3}-\left( \sqrt{52-6\sqrt{43}} \right )^{3} $$
+                  <span class="soal-sumber">[Sumber: UM UNDIP 2015 Kode 537]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">184</li>
+                    <li data-option="B">288</li>
+                    <li data-option="C">476</li>
+                    <li data-option="D">828</li>
+                    <li data-option="E">900</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 2 (Soal 6-10) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Soal PATOM 2</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Soal-soal level Ujian Mandiri
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            <div class="kolom">
+              <!-- Soal 6 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">6.</div>
+                <div class="soal-konten">
+                  Persamaan kuadrat $x^{2} + \left(a+6 \right)x + 9a-1 = 0 $ mempunyai $2$ akar real berbeda $ x_{1}$ dan $ x_{2} $ dengan $ a \lt 0 $. Jika $ x_{1}^{2} + x_{1} x_{2} +x_{2}^{2} = -12a + 1$, maka nilai $ a^{2} + a = \dots $
+                  <span class="soal-sumber">[Sumber: SIMAK UI 2018 Kode 632]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">4</li>
+                    <li data-option="B">6</li>
+                    <li data-option="C">64</li>
+                    <li data-option="D">96</li>
+                    <li data-option="E">156</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 7 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">7.</div>
+                <div class="soal-konten">
+                  Diketahui $x_{1}$ dan $x_{2}$ adalah akar-akar dari persamaan $x^{2}+5ax+a^{3}-4a+1=0$. Nilai $a$ sehingga $x_{1}+x_{1}x_{2}+x_{2}$ maksimum pada interval $[-3,3]$ adalah...
+                  <span class="soal-sumber">[Sumber: SBMPTN 2016 Kode 255]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">-3</li>
+                    <li data-option="B">$-\sqrt{3}$</li>
+                    <li data-option="C">0</li>
+                    <li data-option="D">$\sqrt{3}$</li>
+                    <li data-option="E">3</li>
+                  </ol>
+                </div>
+              </div>
+              
+               <!-- Soal 8 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                  Misalkan $x_{1}$ dan $x_{2}$ merupakan akar-akar persamaan $px^{2}+qx-1=0$, dengan $p \neq 0$. Jika $\dfrac{1}{x_{1}}+\dfrac{1}{x_{2}}=-1$ dan $x_{1}= -\dfrac{3}{2}x_{2}$ maka nilai $p+q=\dots$
+                  <span class="soal-sumber">[Sumber: UM UGM 2017 Kode 713]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">7</li>
+                    <li data-option="B">5</li>
+                    <li data-option="C">0</li>
+                    <li data-option="D">-5</li>
+                    <li data-option="E">-7</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="kolom">
+              <!-- Soal 9 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                  Hasil penjumlahan semua nilai $x$ yang memenuhi persamaan $x^{4 \log x}=\dfrac{x^{12}}{10^{8}}$ adalah...
+                  <span class="soal-sumber">[Sumber: UM UGM 2019 Kode 934]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">1</li>
+                    <li data-option="B">11</li>
+                    <li data-option="C">101</li>
+                    <li data-option="D">110</li>
+                    <li data-option="E">1100</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 10 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">10.</div>
+                <div class="soal-konten">
+                  Jika ${}^{a^{2}} \log \left(3^{a} - 8 \right)^{-4} \cdot {}^{3}\!\log \sqrt{a} = a - 2$, maka ${}^a \log \left( \frac{1}{8} \right) = \dots$
+                  <span class="soal-sumber">[Sumber: UM UGM 2019 Kode 624]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">0</li>
+                    <li data-option="B">-1</li>
+                    <li data-option="C">-2</li>
+                    <li data-option="D">-3</li>
+                    <li data-option="E">-4</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 3 (Soal 11-15) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Soal PATOM 2</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Soal-soal level Ujian Mandiri
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            <div class="kolom">
+              <!-- Soal 11 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">11.</div>
+                <div class="soal-konten">
+                  Jika grafik fungsi $f(x)=ax^{2}+bx+c$ mempunyai titik puncak $(8,4)$ dan memotong sumbu-$x$ negatif, maka...
+                  <span class="soal-sumber">[Sumber: SBMPTN 2013 Kode 427]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$a > 0, b > 0 \text{ dan } c > 0$</li>
+                    <li data-option="B">$a < 0, b < 0 \text{ dan } c > 0$</li>
+                    <li data-option="C">$a < 0, b > 0 \text{ dan } c < 0$</li>
+                    <li data-option="D">$a > 0, b > 0 \text{ dan } c < 0$</li>
+                    <li data-option="E">$a < 0, b > 0 \text{ dan } c > 0$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 12 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">12.</div>
+                <div class="soal-konten">
+                  Diberikan dua parabola dengan persamaan $f(x)=ax^{2}+bx+c$ dan $g(x)=px^{2}+qx+r$ tidak berpotongan dan $\dfrac{b}{a}=\dfrac{q}{p}$, maka jarak terdekat dua parabola tersebut adalah selisih dari...
+                  <span class="soal-sumber">[Sumber: UM UGM 2014 Kode 521]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$r \text{ dan } c$</li>
+                    <li data-option="B">$f\left(-\dfrac{b}{2a} \right) \text{ dan } g\left(-\dfrac{q}{2p} \right)$</li>
+                    <li data-option="C">$f\left(-b \right) \text{ dan } g\left(-q \right)$</li>
+                    <li data-option="D">$f\left( \dfrac{b}{a} \right) \text{ dan } k$</li>
+                    <li data-option="E">$k \text{ dan } g\left(-\dfrac{q}{2p} \right)$</li>
+                  </ol>
+                </div>
+              </div>
+              
+              <!-- Soal 13 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">13.</div>
+                <div class="soal-konten">
+                  Diberikan fungsi kuadrat $f(x)=x^{2}+ax+b$, dengan $a$ dan $b$ konstanta real. Jika $f(-1)=2$ dan $f(2)=-1$, maka nilai minimum untuk fungsi $f$ adalah...
+                  <span class="soal-sumber">[Sumber: UM UNDIP 2019 Kode 324]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">-3</li>
+                    <li data-option="B">-2</li>
+                    <li data-option="C">0</li>
+                    <li data-option="D">3</li>
+                    <li data-option="E">4</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="kolom">
+              <!-- Soal 14 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">14.</div>
+                <div class="soal-konten">
+                  Garis $l$ menyinggung $y=3-2 \cos x$ di $(a,b)$ dan garis $h$ menyinggung $y=2\cos x$ di $(a,c)$. Jika $l \perp h$ dan $0 < a < \dfrac{\pi}{2}$, maka $b-c=\dots$
+                  <span class="soal-sumber">[Sumber: UM UGM 2004 Kode 322]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$3-2\sqrt{3}$</li>
+                    <li data-option="B">$3-\sqrt{3}$</li>
+                    <li data-option="C">$\sqrt{3}-3$</li>
+                    <li data-option="D">$2\sqrt{3}-3$</li>
+                    <li data-option="E">$3\sqrt{3}-3$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 15 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">15.</div>
+                <div class="soal-konten">
+                  Garis singgung kurva $y=3-x^{2}$ di titik $P(-a,b)$ dan $Q(a,b)$ memotong sumbu-y di titik $R$. Nilai $a$ yang membuat segitiga $PQR$ sama sisi adalah...
+                  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEimfaZTpYBTqChPWOtaEuhO9TMRpVITHCMxO_wBqgpfxRGMAWS_kBICUm6bWLfQcNDR__nMkCCynsmfwJKf5R2I9DEiN5DPQ7092iTKx3zLkV4J6dUnPZdxVYWr7-mA9RiN8N69HD3BcokE/s1600/Soal+dan+Pembahasan+Matematika+SAINTEK+SBMPTN+2016.jpg" alt="Ilustrasi Segitiga PQR" class="soal-gambar">
+                  <span class="soal-sumber">[Sumber: SBMPTN 2016 Kode 249]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$2\sqrt{3}$</li>
+                    <li data-option="B">$\sqrt{3}$</li>
+                    <li data-option="C">$\dfrac{1}{2}\sqrt{3}$</li>
+                    <li data-option="D">$\dfrac{1}{3}\sqrt{3}$</li>
+                    <li data-option="E">$\dfrac{1}{4}\sqrt{3}$</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 4 (Soal 16-20) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Soal PATOM 2</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Soal-soal level Ujian Mandiri
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            <div class="kolom">
+              <!-- Soal 16 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">16.</div>
+                <div class="soal-konten">
+                  Hasil penjumlahan dari semua bilangan bulat $x$ yang memenuhi pertidaksamaan berikut adalah...
+                  $$ \frac{\left ( x^{2}-x-12 \right )\sqrt{2x^{2}+5x-3}}{\left ( -x^{2}-3 \right )\sqrt{3x^{2}+x-2}} \geq 0 $$
+                  <span class="soal-sumber">[Sumber: SIMAK UI 2019 Kode 539]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">2</li>
+                    <li data-option="B">4</li>
+                    <li data-option="C">7</li>
+                    <li data-option="D">8</li>
+                    <li data-option="E">10</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 17 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">17.</div>
+                <div class="soal-konten">
+                  Diketahui penyelesaian dari pertidaksamaan $\dfrac{3^{x+3}+3^{x}-36}{9^{x}-9} \leq 3 $ adalah $a \leq x < b$ atau $x \geq c$. Nilai $a+2b+c=\dots$
+                  <span class="soal-sumber">[Sumber: UM UGM 2019 Kode 923/924]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">0</li>
+                    <li data-option="B">1</li>
+                    <li data-option="C">2</li>
+                    <li data-option="D">3</li>
+                    <li data-option="E">4</li>
+                  </ol>
+                </div>
+              </div>
+              
+              <!-- Soal 18 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">18.</div>
+                <div class="soal-konten">
+                  Nilai $x$ yang merupakan penyelesaian dari pertidaksamaan eksponen berikut adalah...
+                  $$ -2^{2x+1}+4^{x}+8^{x+\frac{1}{3}}-8^{\frac{2x-1}{3}}-16^{\frac{2x-1}{4}} > 0 $$
+                  <span class="soal-sumber">[Sumber: UM UGM 2019 Kode 934]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$-1 \leq x < 0$</li>
+                    <li data-option="B">$x > 0$</li>
+                    <li data-option="C">$x < 0 \text{ atau } x > 1$</li>
+                    <li data-option="D">$0 \leq x < 1$</li>
+                    <li data-option="E">$x > 1$</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="kolom">
+              <!-- Soal 19 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">19.</div>
+                <div class="soal-konten">
+                  Himpunan penyelesaian dari $\left| x+1 \right| < \dfrac{2}{x}$ adalah interval $(a,b)$. Nilai $2a+5b$ adalah...
+                  <span class="soal-sumber">[Sumber: UTBK-SBMPTN 2019]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">-5</li>
+                    <li data-option="B">-2</li>
+                    <li data-option="C">0</li>
+                    <li data-option="D">2</li>
+                    <li data-option="E">5</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 20 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">20.</div>
+                <div class="soal-konten">
+                  Diketahui limas segiempat beraturan $T.ABCD$ dengan $AB = BC = 5 \sqrt{2}\ cm$ dan $TA = 13\ cm$. Jarak titik $A$ ke garis $TC$ adalah...
+                  <span class="soal-sumber">[Sumber: UN SMA IPA 2016]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$4\frac{8}{13}$ cm</li>
+                    <li data-option="B">$4\frac{12}{13}$ cm</li>
+                    <li data-option="C">$9\frac{3}{13}$ cm</li>
+                    <li data-option="D">$10$ cm</li>
+                    <li data-option="E">$12$ cm</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 5 (Soal 21-25) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Soal PATOM 2</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Soal-soal level Ujian Mandiri
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            <div class="kolom">
+              <!-- Soal 21 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">21.</div>
+                <div class="soal-konten">
+                  Diketahui limas beraturan $T.ABCD$. Panjang rusuk tegak dan panjang rusuk alas $4\ cm$. Jarak titik $A$ ke garis $TB$ adalah...
+                  <span class="soal-sumber">[Sumber: UN SMA IPA 2017]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$2\sqrt{2}$ cm</li>
+                    <li data-option="B">$2\sqrt{3}$ cm</li>
+                    <li data-option="C">$4$ cm</li>
+                    <li data-option="D">$4\sqrt{2}$ cm</li>
+                    <li data-option="E">$4\sqrt{3}$ cm</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 23 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">23.</div>
+                <div class="soal-konten">
+                  Hasil penjumlahan dari $x, y,$ dan $z$ yang memenuhi:
+                  $$ 3^{2x+y-z}=\left( \dfrac{1}{27} \right)^{(x-y+2z+2)} $$
+                  $$ {}^2\log (x-y+z)= \dfrac{1}{1+{}^2\log 5} $$
+                  $$ \begin{vmatrix} x & \dfrac{1}{2}\\  2y & 2 \\  \end{vmatrix}=2 $$
+                  Adalah...
+                  <span class="soal-sumber">[Sumber: SIMAK UI 2019 Kode 539]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$-\frac{22}{3}$</li>
+                    <li data-option="B">$-\frac{23}{3}$</li>
+                    <li data-option="C">$-\frac{24}{3}$</li>
+                    <li data-option="D">$-\frac{25}{3}$</li>
+                    <li data-option="E">$-\frac{26}{3}$</li>
+                  </ol>
+                </div>
+              </div>
+              
+              <!-- Soal 25 (Peluang - Baru) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">25.</div>
+                <div class="soal-konten">
+                  Lima sekolah $A,B,C,D,$ dan $E$ masing-masing mendelegasikan 3 siswa mengikuti konferensi. Suatu panitia terdiri dari 4 orang dipilih dengan cara diundi. Peluang bahwa tidak ada delegasi dari sekolah $E$ yang menjadi anggota panitia adalah...
+                  <span class="soal-sumber">[Sumber: UM UNDIP 2013 Kode 132]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$\frac{13}{112}$</li>
+                    <li data-option="B">$\frac{11}{78}$</li>
+                    <li data-option="C">$\frac{22}{81}$</li>
+                    <li data-option="D">$\frac{33}{91}$</li>
+                    <li data-option="E">$\frac{31}{57}$</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="kolom">
+              <!-- Soal 22 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">22.</div>
+                <div class="soal-konten">
+                  Diberikan kubus $ABCD.EFGH$. Jika $O$ titik tengah $DH$ dan $P$ adalah titik tengah $BF$, maka perbandingan luas $\bigtriangleup AOP$ dan $\bigtriangleup HFC$ adalah...
+                  <span class="soal-sumber">[Sumber: UM UGM 2019 Kode 624]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$1 : 2$</li>
+                    <li data-option="B">$\sqrt{2} : 1$</li>
+                    <li data-option="C">$1 : 3$</li>
+                    <li data-option="D">$2 : 1$</li>
+                    <li data-option="E">$\sqrt{2} : 2$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 24 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">24.</div>
+                <div class="soal-konten">
+                  Suatu bilangan bulat tak nol dan berbeda $x, y,$ dan $z$ memenuhi:
+                  $$ \dfrac{2x-3y}{2y+z}=\dfrac{x-z}{y}=\dfrac{2y}{x}=\dfrac{2018}{2019} $$
+                  Maka nilai $\dfrac{x+y+z}{x-y+z}$ adalah...
+                  <span class="soal-sumber">[Sumber: UM UNDIP 2019 Kode 431]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">-1</li>
+                    <li data-option="B">0</li>
+                    <li data-option="C">$\frac{2018}{2019}$</li>
+                    <li data-option="D">1</li>
+                    <li data-option="E">$\frac{2019}{2018}$</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 6 (Soal 26-27 - Peluang) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Soal PATOM 2</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              Soal-soal level Ujian Mandiri
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            <div class="kolom">
+              <!-- Soal 26 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">26.</div>
+                <div class="soal-konten">
+                  Seorang siswa sedang melakukan percobaan statistika dengan cara menggunakan 6 bola bilyar berturut-turut bernomor 1, 1, 3, 4, 5, dan 7. Semua bola tersebut dimasukkan ke dalam kotak. Selanjutnya, diambil tiga bola secara acak dan dicatat angka yang muncul sehingga membentuk bilangan. Angka pada bola yang muncul pertama dicatat sebagai ratusan, angka pada bola kedua sebagai puluhan, dan angka pada bola ketiga sebagai satuan. Jika bilangan yang sama dianggap sebagai satu kejadian dan peluang setiap kejadian adalah sama, maka peluang untuk mendapatkan bilangan yang lebih besar daripada 200 adalah...
+                  <span class="soal-sumber">[Sumber: SBMPTN 2015 Kode 634]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$\frac{1}{20}$</li>
+                    <li data-option="B">$\frac{3}{18}$</li>
+                    <li data-option="C">$\frac{5}{18}$</li>
+                    <li data-option="D">$\frac{13}{18}$</li>
+                    <li data-option="E">$\frac{7}{9}$</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="kolom">
+              <!-- Soal 27 -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">27.</div>
+                <div class="soal-konten">
+                  Suatu kotak berisi 4 koin (mata uang) seimbang dan 6 koin tidak seimbang. Ketika koin seimbang dilempar, peluang mendapat gambar adalah 0,5. Sedangkan untuk mata uang yang tidak seimbang peluang mendapat gambar adalah 0,8. Satu koin diambil secara acak dari kotak tersebut kemudian dilempar. Peluang mendapat gambar adalah...
+                  <span class="soal-sumber">[Sumber: UM UGM 2018 Kode 585]</span>
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">0,6</li>
+                    <li data-option="B">0,64</li>
+                    <li data-option="C">0,68</li>
+                    <li data-option="D">0,72</li>
+                    <li data-option="E">0,76</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b>
+          <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+    </div>
+  </body>
+</html>
