@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bank Soal PATOM 2 - Matematika</title>
+    <title>Bank Soal PATOM 2 - Matematika (High Level)</title>
     <!-- MathJax untuk Matematika -->
     <script>
       window.MathJax = {
@@ -127,7 +127,8 @@
         color: var(--header-accent);
       }
 
-      .form-group input {
+      .form-group input,
+      .form-group select {
         flex: 1;
         padding: 8px 12px;
         border: 1px solid #ccc;
@@ -137,7 +138,8 @@
         background-color: #fff;
       }
 
-      .form-group input:focus {
+      .form-group input:focus,
+      .form-group select:focus {
         outline: none;
         border-color: var(--header-accent);
         box-shadow: 0 0 0 2px rgba(0, 131, 143, 0.1);
@@ -274,7 +276,7 @@
       <header class="worksheet-header">
         <div class="header-left">
           <h1>Bank Soal PATOM 2</h1>
-          <h2>Matematika - Level Ujian Mandiri</h2>
+          <h2>Matematika - Ujian Mandiri</h2>
         </div>
         <img
           src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
@@ -295,13 +297,67 @@
         </div>
         <div class="form-group">
           <label for="regional">Regional :</label>
-          <input type="text" id="regional" placeholder="Masukkan regional..." />
+          <select id="regional">
+            <option value="" disabled selected>Pilih Regional...</option>
+            <option value="Aceh">Aceh</option>
+            <option value="Bali Outer">Bali Outer</option>
+            <option value="Bandung Barat">Bandung Barat</option>
+            <option value="Banten & Kab. Tangerang">Banten & Kab. Tangerang</option>
+            <option value="Banyumas Raya">Banyumas Raya</option>
+            <option value="Bogor Raya">Bogor Raya</option>
+            <option value="Cibinong">Cibinong</option>
+            <option value="Denpasar Raya">Denpasar Raya</option>
+            <option value="Depok">Depok</option>
+            <option value="Gresik Raya">Gresik Raya</option>
+            <option value="Jakarta Barat">Jakarta Barat</option>
+            <option value="Jakarta Selatan">Jakarta Selatan</option>
+            <option value="Jakarta Timur">Jakarta Timur</option>
+            <option value="Jakarta Utara">Jakarta Utara</option>
+            <option value="Jambi & Bengkulu">Jambi & Bengkulu</option>
+            <option value="Kabupaten Bandung">Kabupaten Bandung</option>
+            <option value="Kabupaten Bekasi & Karawang">Kabupaten Bekasi & Karawang</option>
+            <option value="Kalimantan Barat">Kalimantan Barat</option>
+            <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+            <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+            <option value="Kalimantan Timur & Utara">Kalimantan Timur & Utara</option>
+            <option value="Kota Bandung">Kota Bandung</option>
+            <option value="Kota Bekasi">Kota Bekasi</option>
+            <option value="Kota Tangerang">Kota Tangerang</option>
+            <option value="Lampung">Lampung</option>
+            <option value="Madiun Raya">Madiun Raya</option>
+            <option value="Magelang Raya">Magelang Raya</option>
+            <option value="Makassar Raya">Makassar Raya</option>
+            <option value="Malang Raya">Malang Raya</option>
+            <option value="Maluku & Papua">Maluku & Papua</option>
+            <option value="Medan Raya">Medan Raya</option>
+            <option value="Mojokerto Raya">Mojokerto Raya</option>
+            <option value="Muria Raya">Muria Raya</option>
+            <option value="Nusa Tenggara">Nusa Tenggara</option>
+            <option value="Pantura">Pantura</option>
+            <option value="Pekanbaru Raya">Pekanbaru Raya</option>
+            <option value="Priangan Timur">Priangan Timur</option>
+            <option value="Riau & Kepulauan Riau">Riau & Kepulauan Riau</option>
+            <option value="Semarang Raya">Semarang Raya</option>
+            <option value="Solo Raya">Solo Raya</option>
+            <option value="Sulawesi Barat & Tengah">Sulawesi Barat & Tengah</option>
+            <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+            <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
+            <option value="Sulawesi Utara & Gorontalo">Sulawesi Utara & Gorontalo</option>
+            <option value="Sumatra Barat">Sumatra Barat</option>
+            <option value="Sumatra Selatan & Bangka Belitung">Sumatra Selatan & Bangka Belitung</option>
+            <option value="Sumatra Utara">Sumatra Utara</option>
+            <option value="Surabaya Raya">Surabaya Raya</option>
+            <option value="Tangerang Selatan">Tangerang Selatan</option>
+            <option value="Tapal Kuda">Tapal Kuda</option>
+            <option value="Toba">Toba</option>
+            <option value="Yogyakarta Raya">Yogyakarta Raya</option>
+          </select>
         </div>
       </section>
 
       <!-- DAFTAR SOAL -->
       <div class="questions-grid">
-        <!-- KOLOM KIRI -->
+        <!-- KOLOM KIRI (1-10) -->
         <div class="kolom">
            
           <!-- Soal 1 -->
@@ -329,26 +385,6 @@
             <div class="soal-header">
               <span class="nomor">2.</span>
               <div class="pertanyaan">
-                Bilangan bulat positif terkecil $n$ yang memenuhi pertidaksamaan
-                $$ \sqrt{n}-\sqrt{n-1} < 0,01 $$
-                adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: SIMAK UI 2013 Kode 333]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">2499</li>
-              <li data-option="B">2500</li>
-              <li data-option="C">2501</li>
-              <li data-option="D">10000</li>
-              <li data-option="E">Tidak ada bilangan bulat yang memenuhi</li>
-            </ol>
-          </div>
-
-          <!-- Soal 3 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">3.</span>
-              <div class="pertanyaan">
                 Jika diketahui:
                 $$ \sqrt{7x^{2}-2x+432}+\sqrt{7x^{2}-2x-423}=285 $$
                 maka nilai dari $\sqrt{7x^{2}-2x+432}-\sqrt{7x^{2}-2x-423}$ adalah...
@@ -364,28 +400,10 @@
             </ol>
           </div>
 
-          <!-- Soal 4 -->
+          <!-- Soal 3 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">4.</span>
-              <div class="pertanyaan">
-                Nilai dari $\sqrt[3]{5+2\sqrt{13}}+\sqrt[3]{5-2\sqrt{13}}$ adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UNDIP 2009 Kode 192]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">1</li>
-              <li data-option="B">2</li>
-              <li data-option="C">3</li>
-              <li data-option="D">4</li>
-              <li data-option="E">5</li>
-            </ol>
-          </div>
-
-          <!-- Soal 5 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">5.</span>
+              <span class="nomor">3.</span>
               <div class="pertanyaan">
                 Bentuk sederhana dari operasi bilangan akar berikut ini adalah...
                 $$ \left( \sqrt{52+6\sqrt{43}} \right )^{3}-\left( \sqrt{52-6\sqrt{43}} \right )^{3} $$
@@ -401,10 +419,10 @@
             </ol>
           </div>
 
-          <!-- Soal 6 -->
+          <!-- Soal 4 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">6.</span>
+              <span class="nomor">4.</span>
               <div class="pertanyaan">
                 Persamaan kuadrat $x^{2} + \left(a+6 \right)x + 9a-1 = 0 $ mempunyai $2$ akar real berbeda $ x_{1}$ dan $ x_{2} $ dengan $ a \lt 0 $. Jika $ x_{1}^{2} + x_{1} x_{2} +x_{2}^{2} = -12a + 1$, maka nilai $ a^{2} + a = \dots $
               </div>
@@ -419,10 +437,10 @@
             </ol>
           </div>
 
-          <!-- Soal 7 -->
+          <!-- Soal 5 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">7.</span>
+              <span class="nomor">5.</span>
               <div class="pertanyaan">
                   Diketahui $x_{1}$ dan $x_{2}$ adalah akar-akar dari persamaan $x^{2}+5ax+a^{3}-4a+1=0$. Nilai $a$ sehingga $x_{1}+x_{1}x_{2}+x_{2}$ maksimum pada interval $[-3,3]$ adalah...
               </div>
@@ -437,10 +455,10 @@
             </ol>
           </div>
 
-          <!-- Soal 8 -->
+          <!-- Soal 6 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">8.</span>
+              <span class="nomor">6.</span>
               <div class="pertanyaan">
                   Misalkan $x_{1}$ dan $x_{2}$ merupakan akar-akar persamaan $px^{2}+qx-1=0$, dengan $p \neq 0$. Jika $\dfrac{1}{x_{1}}+\dfrac{1}{x_{2}}=-1$ dan $x_{1}= -\dfrac{3}{2}x_{2}$ maka nilai $p+q=\dots$
               </div>
@@ -455,10 +473,10 @@
             </ol>
           </div>
 
-          <!-- Soal 9 -->
+          <!-- Soal 7 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">9.</span>
+              <span class="nomor">7.</span>
               <div class="pertanyaan">
                   Hasil penjumlahan semua nilai $x$ yang memenuhi persamaan $x^{4 \log x}=\dfrac{x^{12}}{10^{8}}$ adalah...
               </div>
@@ -473,10 +491,10 @@
             </ol>
           </div>
 
-          <!-- Soal 10 -->
+          <!-- Soal 8 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">10.</span>
+              <span class="nomor">8.</span>
               <div class="pertanyaan">
                   Jika ${}^{a^{2}} \log \left(3^{a} - 8 \right)^{-4} \cdot {}^{3}\!\log \sqrt{a} = a - 2$, maka ${}^a \log \left( \frac{1}{8} \right) = \dots$
               </div>
@@ -491,28 +509,10 @@
             </ol>
           </div>
 
-           <!-- Soal 11 -->
+          <!-- Soal 9 -->
            <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">11.</span>
-              <div class="pertanyaan">
-                Jika grafik fungsi $f(x)=ax^{2}+bx+c$ mempunyai titik puncak $(8,4)$ dan memotong sumbu-$x$ negatif, maka...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: SBMPTN 2013 Kode 427]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$a > 0, b > 0 \text{ dan } c > 0$</li>
-              <li data-option="B">$a < 0, b < 0 \text{ dan } c > 0$</li>
-              <li data-option="C">$a < 0, b > 0 \text{ dan } c < 0$</li>
-              <li data-option="D">$a > 0, b > 0 \text{ dan } c < 0$</li>
-              <li data-option="E">$a < 0, b > 0 \text{ dan } c > 0$</li>
-            </ol>
-          </div>
-          
-           <!-- Soal 12 -->
-           <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">12.</span>
+              <span class="nomor">9.</span>
               <div class="pertanyaan">
                 Diberikan dua parabola dengan persamaan $f(x)=ax^{2}+bx+c$ dan $g(x)=px^{2}+qx+r$ tidak berpotongan dan $\dfrac{b}{a}=\dfrac{q}{p}$, maka jarak terdekat dua parabola tersebut adalah selisih dari...
               </div>
@@ -526,29 +526,11 @@
               <li data-option="E">$k \text{ dan } g\left(-\dfrac{q}{2p} \right)$</li>
             </ol>
           </div>
-
-          <!-- Soal 13 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">13.</span>
-              <div class="pertanyaan">
-                Diberikan fungsi kuadrat $f(x)=x^{2}+ax+b$, dengan $a$ dan $b$ konstanta real. Jika $f(-1)=2$ dan $f(2)=-1$, maka nilai minimum untuk fungsi $f$ adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UNDIP 2019 Kode 324]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">-3</li>
-              <li data-option="B">-2</li>
-              <li data-option="C">0</li>
-              <li data-option="D">3</li>
-              <li data-option="E">4</li>
-            </ol>
-          </div>
           
-          <!-- Soal 14 -->
+          <!-- Soal 10 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">14.</span>
+              <span class="nomor">10.</span>
               <div class="pertanyaan">
                 Garis $l$ menyinggung $y=3-2 \cos x$ di $(a,b)$ dan garis $h$ menyinggung $y=2\cos x$ di $(a,c)$. Jika $l \perp h$ dan $0 < a < \dfrac{\pi}{2}$, maka $b-c=\dots$
               </div>
@@ -563,10 +545,15 @@
             </ol>
           </div>
 
-          <!-- Soal 15 -->
+        </div>
+
+        <!-- KOLOM KANAN (11-20) -->
+        <div class="kolom">
+
+          <!-- Soal 11 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">15.</span>
+              <span class="nomor">11.</span>
               <div class="pertanyaan">
                 Garis singgung kurva $y=3-x^{2}$ di titik $P(-a,b)$ dan $Q(a,b)$ memotong sumbu-y di titik $R$. Nilai $a$ yang membuat segitiga $PQR$ sama sisi adalah...
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEimfaZTpYBTqChPWOtaEuhO9TMRpVITHCMxO_wBqgpfxRGMAWS_kBICUm6bWLfQcNDR__nMkCCynsmfwJKf5R2I9DEiN5DPQ7092iTKx3zLkV4J6dUnPZdxVYWr7-mA9RiN8N69HD3BcokE/s1600/Soal+dan+Pembahasan+Matematika+SAINTEK+SBMPTN+2016.jpg" alt="Ilustrasi Segitiga PQR" class="gambar-soal">
@@ -582,15 +569,10 @@
             </ol>
           </div>
 
-        </div>
-
-        <!-- KOLOM KANAN -->
-        <div class="kolom">
-
-          <!-- Soal 16 -->
+          <!-- Soal 12 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">16.</span>
+              <span class="nomor">12.</span>
               <div class="pertanyaan">
                 Hasil penjumlahan dari semua bilangan bulat $x$ yang memenuhi pertidaksamaan berikut adalah...
                 $$ \frac{\left ( x^{2}-x-12 \right )\sqrt{2x^{2}+5x-3}}{\left ( -x^{2}-3 \right )\sqrt{3x^{2}+x-2}} \geq 0 $$
@@ -606,28 +588,10 @@
             </ol>
           </div>
 
-          <!-- Soal 17 -->
+          <!-- Soal 13 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">17.</span>
-              <div class="pertanyaan">
-                Diketahui penyelesaian dari pertidaksamaan $\dfrac{3^{x+3}+3^{x}-36}{9^{x}-9} \leq 3 $ adalah $a \leq x < b$ atau $x \geq c$. Nilai $a+2b+c=\dots$
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UGM 2019 Kode 923/924]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">0</li>
-              <li data-option="B">1</li>
-              <li data-option="C">2</li>
-              <li data-option="D">3</li>
-              <li data-option="E">4</li>
-            </ol>
-          </div>
-          
-          <!-- Soal 18 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">18.</span>
+              <span class="nomor">13.</span>
               <div class="pertanyaan">
                 Nilai $x$ yang merupakan penyelesaian dari pertidaksamaan eksponen berikut adalah...
                 $$ -2^{2x+1}+4^{x}+8^{x+\frac{1}{3}}-8^{\frac{2x-1}{3}}-16^{\frac{2x-1}{4}} > 0 $$
@@ -643,64 +607,10 @@
             </ol>
           </div>
 
-          <!-- Soal 19 -->
+          <!-- Soal 14 -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">19.</span>
-              <div class="pertanyaan">
-                Himpunan penyelesaian dari $\left| x+1 \right| < \dfrac{2}{x}$ adalah interval $(a,b)$. Nilai $2a+5b$ adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UTBK-SBMPTN 2019]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">-5</li>
-              <li data-option="B">-2</li>
-              <li data-option="C">0</li>
-              <li data-option="D">2</li>
-              <li data-option="E">5</li>
-            </ol>
-          </div>
-
-          <!-- Soal 20 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">20.</span>
-              <div class="pertanyaan">
-                Diketahui limas segiempat beraturan $T.ABCD$ dengan $AB = BC = 5 \sqrt{2}\ cm$ dan $TA = 13\ cm$. Jarak titik $A$ ke garis $TC$ adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UN SMA IPA 2016]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$4\frac{8}{13}$ cm</li>
-              <li data-option="B">$4\frac{12}{13}$ cm</li>
-              <li data-option="C">$9\frac{3}{13}$ cm</li>
-              <li data-option="D">$10$ cm</li>
-              <li data-option="E">$12$ cm</li>
-            </ol>
-          </div>
-
-          <!-- Soal 21 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">21.</span>
-              <div class="pertanyaan">
-                Diketahui limas beraturan $T.ABCD$. Panjang rusuk tegak dan panjang rusuk alas $4\ cm$. Jarak titik $A$ ke garis $TB$ adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UN SMA IPA 2017]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$2\sqrt{2}$ cm</li>
-              <li data-option="B">$2\sqrt{3}$ cm</li>
-              <li data-option="C">$4$ cm</li>
-              <li data-option="D">$4\sqrt{2}$ cm</li>
-              <li data-option="E">$4\sqrt{3}$ cm</li>
-            </ol>
-          </div>
-
-          <!-- Soal 22 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">22.</span>
+              <span class="nomor">14.</span>
               <div class="pertanyaan">
                 Diberikan kubus $ABCD.EFGH$. Jika $O$ titik tengah $DH$ dan $P$ adalah titik tengah $BF$, maka perbandingan luas $\bigtriangleup AOP$ dan $\bigtriangleup HFC$ adalah...
               </div>
@@ -715,10 +625,10 @@
             </ol>
           </div>
           
-           <!-- Soal 23 (Sistem Persamaan) -->
+           <!-- Soal 15 (Sistem Persamaan) -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">23.</span>
+              <span class="nomor">15.</span>
               <div class="pertanyaan">
                 Hasil penjumlahan dari $x, y,$ dan $z$ yang memenuhi:
                 $$ 3^{2x+y-z}=\left( \dfrac{1}{27} \right)^{(x-y+2z+2)} $$
@@ -737,10 +647,10 @@
             </ol>
           </div>
 
-          <!-- Soal 24 (Sistem Persamaan) -->
+          <!-- Soal 16 (Sistem Persamaan) -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">24.</span>
+              <span class="nomor">16.</span>
               <div class="pertanyaan">
                 Suatu bilangan bulat tak nol dan berbeda $x, y,$ dan $z$ memenuhi:
                 $$ \dfrac{2x-3y}{2y+z}=\dfrac{x-z}{y}=\dfrac{2y}{x}=\dfrac{2018}{2019} $$
@@ -757,28 +667,10 @@
             </ol>
           </div>
 
-          <!-- Soal 25 (Peluang) -->
+          <!-- Soal 17 (Peluang) -->
           <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">25.</span>
-              <div class="pertanyaan">
-                  Seorang siswa sedang melakukan percobaan statistika dengan cara menggunakan 6 bola bilyar berturut-turut bernomor 1, 1, 3, 4, 5, dan 7. Ia mengambil 3 bola secara acak dan dicatat angka yang muncul sehingga membentuk bilangan. Jika bilangan yang sama dianggap sebagai satu kejadian, maka peluang untuk mendapatkan bilangan yang lebih besar daripada 200 adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: SBMPTN 2015 Kode 634]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$\frac{1}{20}$</li>
-              <li data-option="B">$\frac{3}{18}$</li>
-              <li data-option="C">$\frac{5}{18}$</li>
-              <li data-option="D">$\frac{13}{18}$</li>
-              <li data-option="E">$\frac{7}{9}$</li>
-            </ol>
-          </div>
-
-          <!-- Soal 26 (Peluang) -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">26.</span>
+              <span class="nomor">17.</span>
               <div class="pertanyaan">
                 Suatu kotak berisi 4 koin seimbang dan 6 koin tidak seimbang. Ketika koin seimbang dilempar, peluang mendapat gambar adalah 0,5. Sedangkan untuk mata uang yang tidak seimbang peluang mendapat gambar adalah 0,8. Satu koin diambil secara acak dari kotak tersebut kemudian dilempar. Peluang mendapat gambar adalah...
               </div>
@@ -793,28 +685,10 @@
             </ol>
           </div>
           
-           <!-- Soal 27 (Peluang) -->
+           <!-- Soal 18 (Limit Trigonometri) -->
            <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">27.</span>
-              <div class="pertanyaan">
-                Diketahui tiga kantong masing-masing berisi 6 bola yang terdiri dari dua bola putih, dua bola biru, dan dua bola merah. Dari masing-masing kantong diambil satu bola. Peluang terambilnya paling tidak dua bola berwarna putih adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UGM 2017 Kode 823]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$\frac{4}{27}$</li>
-              <li data-option="B">$\frac{5}{27}$</li>
-              <li data-option="C">$\frac{6}{27}$</li>
-              <li data-option="D">$\frac{7}{27}$</li>
-              <li data-option="E">$\frac{9}{27}$</li>
-            </ol>
-          </div>
-
-           <!-- Soal 28 (Limit Trigonometri) -->
-           <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">28.</span>
+              <span class="nomor">18.</span>
               <div class="pertanyaan">
                 Nilai $\lim\limits_{x \to 0} \dfrac{\cot 2x - \csc\ 2x}{\cos 3x\ \tan \frac{1}{3}x } =\dots$
               </div>
@@ -829,10 +703,10 @@
             </ol>
           </div>
 
-           <!-- Soal 29 (Limit Trigonometri) -->
+           <!-- Soal 19 (Limit Trigonometri) -->
            <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">29.</span>
+              <span class="nomor">19.</span>
               <div class="pertanyaan">
                 Nilai $\lim\limits_{x \to 0} \dfrac{\cos x\ - \cos 3x}{x^{2}\ \sqrt{4-x}} =\dots$
               </div>
@@ -847,10 +721,10 @@
             </ol>
           </div>
 
-           <!-- Soal 30 (Limit Trigonometri) -->
+           <!-- Soal 20 (Limit Trigonometri) -->
            <div class="soal-item">
             <div class="soal-header">
-              <span class="nomor">30.</span>
+              <span class="nomor">20.</span>
               <div class="pertanyaan">
                 Nilai dari $\lim\limits_{x \to 0} \dfrac{\sqrt{1+\tan x}-\sqrt{1+\sin x}}{x^{3}} =\dots$
               </div>
