@@ -65,9 +65,8 @@
         background-color: #f5f5f5;
         margin: 0;
         padding: 20px;
-        /* Tambahkan padding-top agar konten tidak tertutup timer */
-        padding-top: 80px; 
         padding-bottom: 100px;
+        min-height: 100vh;
       }
 
       /* TIMER STYLES */
@@ -85,7 +84,7 @@
         font-size: 18px;
         font-weight: 700;
         letter-spacing: 1px;
-        display: flex;
+        display: none; /* Hidden by default, shown on exam start */
         justify-content: center;
         align-items: center;
         gap: 10px;
@@ -106,8 +105,8 @@
         50% { opacity: 0.5; }
       }
 
-      /* Container Utama (Single Page) */
-      .worksheet-container {
+      /* Container Utama */
+      .container-wrapper {
         background: white;
         max-width: 1000px;
         margin: 0 auto;
@@ -115,8 +114,73 @@
         border-radius: 8px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         position: relative;
-        overflow: visible; /* Pastikan tidak memotong elemen anak */
+        overflow: visible;
       }
+
+      /* --- LANDING PAGE STYLES --- */
+      #landing-page {
+        display: block; /* Visible by default */
+        text-align: center;
+      }
+      .landing-header h1 {
+        color: var(--header-accent);
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+      .rules-box {
+        background-color: #e0f7fa;
+        border: 2px solid var(--header-accent);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 30px auto;
+        text-align: left;
+        max-width: 600px;
+      }
+      .rules-box h3 {
+        margin-top: 0;
+        color: var(--header-accent);
+        border-bottom: 1px solid #b2ebf2;
+        padding-bottom: 10px;
+      }
+      .rules-box ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+      .rules-box li {
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+      .identity-box-landing {
+        max-width: 600px;
+        margin: 0 auto 40px auto;
+        text-align: left;
+        background: #fff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+      .btn-start {
+        background-color: var(--header-accent);
+        color: white;
+        border: none;
+        padding: 15px 50px;
+        font-size: 22px;
+        font-weight: 800;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 131, 143, 0.3);
+        transition: transform 0.2s, background-color 0.2s;
+      }
+      .btn-start:hover {
+        background-color: #006064;
+        transform: scale(1.05);
+      }
+
+      /* --- EXAM PAGE STYLES --- */
+      #exam-page {
+        display: none; /* Hidden by default */
+      }
+      
       /* Header Styling */
       .worksheet-header {
         border-bottom: 3px solid var(--header-accent);
@@ -144,31 +208,35 @@
         height: 60px;
         object-fit: contain;
       }
-      /* Identitas Peserta Form */
-      .identity-box {
-        background-color: #f8f9fa;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 40px;
+      
+      /* Identity Info in Exam Page (Read Only) */
+      .exam-info-bar {
+        background: #f1f8e9;
+        padding: 10px 15px;
+        border-radius: 6px;
+        margin-bottom: 30px;
+        border-left: 5px solid #8bc34a;
+        font-size: 0.9em;
+        color: #555;
       }
+      .exam-info-bar strong {
+        color: #33691e;
+      }
+
       .form-group {
         display: flex;
         align-items: center;
-        margin-bottom: 12px;
-      }
-      .form-group:last-child {
-        margin-bottom: 0;
+        margin-bottom: 15px;
       }
       .form-group label {
-        width: 100px;
+        width: 120px;
         font-weight: 600;
         color: var(--header-accent);
       }
       .form-group input,
       .form-group select {
         flex: 1;
-        padding: 8px 12px;
+        padding: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
         font-family: inherit;
@@ -181,6 +249,7 @@
         border-color: var(--header-accent);
         box-shadow: 0 0 0 2px rgba(0, 131, 143, 0.1);
       }
+
       /* Grid Layout Soal */
       .questions-grid {
         display: grid;
@@ -192,7 +261,7 @@
         .questions-grid {
           grid-template-columns: 1fr; /* 1 Kolom di mobile */
         }
-        .worksheet-container {
+        .container-wrapper {
             padding: 20px;
         }
         .form-group {
@@ -206,6 +275,7 @@
             width: 100%;
         }
       }
+
       /* Styling Soal */
       .soal-item {
         margin-bottom: 30px;
@@ -240,7 +310,8 @@
         height: auto;
         margin: 10px 0;
         border: 1px solid #eee;
-        border-radius: 4px;        padding: 5px;
+        border-radius: 4px;
+        padding: 5px;
       }
       /* Pilihan Ganda Interaktif */
       ol.pilihan-ganda {
@@ -267,16 +338,11 @@
         border-color: var(--selected-bg);
         font-weight: 600;
       }              
-      /* Pastikan teks matematika tetap terbaca saat selected */
       ol.pilihan-ganda li.selected .mjx-chtml {
          color: white !important;
       }
       ol.pilihan-ganda li::before {
         content: attr(data-option);
-        position: relative; /* Changed from absolute for better align */
-        display: inline-block;
-        margin-right: 10px;
-        /* absolute fallback style removal if needed */
         position: absolute;
         left: 10px;
         top: 50%;
@@ -301,7 +367,6 @@
         pointer-events: none;
       }
       
-      /* Jawaban Benar (Baik dipilih user atau kunci jawaban) */
       li.correct {
         background-color: var(--correct-bg) !important;
         border-color: var(--correct-border) !important;
@@ -313,13 +378,11 @@
         content: "✓"; 
         font-size: 12px;
       }
-      /* Fix warna matematika di jawaban benar agar terbaca */
       li.correct .mjx-chtml, 
       li.selected.correct .mjx-chtml {
         color: var(--correct-text) !important;
       }
 
-      /* Jawaban Salah (Pilihan user) */
       li.wrong {
         background-color: var(--wrong-bg) !important;
         border-color: var(--wrong-border) !important;
@@ -338,33 +401,29 @@
 
       /* Tombol Submit & Hasil */
       .action-area {
-        margin-top: 80px; 
+        margin-top: 50px; 
         text-align: center;
         padding: 40px 20px;
         border-top: 2px dashed #ddd;
-        
-        /* PERBAIKAN TOMBOL AGAR BISA DIKLIK */
         position: relative; 
         z-index: 1000;
         background-color: white; 
         clear: both;
-        isolation: isolate; /* Membuat stacking context baru */
+        isolation: isolate; 
       }
       
       .btn-submit {
         background-color: var(--header-accent);
         color: white;
         border: none;
-        padding: 20px 60px; /* Ukuran tombol diperbesar */
+        padding: 20px 60px;
         font-size: 20px;
         font-weight: 800;
         border-radius: 50px;
-        cursor: pointer !important; /* Paksa kursor pointer */
+        cursor: pointer !important;
         font-family: 'Montserrat', sans-serif;
         box-shadow: 0 6px 15px rgba(0, 131, 143, 0.4);
         transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-        
-        /* Memastikan interaksi mouse */
         pointer-events: auto !important;
         position: relative;
         z-index: 1000;
@@ -373,9 +432,6 @@
         background-color: #006064 !important;
         transform: translateY(-4px);
         box-shadow: 0 10px 20px rgba(0, 131, 143, 0.5);
-      }
-      .btn-submit:active {
-        transform: translateY(2px);
       }
       
       .result-box {
@@ -413,502 +469,539 @@
         text-align: center;
         font-size: 12px;
         color: #777;
-        position: relative;
-        z-index: 10;
       }
     </style>
   </head>
   <body>
-    <!-- COUNTDOWN TIMER (FIXED TOP) -->
+    <!-- COUNTDOWN TIMER (FIXED TOP) - Hidden initially -->
     <div id="timer-bar">
         <span>SISA WAKTU:</span>
         <span id="timer-display">100:00</span>
     </div>
 
-    <div class="worksheet-container">
-      <!-- HEADER -->
-      <header class="worksheet-header">
-        <div class="header-left">
-          <h1>Bank Soal PATOM 2</h1>
-          <h2>Matematika - Ujian Mandiri</h2>
-        </div>
-        <!-- Logo Brain Academy -->
-        <img
-          src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
-          alt="Brain Academy Logo"
-          class="header-logo"
-        />
-      </header>
+    <!-- MAIN WRAPPER -->
+    <div class="container-wrapper">
 
-      <!-- IDENTITAS PESERTA -->
-      <section class="identity-box">
-        <div class="form-group">
-          <label for="nama">Nama :</label>
-          <input type="text" id="nama" placeholder="Masukkan nama lengkap..." />
-        </div>
-        <div class="form-group">
-          <label for="email">Email :</label>
-          <input type="email" id="email" placeholder="Masukkan email..." />
-        </div>
-        <div class="form-group">
-          <label for="regional">Regional :</label>
-          <select id="regional">
-            <option value="" disabled selected>Pilih Regional...</option>
-            <option value="Aceh">Aceh</option>
-            <option value="Bali Outer">Bali Outer</option>
-            <option value="Bandung Barat">Bandung Barat</option>
-            <option value="Banten & Kab. Tangerang">Banten & Kab. Tangerang</option>
-            <option value="Banyumas Raya">Banyumas Raya</option>
-            <option value="Bogor Raya">Bogor Raya</option>
-            <option value="Cibinong">Cibinong</option>
-            <option value="Denpasar Raya">Denpasar Raya</option>
-            <option value="Depok">Depok</option>
-            <option value="Gresik Raya">Gresik Raya</option>
-            <option value="Jakarta Barat">Jakarta Barat</option>
-            <option value="Jakarta Selatan">Jakarta Selatan</option>
-            <option value="Jakarta Timur">Jakarta Timur</option>
-            <option value="Jakarta Utara">Jakarta Utara</option>
-            <option value="Jambi & Bengkulu">Jambi & Bengkulu</option>
-            <option value="Kabupaten Bandung">Kabupaten Bandung</option>
-            <option value="Kabupaten Bekasi & Karawang">Kabupaten Bekasi & Karawang</option>
-            <option value="Kalimantan Barat">Kalimantan Barat</option>
-            <option value="Kalimantan Selatan">Kalimantan Selatan</option>
-            <option value="Kalimantan Tengah">Kalimantan Tengah</option>
-            <option value="Kalimantan Timur & Utara">Kalimantan Timur & Utara</option>
-            <option value="Kota Bandung">Kota Bandung</option>
-            <option value="Kota Bekasi">Kota Bekasi</option>
-            <option value="Kota Tangerang">Kota Tangerang</option>
-            <option value="Lampung">Lampung</option>
-            <option value="Madiun Raya">Madiun Raya</option>
-            <option value="Magelang Raya">Magelang Raya</option>
-            <option value="Makassar Raya">Makassar Raya</option>
-            <option value="Malang Raya">Malang Raya</option>
-            <option value="Maluku & Papua">Maluku & Papua</option>
-            <option value="Medan Raya">Medan Raya</option>
-            <option value="Mojokerto Raya">Mojokerto Raya</option>
-            <option value="Muria Raya">Muria Raya</option>
-            <option value="Nusa Tenggara">Nusa Tenggara</option>
-            <option value="Pantura">Pantura</option>
-            <option value="Pekanbaru Raya">Pekanbaru Raya</option>
-            <option value="Priangan Timur">Priangan Timur</option>
-            <option value="Riau & Kepulauan Riau">Riau & Kepulauan Riau</option>
-            <option value="Semarang Raya">Semarang Raya</option>
-            <option value="Solo Raya">Solo Raya</option>
-            <option value="Sulawesi Barat & Tengah">Sulawesi Barat & Tengah</option>
-            <option value="Sulawesi Selatan">Sulawesi Selatan</option>
-            <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
-            <option value="Sulawesi Utara & Gorontalo">Sulawesi Utara & Gorontalo</option>
-            <option value="Sumatra Barat">Sumatra Barat</option>
-            <option value="Sumatra Selatan & Bangka Belitung">Sumatra Selatan & Bangka Belitung</option>
-            <option value="Sumatra Utara">Sumatra Utara</option>
-            <option value="Surabaya Raya">Surabaya Raya</option>
-            <option value="Tangerang Selatan">Tangerang Selatan</option>
-            <option value="Tapal Kuda">Tapal Kuda</option>
-            <option value="Toba">Toba</option>
-            <option value="Yogyakarta Raya">Yogyakarta Raya</option>
-          </select>
-        </div>
-      </section>
+        <!-- ================= PAGE 1: LANDING & BIODATA ================= -->
+        <div id="landing-page">
+            <header class="landing-header">
+                <img
+                    src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+                    alt="Brain Academy Logo"
+                    class="header-logo"
+                    style="height: 80px; margin-bottom: 20px;"
+                />
+                <h1>Bank Soal PATOM 2</h1>
+                <h2>Matematika - Soal Ujian Mandiri</h2>
+            </header>
 
-      <!-- DAFTAR SOAL -->
-      <div class="questions-grid">
-        <!-- KOLOM KIRI (1-10) -->
-        <div class="kolom">
-          <!-- Soal 1 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">1.</span>
-              <div class="pertanyaan">
-                Bentuk sederhana dari
-                $$ \frac{\sqrt{143}+\sqrt{165}+\sqrt{195}+13}{\sqrt{11}+2\sqrt{13}+\sqrt{15}} $$
-                adalah...
-              </div>
+            <div class="rules-box">
+                <h3>PERATURAN UJIAN</h3>
+                <ul>
+                    <li>Terdapat 20 soal Pilihan Ganda.</li>
+                    <li>Waktu pengerjaan: <strong>100 menit</strong>.</li>
+                    <li>Waktu berjalan otomatis setelah tombol "Mulai Sekarang" ditekan.</li>
+                    <li>Semua soal adalah Soal Ujian Mandiri / SNBT.</li>
+                    <li>Pastikan koneksi internet stabil.</li>
+                    <li>Dilarang menggunakan kalkulator.</li>
+                </ul>
             </div>
-            <span class="sumber">[Sumber: SIMAK UI 2015 Kode 567]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$\frac{1}{2} \left( \sqrt{15} + \sqrt{13} \right )$</li>
-              <li data-option="B">$\frac{1}{2} \frac{\left( \sqrt{15} - \sqrt{13} \right )}{\left( \sqrt{15} + \sqrt{13} \right )}$</li>
-              <li data-option="C">$\frac{1}{2} \left( \sqrt{15} - \sqrt{11} \right )$</li>
-              <li data-option="D">$\frac{1}{2} \left( \sqrt{15} + \sqrt{11} \right )$</li>
-              <li data-option="E">$\frac{\left( \sqrt{15} - \sqrt{11} \right )}{\left( \sqrt{15} + \sqrt{11} \right )}$</li>
-            </ol>
-          </div>
 
-          <!-- Soal 2 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">2.</span>
-              <div class="pertanyaan">
-                Jika diketahui:
-                $$ \sqrt{7x^{2}-2x+432}+\sqrt{7x^{2}-2x-423}=285 $$
-                maka nilai dari $\sqrt{7x^{2}-2x+432}-\sqrt{7x^{2}-2x-423}$ adalah...
-              </div>
+            <div class="identity-box-landing">
+                <h3 style="margin-top:0; color:var(--header-accent);">BIODATA PESERTA</h3>
+                <div class="form-group">
+                  <label for="nama">Nama :</label>
+                  <input type="text" id="nama" placeholder="Masukkan nama lengkap..." />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email :</label>
+                  <input type="email" id="email" placeholder="Masukkan email..." />
+                </div>
+                <div class="form-group">
+                  <label for="regional">Regional :</label>
+                  <select id="regional">
+                    <option value="" disabled selected>Pilih Regional...</option>
+                    <option value="Aceh">Aceh</option>
+                    <option value="Bali Outer">Bali Outer</option>
+                    <option value="Bandung Barat">Bandung Barat</option>
+                    <option value="Banten & Kab. Tangerang">Banten & Kab. Tangerang</option>
+                    <option value="Banyumas Raya">Banyumas Raya</option>
+                    <option value="Bogor Raya">Bogor Raya</option>
+                    <option value="Cibinong">Cibinong</option>
+                    <option value="Denpasar Raya">Denpasar Raya</option>
+                    <option value="Depok">Depok</option>
+                    <option value="Gresik Raya">Gresik Raya</option>
+                    <option value="Jakarta Barat">Jakarta Barat</option>
+                    <option value="Jakarta Selatan">Jakarta Selatan</option>
+                    <option value="Jakarta Timur">Jakarta Timur</option>
+                    <option value="Jakarta Utara">Jakarta Utara</option>
+                    <option value="Jambi & Bengkulu">Jambi & Bengkulu</option>
+                    <option value="Kabupaten Bandung">Kabupaten Bandung</option>
+                    <option value="Kabupaten Bekasi & Karawang">Kabupaten Bekasi & Karawang</option>
+                    <option value="Kalimantan Barat">Kalimantan Barat</option>
+                    <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+                    <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+                    <option value="Kalimantan Timur & Utara">Kalimantan Timur & Utara</option>
+                    <option value="Kota Bandung">Kota Bandung</option>
+                    <option value="Kota Bekasi">Kota Bekasi</option>
+                    <option value="Kota Tangerang">Kota Tangerang</option>
+                    <option value="Lampung">Lampung</option>
+                    <option value="Madiun Raya">Madiun Raya</option>
+                    <option value="Magelang Raya">Magelang Raya</option>
+                    <option value="Makassar Raya">Makassar Raya</option>
+                    <option value="Malang Raya">Malang Raya</option>
+                    <option value="Maluku & Papua">Maluku & Papua</option>
+                    <option value="Medan Raya">Medan Raya</option>
+                    <option value="Mojokerto Raya">Mojokerto Raya</option>
+                    <option value="Muria Raya">Muria Raya</option>
+                    <option value="Nusa Tenggara">Nusa Tenggara</option>
+                    <option value="Pantura">Pantura</option>
+                    <option value="Pekanbaru Raya">Pekanbaru Raya</option>
+                    <option value="Priangan Timur">Priangan Timur</option>
+                    <option value="Riau & Kepulauan Riau">Riau & Kepulauan Riau</option>
+                    <option value="Semarang Raya">Semarang Raya</option>
+                    <option value="Solo Raya">Solo Raya</option>
+                    <option value="Sulawesi Barat & Tengah">Sulawesi Barat & Tengah</option>
+                    <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                    <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
+                    <option value="Sulawesi Utara & Gorontalo">Sulawesi Utara & Gorontalo</option>
+                    <option value="Sumatra Barat">Sumatra Barat</option>
+                    <option value="Sumatra Selatan & Bangka Belitung">Sumatra Selatan & Bangka Belitung</option>
+                    <option value="Sumatra Utara">Sumatra Utara</option>
+                    <option value="Surabaya Raya">Surabaya Raya</option>
+                    <option value="Tangerang Selatan">Tangerang Selatan</option>
+                    <option value="Tapal Kuda">Tapal Kuda</option>
+                    <option value="Toba">Toba</option>
+                    <option value="Yogyakarta Raya">Yogyakarta Raya</option>
+                  </select>
+                </div>
             </div>
-            <span class="sumber">[Sumber: UM UNDIP 2008 Kode 581]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">1</li>
-              <li data-option="B">2</li>
-              <li data-option="C">3</li>
-              <li data-option="D">4</li>
-              <li data-option="E">5</li>
-            </ol>
-          </div>
 
-          <!-- Soal 3 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">3.</span>
-              <div class="pertanyaan">
-                Bentuk sederhana dari operasi bilangan akar berikut ini adalah...
-                $$ \left( \sqrt{52+6\sqrt{43}} \right )^{3}-\left( \sqrt{52-6\sqrt{43}} \right )^{3} $$
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UNDIP 2015 Kode 537]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">184</li>
-              <li data-option="B">288</li>
-              <li data-option="C">476</li>
-              <li data-option="D">828</li>
-              <li data-option="E">900</li>
-            </ol>
-          </div>
-
-          <!-- Soal 4 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">4.</span>
-              <div class="pertanyaan">
-                Persamaan kuadrat $x^{2} + \left(a+6 \right)x + 9a-1 = 0 $ mempunyai $2$ akar real berbeda $ x_{1}$ dan $ x_{2} $ dengan $ a \lt 0 $. Jika $ x_{1}^{2} + x_{1} x_{2} +x_{2}^{2} = -12a + 1$, maka nilai $ a^{2} + a = \dots $
-              </div>
-            </div>
-            <span class="sumber">[Sumber: SIMAK UI 2018 Kode 632]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">4</li>
-              <li data-option="B">6</li>
-              <li data-option="C">64</li>
-              <li data-option="D">96</li>
-              <li data-option="E">156</li>
-            </ol>
-          </div>
-
-          <!-- Soal 5 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">5.</span>
-              <div class="pertanyaan">
-                  Diketahui $x_{1}$ dan $x_{2}$ adalah akar-akar dari persamaan $x^{2}+5ax+a^{3}-4a+1=0$. Nilai $a$ sehingga $x_{1}+x_{1}x_{2}+x_{2}$ maksimum pada interval $[-3,3]$ adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: SBMPTN 2016 Kode 255]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">-3</li>
-              <li data-option="B">$-\sqrt{3}$</li>
-              <li data-option="C">0</li>
-              <li data-option="D">$\sqrt{3}$</li>
-              <li data-option="E">3</li>
-            </ol>
-          </div>
-
-          <!-- Soal 6 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">6.</span>
-              <div class="pertanyaan">
-                  Misalkan $x_{1}$ dan $x_{2}$ merupakan akar-akar persamaan $px^{2}+qx-1=0$, dengan $p \neq 0$. Jika $\dfrac{1}{x_{1}}+\dfrac{1}{x_{2}}=-1$ dan $x_{1}= -\dfrac{3}{2}x_{2}$ maka nilai $p+q=\dots$
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UGM 2017 Kode 713]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">7</li>
-              <li data-option="B">5</li>
-              <li data-option="C">0</li>
-              <li data-option="D">-5</li>
-              <li data-option="E">-7</li>
-            </ol>
-          </div>
-
-          <!-- Soal 7 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">7.</span>
-              <div class="pertanyaan">
-                  Hasil penjumlahan semua nilai $x$ yang memenuhi persamaan $x^{4 \log x}=\dfrac{x^{12}}{10^{8}}$ adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UGM 2019 Kode 934]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">1</li>
-              <li data-option="B">11</li>
-              <li data-option="C">101</li>
-              <li data-option="D">110</li>
-              <li data-option="E">1100</li>
-            </ol>
-          </div>
-
-          <!-- Soal 8 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">8.</span>
-              <div class="pertanyaan">
-                  Jika ${}^{a^{2}} \log \left(3^{a} - 8 \right)^{-4} \cdot {}^{3}\!\log \sqrt{a} = a - 2$, maka ${}^a \log \left( \frac{1}{8} \right) = \dots$
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UGM 2019 Kode 624]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">0</li>
-              <li data-option="B">-1</li>
-              <li data-option="C">-2</li>
-              <li data-option="D">-3</li>
-              <li data-option="E">-4</li>
-            </ol>
-          </div>
-
-          <!-- Soal 9 -->
-           <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">9.</span>
-              <div class="pertanyaan">
-                Diberikan dua parabola dengan persamaan $f(x)=ax^{2}+bx+c$ dan $g(x)=px^{2}+qx+r$ tidak berpotongan dan $\dfrac{b}{a}=\dfrac{q}{p}$, maka jarak terdekat dua parabola tersebut adalah selisih dari...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UGM 2014 Kode 521]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$r \text{ dan } c$</li>
-              <li data-option="B">$f\left(-\dfrac{b}{2a} \right) \text{ dan } g\left(-\dfrac{q}{2p} \right)$</li>
-              <li data-option="C">$f\left(-b \right) \text{ dan } g\left(-q \right)$</li>
-              <li data-option="D">$f\left( \dfrac{b}{a} \right) \text{ dan } k$</li>
-              <li data-option="E">$k \text{ dan } g\left(-\dfrac{q}{2p} \right)$</li>
-            </ol>
-          </div>
-          
-          <!-- Soal 10 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">10.</span>
-              <div class="pertanyaan">
-                Garis $l$ menyinggung $y=3-2 \cos x$ di $(a,b)$ dan garis $h$ menyinggung $y=2\cos x$ di $(a,c)$. Jika $l \perp h$ dan $0 < a < \dfrac{\pi}{2}$, maka $b-c=\dots$
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UGM 2004 Kode 322]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$3-2\sqrt{3}$</li>
-              <li data-option="B">$3-\sqrt{3}$</li>
-              <li data-option="C">$\sqrt{3}-3$</li>
-              <li data-option="D">$2\sqrt{3}-3$</li>
-              <li data-option="E">$3\sqrt{3}-3$</li>
-            </ol>
-          </div>
+            <button id="btn-start" class="btn-start">MULAI SEKARANG</button>
         </div>
 
-        <!-- KOLOM KANAN (11-20) -->
-        <div class="kolom">
-          <!-- Soal 11 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">11.</span>
-              <div class="pertanyaan">
-                Garis singgung kurva $y=3-x^{2}$ di titik $P(-a,b)$ dan $Q(a,b)$ memotong sumbu-y di titik $R$. Nilai $a$ yang membuat segitiga $PQR$ sama sisi adalah...
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEimfaZTpYBTqChPWOtaEuhO9TMRpVITHCMxO_wBqgpfxRGMAWS_kBICUm6bWLfQcNDR__nMkCCynsmfwJKf5R2I9DEiN5DPQ7092iTKx3zLkV4J6dUnPZdxVYWr7-mA9RiN8N69HD3BcokE/s1600/Soal+dan+Pembahasan+Matematika+SAINTEK+SBMPTN+2016.jpg" alt="Ilustrasi Segitiga PQR" class="gambar-soal">
-              </div>
+        <!-- ================= PAGE 2: EXAM (Initially Hidden) ================= -->
+        <div id="exam-page">
+            
+            <!-- HEADER -->
+            <header class="worksheet-header">
+                <div class="header-left">
+                <h1>Bank Soal PATOM 2</h1>
+                <h2>Matematika - Ujian Mandiri</h2>
+                </div>
+                <img
+                src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+                alt="Brain Academy Logo"
+                class="header-logo"
+                />
+            </header>
+            
+            <!-- Info Bar (Menampilkan Nama Peserta yang sudah diinput) -->
+            <div class="exam-info-bar">
+                Peserta: <strong id="display-nama">-</strong> | Regional: <strong id="display-regional">-</strong>
             </div>
-            <span class="sumber">[Sumber: SBMPTN 2016 Kode 249]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$2\sqrt{3}$</li>
-              <li data-option="B">$\sqrt{3}$</li>
-              <li data-option="C">$\dfrac{1}{2}\sqrt{3}$</li>
-              <li data-option="D">$\dfrac{1}{3}\sqrt{3}$</li>
-              <li data-option="E">$\dfrac{1}{4}\sqrt{3}$</li>
-            </ol>
-          </div>
 
-          <!-- Soal 12 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">12.</span>
-              <div class="pertanyaan">
-                Hasil penjumlahan dari semua bilangan bulat $x$ yang memenuhi pertidaksamaan berikut adalah...
-                $$ \frac{\left ( x^{2}-x-12 \right )\sqrt{2x^{2}+5x-3}}{\left ( -x^{2}-3 \right )\sqrt{3x^{2}+x-2}} \geq 0 $$
-              </div>
-            </div>
-            <span class="sumber">[Sumber: SIMAK UI 2019 Kode 539]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">2</li>
-              <li data-option="B">4</li>
-              <li data-option="C">7</li>
-              <li data-option="D">8</li>
-              <li data-option="E">10</li>
-            </ol>
-          </div>
+            <!-- DAFTAR SOAL -->
+            <div class="questions-grid">
+                <!-- KOLOM KIRI (1-10) -->
+                <div class="kolom">
+                <!-- Soal 1 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">1.</span>
+                    <div class="pertanyaan">
+                        Bentuk sederhana dari
+                        $$ \frac{\sqrt{143}+\sqrt{165}+\sqrt{195}+13}{\sqrt{11}+2\sqrt{13}+\sqrt{15}} $$
+                        adalah...
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: SIMAK UI 2015 Kode 567]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">$\frac{1}{2} \left( \sqrt{15} + \sqrt{13} \right )$</li>
+                    <li data-option="B">$\frac{1}{2} \frac{\left( \sqrt{15} - \sqrt{13} \right )}{\left( \sqrt{15} + \sqrt{13} \right )}$</li>
+                    <li data-option="C">$\frac{1}{2} \left( \sqrt{15} - \sqrt{11} \right )$</li>
+                    <li data-option="D">$\frac{1}{2} \left( \sqrt{15} + \sqrt{11} \right )$</li>
+                    <li data-option="E">$\frac{\left( \sqrt{15} - \sqrt{11} \right )}{\left( \sqrt{15} + \sqrt{11} \right )}$</li>
+                    </ol>
+                </div>
 
-          <!-- Soal 13 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">13.</span>
-              <div class="pertanyaan">
-                Nilai $x$ yang merupakan penyelesaian dari pertidaksamaan eksponen berikut adalah...
-                $$ -2^{2x+1}+4^{x}+8^{x+\frac{1}{3}}-8^{\frac{2x-1}{3}}-16^{\frac{2x-1}{4}} > 0 $$
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UGM 2019 Kode 934]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$-1 \leq x < 0$</li>
-              <li data-option="B">$x > 0$</li>
-              <li data-option="C">$x < 0 \text{ atau } x > 1$</li>
-              <li data-option="D">$0 \leq x < 1$</li>
-              <li data-option="E">$x > 1$</li>
-            </ol>
-          </div>
+                <!-- Soal 2 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">2.</span>
+                    <div class="pertanyaan">
+                        Jika diketahui:
+                        $$ \sqrt{7x^{2}-2x+432}+\sqrt{7x^{2}-2x-423}=285 $$
+                        maka nilai dari $\sqrt{7x^{2}-2x+432}-\sqrt{7x^{2}-2x-423}$ adalah...
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UNDIP 2008 Kode 581]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">1</li>
+                    <li data-option="B">2</li>
+                    <li data-option="C">3</li>
+                    <li data-option="D">4</li>
+                    <li data-option="E">5</li>
+                    </ol>
+                </div>
 
-          <!-- Soal 14 -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">14.</span>
-              <div class="pertanyaan">
-                Diberikan kubus $ABCD.EFGH$. Jika $O$ titik tengah $DH$ dan $P$ adalah titik tengah $BF$, maka perbandingan luas $\bigtriangleup AOP$ dan $\bigtriangleup HFC$ adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UGM 2019 Kode 624]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$1 : 2$</li>
-              <li data-option="B">$\sqrt{2} : 1$</li>
-              <li data-option="C">$1 : 3$</li>
-              <li data-option="D">$2 : 1$</li>
-              <li data-option="E">$\sqrt{2} : 2$</li>
-            </ol>
-          </div>
-          
-          <!-- Soal 15 (Sistem Persamaan) -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">15.</span>
-              <div class="pertanyaan">
-                Hasil penjumlahan dari $x, y,$ dan $z$ yang memenuhi:
-                $$ 3^{2x+y-z}=\left( \dfrac{1}{27} \right)^{(x-y+2z+2)} $$
-                $$ \log (x-y+z)= \dfrac{1}{1+{}^2\log 5} $$
-                $$ \begin{vmatrix} x & \dfrac{1}{2}\\  2y & 2 \\  \end{vmatrix}=2 $$
-                Adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: SIMAK UI 2019 Kode 539]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">$-\frac{22}{3}$</li>
-              <li data-option="B">$-\frac{23}{3}$</li>
-              <li data-option="C">$-\frac{24}{3}$</li>
-              <li data-option="D">$-\frac{25}{3}$</li>
-              <li data-option="E">$-\frac{26}{3}$</li>
-            </ol>
-          </div>
+                <!-- Soal 3 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">3.</span>
+                    <div class="pertanyaan">
+                        Bentuk sederhana dari operasi bilangan akar berikut ini adalah...
+                        $$ \left( \sqrt{52+6\sqrt{43}} \right )^{3}-\left( \sqrt{52-6\sqrt{43}} \right )^{3} $$
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UNDIP 2015 Kode 537]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">184</li>
+                    <li data-option="B">288</li>
+                    <li data-option="C">476</li>
+                    <li data-option="D">828</li>
+                    <li data-option="E">900</li>
+                    </ol>
+                </div>
 
-          <!-- Soal 16 (Sistem Persamaan) -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">16.</span>
-              <div class="pertanyaan">
-                Suatu bilangan bulat tak nol dan berbeda $x, y,$ dan $z$ memenuhi:
-                $$ \dfrac{2x-3y}{2y+z}=\dfrac{x-z}{y}=\dfrac{2y}{x}=\dfrac{2018}{2019} $$
-                Maka nilai $\dfrac{x+y+z}{x-y+z}$ adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UNDIP 2019 Kode 431]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">-1</li>
-              <li data-option="B">0</li>
-              <li data-option="C">$\frac{2018}{2019}$</li>
-              <li data-option="D">1</li>
-              <li data-option="E">$\frac{2019}{2018}$</li>
-            </ol>
-          </div>
+                <!-- Soal 4 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">4.</span>
+                    <div class="pertanyaan">
+                        Persamaan kuadrat $x^{2} + \left(a+6 \right)x + 9a-1 = 0 $ mempunyai $2$ akar real berbeda $ x_{1}$ dan $ x_{2} $ dengan $ a \lt 0 $. Jika $ x_{1}^{2} + x_{1} x_{2} +x_{2}^{2} = -12a + 1$, maka nilai $ a^{2} + a = \dots $
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: SIMAK UI 2018 Kode 632]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">4</li>
+                    <li data-option="B">6</li>
+                    <li data-option="C">64</li>
+                    <li data-option="D">96</li>
+                    <li data-option="E">156</li>
+                    </ol>
+                </div>
 
-          <!-- Soal 17 (Peluang) -->
-          <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">17.</span>
-              <div class="pertanyaan">
-                Suatu kotak berisi 4 koin seimbang dan 6 koin tidak seimbang. Ketika koin seimbang dilempar, peluang mendapat gambar adalah 0,5. Sedangkan untuk mata uang yang tidak seimbang peluang mendapat gambar adalah 0,8. Satu koin diambil secara acak dari kotak tersebut kemudian dilempar. Peluang mendapat gambar adalah...
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UM UGM 2018 Kode 585]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">0,6</li>
-              <li data-option="B">0,64</li>
-              <li data-option="C">0,68</li>
-              <li data-option="D">0,72</li>
-              <li data-option="E">0,76</li>
-            </ol>
-          </div>
-          
-           <!-- Soal 18 (Limit Trigonometri) -->
-           <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">18.</span>
-              <div class="pertanyaan">
-                Nilai $\lim\limits_{x \to 0} \dfrac{\cot 2x - \csc\ 2x}{\cos 3x\ \tan \frac{1}{3}x } =\dots$
-              </div>
-            </div>
-            <span class="sumber">[Sumber: UTBK-SBMPTN 2019]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">3</li>
-              <li data-option="B">2</li>
-              <li data-option="C">0</li>
-              <li data-option="D">-2</li>
-              <li data-option="E">-3</li>
-            </ol>
-          </div>
+                <!-- Soal 5 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">5.</span>
+                    <div class="pertanyaan">
+                        Diketahui $x_{1}$ dan $x_{2}$ adalah akar-akar dari persamaan $x^{2}+5ax+a^{3}-4a+1=0$. Nilai $a$ sehingga $x_{1}+x_{1}x_{2}+x_{2}$ maksimum pada interval $[-3,3]$ adalah...
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: SBMPTN 2016 Kode 255]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">-3</li>
+                    <li data-option="B">$-\sqrt{3}$</li>
+                    <li data-option="C">0</li>
+                    <li data-option="D">$\sqrt{3}$</li>
+                    <li data-option="E">3</li>
+                    </ol>
+                </div>
 
-           <!-- Soal 19 (Limit Trigonometri) -->
-           <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">19.</span>
-              <div class="pertanyaan">
-                Nilai $\lim\limits_{x \to 0} \dfrac{\cos x\ - \cos 3x}{x^{2}\ \sqrt{4-x}} =\dots$
-              </div>
-            </div>
-            <span class="sumber">[Sumber: SBMPTN 2013 Kode 138]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">-2</li>
-              <li data-option="B">$-1/2$</li>
-              <li data-option="C">$1/2$</li>
-              <li data-option="D">1</li>
-              <li data-option="E">2</li>
-            </ol>
-          </div>
+                <!-- Soal 6 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">6.</span>
+                    <div class="pertanyaan">
+                        Misalkan $x_{1}$ dan $x_{2}$ merupakan akar-akar persamaan $px^{2}+qx-1=0$, dengan $p \neq 0$. Jika $\dfrac{1}{x_{1}}+\dfrac{1}{x_{2}}=-1$ dan $x_{1}= -\dfrac{3}{2}x_{2}$ maka nilai $p+q=\dots$
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UGM 2017 Kode 713]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">7</li>
+                    <li data-option="B">5</li>
+                    <li data-option="C">0</li>
+                    <li data-option="D">-5</li>
+                    <li data-option="E">-7</li>
+                    </ol>
+                </div>
 
-           <!-- Soal 20 (Limit Trigonometri) -->
-           <div class="soal-item">
-            <div class="soal-header">
-              <span class="nomor">20.</span>
-              <div class="pertanyaan">
-                Nilai dari $\lim\limits_{x \to 0} \dfrac{\sqrt{1+\tan x}-\sqrt{1+\sin x}}{x^{3}} =\dots$
-              </div>
-            </div>
-            <span class="sumber">[Sumber: SIMAK UI 2013 Kode 134]</span>
-            <ol class="pilihan-ganda">
-              <li data-option="A">-1</li>
-              <li data-option="B">$-1/4$</li>
-              <li data-option="C">0</li>
-              <li data-option="D">$1/4$</li>
-              <li data-option="E">1</li>
-            </ol>
-          </div>
-        </div>
-      </div>
-      
-      <!-- ACTION AREA: Submit Button & Result -->
-      <div class="action-area">
-        <button id="submitBtn" class="btn-submit">SUBMIT JAWABAN</button>
-        
-        <div id="resultBox" class="result-box">
-            <div class="score-display">SKOR: <span id="scoreValue">0</span></div>
-            <div class="score-message">Benar <span id="correctCount">0</span> dari 20 Soal</div>
-        </div>
-      </div>
+                <!-- Soal 7 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">7.</span>
+                    <div class="pertanyaan">
+                        Hasil penjumlahan semua nilai $x$ yang memenuhi persamaan $x^{4 \log x}=\dfrac{x^{12}}{10^{8}}$ adalah...
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UGM 2019 Kode 934]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">1</li>
+                    <li data-option="B">11</li>
+                    <li data-option="C">101</li>
+                    <li data-option="D">110</li>
+                    <li data-option="E">1100</li>
+                    </ol>
+                </div>
 
-      <!-- FOOTER -->
-      <footer class="worksheet-footer">
-        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
-        <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
-      </footer>
-    </div>
+                <!-- Soal 8 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">8.</span>
+                    <div class="pertanyaan">
+                        Jika ${}^{a^{2}} \log \left(3^{a} - 8 \right)^{-4} \cdot {}^{3}\!\log \sqrt{a} = a - 2$, maka ${}^a \log \left( \frac{1}{8} \right) = \dots$
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UGM 2019 Kode 624]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">0</li>
+                    <li data-option="B">-1</li>
+                    <li data-option="C">-2</li>
+                    <li data-option="D">-3</li>
+                    <li data-option="E">-4</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 9 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">9.</span>
+                    <div class="pertanyaan">
+                        Diberikan dua parabola dengan persamaan $f(x)=ax^{2}+bx+c$ dan $g(x)=px^{2}+qx+r$ tidak berpotongan dan $\dfrac{b}{a}=\dfrac{q}{p}$, maka jarak terdekat dua parabola tersebut adalah selisih dari...
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UGM 2014 Kode 521]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">$r \text{ dan } c$</li>
+                    <li data-option="B">$f\left(-\dfrac{b}{2a} \right) \text{ dan } g\left(-\dfrac{q}{2p} \right)$</li>
+                    <li data-option="C">$f\left(-b \right) \text{ dan } g\left(-q \right)$</li>
+                    <li data-option="D">$f\left( \dfrac{b}{a} \right) \text{ dan } k$</li>
+                    <li data-option="E">$k \text{ dan } g\left(-\dfrac{q}{2p} \right)$</li>
+                    </ol>
+                </div>
+                
+                <!-- Soal 10 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">10.</span>
+                    <div class="pertanyaan">
+                        Garis $l$ menyinggung $y=3-2 \cos x$ di $(a,b)$ dan garis $h$ menyinggung $y=2\cos x$ di $(a,c)$. Jika $l \perp h$ dan $0 < a < \dfrac{\pi}{2}$, maka $b-c=\dots$
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UGM 2004 Kode 322]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">$3-2\sqrt{3}$</li>
+                    <li data-option="B">$3-\sqrt{3}$</li>
+                    <li data-option="C">$\sqrt{3}-3$</li>
+                    <li data-option="D">$2\sqrt{3}-3$</li>
+                    <li data-option="E">$3\sqrt{3}-3$</li>
+                    </ol>
+                </div>
+                </div>
+
+                <!-- KOLOM KANAN (11-20) -->
+                <div class="kolom">
+                <!-- Soal 11 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">11.</span>
+                    <div class="pertanyaan">
+                        Garis singgung kurva $y=3-x^{2}$ di titik $P(-a,b)$ dan $Q(a,b)$ memotong sumbu-y di titik $R$. Nilai $a$ yang membuat segitiga $PQR$ sama sisi adalah...
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEimfaZTpYBTqChPWOtaEuhO9TMRpVITHCMxO_wBqgpfxRGMAWS_kBICUm6bWLfQcNDR__nMkCCynsmfwJKf5R2I9DEiN5DPQ7092iTKx3zLkV4J6dUnPZdxVYWr7-mA9RiN8N69HD3BcokE/s1600/Soal+dan+Pembahasan+Matematika+SAINTEK+SBMPTN+2016.jpg" alt="Ilustrasi Segitiga PQR" class="gambar-soal">
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: SBMPTN 2016 Kode 249]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">$2\sqrt{3}$</li>
+                    <li data-option="B">$\sqrt{3}$</li>
+                    <li data-option="C">$\dfrac{1}{2}\sqrt{3}$</li>
+                    <li data-option="D">$\dfrac{1}{3}\sqrt{3}$</li>
+                    <li data-option="E">$\dfrac{1}{4}\sqrt{3}$</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 12 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">12.</span>
+                    <div class="pertanyaan">
+                        Hasil penjumlahan dari semua bilangan bulat $x$ yang memenuhi pertidaksamaan berikut adalah...
+                        $$ \frac{\left ( x^{2}-x-12 \right )\sqrt{2x^{2}+5x-3}}{\left ( -x^{2}-3 \right )\sqrt{3x^{2}+x-2}} \geq 0 $$
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: SIMAK UI 2019 Kode 539]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">2</li>
+                    <li data-option="B">4</li>
+                    <li data-option="C">7</li>
+                    <li data-option="D">8</li>
+                    <li data-option="E">10</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 13 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">13.</span>
+                    <div class="pertanyaan">
+                        Nilai $x$ yang merupakan penyelesaian dari pertidaksamaan eksponen berikut adalah...
+                        $$ -2^{2x+1}+4^{x}+8^{x+\frac{1}{3}}-8^{\frac{2x-1}{3}}-16^{\frac{2x-1}{4}} > 0 $$
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UGM 2019 Kode 934]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">$-1 \leq x < 0$</li>
+                    <li data-option="B">$x > 0$</li>
+                    <li data-option="C">$x < 0 \text{ atau } x > 1$</li>
+                    <li data-option="D">$0 \leq x < 1$</li>
+                    <li data-option="E">$x > 1$</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 14 -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">14.</span>
+                    <div class="pertanyaan">
+                        Diberikan kubus $ABCD.EFGH$. Jika $O$ titik tengah $DH$ dan $P$ adalah titik tengah $BF$, maka perbandingan luas $\bigtriangleup AOP$ dan $\bigtriangleup HFC$ adalah...
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UGM 2019 Kode 624]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">$1 : 2$</li>
+                    <li data-option="B">$\sqrt{2} : 1$</li>
+                    <li data-option="C">$1 : 3$</li>
+                    <li data-option="D">$2 : 1$</li>
+                    <li data-option="E">$\sqrt{2} : 2$</li>
+                    </ol>
+                </div>
+                
+                <!-- Soal 15 (Sistem Persamaan) -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">15.</span>
+                    <div class="pertanyaan">
+                        Hasil penjumlahan dari $x, y,$ dan $z$ yang memenuhi:
+                        $$ 3^{2x+y-z}=\left( \dfrac{1}{27} \right)^{(x-y+2z+2)} $$
+                        $$ \log (x-y+z)= \dfrac{1}{1+{}^2\log 5} $$
+                        $$ \begin{vmatrix} x & \dfrac{1}{2}\\  2y & 2 \\  \end{vmatrix}=2 $$
+                        Adalah...
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: SIMAK UI 2019 Kode 539]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">$-\frac{22}{3}$</li>
+                    <li data-option="B">$-\frac{23}{3}$</li>
+                    <li data-option="C">$-\frac{24}{3}$</li>
+                    <li data-option="D">$-\frac{25}{3}$</li>
+                    <li data-option="E">$-\frac{26}{3}$</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 16 (Sistem Persamaan) -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">16.</span>
+                    <div class="pertanyaan">
+                        Suatu bilangan bulat tak nol dan berbeda $x, y,$ dan $z$ memenuhi:
+                        $$ \dfrac{2x-3y}{2y+z}=\dfrac{x-z}{y}=\dfrac{2y}{x}=\dfrac{2018}{2019} $$
+                        Maka nilai $\dfrac{x+y+z}{x-y+z}$ adalah...
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UNDIP 2019 Kode 431]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">-1</li>
+                    <li data-option="B">0</li>
+                    <li data-option="C">$\frac{2018}{2019}$</li>
+                    <li data-option="D">1</li>
+                    <li data-option="E">$\frac{2019}{2018}$</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 17 (Peluang) -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">17.</span>
+                    <div class="pertanyaan">
+                        Suatu kotak berisi 4 koin seimbang dan 6 koin tidak seimbang. Ketika koin seimbang dilempar, peluang mendapat gambar adalah 0,5. Sedangkan untuk mata uang yang tidak seimbang peluang mendapat gambar adalah 0,8. Satu koin diambil secara acak dari kotak tersebut kemudian dilempar. Peluang mendapat gambar adalah...
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UM UGM 2018 Kode 585]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">0,6</li>
+                    <li data-option="B">0,64</li>
+                    <li data-option="C">0,68</li>
+                    <li data-option="D">0,72</li>
+                    <li data-option="E">0,76</li>
+                    </ol>
+                </div>
+                
+                    <!-- Soal 18 (Limit Trigonometri) -->
+                    <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">18.</span>
+                    <div class="pertanyaan">
+                        Nilai $\lim\limits_{x \to 0} \dfrac{\cot 2x - \csc\ 2x}{\cos 3x\ \tan \frac{1}{3}x } =\dots$
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: UTBK-SBMPTN 2019]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">3</li>
+                    <li data-option="B">2</li>
+                    <li data-option="C">0</li>
+                    <li data-option="D">-2</li>
+                    <li data-option="E">-3</li>
+                    </ol>
+                </div>
+
+                    <!-- Soal 19 (Limit Trigonometri) -->
+                    <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">19.</span>
+                    <div class="pertanyaan">
+                        Nilai $\lim\limits_{x \to 0} \dfrac{\cos x\ - \cos 3x}{x^{2}\ \sqrt{4-x}} =\dots$
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: SBMPTN 2013 Kode 138]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">-2</li>
+                    <li data-option="B">$-1/2$</li>
+                    <li data-option="C">$1/2$</li>
+                    <li data-option="D">1</li>
+                    <li data-option="E">2</li>
+                    </ol>
+                </div>
+
+                    <!-- Soal 20 (Limit Trigonometri) -->
+                    <div class="soal-item">
+                    <div class="soal-header">
+                    <span class="nomor">20.</span>
+                    <div class="pertanyaan">
+                        Nilai dari $\lim\limits_{x \to 0} \dfrac{\sqrt{1+\tan x}-\sqrt{1+\sin x}}{x^{3}} =\dots$
+                    </div>
+                    </div>
+                    <span class="sumber">[Sumber: SIMAK UI 2013 Kode 134]</span>
+                    <ol class="pilihan-ganda">
+                    <li data-option="A">-1</li>
+                    <li data-option="B">$-1/4$</li>
+                    <li data-option="C">0</li>
+                    <li data-option="D">$1/4$</li>
+                    <li data-option="E">1</li>
+                    </ol>
+                </div>
+                </div>
+            </div>
+            
+            <!-- ACTION AREA: Submit Button & Result -->
+            <div class="action-area">
+                <button id="submitBtn" class="btn-submit">SUBMIT JAWABAN</button>
+                
+                <div id="resultBox" class="result-box">
+                    <div class="score-display">SKOR: <span id="scoreValue">0</span></div>
+                    <div class="score-message">Benar <span id="correctCount">0</span> dari 20 Soal</div>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="worksheet-footer">
+                <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+                <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+            </footer>
+        </div> <!-- End of Exam Page -->
+
+    </div> <!-- End of Wrapper -->
 
     <!-- Script Interaktif -->
     <script>
@@ -921,6 +1014,49 @@
       };
 
       document.addEventListener('DOMContentLoaded', () => {
+        const landingPage = document.getElementById('landing-page');
+        const examPage = document.getElementById('exam-page');
+        const btnStart = document.getElementById('btn-start');
+        const timerBar = document.getElementById('timer-bar');
+        
+        // Input Elements
+        const namaInput = document.getElementById('nama');
+        const emailInput = document.getElementById('email');
+        const regionalInput = document.getElementById('regional');
+
+        // Display Elements
+        const displayNama = document.getElementById('display-nama');
+        const displayRegional = document.getElementById('display-regional');
+
+        // START EXAM LOGIC
+        btnStart.addEventListener('click', function() {
+            const nama = namaInput.value.trim();
+            const email = emailInput.value.trim();
+            const regional = regionalInput.value;
+
+            // Validasi Sederhana
+            if (!nama || !email || !regional) {
+                alert("Mohon lengkapi biodata (Nama, Email, dan Regional) sebelum memulai ujian.");
+                return;
+            }
+
+            // Pindah Halaman
+            landingPage.style.display = 'none';
+            examPage.style.display = 'block';
+            
+            // Set Info Peserta di Halaman Ujian
+            displayNama.textContent = nama;
+            displayRegional.textContent = regional;
+
+            // Tampilkan Timer & Mulai Waktu
+            timerBar.style.display = 'flex';
+            document.body.style.paddingTop = '80px'; // Tambah padding agar timer tidak menutupi konten
+            startTimer();
+
+            // Scroll ke atas
+            window.scrollTo(0, 0);
+        });
+
         const options = document.querySelectorAll('.pilihan-ganda li');
         const submitBtn = document.getElementById('submitBtn');
         const timerDisplay = document.getElementById('timer-display');
@@ -930,8 +1066,11 @@
         // 100 menit dalam detik (100 * 60 = 6000)
         let duration = 100 * 60; 
         
-        // Update timer setiap 1 detik
-        const timerInterval = setInterval(updateTimer, 1000);
+        let timerInterval;
+
+        function startTimer() {
+             timerInterval = setInterval(updateTimer, 1000);
+        }
 
         function updateTimer() {
             if (isSubmitted) {
