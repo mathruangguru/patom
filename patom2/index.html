@@ -65,8 +65,47 @@
         background-color: #f5f5f5;
         margin: 0;
         padding: 20px;
-        padding-bottom: 100px; /* Tambahan ruang bawah */
+        /* Tambahkan padding-top agar konten tidak tertutup timer */
+        padding-top: 80px; 
+        padding-bottom: 100px;
       }
+
+      /* TIMER STYLES */
+      #timer-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #263238; /* Dark elegant background */
+        color: #ffffff;
+        padding: 15px 0;
+        text-align: center;
+        z-index: 999999; /* Pastikan selalu di atas */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      #timer-display {
+        font-family: 'Courier New', Courier, monospace; /* Monospace agar angka tidak goyang */
+        font-size: 22px;
+        background: #37474f;
+        padding: 2px 10px;
+        border-radius: 4px;
+        color: #4dd0e1;
+      }
+      .timer-warning {
+        color: #ff5252 !important; /* Warna merah jika waktu mau habis */
+        animation: blink 1s infinite;
+      }
+      @keyframes blink {
+        50% { opacity: 0.5; }
+      }
+
       /* Container Utama (Single Page) */
       .worksheet-container {
         background: white;
@@ -227,13 +266,17 @@
         color: var(--selected-text);
         border-color: var(--selected-bg);
         font-weight: 600;
-      }             
+      }              
       /* Pastikan teks matematika tetap terbaca saat selected */
       ol.pilihan-ganda li.selected .mjx-chtml {
          color: white !important;
       }
       ol.pilihan-ganda li::before {
         content: attr(data-option);
+        position: relative; /* Changed from absolute for better align */
+        display: inline-block;
+        margin-right: 10px;
+        /* absolute fallback style removal if needed */
         position: absolute;
         left: 10px;
         top: 50%;
@@ -302,7 +345,7 @@
         
         /* PERBAIKAN TOMBOL AGAR BISA DIKLIK */
         position: relative; 
-        z-index: 99999; /* Z-index sangat tinggi */
+        z-index: 1000;
         background-color: white; 
         clear: both;
         isolation: isolate; /* Membuat stacking context baru */
@@ -324,7 +367,7 @@
         /* Memastikan interaksi mouse */
         pointer-events: auto !important;
         position: relative;
-        z-index: 100000;
+        z-index: 1000;
       }
       .btn-submit:hover {
         background-color: #006064 !important;
@@ -344,7 +387,7 @@
         display: none; 
         animation: fadeIn 0.5s ease;
         position: relative;
-        z-index: 100000;
+        z-index: 1000;
       }
       .score-display {
         font-size: 36px;
@@ -376,6 +419,12 @@
     </style>
   </head>
   <body>
+    <!-- COUNTDOWN TIMER (FIXED TOP) -->
+    <div id="timer-bar">
+        <span>SISA WAKTU:</span>
+        <span id="timer-display">100:00</span>
+    </div>
+
     <div class="worksheet-container">
       <!-- HEADER -->
       <header class="worksheet-header">
@@ -874,14 +923,57 @@
       document.addEventListener('DOMContentLoaded', () => {
         const options = document.querySelectorAll('.pilihan-ganda li');
         const submitBtn = document.getElementById('submitBtn');
+        const timerDisplay = document.getElementById('timer-display');
         let isSubmitted = false;
+        
+        // --- COUNTDOWN TIMER LOGIC ---
+        // 100 menit dalam detik (100 * 60 = 6000)
+        let duration = 100 * 60; 
+        
+        // Update timer setiap 1 detik
+        const timerInterval = setInterval(updateTimer, 1000);
+
+        function updateTimer() {
+            if (isSubmitted) {
+                clearInterval(timerInterval);
+                return;
+            }
+
+            const minutes = Math.floor(duration / 60);
+            const seconds = duration % 60;
+
+            // Format waktu menjadi MM:SS
+            const formattedTime = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            timerDisplay.textContent = formattedTime;
+            
+            // Efek visual jika waktu kurang dari 5 menit
+            if (duration < 300) {
+                timerDisplay.classList.add('timer-warning');
+            }
+
+            if (duration <= 0) {
+                clearInterval(timerInterval);
+                timerDisplay.textContent = "00:00";
+                handleTimeUp();
+            } else {
+                duration--;
+            }
+        }
+
+        function handleTimeUp() {
+            alert("Waktu Habis! Jawaban anda akan dikumpulkan otomatis.");
+            // Trigger submit tanpa konfirmasi
+            processSubmission(true);
+        }
 
         // Event Listener untuk Pilihan
         options.forEach(option => {
           option.addEventListener('click', function() {
             if (isSubmitted) return; // Mencegah perubahan setelah submit
 
-            // Hapus kelas selected dari saudara elemen (pilihan lain dalam soal yang sama)
+            // Hapus kelas selected dari saudara elemen
             const siblings = this.parentNode.children;
             for (let sibling of siblings) {
               sibling.classList.remove('selected');
@@ -891,14 +983,17 @@
           });
         });
 
-        // Event Listener untuk Tombol Submit
+        // Event Listener untuk Tombol Submit (Klik Manual)
         submitBtn.addEventListener('click', function() {
-            console.log('Submit button clicked!');
             if (isSubmitted) return;
-            
             const confirmSubmit = confirm("Apakah anda yakin ingin mengumpulkan jawaban?");
             if (!confirmSubmit) return;
+            
+            processSubmission(false);
+        });
 
+        // Fungsi Utama Penilaian
+        function processSubmission(isAutoSubmit) {
             isSubmitted = true;
             let correctCount = 0;
             const soalItems = document.querySelectorAll('.soal-item');
@@ -907,7 +1002,6 @@
                 const questionNumber = index + 1;
                 const correctAnswer = answerKey[questionNumber];
                 const selectedOption = item.querySelector('li.selected');
-                const allOptions = item.querySelectorAll('li');
                 
                 // Disable clicking
                 item.querySelector('ol').classList.add('disabled-options');
@@ -919,7 +1013,7 @@
                         // Jawaban Benar
                         correctCount++;
                         selectedOption.classList.add('correct');
-                        selectedOption.classList.remove('selected'); // Remove standar selected style
+                        selectedOption.classList.remove('selected');
                     } else {
                         // Jawaban Salah
                         selectedOption.classList.add('wrong');
@@ -944,14 +1038,12 @@
             document.getElementById('correctCount').textContent = correctCount;
             document.getElementById('resultBox').style.display = 'block';
             
-            // Ubah tombol submit menjadi refresh (opsional, atau disable saja)
-            this.textContent = "JAWABAN TERKIRIM";
-            this.style.backgroundColor = "#ccc";
-            this.style.cursor = "default";
+            // Hilangkan tombol submit sesuai permintaan
+            submitBtn.style.display = 'none';
             
             // Scroll ke hasil
             document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
-        });
+        }
       });
     </script>
   </body>
