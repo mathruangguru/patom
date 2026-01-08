@@ -1005,6 +1005,11 @@
 
     <!-- Script Interaktif -->
     <script>
+      // ==========================================
+      // GANTI URL INI DENGAN URL APPS SCRIPT ANDA
+      // ==========================================
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxBHh7G6JtosqNS7D_liVMpTKzhbXxlLdpe3qdD6kRI-Jr-nyP_7_sFz3ygvzn8vvh32g/exec"; 
+
       // Kunci Jawaban
       const answerKey = {
         1: 'D', 2: 'C', 3: 'D', 4: 'B', 5: 'B',
@@ -1028,6 +1033,9 @@
         const displayNama = document.getElementById('display-nama');
         const displayRegional = document.getElementById('display-regional');
 
+        // Variabel Waktu
+        let startTime; // Untuk mencatat kapan user mulai klik tombol
+
         // START EXAM LOGIC
         btnStart.addEventListener('click', function() {
             const nama = namaInput.value.trim();
@@ -1040,6 +1048,9 @@
                 return;
             }
 
+            // Catat Waktu Mulai
+            startTime = new Date();
+
             // Pindah Halaman
             landingPage.style.display = 'none';
             examPage.style.display = 'block';
@@ -1050,7 +1061,7 @@
 
             // Tampilkan Timer & Mulai Waktu
             timerBar.style.display = 'flex';
-            document.body.style.paddingTop = '80px'; // Tambah padding agar timer tidak menutupi konten
+            document.body.style.paddingTop = '80px'; 
             startTimer();
 
             // Scroll ke atas
@@ -1103,14 +1114,13 @@
 
         function handleTimeUp() {
             alert("Waktu Habis! Jawaban anda akan dikumpulkan otomatis.");
-            // Trigger submit tanpa konfirmasi
             processSubmission(true);
         }
 
         // Event Listener untuk Pilihan
         options.forEach(option => {
           option.addEventListener('click', function() {
-            if (isSubmitted) return; // Mencegah perubahan setelah submit
+            if (isSubmitted) return; 
 
             // Hapus kelas selected dari saudara elemen
             const siblings = this.parentNode.children;
@@ -1131,11 +1141,40 @@
             processSubmission(false);
         });
 
-        // Fungsi Utama Penilaian
+        // ==========================================
+        // FUNGSI UTAMA PENILAIAN & PENGIRIMAN DATA
+        // ==========================================
         function processSubmission(isAutoSubmit) {
+            if(isSubmitted) return;
             isSubmitted = true;
+
+            // Hitung Durasi Pengerjaan
+            const endTime = new Date();
+            const timeDiff = Math.floor((endTime - startTime) / 1000); // dalam detik
+            
+            // Format durasi jadi MM:SS (Contoh: 45m 12s)
+            const durasiMenit = Math.floor(timeDiff / 60);
+            const durasiDetik = timeDiff % 60;
+            const durasiText = `${durasiMenit}m ${durasiDetik}s`;
+            
+            // Ubah tombol jadi loading
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = "SEDANG MENGIRIM...";
+            submitBtn.style.backgroundColor = "#ccc";
+            submitBtn.disabled = true;
+
             let correctCount = 0;
             const soalItems = document.querySelectorAll('.soal-item');
+            
+            // Objek untuk menyimpan data yang akan dikirim ke Spreadsheet
+            let dataToSend = {
+                nama: namaInput.value.trim(),
+                email: emailInput.value.trim(),
+                regional: regionalInput.value,
+                score: 0,
+                durasi: durasiText
+                // soal_1, soal_2 ... akan ditambahkan di loop
+            };
 
             soalItems.forEach((item, index) => {
                 const questionNumber = index + 1;
@@ -1145,42 +1184,61 @@
                 // Disable clicking
                 item.querySelector('ol').classList.add('disabled-options');
 
+                let userAnswerText = ""; // Default kosong jika tidak dijawab
+
                 if (selectedOption) {
                     const userAnswer = selectedOption.getAttribute('data-option');
+                    userAnswerText = userAnswer; // Simpan jawaban (A/B/C/D/E)
                     
                     if (userAnswer === correctAnswer) {
-                        // Jawaban Benar
                         correctCount++;
                         selectedOption.classList.add('correct');
                         selectedOption.classList.remove('selected');
                     } else {
-                        // Jawaban Salah
                         selectedOption.classList.add('wrong');
                         selectedOption.classList.remove('selected');
-                        
-                        // Tunjukkan jawaban yang benar
+                        // Tunjukkan jawaban benar
                         const correctEl = item.querySelector(`li[data-option="${correctAnswer}"]`);
                         if (correctEl) correctEl.classList.add('correct');
                     }
                 } else {
-                    // Tidak menjawab, tunjukkan jawaban benar
+                    // Tidak menjawab
                     const correctEl = item.querySelector(`li[data-option="${correctAnswer}"]`);
                     if (correctEl) correctEl.classList.add('correct');
                 }
+
+                // Masukkan jawaban peserta ke objek dataToSend
+                dataToSend['soal_' + questionNumber] = userAnswerText;
             });
 
-            // Hitung Skor
+            // Hitung Skor Akhir
             const finalScore = (correctCount / 20) * 100;
+            dataToSend.score = finalScore;
 
-            // Tampilkan Hasil
+            // Update Tampilan Skor
             document.getElementById('scoreValue').textContent = finalScore;
             document.getElementById('correctCount').textContent = correctCount;
+
+            // --- KIRIM DATA KE GOOGLE SHEET ---
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(dataToSend)
+            })
+            .then(response => {
+                console.log("Data berhasil dikirim!", response);
+                // Tampilkan Result Box setelah sukses terkirim
+                showResultBox();
+            })
+            .catch(error => {
+                console.error('Error sending data:', error);
+                alert("Jawaban tersimpan lokal, namun gagal terkirim ke server (Masalah Koneksi/CORS).");
+                showResultBox();
+            });
+        }
+
+        function showResultBox() {
             document.getElementById('resultBox').style.display = 'block';
-            
-            // Hilangkan tombol submit sesuai permintaan
-            submitBtn.style.display = 'none';
-            
-            // Scroll ke hasil
+            submitBtn.style.display = 'none'; // Sembunyikan tombol submit
             document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
         }
       });
