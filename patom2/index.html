@@ -45,12 +45,18 @@
         --hover-bg: #e0f2f1;
         --selected-bg: #00838f;
         --selected-text: #ffffff;
+        
+        /* Warna Feedback Jawaban */
+        --correct-bg: #d4edda;
+        --correct-border: #28a745;
+        --correct-text: #155724;
+        --wrong-bg: #f8d7da;
+        --wrong-border: #dc3545;
+        --wrong-text: #721c24;
       }
-
       * {
         box-sizing: border-box;
       }
-
       body {
         font-family: "Montserrat", sans-serif;
         font-size: 14px;
@@ -59,8 +65,8 @@
         background-color: #f5f5f5;
         margin: 0;
         padding: 20px;
+        padding-bottom: 100px; /* Tambahan ruang bawah */
       }
-
       /* Container Utama (Single Page) */
       .worksheet-container {
         background: white;
@@ -69,8 +75,9 @@
         padding: 40px;
         border-radius: 8px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: visible; /* Pastikan tidak memotong elemen anak */
       }
-
       /* Header Styling */
       .worksheet-header {
         border-bottom: 3px solid var(--header-accent);
@@ -82,26 +89,22 @@
         flex-wrap: wrap;
         gap: 20px;
       }
-
       .header-left h1 {
         font-size: 24px;
         color: var(--header-accent);
         margin: 0 0 5px 0;
         font-weight: 800;
       }
-
       .header-left h2 {
         font-size: 16px;
         color: var(--secondary-text);
         margin: 0;
         font-weight: 500;
       }
-
       .header-logo {
         height: 60px;
         object-fit: contain;
       }
-
       /* Identitas Peserta Form */
       .identity-box {
         background-color: #f8f9fa;
@@ -110,23 +113,19 @@
         padding: 20px;
         margin-bottom: 40px;
       }
-
       .form-group {
         display: flex;
         align-items: center;
         margin-bottom: 12px;
       }
-
       .form-group:last-child {
         margin-bottom: 0;
       }
-
       .form-group label {
         width: 100px;
         font-weight: 600;
         color: var(--header-accent);
       }
-
       .form-group input,
       .form-group select {
         flex: 1;
@@ -137,21 +136,19 @@
         font-size: 14px;
         background-color: #fff;
       }
-
       .form-group input:focus,
       .form-group select:focus {
         outline: none;
         border-color: var(--header-accent);
         box-shadow: 0 0 0 2px rgba(0, 131, 143, 0.1);
       }
-
       /* Grid Layout Soal */
       .questions-grid {
         display: grid;
         grid-template-columns: 1fr 1fr; /* 2 Kolom */
         gap: 40px; /* Jarak antar kolom */
+        margin-bottom: 50px; /* Jarak aman di bawah */
       }
-
       @media (max-width: 768px) {
         .questions-grid {
           grid-template-columns: 1fr; /* 1 Kolom di mobile */
@@ -159,31 +156,38 @@
         .worksheet-container {
             padding: 20px;
         }
+        .form-group {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .form-group label {
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+        }
       }
-
       /* Styling Soal */
       .soal-item {
         margin-bottom: 30px;
         page-break-inside: avoid; /* Untuk print */
+        width: 100%;
+        overflow-x: auto; /* Mencegah MathJax melebar menutupi elemen lain */
       }
-
       .soal-header {
         display: flex;
         gap: 8px;
         margin-bottom: 8px;
       }
-
       .nomor {
         font-weight: 800;
         color: var(--header-accent);
         min-width: 25px;
       }
-
       .pertanyaan {
         flex: 1;
         text-align: justify;
       }
-
       .sumber {
         display: block;
         font-size: 0.8em;
@@ -192,23 +196,19 @@
         margin-top: 5px;
         margin-bottom: 10px;
       }
-
       .gambar-soal {
         max-width: 100%;
         height: auto;
         margin: 10px 0;
         border: 1px solid #eee;
-        border-radius: 4px;
-        padding: 5px;
+        border-radius: 4px;        padding: 5px;
       }
-
       /* Pilihan Ganda Interaktif */
       ol.pilihan-ganda {
         list-style-type: none;
         padding-left: 0;
         margin-top: 10px;
       }
-
       ol.pilihan-ganda li {
         position: relative;
         padding: 8px 15px 8px 40px;
@@ -218,24 +218,20 @@
         cursor: pointer;
         transition: all 0.2s ease;
       }
-
       ol.pilihan-ganda li:hover {
         background-color: var(--hover-bg);
         border-color: var(--header-accent);
       }
-
       ol.pilihan-ganda li.selected {
         background-color: var(--selected-bg);
         color: var(--selected-text);
         border-color: var(--selected-bg);
         font-weight: 600;
-      }
-       
+      }             
       /* Pastikan teks matematika tetap terbaca saat selected */
       ol.pilihan-ganda li.selected .mjx-chtml {
-         color: white !important; 
+         color: white !important;
       }
-
       ol.pilihan-ganda li::before {
         content: attr(data-option);
         position: absolute;
@@ -252,22 +248,131 @@
         font-size: 11px;
         font-weight: bold;
       }
-
       ol.pilihan-ganda li.selected::before {
         background: white;
         color: var(--selected-bg);
       }
 
+      /* Styles untuk Feedback Hasil */
+      .disabled-options li {
+        pointer-events: none;
+      }
+      
+      /* Jawaban Benar (Baik dipilih user atau kunci jawaban) */
+      li.correct {
+        background-color: var(--correct-bg) !important;
+        border-color: var(--correct-border) !important;
+        color: var(--correct-text) !important;
+      }
+      li.correct::before {
+        background-color: var(--correct-border) !important;
+        color: white !important;
+        content: "✓"; 
+        font-size: 12px;
+      }
+      /* Fix warna matematika di jawaban benar agar terbaca */
+      li.correct .mjx-chtml, 
+      li.selected.correct .mjx-chtml {
+        color: var(--correct-text) !important;
+      }
+
+      /* Jawaban Salah (Pilihan user) */
+      li.wrong {
+        background-color: var(--wrong-bg) !important;
+        border-color: var(--wrong-border) !important;
+        color: var(--wrong-text) !important;
+      }
+      li.wrong::before {
+        background-color: var(--wrong-border) !important;
+        color: white !important;
+        content: "✕";
+        font-size: 12px;
+      }
+      li.wrong .mjx-chtml,
+      li.selected.wrong .mjx-chtml {
+        color: var(--wrong-text) !important;
+      }
+
+      /* Tombol Submit & Hasil */
+      .action-area {
+        margin-top: 80px; 
+        text-align: center;
+        padding: 40px 20px;
+        border-top: 2px dashed #ddd;
+        
+        /* PERBAIKAN TOMBOL AGAR BISA DIKLIK */
+        position: relative; 
+        z-index: 99999; /* Z-index sangat tinggi */
+        background-color: white; 
+        clear: both;
+        isolation: isolate; /* Membuat stacking context baru */
+      }
+      
+      .btn-submit {
+        background-color: var(--header-accent);
+        color: white;
+        border: none;
+        padding: 20px 60px; /* Ukuran tombol diperbesar */
+        font-size: 20px;
+        font-weight: 800;
+        border-radius: 50px;
+        cursor: pointer !important; /* Paksa kursor pointer */
+        font-family: 'Montserrat', sans-serif;
+        box-shadow: 0 6px 15px rgba(0, 131, 143, 0.4);
+        transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+        
+        /* Memastikan interaksi mouse */
+        pointer-events: auto !important;
+        position: relative;
+        z-index: 100000;
+      }
+      .btn-submit:hover {
+        background-color: #006064 !important;
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0, 131, 143, 0.5);
+      }
+      .btn-submit:active {
+        transform: translateY(2px);
+      }
+      
+      .result-box {
+        margin-top: 30px;
+        padding: 25px;
+        border-radius: 8px;
+        background-color: #f1f8e9;
+        border: 2px solid #8bc34a;
+        display: none; 
+        animation: fadeIn 0.5s ease;
+        position: relative;
+        z-index: 100000;
+      }
+      .score-display {
+        font-size: 36px;
+        font-weight: 800;
+        color: #2e7d32;
+        margin-bottom: 10px;
+      }
+      .score-message {
+        font-size: 16px;
+        color: #555;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
       /* Footer */
       .worksheet-footer {
-        margin-top: 50px;
+        margin-top: 30px;
         padding-top: 20px;
         border-top: 1px solid #ddd;
         text-align: center;
         font-size: 12px;
         color: #777;
+        position: relative;
+        z-index: 10;
       }
-
     </style>
   </head>
   <body>
@@ -278,9 +383,10 @@
           <h1>Bank Soal PATOM 2</h1>
           <h2>Matematika - Ujian Mandiri</h2>
         </div>
+        <!-- Logo Brain Academy -->
         <img
           src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
-          alt="Logo"
+          alt="Brain Academy Logo"
           class="header-logo"
         />
       </header>
@@ -359,7 +465,6 @@
       <div class="questions-grid">
         <!-- KOLOM KIRI (1-10) -->
         <div class="kolom">
-           
           <!-- Soal 1 -->
           <div class="soal-item">
             <div class="soal-header">
@@ -544,12 +649,10 @@
               <li data-option="E">$3\sqrt{3}-3$</li>
             </ol>
           </div>
-
         </div>
 
         <!-- KOLOM KANAN (11-20) -->
         <div class="kolom">
-
           <!-- Soal 11 -->
           <div class="soal-item">
             <div class="soal-header">
@@ -625,7 +728,7 @@
             </ol>
           </div>
           
-           <!-- Soal 15 (Sistem Persamaan) -->
+          <!-- Soal 15 (Sistem Persamaan) -->
           <div class="soal-item">
             <div class="soal-header">
               <span class="nomor">15.</span>
@@ -738,10 +841,19 @@
               <li data-option="E">1</li>
             </ol>
           </div>
-
         </div>
       </div>
-       
+      
+      <!-- ACTION AREA: Submit Button & Result -->
+      <div class="action-area">
+        <button id="submitBtn" class="btn-submit">SUBMIT JAWABAN</button>
+        
+        <div id="resultBox" class="result-box">
+            <div class="score-display">SKOR: <span id="scoreValue">0</span></div>
+            <div class="score-message">Benar <span id="correctCount">0</span> dari 20 Soal</div>
+        </div>
+      </div>
+
       <!-- FOOTER -->
       <footer class="worksheet-footer">
         <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
@@ -751,10 +863,24 @@
 
     <!-- Script Interaktif -->
     <script>
+      // Kunci Jawaban
+      const answerKey = {
+        1: 'D', 2: 'C', 3: 'D', 4: 'B', 5: 'B',
+        6: 'B', 7: 'D', 8: 'D', 9: 'B', 10: 'A',
+        11: 'C', 12: 'C', 13: 'B', 14: 'E', 15: 'E',
+        16: 'E', 17: 'C', 18: 'E', 19: 'E', 20: 'D'
+      };
+
       document.addEventListener('DOMContentLoaded', () => {
         const options = document.querySelectorAll('.pilihan-ganda li');
+        const submitBtn = document.getElementById('submitBtn');
+        let isSubmitted = false;
+
+        // Event Listener untuk Pilihan
         options.forEach(option => {
           option.addEventListener('click', function() {
+            if (isSubmitted) return; // Mencegah perubahan setelah submit
+
             // Hapus kelas selected dari saudara elemen (pilihan lain dalam soal yang sama)
             const siblings = this.parentNode.children;
             for (let sibling of siblings) {
@@ -763,6 +889,68 @@
             // Tambahkan kelas selected ke elemen yang diklik
             this.classList.add('selected');
           });
+        });
+
+        // Event Listener untuk Tombol Submit
+        submitBtn.addEventListener('click', function() {
+            console.log('Submit button clicked!');
+            if (isSubmitted) return;
+            
+            const confirmSubmit = confirm("Apakah anda yakin ingin mengumpulkan jawaban?");
+            if (!confirmSubmit) return;
+
+            isSubmitted = true;
+            let correctCount = 0;
+            const soalItems = document.querySelectorAll('.soal-item');
+
+            soalItems.forEach((item, index) => {
+                const questionNumber = index + 1;
+                const correctAnswer = answerKey[questionNumber];
+                const selectedOption = item.querySelector('li.selected');
+                const allOptions = item.querySelectorAll('li');
+                
+                // Disable clicking
+                item.querySelector('ol').classList.add('disabled-options');
+
+                if (selectedOption) {
+                    const userAnswer = selectedOption.getAttribute('data-option');
+                    
+                    if (userAnswer === correctAnswer) {
+                        // Jawaban Benar
+                        correctCount++;
+                        selectedOption.classList.add('correct');
+                        selectedOption.classList.remove('selected'); // Remove standar selected style
+                    } else {
+                        // Jawaban Salah
+                        selectedOption.classList.add('wrong');
+                        selectedOption.classList.remove('selected');
+                        
+                        // Tunjukkan jawaban yang benar
+                        const correctEl = item.querySelector(`li[data-option="${correctAnswer}"]`);
+                        if (correctEl) correctEl.classList.add('correct');
+                    }
+                } else {
+                    // Tidak menjawab, tunjukkan jawaban benar
+                    const correctEl = item.querySelector(`li[data-option="${correctAnswer}"]`);
+                    if (correctEl) correctEl.classList.add('correct');
+                }
+            });
+
+            // Hitung Skor
+            const finalScore = (correctCount / 20) * 100;
+
+            // Tampilkan Hasil
+            document.getElementById('scoreValue').textContent = finalScore;
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('resultBox').style.display = 'block';
+            
+            // Ubah tombol submit menjadi refresh (opsional, atau disable saja)
+            this.textContent = "JAWABAN TERKIRIM";
+            this.style.backgroundColor = "#ccc";
+            this.style.cursor = "default";
+            
+            // Scroll ke hasil
+            document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
         });
       });
     </script>
