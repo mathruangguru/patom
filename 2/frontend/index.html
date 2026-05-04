@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - PATOM 2</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax for LaTeX -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                packages: {'[+]': ['ams']}
+            },
+            svg: { fontCache: 'global' },
+            startup: { typeset: false } // Kita render manual via JS saat ganti soal
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+    <!-- Google Fonts: Montserrat & Lato -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --rg-blue: #00838f;
+            --rg-dark: #006064;
+            --bg-light: #f8fafc;
+        }
+        body { font-family: 'Lato', sans-serif; background-color: var(--bg-light); color: #334155; }
+        h1, h2, h3, .font-heading { font-family: 'Montserrat', sans-serif; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        /* Option Styling */
+        .option-btn {
+            transition: all 0.2s ease;
+            border: 2px solid #e2e8f0;
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--rg-blue);
+            background-color: #e0f2fe;
+            transform: translateX(4px);
+        }
+        .option-btn.selected {
+            border-color: var(--rg-blue);
+            background-color: var(--rg-blue);
+            color: white;
+            font-weight: bold;
+        }
+        .option-btn.selected .mjx-chtml, .option-btn.selected svg { fill: white !important; color: white !important; }
+
+        /* Review Styles */
+        .opt-correct { background-color: #d1fae5; border-color: #10b981; color: #065f46; font-weight: bold; }
+        .opt-wrong { background-color: #fee2e2; border-color: #ef4444; color: #991b1b; }
+
+        /* Nav Grid Styles */
+        .nav-btn { transition: all 0.2s; border: 2px solid #cbd5e1; }
+        .nav-btn.answered { background-color: var(--rg-blue); border-color: var(--rg-blue); color: white; }
+        .nav-btn.active-nav { ring: 4px; ring-color: #93c5fd; transform: scale(1.1); border-color: #3b82f6; }
+
+        /* Screen Management */
+        .screen { display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .screen.active { display: flex; opacity: 1; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; rounded: 10px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="h-screen w-full flex flex-col overflow-hidden text-slate-800">
+
+    <!-- GLOBAL HEADER -->
+    <header class="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center shrink-0 z-50">
+        <div class="flex items-center gap-3">
+            <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" class="h-8 md:h-10" alt="Logo">
+            <div class="h-8 w-px bg-slate-300 hidden md:block"></div>
+            <h1 class="font-heading font-black text-lg md:text-xl text-[#00838f] hidden md:block">Test - PATOM 2</h1>
+        </div>
+        <div id="header-user" class="hidden text-sm font-bold bg-slate-100 px-4 py-2 rounded-full text-slate-600">
+            <span id="display-header-nama">Siswa</span> | <span id="display-header-mapel">Mapel</span>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 w-full h-full relative overflow-y-auto overflow-x-hidden">
+        
+        <!-- ================= SCREEN 1: BIODATA ================= -->
+        <section id="screen-biodata" class="screen active min-h-full items-center justify-center p-6 flex-col">
+            <div class="w-full max-w-xl glass-card p-8 md:p-10 rounded-[2rem] shadow-xl">
+                <div class="text-center mb-8">
+                    <h2 class="font-heading text-3xl md:text-4xl font-black text-slate-800 tracking-tight mb-2">Test - PATOM 2</h2>
+                    <p class="text-slate-500">Silakan lengkapi data peserta terlebih dahulu</p>
+                </div>
+                
+                <div class="flex flex-col gap-5">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Nama Lengkap</label>
+                        <input type="text" id="input-nama" placeholder="Contoh: Budi Santoso" class="w-full px-5 py-4 bg-slate-50 rounded-xl border-2 border-slate-200 focus:border-[#00838f] focus:bg-white outline-none transition-all font-medium">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Email</label>
+                        <input type="email" id="input-email" placeholder="budi@email.com" class="w-full px-5 py-4 bg-slate-50 rounded-xl border-2 border-slate-200 focus:border-[#00838f] focus:bg-white outline-none transition-all font-medium">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Regional / Cabang</label>
+                        <select id="input-regional" class="w-full px-5 py-4 bg-slate-50 rounded-xl border-2 border-slate-200 focus:border-[#00838f] focus:bg-white outline-none appearance-none font-medium text-slate-700">
+                            <option value="" disabled selected>Pilih Regional...</option>
+                            <option value="Jabodetabek">Jabodetabek</option>
+                            <option value="Jawa Barat">Jawa Barat</option>
+                            <option value="Jawa Tengah">Jawa Tengah</option>
+                            <option value="Jawa Timur">Jawa Timur</option>
+                            <option value="Luar Jawa">Luar Jawa</option>
+                        </select>
+                    </div>
+                    <button onclick="nextToMapel()" class="mt-4 bg-[#00838f] hover:bg-[#006064] text-white font-black py-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 text-lg">
+                        LANJUTKAN
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SCREEN 2: PILIH MAPEL ================= -->
+        <section id="screen-mapel" class="screen min-h-full items-center justify-center p-6 flex-col gap-6">
+            <div class="text-center mb-4">
+                <h2 class="font-heading text-3xl font-black text-slate-800">Pilih Mata Pelajaran</h2>
+                <p class="text-slate-500 mt-2">Halo <span id="span-nama" class="font-bold text-[#00838f]">Siswa</span>, siap untuk ujian hari ini?</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+                <button onclick="pilihMapel('Matematika (High Level)')" class="glass-card group p-8 rounded-[2rem] flex flex-col items-center gap-4 border-2 border-transparent hover:border-[#00838f] hover:shadow-2xl transition-all bg-white transform hover:-translate-y-1">
+                    <div class="w-24 h-24 bg-cyan-50 rounded-full flex items-center justify-center text-5xl group-hover:scale-110 transition-transform">📐</div>
+                    <div class="text-center">
+                        <h3 class="font-heading text-2xl font-black text-slate-800">Matematika</h3>
+                        <p class="text-slate-500 font-medium">High Level / Olimpiade</p>
+                    </div>
+                </button>
+                <button onclick="pilihMapel('Penalaran Matematika')" class="glass-card group p-8 rounded-[2rem] flex flex-col items-center gap-4 border-2 border-transparent hover:border-orange-500 hover:shadow-2xl transition-all bg-white transform hover:-translate-y-1">
+                    <div class="w-24 h-24 bg-orange-50 rounded-full flex items-center justify-center text-5xl group-hover:scale-110 transition-transform">🧠</div>
+                    <div class="text-center">
+                        <h3 class="font-heading text-2xl font-black text-slate-800">Penalaran Mat</h3>
+                        <p class="text-slate-500 font-medium">Standard SNBT / UTBK</p>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= SCREEN 3: EXAM INTERFACE (Split Layout) ================= -->
+        <section id="screen-exam" class="screen h-full w-full flex-col lg:flex-row bg-slate-50">
+            
+            <!-- KIRI: Area Soal (Lebar flex) -->
+            <div class="flex-1 flex flex-col h-full overflow-hidden border-r border-slate-200">
+                <!-- Progress Header Mobile -->
+                <div class="lg:hidden bg-white p-4 flex justify-between items-center border-b shadow-sm">
+                    <div class="font-bold text-slate-700">Soal No. <span id="mobile-curr-num" class="text-[#00838f]">1</span></div>
+                    <button onclick="toggleMobileSidebar()" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold flex items-center gap-2">
+                        <span>Timer & Nav</span> ⏱️
+                    </button>
+                </div>
+
+                <!-- Konten Soal -->
+                <div class="flex-1 overflow-y-auto p-6 md:p-10 relative" id="exam-question-area">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-[#00838f] text-white w-10 h-10 rounded-xl flex items-center justify-center font-black text-xl shadow-md" id="q-number-display">1</div>
+                            <h3 class="font-heading font-bold text-slate-400 tracking-widest uppercase text-sm">Pertanyaan</h3>
+                        </div>
+                        
+                        <!-- Text Soal & MathJax -->
+                        <div id="q-text" class="text-lg md:text-xl text-slate-800 leading-relaxed mb-8 font-medium">
+                            <!-- Soal di-inject via JS -->
+                        </div>
+
+                        <!-- Opsi Pilihan Ganda -->
+                        <div id="q-options" class="flex flex-col gap-4">
+                            <!-- Opsi di-inject via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Navigasi Soal (Prev/Next) -->
+                <div class="bg-white border-t border-slate-200 p-4 md:p-6 shrink-0 flex justify-between items-center z-10">
+                    <button id="btn-prev" onclick="navQuestion('prev')" class="px-6 py-3 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2">
+                        ← <span class="hidden sm:inline">Soal Sebelumnya</span>
+                    </button>
+                    <button id="btn-next" onclick="navQuestion('next')" class="px-6 py-3 rounded-xl font-bold text-white bg-[#00838f] hover:bg-[#006064] transition-colors shadow-md flex items-center gap-2">
+                        <span class="hidden sm:inline">Soal Selanjutnya</span> →
+                    </button>
+                </div>
+            </div>
+
+            <!-- KANAN: Sidebar Timer & Grid Navigasi -->
+            <div id="sidebar-nav" class="w-full lg:w-80 bg-white shadow-xl lg:shadow-none flex flex-col shrink-0 transition-transform transform translate-x-full lg:translate-x-0 fixed lg:relative z-40 right-0 h-[calc(100vh-64px)] lg:h-full border-l border-slate-200">
+                
+                <!-- Tombol Close Mobile Sidebar -->
+                <div class="lg:hidden flex justify-between p-4 border-b bg-slate-50 items-center">
+                    <span class="font-bold text-slate-700">Navigasi Ujian</span>
+                    <button onclick="toggleMobileSidebar()" class="text-rose-500 font-bold p-2">Tutup ✕</button>
+                </div>
+
+                <!-- Blok Timer -->
+                <div class="p-6 border-b border-slate-100 bg-slate-800 text-white flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-slate-400 tracking-widest uppercase mb-1">Sisa Waktu</span>
+                    <div id="timer-display" class="font-mono text-4xl font-black text-cyan-400 tracking-wider">100:00</div>
+                </div>
+
+                <!-- Grid Daftar Soal -->
+                <div class="flex-1 overflow-y-auto p-6 bg-slate-50">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm font-bold text-slate-500">Daftar Soal</span>
+                        <span id="answered-count" class="text-xs font-bold bg-cyan-100 text-cyan-700 px-2 py-1 rounded-md">0/0 Dijawab</span>
+                    </div>
+                    <div id="nav-grid" class="grid grid-cols-5 gap-2">
+                        <!-- Tombol Grid 1-20 di-inject JS -->
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-500 font-medium flex flex-col gap-2 shadow-sm">
+                        <div class="flex items-center gap-2"><div class="w-3 h-3 border-2 border-slate-300 rounded-sm"></div> Belum Dijawab</div>
+                        <div class="flex items-center gap-2"><div class="w-3 h-3 bg-[#00838f] rounded-sm"></div> Sudah Dijawab</div>
+                        <div class="flex items-center gap-2"><div class="w-3 h-3 ring-2 ring-blue-400 bg-white rounded-sm"></div> Posisi Saat Ini</div>
+                    </div>
+                </div>
+
+                <!-- Tombol Submit Kumpulkan -->
+                <div class="p-6 bg-white border-t border-slate-200 shrink-0">
+                    <button id="btn-submit-exam" onclick="submitExam()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-black py-4 rounded-xl shadow-lg transition-transform transform hover:-translate-y-1 flex justify-center items-center gap-2">
+                        📝 KUMPULKAN
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Overlay Mobile untuk Sidebar -->
+            <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden" onclick="toggleMobileSidebar()"></div>
+        </section>
+
+        <!-- ================= SCREEN 4: HASIL & REVIEW ================= -->
+        <section id="screen-result" class="screen min-h-full flex-col bg-slate-50 items-center p-6 lg:p-10 pb-32">
+            
+            <!-- Kartu Hasil Skor -->
+            <div class="w-full max-w-3xl glass-card rounded-[2rem] p-8 md:p-12 shadow-2xl text-center border-t-8 border-[#00838f] mb-10 mt-6 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-cyan-100 rounded-full opacity-50 blur-2xl"></div>
+                
+                <h2 class="font-heading text-3xl md:text-4xl font-black text-slate-800 mb-2">Ujian Selesai! 🎉</h2>
+                <p class="text-slate-500 font-medium mb-8">Kerja bagus, <span id="res-nama" class="font-bold text-[#00838f]">Siswa</span>. Berikut adalah hasil pekerjaanmu:</p>
+                
+                <div class="flex flex-col items-center justify-center">
+                    <span class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Skor Akhir</span>
+                    <div class="text-7xl md:text-9xl font-black text-[#00838f] drop-shadow-md" id="final-score-val">0</div>
+                </div>
+            </div>
+
+            <!-- Header Pembahasan -->
+            <div class="w-full max-w-4xl text-left mb-6 flex items-center gap-3">
+                <h3 class="font-heading text-2xl font-black text-slate-800">Pembahasan & Kunci Jawaban</h3>
+                <div class="h-px bg-slate-300 flex-1 ml-4"></div>
+            </div>
+
+            <!-- List Pembahasan -->
+            <div id="review-container" class="w-full max-w-4xl flex flex-col gap-8">
+                <!-- Data Pembahasan di-inject via JS -->
+            </div>
+            
+            <button onclick="location.reload()" class="mt-12 bg-slate-800 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-slate-900 transition-colors">
+                Kembali ke Beranda
+            </button>
+        </section>
+
+    </main>
+
+    <!-- CUSTOM MODAL (Pengganti Alert/Confirm native) -->
+    <div id="custom-modal" class="fixed inset-0 bg-black/60 z-[9999] hidden items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center flex flex-col gap-4 transform scale-100 transition-all">
+            <h3 id="modal-title" class="text-xl font-black text-slate-800">Perhatian</h3>
+            <p id="modal-msg" class="text-slate-600 font-medium">Pesan</p>
+            <div id="modal-actions" class="flex justify-center gap-3 mt-4">
+                <!-- Actions -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Utama -->
+    <script>
+        // ================= DATA SOAL (MOCK UP) =================
+        // Nanti bisa di-replace dari fetch Google Apps Script
+        const bankSoal = [
+            {
+                id: 1,
+                teks: "Bentuk sederhana dari $$\\frac{\\sqrt{143}+\\sqrt{165}+\\sqrt{195}+13}{\\sqrt{11}+2\\sqrt{13}+\\sqrt{15}}$$ adalah...",
+                opsi: {
+                    A: "$\\frac{1}{2} (\\sqrt{15} + \\sqrt{13})$",
+                    B: "$\\frac{1}{2} (\\sqrt{15} - \\sqrt{13})$",
+                    C: "$\\frac{1}{2} (\\sqrt{15} - \\sqrt{11})$",
+                    D: "$\\frac{1}{2} (\\sqrt{15} + \\sqrt{11})$",
+                    E: "$\\frac{\\sqrt{15} - \\sqrt{11}}{\\sqrt{15} + \\sqrt{11}}$"
+                },
+                kunci: "D",
+                pembahasan: "Faktorkan pembilang menjadi perkalian dua kelompok akar, kemudian sederhanakan bentuk pecahannya menggunakan perkalian sekawan."
+            },
+            {
+                id: 2,
+                teks: "Jika diketahui: $$\\sqrt{7x^{2}-2x+432}+\\sqrt{7x^{2}-2x-423}=285$$ maka nilai dari $\\sqrt{7x^{2}-2x+432}-\\sqrt{7x^{2}-2x-423}$ adalah...",
+                opsi: {
+                    A: "1", B: "2", C: "3", D: "4", E: "5"
+                },
+                kunci: "C",
+                pembahasan: "Gunakan pemisalan $A = \\sqrt{7x^{2}-2x+432}$ dan $B = \\sqrt{7x^{2}-2x-423}$. <br>Diketahui $A + B = 285$. Kita cari nilai $A^2 - B^2$ terlebih dahulu, yang hasilnya konstan (variabel $x$ saling menghilangkan). Kemudian gunakan identitas $A^2 - B^2 = (A+B)(A-B)$ untuk mendapatkan $A-B$."
+            },
+            {
+                id: 3,
+                teks: "Bentuk sederhana dari operasi bilangan akar berikut ini adalah... $$\\left( \\sqrt{52+6\\sqrt{43}} \\right )^{3}-\\left( \\sqrt{52-6\\sqrt{43}} \\right )^{3}$$",
+                opsi: {
+                    A: "184", B: "288", C: "476", D: "828", E: "900"
+                },
+                kunci: "D",
+                pembahasan: "Bentuk $\\sqrt{52+6\\sqrt{43}}$ dapat diubah bentuk menjadi $\\sqrt{A} + \\sqrt{B}$ atau ditarik akarnya terlebih dahulu menjadi penjumlahan bilangan rasional dan irasional sederhana. Setelah itu pangkatkan tiga menggunakan teorema binomial."
+            },
+            {
+                id: 4,
+                teks: "Hasil penjumlahan semua nilai $x$ yang memenuhi persamaan $x^{4 \\log x}=\\frac{x^{12}}{10^{8}}$ adalah...",
+                opsi: {
+                    A: "1", B: "11", C: "101", D: "110", E: "1100"
+                },
+                kunci: "D",
+                pembahasan: "Tarik logaritma basis 10 pada kedua ruas. <br>$\\log(x^{4 \\log x}) = \\log\\left(\\frac{x^{12}}{10^8}\\right)$<br> $4(\\log x)^2 = 12\\log x - 8$. <br>Misalkan $p = \\log x$, selesaikan persamaan kuadrat, didapat $x_1$ dan $x_2$, lalu jumlahkan."
+            },
+            {
+                id: 5,
+                teks: "Nilai $\\lim\\limits_{x \\to 0} \\frac{\\cos x\\ - \\cos 3x}{x^{2}\\ \\sqrt{4-x}} =\\dots$",
+                opsi: {
+                    A: "-2", B: "-1/2", C: "1/2", D: "1", E: "2"
+                },
+                kunci: "E",
+                pembahasan: "Ubah bentuk pembilang dengan rumus selisih kosinus: $\\cos A - \\cos B = -2 \\sin(\\frac{A+B}{2})\\sin(\\frac{A-B}{2})$.<br>Hasilnya limit trigonometri standar dikali limit akar substitusi langsung."
+            }
+        ];
+
+        // ================= STATE MANAGEMENT =================
+        let AppState = {
+            user: { nama: '', email: '', regional: '' },
+            mapel: '',
+            currentIndex: 0,
+            answers: {}, // Format: { 0: "A", 1: "C", ... }
+            duration: 100 * 60, // 100 menit
+            timerInterval: null,
+            isSubmitted: false
+        };
+
+        // Utility: Selector element
+        const $ = id => document.getElementById(id);
+
+        // Utility: Switch Screen
+        function switchScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => {
+                s.classList.remove('active');
+            });
+            $(screenId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        // ================= CUSTOM MODAL =================
+        function showModal(title, msg, type, onConfirm) {
+            $('modal-title').innerText = title;
+            $('modal-msg').innerHTML = msg;
+            const actions = $('modal-actions');
+            actions.innerHTML = '';
+
+            if (type === 'alert') {
+                const btn = document.createElement('button');
+                btn.className = 'bg-[#00838f] text-white px-6 py-3 rounded-xl font-bold w-full hover:bg-[#006064] transition-colors';
+                btn.innerText = 'OK Mengerti';
+                btn.onclick = () => { 
+                    $('custom-modal').classList.replace('flex', 'hidden'); 
+                    if(onConfirm) onConfirm(); 
+                };
+                actions.appendChild(btn);
+            } else if (type === 'confirm') {
+                const btnCancel = document.createElement('button');
+                btnCancel.className = 'bg-slate-100 text-slate-600 px-4 py-3 rounded-xl font-bold flex-1 hover:bg-slate-200 transition-colors';
+                btnCancel.innerText = 'Batal';
+                btnCancel.onclick = () => { $('custom-modal').classList.replace('flex', 'hidden'); };
+                actions.appendChild(btnCancel);
+
+                const btnOk = document.createElement('button');
+                btnOk.className = 'bg-orange-500 text-white px-4 py-3 rounded-xl font-bold flex-1 hover:bg-orange-600 transition-colors';
+                btnOk.innerText = 'Yakin';
+                btnOk.onclick = () => { 
+                    $('custom-modal').classList.replace('flex', 'hidden'); 
+                    if(onConfirm) onConfirm(); 
+                };
+                actions.appendChild(btnOk);
+            }
+
+            $('custom-modal').classList.replace('hidden', 'flex');
+        }
+
+        // ================= LOGIKA ALUR (WORKFLOW) =================
+        
+        // 1. Submit Biodata -> Pilih Mapel
+        function nextToMapel() {
+            const nama = $('input-nama').value.trim();
+            const email = $('input-email').value.trim();
+            const regional = $('input-regional').value;
+
+            if(!nama || !email || !regional) {
+                showModal("Data Belum Lengkap", "Harap lengkapi semua data biodata sebelum melanjutkan!", "alert");
+                return;
+            }
+
+            AppState.user = { nama, email, regional };
+            $('span-nama').innerText = nama.split(' ')[0]; // Panggilan nama depan
+            
+            // Set Header Text
+            $('header-user').classList.remove('hidden');
+            $('display-header-nama').innerText = nama;
+            
+            switchScreen('screen-mapel');
+        }
+
+        // 2. Pilih Mapel -> Mulai Exam
+        function pilihMapel(mapel) {
+            AppState.mapel = mapel;
+            $('display-header-mapel').innerText = mapel;
+            
+            initExam();
+            switchScreen('screen-exam');
+        }
+
+        // 3. Persiapan Exam UI & Logic
+        function initExam() {
+            // Build Nav Grid
+            const grid = $('nav-grid');
+            grid.innerHTML = '';
+            bankSoal.forEach((soal, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'nav-btn w-full aspect-square rounded-lg font-bold text-slate-500 bg-white hover:bg-slate-100 flex items-center justify-center';
+                btn.innerText = idx + 1;
+                btn.id = `nav-btn-${idx}`;
+                btn.onclick = () => {
+                    if (window.innerWidth < 1024) toggleMobileSidebar(); // tutup sidebar di HP
+                    goToQuestion(idx);
+                };
+                grid.appendChild(btn);
+            });
+
+            // Set Jumlah Soal Text
+            updateAnswerCount();
+
+            // Render Soal Pertama
+            goToQuestion(0);
+
+            // Mulai Timer
+            startTimer();
+        }
+
+        // ================= LOGIKA RENDER SOAL =================
+        function goToQuestion(index) {
+            if (index < 0 || index >= bankSoal.length) return;
+            AppState.currentIndex = index;
+            const soal = bankSoal[index];
+
+            // Update UI Nomor
+            $('q-number-display').innerText = index + 1;
+            $('mobile-curr-num').innerText = index + 1;
+
+            // Update Text Soal
+            $('q-text').innerHTML = soal.teks;
+
+            // Render Opsi
+            const optionsContainer = $('q-options');
+            optionsContainer.innerHTML = '';
+            
+            for (const [key, value] of Object.entries(soal.opsi)) {
+                const isSelected = AppState.answers[index] === key;
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full text-left px-6 py-4 rounded-xl text-slate-700 bg-white flex items-start gap-4 shadow-sm ${isSelected ? 'selected' : ''}`;
+                btn.innerHTML = `
+                    <div class="w-8 h-8 rounded-lg border-2 ${isSelected ? 'border-white text-white' : 'border-slate-300 text-slate-500'} flex items-center justify-center font-bold shrink-0 mt-0.5">
+                        ${key}
+                    </div>
+                    <div class="flex-1 text-base md:text-lg overflow-x-auto">${value}</div>
+                `;
+                btn.onclick = () => handleAnswer(index, key);
+                optionsContainer.appendChild(btn);
+            }
+
+            // Update Status Navigasi Prev/Next
+            $('btn-prev').disabled = index === 0;
+            
+            // Ubah text btn-next jika di soal terakhir
+            const btnNext = $('btn-next');
+            if (index === bankSoal.length - 1) {
+                btnNext.disabled = true;
+                btnNext.classList.add('opacity-30', 'cursor-not-allowed');
+            } else {
+                btnNext.disabled = false;
+                btnNext.classList.remove('opacity-30', 'cursor-not-allowed');
+            }
+
+            // Update Nav Grid Visuals (Warna biru buat yang aktif)
+            document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+                if (i === index) btn.classList.add('active-nav');
+                else btn.classList.remove('active-nav');
+            });
+
+            // Trigger MathJax Render
+            if (window.MathJax) {
+                MathJax.typesetPromise([$('q-text'), $('q-options')]).catch((err) => console.log(err));
+            }
+        }
+
+        function navQuestion(direction) {
+            if (direction === 'next') goToQuestion(AppState.currentIndex + 1);
+            else if (direction === 'prev') goToQuestion(AppState.currentIndex - 1);
+        }
+
+        function handleAnswer(qIndex, key) {
+            // Simpan jawaban
+            AppState.answers[qIndex] = key;
+            
+            // Re-render hanya bagian opsi agar UI berubah (selected class)
+            goToQuestion(qIndex);
+            
+            // Update Nav Grid Visual (Warna biru tua kalau sudah dijawab)
+            const navBtn = $(`nav-btn-${qIndex}`);
+            navBtn.classList.add('answered');
+
+            updateAnswerCount();
+        }
+
+        function updateAnswerCount() {
+            const answeredLength = Object.keys(AppState.answers).length;
+            const total = bankSoal.length;
+            $('answered-count').innerText = `${answeredLength}/${total} Dijawab`;
+        }
+
+        // ================= TIMER =================
+        function startTimer() {
+            const timerDisplay = $('timer-display');
+            AppState.timerInterval = setInterval(() => {
+                AppState.duration--;
+                
+                let min = Math.floor(AppState.duration / 60);
+                let sec = AppState.duration % 60;
+                timerDisplay.innerText = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
+                
+                if(AppState.duration <= 300) { // 5 Menit terakhir
+                    timerDisplay.classList.replace('text-cyan-400', 'text-red-500');
+                    timerDisplay.classList.add('animate-pulse');
+                }
+
+                if(AppState.duration <= 0) {
+                    clearInterval(AppState.timerInterval);
+                    prosesSubmitExam(true);
+                    showModal("Waktu Habis!", "Waktu pengerjaan telah habis. Jawabanmu otomatis dikumpulkan.", "alert");
+                }
+            }, 1000);
+        }
+
+        // Mobile Sidebar Toggle
+        function toggleMobileSidebar() {
+            const sidebar = $('sidebar-nav');
+            const overlay = $('mobile-overlay');
+            
+            if (sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        // ================= SUBMIT EXAM & REVIEW =================
+        function submitExam() {
+            const answeredCount = Object.keys(AppState.answers).length;
+            const total = bankSoal.length;
+
+            let msg = "Apakah kamu yakin ingin mengumpulkan ujian ini?";
+            if (answeredCount < total) {
+                msg = `Kamu baru menjawab <b class="text-orange-500">${answeredCount} dari ${total}</b> soal. Yakin ingin mengumpulkan sekarang?`;
+            }
+
+            showModal("Kumpulkan Jawaban?", msg, "confirm", () => {
+                prosesSubmitExam(false);
+            });
+        }
+
+        function prosesSubmitExam(isTimeout) {
+            AppState.isSubmitted = true;
+            clearInterval(AppState.timerInterval);
+            
+            // Hitung Skor (Simulasi)
+            let benar = 0;
+            bankSoal.forEach((soal, idx) => {
+                if (AppState.answers[idx] === soal.kunci) benar++;
+            });
+            const finalScore = Math.round((benar / bankSoal.length) * 100);
+
+            // ==========================================
+            // DI SINI TEMPAT UNTUK INJECT GOOGLE APP SCRIPT
+            // fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({...AppState, skor: finalScore}) });
+            // ==========================================
+
+            // Render Layar Hasil
+            $('res-nama').innerText = AppState.user.nama.split(' ')[0];
+            $('final-score-val').innerText = finalScore;
+            
+            buildReviewUI();
+            
+            switchScreen('screen-result');
+        }
+
+        function buildReviewUI() {
+            const container = $('review-container');
+            container.innerHTML = '';
+
+            bankSoal.forEach((soal, idx) => {
+                const userAns = AppState.answers[idx] || null;
+                const isCorrect = userAns === soal.kunci;
+
+                // Bangun Kartu Pembahasan per soal
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-2xl p-6 shadow-sm border border-slate-200';
+                
+                // Status Header Soal
+                let statusHTML = '';
+                if (!userAns) statusHTML = `<span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-md font-bold text-xs">TIDAK DIJAWAB</span>`;
+                else if (isCorrect) statusHTML = `<span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-md font-bold text-xs">BENAR</span>`;
+                else statusHTML = `<span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-md font-bold text-xs">SALAH</span>`;
+
+                // Teks Soal
+                let html = `
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="font-bold text-[#00838f]">Soal No. ${idx + 1}</div>
+                        ${statusHTML}
+                    </div>
+                    <div class="text-slate-800 mb-6 font-medium">${soal.teks}</div>
+                    <div class="flex flex-col gap-3 mb-6">
+                `;
+
+                // Opsi
+                for (const [key, value] of Object.entries(soal.opsi)) {
+                    let optClass = "border-slate-200 bg-slate-50 text-slate-500 opacity-60"; // Default
+                    let icon = "";
+
+                    if (key === soal.kunci) {
+                        optClass = "opt-correct border-2"; // Hijau karena kunci
+                        icon = "✅";
+                    } else if (key === userAns && !isCorrect) {
+                        optClass = "opt-wrong border-2"; // Merah karena user salah pilih
+                        icon = "❌";
+                    }
+
+                    html += `
+                        <div class="px-5 py-3 rounded-xl border flex items-start gap-4 ${optClass}">
+                            <div class="font-bold">${key}.</div>
+                            <div class="flex-1">${value}</div>
+                            <div class="w-6 shrink-0 text-right">${icon}</div>
+                        </div>
+                    `;
+                }
+
+                // Kotak Pembahasan
+                html += `
+                    </div>
+                    <div class="bg-cyan-50 p-5 rounded-xl border border-cyan-100">
+                        <h4 class="font-bold text-cyan-800 mb-2 text-sm uppercase tracking-wider">💡 Pembahasan:</h4>
+                        <div class="text-slate-700 leading-relaxed text-sm md:text-base">${soal.pembahasan}</div>
+                    </div>
+                `;
+
+                card.innerHTML = html;
+                container.appendChild(card);
+            });
+
+            // Trigger MathJax render for the review screen
+            if (window.MathJax) {
+                MathJax.typesetPromise([container]).catch(err => console.log(err));
+            }
+        }
+
+    </script>
+</body>
+</html>
