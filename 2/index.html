@@ -110,12 +110,12 @@
                 </ul>
             </div>
 
-            <!-- BAGIAN BIODATA TERBARU (Terhubung dengan App Script) -->
+            <!-- BAGIAN BIODATA -->
             <div class="identity-box-landing">
                 <h3>BIODATA PESERTA</h3>
-                <div id="loading-data" style="color: #00838f; font-weight: bold; margin-bottom: 10px;">⏳ Sedang memuat data peserta...</div>
+                <div id="loading-data" style="color: #00838f; font-weight: bold; margin-bottom: 10px;">⏳ Sedang memuat data peserta dari Server...</div>
                 
-                <div class="form-group">
+                <div class="form-group" id="email-container">
                     <label>Email RG :</label>
                     <select id="email" disabled>
                         <option value="" disabled selected>Loading...</option>
@@ -618,6 +618,9 @@
     <script>
       let activeCategory = '';
       let dataMTList = []; 
+      
+      // DEPLOYMENT API URL
+      const GAS_URL = "https://script.google.com/macros/s/AKfycbz1o8W07AC2Mca4swShSnK_doxXf_OrHOr2zmpx8t0sbyQSyKqQ-YPK49wCAkt0MPW2UA/exec";
 
       document.addEventListener('DOMContentLoaded', () => {
         const landingPage = document.getElementById('landing-page');
@@ -633,12 +636,41 @@
         let duration = 60 * 60; 
         let examEndTime;
 
-        // 1. TARIK DATA DARI GOOGLE SHEET SAAT HALAMAN DIBUKA
-        if (typeof google !== 'undefined' && google.script) {
-            google.script.run.withSuccessHandler(function(data) {
-                dataMTList = data;
+        // Fungsi fallback jika server belum di-update
+        function jalanFallbackData() {
+            loadingData.innerHTML = "⚠️ <b>INFO:</b> Server belum siap untuk data otomatis. Silakan isi biodata secara manual.";
+            loadingData.style.color = "#e67e22";
+            
+            const emailContainer = document.getElementById('email-container');
+            if (emailContainer) {
+                emailContainer.innerHTML = '<label>Email RG :</label><input type="email" id="email" placeholder="Ketik Email RG Anda..." required style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;" />';
+            }
+
+            ['nama', 'mapel', 'branch', 'territory'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.removeAttribute('readonly');
+                    el.style.background = '#fff';
+                    el.style.cursor = 'text';
+                    el.placeholder = 'Isi ' + id + '...';
+                }
+            });
+        }
+
+        // 1. TARIK DATA DARI API (FETCH) SAAT HALAMAN DIBUKA
+        fetch(GAS_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8',
+            },
+            body: JSON.stringify({ action: 'getMasterData' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.result && !data.error) {
+                dataMTList = data.result;
                 emailSelect.innerHTML = '<option value="" disabled selected>Pilih Email Anda...</option>';
-                data.forEach(mt => {
+                dataMTList.forEach(mt => {
                     let opt = document.createElement('option');
                     opt.value = mt.email;
                     opt.textContent = mt.email;
@@ -646,30 +678,32 @@
                 });
                 emailSelect.disabled = false;
                 loadingData.style.display = 'none';
-            }).withFailureHandler(function(error) {
-                loadingData.innerHTML = "❌ <b>ERROR:</b> Anda membuka file HTML ini langsung dari laptop (lokal).<br>Harap buka <b>URL Web App</b> yang berawalan <i>https://script.google.com/macros/s/...</i> di browser Anda!";
-                loadingData.style.color = "red";
-            }).getMasterData();
-        } else {
-            loadingData.innerHTML = "❌ <b>ERROR:</b> Anda membuka file HTML ini langsung dari laptop (lokal).<br>Harap buka <b>URL Web App</b> yang berawalan <i>https://script.google.com/macros/s/...</i> di browser Anda!";
-            loadingData.style.color = "red";
-        }
+            } else {
+                jalanFallbackData();
+            }
+        })
+        .catch(error => {
+            jalanFallbackData();
+        });
 
-        // 2. AUTO-FILL BIODATA SAAT EMAIL DIPILIH
-        emailSelect.addEventListener('change', function() {
-            const selectedMT = dataMTList.find(mt => mt.email === this.value);
-            if (selectedMT) {
-                document.getElementById('nama').value = selectedMT.nama;
-                document.getElementById('mapel').value = selectedMT.mapel;
-                document.getElementById('branch').value = selectedMT.branch;
-                document.getElementById('territory').value = selectedMT.territory;
+        // 2. AUTO-FILL BIODATA SAAT EMAIL DIPILIH (Jika dropdown berhasil diload)
+        document.body.addEventListener('change', function(e) {
+            if (e.target && e.target.id === 'email' && e.target.tagName.toLowerCase() === 'select') {
+                const selectedMT = dataMTList.find(mt => mt.email === e.target.value);
+                if (selectedMT) {
+                    document.getElementById('nama').value = selectedMT.nama || selectedMT.name || "";
+                    document.getElementById('mapel').value = selectedMT.mapel || "Matematika"; 
+                    document.getElementById('branch').value = selectedMT.branch || "Pusat";
+                    document.getElementById('territory').value = selectedMT.territory || "Indonesia";
+                }
             }
         });
 
         function startExam(kategori) {
-            const email = document.getElementById('email').value;
+            const emailInput = document.getElementById('email');
+            const email = emailInput ? emailInput.value : '';
             if (!email) {
-                document.getElementById('form-error').textContent = "Mohon pilih Email RG Anda terlebih dahulu dari daftar drop-down!";
+                document.getElementById('form-error').textContent = "Mohon isi Email RG Anda terlebih dahulu!";
                 document.getElementById('form-error').style.display = 'block';
                 return;
             }
@@ -679,8 +713,8 @@
             landingPage.style.display = 'none';
             examPage.style.display = 'block';
             
-            document.getElementById('display-nama').textContent = document.getElementById('nama').value;
-            document.getElementById('display-regional').textContent = document.getElementById('branch').value + " / " + document.getElementById('territory').value;
+            document.getElementById('display-nama').textContent = document.getElementById('nama').value || "-";
+            document.getElementById('display-regional').textContent = (document.getElementById('branch').value || "-") + " / " + (document.getElementById('territory').value || "-");
             
             if (activeCategory === 'wajib') {
                 document.getElementById('grid-wajib').style.display = 'grid';
@@ -742,7 +776,7 @@
             processSubmission(false);
         });
 
-        // PROSES PENILAIAN & SIMPAN
+        // PROSES PENILAIAN & SIMPAN (MENGGUNAKAN FETCH API)
         function processSubmission(isAutoSubmit) {
             if(isSubmitted) return;
             isSubmitted = true;
@@ -831,50 +865,51 @@
             document.getElementById('correctCount').textContent = correctCount;
             document.getElementById('totalCount').textContent = totalSoal;
 
-            // 3. KIRIM DATA KE GOOGLE APPS SCRIPT
+            // 3. KIRIM DATA KE GOOGLE APPS SCRIPT VIA FETCH
             const payload = {
+                // Diubah agar strukturnya masuk sesuai logika doPost di Google Apps Script (simpanNilaiSiswa)
                 email: document.getElementById('email').value,
-                nama: document.getElementById('nama').value,
-                mapel: document.getElementById('mapel').value,
-                branch: document.getElementById('branch').value,
-                territory: document.getElementById('territory').value,
-                kategori: activeCategory === 'wajib' ? "Matematika Wajib" : "Matematika Lanjut",
-                skor: finalScore.toFixed(2),
-                benar: correctCount,
-                totalSoal: totalSoal,
-                jawabanSiswa: dataJawaban
+                topik: activeCategory === 'wajib' ? "Matematika Wajib (PATOM 2)" : "Matematika Lanjut (PATOM 2)",
+                mode: "Ujian Mandiri",
+                skor_pre: 0,
+                skor_kelas: 0,
+                skor_post: 0,
+                skor_modul: finalScore.toFixed(2), // Memasukkan nilai CBT ini ke skor modul
+                jawaban: JSON.stringify(dataJawaban) // Konversi Object ke String
             };
 
-            if (typeof google !== 'undefined' && google.script) {
-                google.script.run.withSuccessHandler(function(response) {
+            fetch(GAS_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8',
+                },
+                body: JSON.stringify({ action: 'simpanNilaiSiswa', args: [payload] })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.result && data.result.success) {
                     submitBtn.style.display = 'none';
                     document.getElementById('resultBox').style.display = 'block';
                     document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
-                }).withFailureHandler(function(error) {
-                    alert("Gagal menyimpan hasil ke database: " + error.message);
-                    submitBtn.innerText = "GAGAL MENYIMPAN. COBA LAGI";
-                    submitBtn.style.backgroundColor = "#e74c3c";
-                    submitBtn.disabled = false;
-                    isSubmitted = false;
-                }).simpanHasilUjian(payload);
-            } else {
-                // Fallback kalau cuma di-test di lokal (tanpa GAS)
-                submitBtn.style.display = 'none';
-                document.getElementById('resultBox').style.display = 'block';
-                document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    handleSimpanError(data.error || "Unknown Error");
+                }
+            })
+            .catch(error => {
+                handleSimpanError(error.message);
+            });
+
+            function handleSimpanError(msg) {
+                submitBtn.innerText = "GAGAL MENYIMPAN. COBA LAGI";
+                submitBtn.style.backgroundColor = "#e74c3c";
+                submitBtn.disabled = false;
+                isSubmitted = false;
             }
         }
 
         // KEMBALI KE BERANDA SEGAR / REFRESH
         document.getElementById('btnHome').addEventListener('click', () => {
-            if (typeof google !== 'undefined' && google.script) {
-                // Mereset page pake method GAS yang aman dari Iframe
-                google.script.run.withSuccessHandler(function(url) {
-                    window.top.location.href = url;
-                }).getScriptUrl();
-            } else {
-                location.reload(); 
-            }
+            location.reload(); 
         });
       });
     </script>
