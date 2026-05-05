@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Soal Pelatihan Guru: TKA Matematika Lanjut (HOTS)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .math-block { overflow-x: auto; overflow-y: hidden; }
+        .nav-btn { transition: all 0.2s; }
+        .nav-btn.active { background-color: #2563eb; color: white; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 antialiased">
+
+    <div class="max-w-5xl mx-auto my-8 bg-white shadow-xl rounded-xl overflow-hidden">
+        
+        <!-- Header -->
+        <header class="bg-blue-800 text-white p-8 text-center">
+            <h1 class="text-3xl font-bold mb-2">Set Soal Pelatihan Guru: TKA Matematika Lanjut (HOTS)</h1>
+            <p class="text-blue-200">Berdasarkan Matriks Asesmen</p>
+        </header>
+
+        <!-- Navigation -->
+        <div class="flex border-b bg-gray-50 sticky top-0 z-10">
+            <button onclick="showSection('soal')" id="btn-soal" class="nav-btn active flex-1 py-4 font-semibold text-lg hover:bg-blue-100">📋 Kumpulan Soal</button>
+            <button onclick="showSection('pembahasan')" id="btn-pembahasan" class="nav-btn flex-1 py-4 font-semibold text-lg border-l hover:bg-blue-100">💡 Kunci & Pembahasan</button>
+        </div>
+
+        <div class="p-8">
+
+            <!-- ===================== BAGIAN SOAL ===================== -->
+            <section id="soal" class="block">
+                
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded-r">
+                    <h2 class="font-bold text-blue-800 text-lg mb-2">Petunjuk Tipe Soal</h2>
+                    <p class="mb-2">Soal-soal dalam dokumen ini terdiri dari 4 tipe:</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li><strong>Pilihan Ganda Tunggal:</strong> Pilih satu jawaban yang paling tepat (A, B, C, D, atau E).</li>
+                        <li><strong>Pilihan Ganda Kecukupan Data:</strong> Diberikan pertanyaan dan 2 pernyataan. Pilihlah:
+                            <ul class="list-[upper-alpha] pl-6 mt-1 text-sm">
+                                <li>Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li>
+                                <li>Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li>
+                                <li>Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li>
+                                <li>Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li>
+                                <li>Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Pilihan Ganda Kompleks:</strong> <strong>Jawaban benar lebih dari satu</strong>.</li>
+                        <li><strong>Pilihan Ganda Kategori:</strong> Tentukan Benar/Salah atau Sesuai/Tidak Sesuai pada tabel pernyataan.</li>
+                    </ul>
+                </div>
+
+                <!-- Kategori: Matriks -->
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-8">Elemen: Aljabar (Matriks)</h3>
+                
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">1.</p>
+                    <p class="mb-4">Sebuah pabrik memproduksi tiga jenis paduan logam (A, B, C) menggunakan tiga bahan dasar: Tembaga, Seng, dan Timah. Matriks komposisi bahan baku (dalam kg) untuk memproduksi 1 unit tiap paduan adalah sebagai berikut:</p>
+                    <div class="math-block my-4">
+                        $$M = \begin{pmatrix} 2 & 1 & 3 \\ 1 & 2 & 1 \\ 3 & 1 & 2 \end{pmatrix}$$
+                    </div>
+                    <p class="mb-4">Jika gudang memiliki persediaan tepat 18 kg Tembaga, 15 kg Seng, dan 17 kg Timah, dan seluruh bahan harus habis digunakan, berapakah total unit paduan logam (A + B + C) yang diproduksi?</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>7 unit</li>
+                        <li>8 unit</li>
+                        <li>9 unit</li>
+                        <li>10 unit</li>
+                        <li>12 unit</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">2.</p>
+                    <p class="mb-4">Diketahui matriks $A$ berukuran $3 \times 3$ yang memiliki determinan $|A| = 4$. Matriks $B$ adalah hasil dari operasi $B = 2A^{-1}$. Pernyataan analitis manakah yang tepat terkait sifat-sifat matriks tersebut? (<strong>Jawaban benar lebih dari satu</strong>):</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Determinan matriks $A^{-1}$ adalah $\frac{1}{4}$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Determinan dari matriks $B$ adalah 2.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Determinan dari matriks $B$ adalah $\frac{1}{2}$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Jika matriks $A$ dikalikan dengan matriks identitas $I$, maka $|AI| = 4$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">$|A \cdot A^{-1}| = 0$.</span></li>
+                    </ul>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">3.</p>
+                    <p class="mb-2">Diketahui sistem persamaan linear dua variabel yang direpresentasikan dalam bentuk matriks $AX = B$. Apakah sistem persamaan ini memiliki solusi (nilai $X$) yang tunggal?</p>
+                    <p class="font-semibold mb-2"><strong>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</strong></p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li>Determinan dari matriks $A$ bernilai nol ($|A| = 0$).</li>
+                        <li>Matriks $B$ adalah matriks nol $\begin{pmatrix} 0 \\ 0 \end{pmatrix}$.</li>
+                    </ol>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1 text-sm md:text-base">
+                        <li>Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li>
+                        <li>Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li>
+                        <li>Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li>
+                        <li>Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li>
+                        <li>Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                </div>
+
+                <!-- Kategori: Polinomial -->
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen: Aljabar (Polinomial)</h3>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">4.</p>
+                    <p class="mb-4">Sebuah kotak tanpa tutup dibuat dari selembar karton berbentuk persegi dengan sisi 20 cm, dengan memotong persegi identik bersisi $x$ cm di keempat pojoknya. Volume kotak tersebut dimodelkan oleh polinomial $V(x) = 4x^3 - 80x^2 + 400x$. Jika pabrik ingin memotong bagian pojok sedemikian rupa sehingga menyisakan volume tepat $384 \text{ cm}^3$, nilai $x$ bilangan bulat yang memenuhi adalah...</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>2 cm</li>
+                        <li>4 cm</li>
+                        <li>5 cm</li>
+                        <li>6 cm</li>
+                        <li>8 cm</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">5.</p>
+                    <p class="mb-4">Suku banyak berorde empat $P(x) = x^4 + ax^3 + bx^2 + cx + d$ memotong sumbu-$x$ di empat titik berbeda. Tentukan apakah pernyataan berikut Benar atau Salah berdasarkan Teorema Vieta dan Teorema Sisa.</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border border-gray-300 p-2">Pernyataan</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Benar</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Salah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Hasil kali keempat akar polinomial tersebut selalu sama dengan nilai konstanta $d$.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Jika $P(x)$ dibagi oleh $(x-k)$, maka sisa pembagiannya adalah $P(-k)$.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Jika jumlah semua koefisien $(1 + a + b + c + d) = 0$, maka $x = 1$ pasti merupakan salah satu akar dari polinomial tersebut.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">6.</p>
+                    <p class="mb-2">Diketahui polinomial $F(x)$ jika dibagi $(x+3)$ bersisa $-10$. Berapakah sisa polinomial $F(x)$ jika dibagi oleh $x^2 + x - 6$?</p>
+                    <p class="font-semibold mb-2"><strong>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</strong></p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li>Polinomial $F(x)$ jika dibagi $(x-2)$ bersisa 5.</li>
+                        <li>Derajat dari polinomial $F(x)$ adalah 4.</li>
+                    </ol>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1 text-sm md:text-base">
+                        <li>Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li>
+                        <li>Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li>
+                        <li>Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li>
+                        <li>Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li>
+                        <li>Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                </div>
+
+                <!-- Kategori: Fungsi -->
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen: Aljabar (Fungsi)</h3>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">7.</p>
+                    <p class="mb-4">Waktu paruh suatu zat radioaktif yang digunakan dalam radioterapi dimodelkan oleh fungsi eksponensial $N(t) = N_0 \cdot 2^{-0,5t}$, di mana $N_0$ adalah massa awal dan $t$ adalah waktu dalam jam. Jika dokter membutuhkan setidaknya 12,5% dari dosis awal tetap berada dalam tubuh pasien untuk efektivitas optimal, batas waktu maksimal observasi adalah...</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>3 jam</li>
+                        <li>4 jam</li>
+                        <li>5 jam</li>
+                        <li>6 jam</li>
+                        <li>8 jam</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">8.</p>
+                    <p class="mb-4">Diberikan fungsi rasional $f(x) = \frac{ax + b}{cx + d}$. Diketahui kurva fungsi ini memiliki asimtot vertikal di $x = 2$ dan asimtot horizontal di $y = 3$. Pernyataan yang TEPAT mengenai fungsi tersebut adalah (<strong>Jawaban benar lebih dari satu</strong>):</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Nilai dari $\frac{a}{c} = 3$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Domain dari fungsi tersebut adalah seluruh bilangan real kecuali $x = 3$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Hubungan konstanta penyebut memenuhi $2c + d = 0$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Grafik fungsi ini pasti memotong titik asal $(0,0)$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Fungsi invers $f^{-1}(x)$ akan memiliki asimtot vertikal di $x = 3$.</span></li>
+                    </ul>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">9.</p>
+                    <p class="mb-4">Tentukan domain (daerah asal) dari fungsi komposit bentuk akar dan rasional berikut: $g(x) = \sqrt{\frac{x^2 - 9}{x + 1}}$.</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>$x \ge 3$ atau $x \le -3$</li>
+                        <li>$-3 \le x &lt; -1$ atau $x \ge 3$</li>
+                        <li>$-3 \le x \le 3$</li>
+                        <li>$x &gt; -1$</li>
+                        <li>$x \le -3$ atau $-1 &lt; x \le 3$</li>
+                    </ol>
+                </div>
+
+                <!-- Kategori: Vektor -->
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen: Geometri dan Pengukuran (Vektor)</h3>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">10.</p>
+                    <p class="mb-4">Sebuah drone militer mendeteksi dua target bergerak dari koordinat pangkalannya $(0,0,0)$. Posisi Target P berada pada vektor $\vec{p} = \binom{2}{-1}{2}$ dan Target Q pada vektor $\vec{q} = \binom{2}{4}{-4}$ (satuan dalam km). Jika drone menembakkan laser secara lurus ke kedua target secara bersamaan, kosinus sudut yang dibentuk oleh kedua tembakan laser tersebut adalah...</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>$-\frac{2}{9}$</li>
+                        <li>$\frac{1}{3}$</li>
+                        <li>$-\frac{4}{9}$</li>
+                        <li>$\frac{2}{3}$</li>
+                        <li>$0$ (saling tegak lurus)</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">11.</p>
+                    <p class="mb-2">Tiga buah titik di ruang 3D, yaitu $A(1, 2, 3)$, $B(4, 6, 9)$, dan $C(x, y, 21)$. Berapakah nilai $x + y$?</p>
+                    <p class="font-semibold mb-2"><strong>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</strong></p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li>Ketiga titik tersebut kolinear (terletak pada satu garis lurus).</li>
+                        <li>Perbandingan panjang $\vec{AB}$ dan $\vec{BC}$ adalah $1 : 2$.</li>
+                    </ol>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1 text-sm md:text-base">
+                        <li>Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li>
+                        <li>Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li>
+                        <li>Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li>
+                        <li>Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li>
+                        <li>Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">12.</p>
+                    <p class="mb-4">Diketahui vektor $\vec{u} = 3\hat{i} + 4\hat{j}$ dan vektor $\vec{v} = 5\hat{i} + 12\hat{j}$. Tentukan kebenaran analitis pernyataan berikut mengenai panjang dan operasi vektor.</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border border-gray-300 p-2">Pernyataan</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Benar</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Salah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Panjang resultan vektor $(\vec{u} + \vec{v})$ pasti lebih kecil dari penjumlahan panjang masing-masing vektor $(|\vec{u}| + |\vec{v}|)$ karena keduanya tidak searah (Ketaksamaan Segitiga).</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Proyeksi skalar ortogonal vektor $\vec{u}$ pada $\vec{v}$ adalah $\frac{63}{13}$.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Vektor $\vec{u}$ tegak lurus terhadap vektor $\vec{w} = 4\hat{i} - 3\hat{j}$.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Kategori: Lingkaran & Transformasi -->
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen: Geometri dan Pengukuran (Lingkaran & Transformasi)</h3>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">13.</p>
+                    <p class="mb-4">Pemodelan episentrum gempa bumi menunjukkan guncangan destruktif terjadi dalam area yang dibatasi oleh persamaan lingkaran $x^2 + y^2 - 10x + 6y - 2 = 0$ (dalam skala peta 1 unit = 10 km). Jika balai kota berada di koordinat $(8, 1)$, apakah balai kota tersebut aman dari guncangan destruktif?</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>Aman, karena titik balai kota berada di luar lingkaran (hasil substitusi &gt; 0).</li>
+                        <li>Tidak aman, karena titik balai kota berada tepat di batas tepi lingkaran (hasil substitusi = 0).</li>
+                        <li>Tidak aman, karena titik balai kota berada di dalam lingkaran (hasil substitusi &lt; 0).</li>
+                        <li>Aman, karena pusat gempa sangat jauh yaitu di $(-10, 6)$.</li>
+                        <li>Tidak dapat dipastikan dari persamaan lingkaran yang diberikan.</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">14.</p>
+                    <p class="mb-4">Sebidang tanah berbentuk segitiga siku-siku dipetakan dalam koordinat kartesius dengan titik sudut $A(0,0), B(4,0)$, dan $C(0,3)$. Tanah tersebut terkena program penataan tata ruang sehingga posisinya ditransformasikan oleh matriks $T = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}$. Pernyataan yang TEPAT mengenai transformasi ini adalah (<strong>Jawaban benar lebih dari satu</strong>):</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Luas tanah awal sebelum ditransformasi adalah 6 satuan luas.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Determinan matriks transformasi $T$ adalah 6.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Luas tanah setelah ditransformasi bertambah menjadi 36 satuan luas.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Titik $B$ bergeser menjadi titik $(12, 0)$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Bangun hasil transformasi dipastikan tetap berupa segitiga siku-siku dengan sudut tegak lurus terjaga.</span></li>
+                    </ul>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">15.</p>
+                    <p class="mb-2">Sebuah garis singgung ditarik menyentuh lingkaran $x^2 + y^2 = 25$. Apakah persamaan garis singgung tersebut dapat ditentukan secara pasti dan tunggal?</p>
+                    <p class="font-semibold mb-2"><strong>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</strong></p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li>Garis singgung tersebut sejajar dengan garis $4x - 3y + 12 = 0$.</li>
+                        <li>Garis singgung tersebut menyinggung lingkaran di titik $(-3, 4)$.</li>
+                    </ol>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1 text-sm md:text-base">
+                        <li>Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li>
+                        <li>Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li>
+                        <li>Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li>
+                        <li>Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li>
+                        <li>Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">16.</p>
+                    <p class="mb-4">Transformasi geometri sangat peka terhadap urutan (komposisi). Tentukan apakah pernyataan berikut Sesuai atau Tidak Sesuai.</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border border-gray-300 p-2">Pernyataan</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Sesuai</th>
+                                    <th class="border border-gray-300 p-2 text-center w-28">Tidak Sesuai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Bayangan sebuah titik yang dicerminkan terhadap sumbu-$X$ lalu diputar $90^\circ$ pusat $(0,0)$ akan <strong>sama persis</strong> dengan titik yang diputar $90^\circ$ dulu baru dicerminkan ke sumbu-$X$.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Komposisi dua buah translasi $T_1$ dan $T_2$ bersifat komutatif ($T_1 \circ T_2 = T_2 \circ T_1$).</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Matriks transformasi dilatasi dengan faktor skala $k=2$ memiliki invers matriks berupa dilatasi dengan faktor skala $k=\frac{1}{2}$.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Kategori: Limit -->
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen: Trigonometri (Limit)</h3>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">17.</p>
+                    <p class="mb-4">Ahli biologi memodelkan laju pertumbuhan koloni bakteri setelah diberikan antibiotik dengan fungsi $P(t) = \frac{5t^2 - 3t + 10}{2t^2 + t}$, dengan $t$ adalah waktu dalam jam. Berapakah batas stabilitas populasi koloni tersebut jika dibiarkan dalam jangka waktu yang sangat panjang ($t \to \infty$)?</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>$0$</li>
+                        <li>$2,5$ (atau $\frac{5}{2}$)</li>
+                        <li>$5$</li>
+                        <li>$10$</li>
+                        <li>Tidak terbatas ($\infty$)</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">18.</p>
+                    <p class="mb-4">Menghitung limit fungsi rasional irasional saat $x \to \infty$ sering muncul. Diberikan limit: $\lim_{x \to \infty} \left( \sqrt{4x^2 + 12x - 5} - (2x - 1) \right)$. Berapakah nilai limit tersebut tanpa menggunakan Teorema L'Hopital?</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>$2$</li>
+                        <li>$3$</li>
+                        <li>$4$</li>
+                        <li>$6$</li>
+                        <li>$\infty$</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">19.</p>
+                    <p class="mb-4">Untuk mengevaluasi nilai $\lim_{x \to 0} \frac{1 - \cos(ax)}{bx \tan(cx)} = L$, <strong>pilihlah pernyataan aljabar dan sifat limit trigonometri dasar yang TEPAT</strong> (<strong>Jawaban benar lebih dari satu</strong>):</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Bentuk $1 - \cos(ax)$ dapat disubstitusi menggunakan identitas sudut rangkap menjadi $2\sin^2\left(\frac{ax}{2}\right)$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Nilai limit dasar $\lim_{x \to 0} \frac{\sin x}{\tan x} = 1$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Jika diselesaikan tanpa L'Hopital, hasil akhir limit $L$ tersebut akan bergantung pada kuadrat variabel $a$ (yakni mengandung bentuk $a^2$).</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Jika batas limit diubah menjadi $x \to \frac{\pi}{2}$, fungsi dapat langsung dievaluasi dengan substitusi langsung (asalkan penyebut $\neq 0$).</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Penggunaan L'Hopital satu kali langsung menyelesaikan persamaan ini karena menghilangkan per 0.</span></li>
+                    </ul>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">20.</p>
+                    <p class="mb-2">Apakah limit fungsi $\lim_{x \to 2} \frac{x^2 - px + q}{x - 2}$ memiliki nilai real mutlak yang terdefinisi?</p>
+                    <p class="font-semibold mb-2"><strong>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</strong></p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li>Jika $x=2$ disubstitusikan ke pembilang, hasilnya adalah $0$ (yakni $4 - 2p + q = 0$).</li>
+                        <li>Diketahui $p = 5$.</li>
+                    </ol>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1 text-sm md:text-base">
+                        <li>Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li>
+                        <li>Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li>
+                        <li>Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li>
+                        <li>Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li>
+                        <li>Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                </div>
+
+                <!-- Kategori: Campuran -->
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen Campuran: Soal Kontekstual Lanjutan</h3>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">21.</p>
+                    <p class="mb-4">Dalam ilmu kriptografi, matriks digunakan untuk mengenkripsi koordinat lokasi rahasia. Sebuah tim intelijen menyandikan koordinat titik pertemuan $(x, y)$ dengan mengalikannya menggunakan matriks kunci publik $K = \begin{pmatrix} 2 & 3 \\ 3 & 5 \end{pmatrix}$. Hasil koordinat yang telah dienkripsi dan dikirim melalui sinyal radio adalah $(16, 27)$. <strong>Pilihlah pernyataan yang TEPAT mengenai proses enkripsi dan dekripsi ini</strong> (<strong>Jawaban benar lebih dari satu</strong>):</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Determinan dari matriks kunci $K$ adalah 1, sehingga proses dekripsi tidak akan menghasilkan koordinat dalam bentuk pecahan.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Matriks dekripsi yang harus digunakan oleh penerima pesan adalah $K^{-1} = \begin{pmatrix} 5 & -3 \\ -3 & 2 \end{pmatrix}$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Koordinat pertemuan rahasia yang asli sebelum dienkripsi adalah $(-1, 6)$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Jika matriks kunci yang digunakan dirubah menjadi $\begin{pmatrix} 2 & 4 \\ 3 & 6 \end{pmatrix}$, tim intelijen masih bisa mendekripsi pesan tersebut secara tunggal.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Hasil kali matriks kunci $K$ dengan inversnya $K^{-1}$ akan menghasilkan koordinat $(0,0)$.</span></li>
+                    </ul>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">22.</p>
+                    <p class="mb-4">Departemen R&amp;D sebuah perusahaan teknologi memodelkan fungsi fluktuasi laba/rugi (dalam milyar rupiah) dari peluncuran purwarupa produk baru pada bulan ke-$x$ dengan suku banyak berorde empat: $P(x) = x^4 - 10x^3 + 35x^2 - 50x + 24$. Manajemen perlu menganalisis kapan produk tersebut mencapai titik impas atau <em>Break-Even Point</em> ($P(x) = 0$). Tentukan kebenaran analitis pernyataan berikut!</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border border-gray-300 p-2">Pernyataan</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Benar</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Salah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Teorema Sisa menjamin bahwa jika diproduksi pada bulan ke-5 ($x=5$), laba perusahaan adalah tepat 24 milyar rupiah.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Produk tersebut akan mengalami impas berturut-turut pada bulan ke-1, ke-2, ke-3, dan ke-4 pasca rilis.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Suku banyak tersebut jika dibagi dengan polinomial kuadrat $x^2 - 3x + 2$ akan menyisakan sisa yang berderajat satu.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">23.</p>
+                    <p class="mb-4">Seorang insinyur sipil sedang menghitung lendutan (defleksi) pada sebuah balok baja penyangga jembatan. Persamaan defleksi tersebut berbentuk suku banyak berderajat tiga: $y(x) = 2x^3 - 5x^2 - px + 3$. Berdasarkan standar keamanan, defleksi harus bernilai nol (tidak ada lendutan) pada titik tumpuan $x = 3$ meter. Dengan informasi tersebut, berapakah sisa defleksi jika balok tersebut secara teoretis diberi beban uji tekan di titik $x = -2$ meter?</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>$-25$ mm</li>
+                        <li>$-16$ mm</li>
+                        <li>$0$ mm</li>
+                        <li>$8$ mm</li>
+                        <li>$12$ mm</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">24.</p>
+                    <p class="mb-4">Dalam sebuah tambak pelestarian alam, populasi ikan endemik pada bulan ke-$t$ bertumbuh secara eksponensial mengikuti model $P(t) = 2000 - 1500 \cdot 2^{-0,2t}$. Pada bulan ke berapakah ekosistem tambak tersebut akan mencapai batas daya tampung spesifik 1625 ekor ikan, sehingga sebagian harus dipindahkan?</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>2 bulan</li>
+                        <li>5 bulan</li>
+                        <li>8 bulan</li>
+                        <li>10 bulan</li>
+                        <li>12 bulan</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">25.</p>
+                    <p class="mb-2">Dua buah <em>tugboat</em> (kapal tunda) A dan B menarik sebuah kapal kargo raksasa yang mogok di pelabuhan. <em>Tugboat</em> A menarik dengan gaya yang direpresentasikan oleh vektor $\vec{f}_A$ dan <em>Tugboat</em> B dengan vektor $\vec{f}_B$. Apakah kapal kargo tersebut bergerak lurus searah HANYA dengan sumbu-$X$ positif? (Artinya resultan $\vec{f}_A + \vec{f}_B$ hanya memiliki komponen searah $\hat{i}$ positif dan komponen $\hat{j} = 0$).</p>
+                    <p class="font-semibold mb-2"><strong>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</strong></p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li>Vektor gaya tarikan kapal A secara terisolasi adalah $\vec{f}_A = 4\hat{i} + 3\hat{j}$.</li>
+                        <li>Kapal B menarik dengan gaya yang merupakan pencerminan identik dari vektor gaya kapal A terhadap sumbu-$X$.</li>
+                    </ol>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1 text-sm md:text-base">
+                        <li>Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li>
+                        <li>Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li>
+                        <li>Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li>
+                        <li>Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li>
+                        <li>Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">26.</p>
+                    <p class="mb-4">Sebuah menara pengawas lalu lintas udara (ATC) berada di titik pusat koordinat $(0,0)$. Area pantauan radar ATC memancarkan gelombang yang membentuk batas lingkaran dengan persamaan $x^2 + y^2 = 100$ (dalam mil laut). Sebuah pesawat komersial terbang melintasi area tersebut dengan jalur lurus mengikuti persamaan garis $3x + 4y = 50$. <strong>Pilihlah pernyataan yang TEPAT terkait posisi pesawat dan jangkauan radar</strong> (<strong>Jawaban benar lebih dari satu</strong>):</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Titik persinggungan terdekat antara lintasan pesawat dan batas jangkauan radar terjadi di koordinat $(6, 8)$.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Jarak terpendek tegak lurus pesawat tersebut ke menara pengawas adalah tepat 10 mil laut.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Pesawat tersebut tidak pernah benar-benar memasuki wilayah terdalam radar, melainkan hanya menyentuh batas terluarnya saja.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Panjang lintasan terbang pesawat yang terlacak (tali busur) di <em>dalam</em> layar radar adalah 20 mil laut.</span></li>
+                        <li class="flex items-start"><span class="mr-2">$\square$</span> <span class="leading-snug">Garis lintasan pesawat tersebut memiliki gradien yang sejajar dengan sumbu-$Y$.</span></li>
+                    </ul>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">27.</p>
+                    <p class="mb-4">Dalam mendesain motif batik digital menggunakan perangkat lunak grafis, seorang seniman merotasi sebuah kurva batas kelopak bunga yang awalnya memiliki persamaan $y = x^2 - 4x + 3$. Jika kurva tersebut diputar sejauh $90^\circ$ berlawanan arah jarum jam dengan pusat rotasi di titik asal $(0,0)$, persamaan kurva bayangan yang baru akan berubah menjadi...</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>$x = -y^2 + 4y - 3$</li>
+                        <li>$x = y^2 - 4y + 3$</li>
+                        <li>$y = -x^2 + 4x - 3$</li>
+                        <li>$y = -x^2 - 4x - 3$</li>
+                        <li>$x = -y^2 - 4y - 3$</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">28.</p>
+                    <p class="mb-4">Kamera satelit cuaca memindai wilayah badai tropis di atas samudra yang memproyeksikan bentuk jajaran genjang. Jajaran genjang tersebut direpresentasikan oleh luas determinan dari matriks $W = \begin{pmatrix} 2 & 5 \\ 1 & 4 \end{pmatrix}$, di mana kolomnya merepresentasikan vektor sisi pembentuk badai. Akibat anomali tekanan udara, bentuk badai tersebut bertransformasi secara linier yang direpresentasikan oleh matriks angin kencang $A = \begin{pmatrix} 1 & -1 \\ 2 & 3 \end{pmatrix}$. Berapakah perbandingan rasio perbesaran luas wilayah badai setelah terkena anomali tersebut dibandingkan luas awalnya?</p>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1">
+                        <li>2 kali lipat</li>
+                        <li>3 kali lipat</li>
+                        <li>5 kali lipat</li>
+                        <li>8 kali lipat</li>
+                        <li>15 kali lipat</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">29.</p>
+                    <p class="mb-2">Seorang insinyur mekanik menguji redaman gelombang getaran pada sebuah pegas suspensi mobil balap. Simpangan pegas tersebut dari titik keseimbangan sesaat setelah benturan ($t$ mendekati nol) dimodelkan secara teoritis oleh penyelesaian limit $S = \lim_{t \to 0} \frac{1 - \cos(pt)}{t \tan(qt)}$. Berapakah nilai simpangan $S$ absolut tersebut?</p>
+                    <p class="font-semibold mb-2"><strong>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</strong></p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li>Diketahui dari kalibrasi sensor bahwa nilai $p = 4$.</li>
+                        <li>Konstanta pegas $q$ selalu dikonfigurasi bernilai persis setengah dari $p$.</li>
+                    </ol>
+                    <ol class="list-[upper-alpha] pl-6 space-y-1 text-sm md:text-base">
+                        <li>Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li>
+                        <li>Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li>
+                        <li>Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li>
+                        <li>Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li>
+                        <li>Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-2 border-gray-200">
+                    <p class="font-bold mb-2">30.</p>
+                    <p class="mb-4">Konsentrasi suatu zat obat dalam darah pasien (dalam mg/L) pada waktu $t$ jam setelah disuntikkan dapat dimodelkan dengan fungsi limit $C(t) = \lim_{x \to t} \frac{\sqrt{x+3} - 2}{x-1}$ (khusus untuk mengetahui laju penyerapan awal di saat kritis $t=1$ jam). Analisislah proses penyelesaian fungsi limit laju penyerapan ini jika dikerjakan <strong>tanpa</strong> menggunakan Teorema L'Hopital. Tentukan kebenaran analitis pernyataan berikut!</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border border-gray-300 p-2">Pernyataan</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Benar</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Salah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Untuk menyelesaikan limit secara aljabar saat $t=1$, pembilang dan penyebut perlu dikalikan dengan bentuk sekawannya yakni $(\sqrt{x+3} + 2)$.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Nilai mutlak limit laju penyerapan obat tepat pada waktu $t=1$ tersebut adalah $0,25$ mg/L per jam.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Jika dievaluasi secara langsung dengan substitusi nilai $x=1$ tanpa proses manipulasi rasionalisasi aljabar, limit tersebut akan menghasilkan nilai pasti sebesar 0.</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                    <td class="border border-gray-300 p-2 text-center align-middle text-xl">$\square$</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ===================== BAGIAN PEMBAHASAN ===================== -->
+            <section id="pembahasan" class="hidden">
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-8 rounded-r">
+                    <h2 class="font-bold text-yellow-800 text-lg mb-2">Pengantar Pembahasan</h2>
+                    <p>Pembahasan ini disusun agar pelatih dapat memberikan penekanan pada aspek <em>Higher Order Thinking Skills</em> (HOTS) yang mensyaratkan guru untuk melihat relasi antarkonsep. Matematika Lanjut seringkali mengecoh di syarat domain, arah vektor, dan identitas limit tanpa turunan.</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-8">Elemen: Aljabar (Matriks)</h3>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 1. Kunci Jawaban: D</p>
+                    <p class="font-semibold mb-2">Analisis Operasi Matriks &amp; SPLTV:</p>
+                    <p>Berdasarkan teks, baris adalah Tembaga, Seng, Timah; sedangkan kolom adalah Paduan A, B, C.<br>
+                    Persamaan linear yang terbentuk:</p>
+                    <div class="math-block my-2">
+                    $$ \begin{aligned}
+                    2A + 1B + 3C &= 18 \quad \text{(Tembaga)} \\
+                    1A + 2B + 1C &= 15 \quad \text{(Seng)} \\
+                    3A + 1B + 2C &= 17 \quad \text{(Timah)}
+                    \end{aligned} $$
+                    </div>
+                    <p>Gunakan metode eliminasi/substitusi yang sistematis:<br>
+                    Dari persamaan (2) didapat: $C = 15 - A - 2B$.<br>
+                    Substitusi $C$ ke persamaan (1):<br>
+                    $2A + B + 3(15 - A - 2B) = 18$<br>
+                    $2A + B + 45 - 3A - 6B = 18$<br>
+                    $-A - 5B = -27 \implies A + 5B = 27$ &nbsp;&nbsp;&nbsp;...(Persamaan 4)<br>
+                    <br>
+                    Substitusi $C$ ke persamaan (3):<br>
+                    $3A + B + 2(15 - A - 2B) = 17$<br>
+                    $3A + B + 30 - 2A - 4B = 17$<br>
+                    $A - 3B = -13$ &nbsp;&nbsp;&nbsp;...(Persamaan 5)<br>
+                    <br>
+                    Eliminasi Persamaan (4) dan (5):<br>
+                    $(A + 5B) - (A - 3B) = 27 - (-13)$<br>
+                    $8B = 40 \implies B = 5$.<br>
+                    Substitusikan nilai $B=5$ ke Persamaan 5:<br>
+                    $A - 3(5) = -13 \implies A - 15 = -13 \implies A = 2$.<br>
+                    Substitusikan nilai $A=2, B=5$ ke variabel $C$:<br>
+                    $C = 15 - (2) - 2(5) = 15 - 12 = 3$.<br>
+                    Total Unit = $A + B + C = 2 + 5 + 3 = 10$ unit.</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 2. Kunci Jawaban: Kotak 1, 2, dan 4 (dicentang)</p>
+                    <p class="font-semibold mb-2">Analisis Sifat Determinan Matriks:</p>
+                    <p class="mb-2">Diketahui: Orde $n=3$, $|A| = 4$.</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>$\blacksquare$ Pilihan 1: $|A^{-1}| = \frac{1}{|A|} = \frac{1}{4}$. <strong>(Tepat)</strong></li>
+                        <li>$\blacksquare$ Pilihan 2: $|B| = |2A^{-1}|$. Sifat matriks skalar $k$ orde $n$: $|kA| = k^n|A|$.<br>
+                        Maka, $|B| = 2^3 \cdot |A^{-1}| = 8 \cdot \frac{1}{4} = 2$. <strong>(Tepat)</strong></li>
+                        <li>Pilihan 3: Penjelasan sama seperti pilihan 2, hasilnya bernilai 2 bukan 1/2. <strong>(Salah)</strong></li>
+                        <li>$\blacksquare$ Pilihan 4: Matriks identitas $|I| = 1$. $|AI| = |A| \cdot |I| = 4 \cdot 1 = 4$. <strong>(Tepat)</strong></li>
+                        <li>Pilihan 5: $|A \cdot A^{-1}| = |I| = 1 \neq 0$. <strong>(Salah)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 3. Kunci Jawaban: A</p>
+                    <p class="font-semibold mb-2">Analisis Kecukupan Data (Matriks Singular):</p>
+                    <p class="mb-2">Syarat mutlak agar SPL memiliki solusi tunggal ($X$) adalah determinan matriks koefisien tidak boleh nol ($|A| \neq 0$).</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li><strong>Pernyataan (1):</strong> $|A| = 0$. Ini langsung menyimpulkan bahwa sistem <strong>tidak memiliki solusi tunggal</strong> (bisa banyak solusi atau tidak ada solusi sama sekali). Karena pertanyaannya "Apakah... memiliki solusi tunggal?", pernyataan ini cukup untuk menjawab "TIDAK". <strong>(Cukup)</strong></li>
+                        <li><strong>Pernyataan (2):</strong> Hanya menyatakan ini adalah SPL Homogen ($AX = 0$). Jika $|A| \neq 0$ solusinya trivial (tunggal $X=0$). Jika $|A| = 0$ solusi tak hingga. Data ini tidak menyimpulkan apapun secara tunggal. <strong>(Tidak cukup)</strong></li>
+                    </ul>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen: Aljabar (Polinomial)</h3>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 4. Kunci Jawaban: D</p>
+                    <p class="font-semibold mb-2">Langkah Penyelesaian Suku Banyak:</p>
+                    <p>Fungsi $V(x) = x(20-2x)^2 = 4x^3 - 80x^2 + 400x$. <br>
+                    Diketahui volume $V = 384$.<br>
+                    $4x^3 - 80x^2 + 400x = 384$.<br>
+                    Bagi kedua ruas dengan 4:<br>
+                    $x^3 - 20x^2 + 100x - 96 = 0$.<br>
+                    Uji opsi jawaban yang diberikan untuk mencari akar penyelesaian:<br>
+                    Substitusi $x = 6$:<br>
+                    $(6)^3 - 20(6)^2 + 100(6) - 96 = 216 - 720 + 600 - 96 = 816 - 816 = 0$.<br>
+                    Terbukti bahwa $x=6$ cm memuaskan persamaan polinomial tersebut.</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 5. Kunci Jawaban: Benar, Salah, Benar</p>
+                    <p class="font-semibold mb-2">Analisis Teorema Vieta &amp; Sisa Polinomial:</p>
+                    <p class="mb-2">Bentuk umum $ax^4 + bx^3 + cx^2 + dx + e = 0$. <br>
+                    Bentuk di soal $x^4 + ax^3 + \dots + d = 0$. (Konstanta akhirnya $d$).</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pernyataan 1: Hasil kali akar $(x_1 x_2 x_3 x_4) = (-1)^4 \frac{konstanta}{koef.awal} = \frac{d}{1} = d$. <strong>(Benar)</strong></li>
+                        <li>Pernyataan 2: Teorema sisa, dibagi $(x-k)$, sisa $= P(k)$, BUKAN $P(-k)$. <strong>(Salah)</strong></li>
+                        <li>Pernyataan 3: Jumlah semua koefisien = $P(1)$. Jika jumlah koefisien $= 0$, maka $P(1) = 0$. Sesuai Teorema Faktor, $x=1$ adalah akar. <strong>(Benar)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 6. Kunci Jawaban: A</p>
+                    <p class="font-semibold mb-2">Analisis Kecukupan Sisa Pembagian:</p>
+                    <p>Batang soal memberikan info $F(-3) = -10$.<br>
+                    Ditanyakan: Sisa pembagian oleh $x^2 + x - 6 = (x-2)(x+3)$.<br>
+                    Sisa dipastikan berbentuk linier $S(x) = px + q$.<br>
+                    Untuk mencari nilai $p$ dan $q$, kita membutuhkan DUA buah data nilai fungsi, yaitu $F(2)$ dan $F(-3)$.</p>
+                    <ul class="list-disc pl-6 space-y-1 mt-2">
+                        <li><strong>Pernyataan (1):</strong> Menginformasikan sisa dibagi $(x-2)$ adalah 5, yang berarti $F(2) = 5$. Dengan digabungkannya info batang soal $F(-3)=-10$, kita dapat membuat dua persamaan linier dan mengeliminasi sisa pembagian tersebut secara paripurna. <strong>(Cukup)</strong></li>
+                        <li><strong>Pernyataan (2):</strong> Hanya menyatakan derajat polinomial $F(x) = 4$. Derajat polinomial yang dibagi tidak berkontribusi langsung pada pencarian sisa jika nilai fungsinya (seperti $F(2)$) tidak diketahui. <strong>(Tidak Cukup)</strong></li>
+                    </ul>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen: Aljabar (Fungsi)</h3>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 7. Kunci Jawaban: D</p>
+                    <p class="font-semibold mb-2">Analisis Eksponensial:</p>
+                    <p>Sisa $12,5\% = 0,125 = \frac{1}{8}$.<br>
+                    $\frac{1}{8} N_0 = N_0 \cdot 2^{-0,5t}$<br>
+                    $2^{-3} = 2^{-0,5t} \implies -3 = -0,5t \implies t = 6$ jam.</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 8. Kunci Jawaban: Kotak 1, 3, dan 5 (dicentang)</p>
+                    <p class="font-semibold mb-2">Analisis Asimtot Fungsi Rasional:</p>
+                    <p>$f(x) = \frac{ax+b}{cx+d}$.<br>
+                    Asimtot datar (horizontal): $y = \lim_{x \to \infty} f(x) = \frac{a}{c}$. Karena Asimtot $= 3$, maka $\frac{a}{c} = 3$. <strong>(Tepat)</strong><br>
+                    Asimtot tegak (vertikal): pembuat nol penyebut $cx+d = 0 \implies x = -\frac{d}{c}$. Karena Asimtot $= 2$, maka $-\frac{d}{c} = 2 \implies 2c + d = 0$. <strong>(Tepat)</strong><br>
+                    Domain fungsi adalah rasional, $x \neq -\frac{d}{c} \implies x \neq 2$. (Tertulis $x \neq 3$ <strong>(Salah)</strong>).<br>
+                    Memotong origin $(0,0)$ belum tentu, tergantung nilai $b=0$. <strong>(Salah)</strong><br>
+                    Invers $f^{-1}(x) = \frac{-dx+b}{cx-a}$. Asimtot tegak inversnya $cx-a=0 \implies x=\frac{a}{c}=3$. <strong>(Tepat)</strong></p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 9. Kunci Jawaban: B</p>
+                    <p class="font-semibold mb-2">Analisis Domain Akar &amp; Rasional:</p>
+                    <p>Syarat akar: $\frac{x^2 - 9}{x + 1} \ge 0$.<br>
+                    Faktorkan: $\frac{(x-3)(x+3)}{x+1} \ge 0$.<br>
+                    Titik kritis di garis bilangan: $x=-3, x=-1$ (penyebut bolong), $x=3$.<br>
+                    Uji daerah: <br>
+                    - Kiri -3 ($x=-4$): Neg/Neg = Negatif.<br>
+                    - Antara -3 dan -1 ($x=-2$): Neg/Neg = Positif. (Memenuhi)<br>
+                    - Antara -1 dan 3 ($x=0$): Neg/Pos = Negatif.<br>
+                    - Kanan 3 ($x=4$): Pos/Pos = Positif. (Memenuhi)<br>
+                    Himpunan penyelesaian: $-3 \le x < -1$ atau $x \ge 3$.</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen: Geometri dan Pengukuran (Vektor)</h3>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 10. Kunci Jawaban: C</p>
+                    <p class="font-semibold mb-2">Analisis Sudut Dua Vektor (Dot Product):</p>
+                    <p>Vektor $\vec{p} = \binom{2}{-1}{2}$ dan vektor $\vec{q} = \binom{2}{4}{-4}$.<br>
+                    Panjang $\vec{p} = \sqrt{2^2 + (-1)^2 + 2^2} = \sqrt{4+1+4} = \sqrt{9} = 3$.<br>
+                    Panjang $\vec{q} = \sqrt{2^2 + 4^2 + (-4)^2} = \sqrt{4+16+16} = \sqrt{36} = 6$.<br>
+                    Dot product $\vec{p} \cdot \vec{q} = (2)(2) + (-1)(4) + (2)(-4) = 4 - 4 - 8 = -8$.<br>
+                    $\cos \theta = \frac{\vec{p} \cdot \vec{q}}{|\vec{p}||\vec{q}|} = \frac{-8}{3 \cdot 6} = \frac{-8}{18} = -\frac{4}{9}$.</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 11. Kunci Jawaban: A</p>
+                    <p class="font-semibold mb-2">Analisis Kolinearitas Vektor:</p>
+                    <p class="mb-2">Ditanya: berapakah nilai $x + y$?</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li><strong>Pernyataan (1):</strong> Ketiga titik tersebut kolinear. <br>
+                        Hal ini berarti vektor $\vec{AB}$ dan $\vec{AC}$ berada pada arah yang sama (saling berkelipatan).<br>
+                        $\vec{AB} = B - A = (3, 4, 6)$.<br>
+                        $\vec{AC} = C - A = (x-1, y-2, 18)$.<br>
+                        Karena harus berlaku $\vec{AC} = k \cdot \vec{AB}$, lihat komponen $z$: $18 = k \cdot 6 \implies k = 3$.<br>
+                        Maka komponen lain: $x-1 = 3(3) \implies x = 10$.<br>
+                        $y-2 = 3(4) \implies y = 14$.<br>
+                        Didapat $x+y = 24$. <strong>(Cukup)</strong></li>
+                        <li><strong>Pernyataan (2):</strong> Perbandingan panjang $\vec{AB}$ dan $\vec{BC}$ adalah $1 : 2$. <br>
+                        Hal ini HANYA memberikan informasi jarak (persamaan bola/lingkaran ruang), tanpa memastikan apakah garisnya lurus, bengkok, atau menyudut. Terdapat tak hingga kemungkinan koordinat $(x, y)$ yang jaraknya memenuhi syarat ini. <strong>(Tidak Cukup)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 12. Kunci Jawaban: Benar, Benar, Benar</p>
+                    <p class="font-semibold mb-2">Analisis Proyeksi &amp; Panjang Vektor:</p>
+                    <p class="mb-2">$|\vec{u}| = \sqrt{3^2+4^2}=5$, $|\vec{v}| = \sqrt{5^2+12^2}=13$.</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>P1: Ketaksamaan Segitiga $|\vec{u}+\vec{v}| \le |\vec{u}| + |\vec{v}|$. Mengingat $\vec{u}, \vec{v}$ tidak searah (gradien 4/3 vs 12/5 berbeda), maka tanda "lebih kecil" pasti terjadi. <strong>(Benar)</strong></li>
+                        <li>P2: Proyeksi skalar $\frac{\vec{u} \cdot \vec{v}}{|\vec{v}|} = \frac{15 + 48}{13} = \frac{63}{13}$. <strong>(Benar)</strong></li>
+                        <li>P3: Tegak lurus jika dot product = 0. $\vec{u} \cdot \vec{w} = (3)(4) + (4)(-3) = 12 - 12 = 0$. <strong>(Benar)</strong></li>
+                    </ul>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen: Geometri dan Pengukuran (Lingkaran &amp; Transformasi)</h3>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 13. Kunci Jawaban: C</p>
+                    <p class="font-semibold mb-2">Analisis Kedudukan Titik ke Lingkaran:</p>
+                    <p>Substitusi balai kota $(8, 1)$ ke ruas kiri persamaan lingkaran:<br>
+                    $(8)^2 + (1)^2 - 10(8) + 6(1) - 2 = 64 + 1 - 80 + 6 - 2 = 71 - 82 = -11$.<br>
+                    Karena hasilnya $-11 &lt; 0$, maka titik berada <strong>di DALAM</strong> area kerusakan.<br>
+                    Balai kota tersebut <strong>TIDAK AMAN</strong>.</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 14. Kunci Jawaban: Kotak 1, 2, 3, dan 4 (dicentang)</p>
+                    <p class="font-semibold mb-2">Analisis Matriks Transformasi Geometri:</p>
+                    <ul class="list-disc pl-6 space-y-1 mt-2">
+                        <li>$\blacksquare$ P1: Alas 4, Tinggi 3. Luas Awal $= \frac{1}{2} \times 4 \times 3 = 6$. <strong>(Tepat)</strong></li>
+                        <li>$\blacksquare$ P2: Det $T = (3)(2) - (1)(0) = 6$. <strong>(Tepat)</strong></li>
+                        <li>$\blacksquare$ P3: Luas Akhir $= |\text{Det } T| \times \text{Luas Awal} = 6 \times 6 = 36$. <strong>(Tepat)</strong></li>
+                        <li>$\blacksquare$ P4: Titik $B(4,0) \implies \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix} \begin{pmatrix} 4 \\ 0 \end{pmatrix} = \begin{pmatrix} 12 \\ 0 \end{pmatrix}$. <strong>(Tepat)</strong></li>
+                        <li>P5: Matriks tersebut bukan matriks isometri orthogonal murni (bukan rotasi/refleksi murni). Sudut akan terdistorsi akibat dilatasi sumbu-y dan shear x. Segitiga tidak lagi siku-siku. <strong>(Salah)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 15. Kunci Jawaban: B</p>
+                    <p class="font-semibold mb-2">Analisis Persamaan Garis Singgung Lingkaran:</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>(1) Garis sejajar $\to$ gradien $m = \frac{4}{3}$. Persamaan singgung dengan gradien diketahui memiliki rumus $y = mx \pm R\sqrt{1+m^2}$. Akan ada <strong>DUA</strong> buah garis singgung yang tercipta (di atas dan di bawah lingkaran). "Tunggal" tidak terpenuhi. <strong>(Tidak cukup)</strong></li>
+                        <li>(2) Titik singgung di $(-3, 4)$. Uji: $(-3)^2 + 4^2 = 9+16=25$ (titik tepat <em>pada</em> lingkaran). Rumus garis singgung membagi adil $x_1 x + y_1 y = R^2 \implies -3x + 4y = 25$. Hanya ada <strong>SATU</strong> garis singgung mutlak. <strong>(Cukup)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 16. Kunci Jawaban: Tidak Sesuai, Sesuai, Sesuai</p>
+                    <p class="font-semibold mb-2">Analisis Sifat Transformasi:</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pernyataan 1: Refleksi X lalu Rotasi $90^\circ$ memilik matriks gabungan $\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$. Jika dibalik Rotasi $90^\circ$ lalu Refleksi X, matriksnya $\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 0 & -1 \\ -1 & 0 \end{pmatrix}$. Hasilnya tidak komutatif (bayangan berbeda). <strong>(Tidak Sesuai)</strong></li>
+                        <li>Pernyataan 2: Translasi adalah penjumlahan vektor. Penjumlahan adalah operasi komutatif sejati $\vec{A} + \vec{B} = \vec{B} + \vec{A}$. <strong>(Sesuai)</strong></li>
+                        <li>Pernyataan 3: Dilatasi perbesaran 2x jika di-invers berarti dikecilkan $\frac{1}{2}$ kali lipat ke posisi origin. <strong>(Sesuai)</strong></li>
+                    </ul>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Elemen: Trigonometri (Limit)</h3>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 17. Kunci Jawaban: B</p>
+                    <p class="font-semibold mb-2">Analisis Limit Ketakhinggaan Aljabar:</p>
+                    <p>$P(t) = \frac{5t^2 - 3t + 10}{2t^2 + t}$. Karena pangkat tertinggi pembilang dan penyebut setara ($t^2$), limit menuju $\infty$ langsung ditentukan oleh rasio koefisien orde tertingginya: $\frac{5}{2} = 2,5$.</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 18. Kunci Jawaban: C</p>
+                    <p class="font-semibold mb-2">Analisis Limit Akar Sekawan:</p>
+                    <p>Bentuk umum: $\lim_{x \to \infty} (\sqrt{ax^2+bx+c} - \sqrt{px^2+qx+r})$.<br>
+                    Ubah bentuk $(2x-1)$ menjadi bentuk akar yang senilai: $\sqrt{(2x-1)^2} = \sqrt{4x^2 - 4x + 1}$.<br>
+                    Karena koefisien awal setara ($a = p = 4$), gunakan rumus cepat batas tak hingga $L = \frac{b - q}{2\sqrt{a}}$.<br>
+                    $L = \frac{12 - (-4)}{2\sqrt{4}} = \frac{16}{2(2)} = \frac{16}{4} = 4$.</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 19. Kunci Jawaban: Kotak 1, 2, dan 3 (dicentang)</p>
+                    <p class="font-semibold mb-2">Analisis Limit Trigonometri Fundamental:</p>
+                    <p class="mb-2">Limit soal $\lim_{x \to 0} \frac{1 - \cos(ax)}{bx \tan(cx)}$.</p>
+                    <ul class="list-disc pl-6 space-y-1 mt-2">
+                        <li>$\blacksquare$ P1: Sifat sudut rangkap analitik $1 - \cos(ax) = 2\sin^2\left(\frac{ax}{2}\right)$. <strong>(Tepat)</strong></li>
+                        <li>$\blacksquare$ P2: Bentuk limit fundamental sinus tangen ($\lim_{x \to 0} \frac{\sin x}{\tan x} = 1$). <strong>(Tepat)</strong></li>
+                        <li>$\blacksquare$ P3: Jika dieksekusi, hasilnya $\frac{2 \cdot \frac{a^2}{4}}{bc} = \frac{a^2}{2bc}$. Hasil ini mengandung variabel eksponen $a^2$. <strong>(Tepat)</strong></li>
+                        <li>P4: Jika limit diubah $x \to \pi/2$, nilai tangen menuju $\infty$ (tak terdefinisi) dan pembilang tidak bernilai nol. Ini bukan bentuk tentu yang mudah disubstitusi. <strong>(Salah)</strong></li>
+                        <li>P5: L'Hopital terhadap fungsi $bx\tan(cx)$ akan menghasilkan turunan parsial perkalian beruntun $(uv' + u'v)$ di bagian penyebut yang menyisakan $\tan(0)=0$. Limit tidak bisa dituntaskan hanya dengan 1 kali L'Hopital. <strong>(Salah)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 20. Kunci Jawaban: C</p>
+                    <p class="font-semibold mb-2">Analisis Eksistensi Limit Bentuk Tak Tentu:</p>
+                    <p>Limit pecahan rasional hanya akan terdefinisi real (tidak konvergen ke $\infty$) jika pembilang juga bernilai nol saat penyebut nol (Membentuk $\frac{0}{0}$).<br>
+                    Karena limit menuju $x=2$ penyebutnya $0$, maka pembilang WAJIB $0$.<br>
+                    $2^2 - p(2) + q = 0 \implies 4 - 2p + q = 0$.<br>
+                    Pertanyaannya: Apakah limit "memiliki nilai real mutlak yang terdefinisi"? (Ya/Tidak).<br>
+                    Nilai limitnya dapat diurai menjadi $\lim_{x\to2} \frac{2x - p}{1} = 4 - p$.<br>
+                    Artinya, eksistensi nilai mutlak ini bergantung sepenuhnya pada diketahuinya nilai $p$.</p>
+                    <ul class="list-disc pl-6 space-y-1 mt-2">
+                        <li>(1) Pernyataan ini hanya menegaskan bahwa ini adalah limit tak tentu. Namun tanpa angka spesifik dari $p$ atau $q$, nilai limit tidak bisa ditentukan absolut. <strong>(Tidak Cukup)</strong></li>
+                        <li>(2) Diketahui $p=5$. Tidak ada jaminan pembilangnya akan bernilai 0 (karena $q$ bisa saja bernilai acak selain 6). <strong>(Tidak Cukup)</strong></li>
+                        <li>Gabungan: Pembilang dipastikan bernilai $\frac{0}{0}$ dan variabelnya lengkap, sehingga limit eksis dan nilainya mutlak adalah $4 - 5 = -1$. <strong>(Cukup)</strong></li>
+                    </ul>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-12">Tambahan: Soal Kontekstual Campuran</h3>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 21. Kunci Jawaban: Kotak 1, 2, dan 3 (dicentang)</p>
+                    <p class="font-semibold mb-2">Analisis Kriptografi Matriks:</p>
+                    <ul class="list-disc pl-6 space-y-1 mt-2">
+                        <li>$\blacksquare$ Determinan kunci $K$: $|K| = (2)(5) - (3)(3) = 10 - 9 = 1$. Invers tidak akan menghasilkan bentuk desimal/pecahan karena pembaginya 1. <strong>(Tepat)</strong></li>
+                        <li>$\blacksquare$ Matriks dekripsi adalah inversnya: $K^{-1} = \frac{1}{1} \begin{pmatrix} 5 & -3 \\ -3 & 2 \end{pmatrix} = \begin{pmatrix} 5 & -3 \\ -3 & 2 \end{pmatrix}$. <strong>(Tepat)</strong></li>
+                        <li>$\blacksquare$ Menemukan koordinat asli: $K^{-1} \begin{pmatrix} 16 \\ 27 \end{pmatrix} = \begin{pmatrix} 5(16) + (-3)(27) \\ -3(16) + 2(27) \end{pmatrix} = \begin{pmatrix} 80 - 81 \\ -48 + 54 \end{pmatrix} = \begin{pmatrix} -1 \\ 6 \end{pmatrix}$. <strong>(Tepat)</strong></li>
+                        <li>Distraktor 4: Matriks $\begin{pmatrix} 2 & 4 \\ 3 & 6 \end{pmatrix}$ memiliki determinan $(12 - 12 = 0)$. Matriks singular tidak bisa didekripsi tunggal karena inversnya tidak terdefinisi. <strong>(Salah)</strong></li>
+                        <li>Distraktor 5: Hasil kali suatu matriks dengan inversnya $K \cdot K^{-1}$ adalah Matriks Identitas $I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$, bukan matriks nol. <strong>(Salah)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 22. Kunci Jawaban: Benar, Benar, Salah</p>
+                    <p class="font-semibold mb-2">Analisis Polinomial dan Teorema Faktor:</p>
+                    <p class="mb-2">Fungsi Laba: $P(x) = x^4 - 10x^3 + 35x^2 - 50x + 24$.</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pernyataan 1: Sesuai Teorema Sisa, laba di bulan ke-5 adalah sisa pembagian $P(5)$. Substitusi: $P(5) = 625 - 1250 + 875 - 250 + 24 = 24$. <strong>(Benar)</strong></li>
+                        <li>Pernyataan 2: Faktorisasi penuh dari polinomial tersebut adalah $(x-1)(x-2)(x-3)(x-4) = 0$. Akar-akarnya adalah 1, 2, 3, dan 4. Perusahaan BEP di bulan-bulan tersebut. <strong>(Benar)</strong></li>
+                        <li>Pernyataan 3: Pembagi $x^2 - 3x + 2$ dapat difaktorkan menjadi $(x-1)(x-2)$. Karena $x=1$ dan $x=2$ adalah <strong>akar</strong> dari $P(x)$ (artinya faktor eksak), maka hasil baginya dipastikan habis atau sisa polinomialnya persis $0$ (derajat nol/konstan), bukan berderajat satu. <strong>(Salah)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 23. Kunci Jawaban: A</p>
+                    <p class="font-semibold mb-2">Analisis Suku Banyak (Teorema Sisa/Faktor):</p>
+                    <p>Diketahui fungsi defleksi $y(x) = 2x^3 - 5x^2 - px + 3$.<br>
+                    Syarat aman: Saat tumpuan di $x = 3$, defleksi 0, maka $y(3) = 0$.<br>
+                    $2(3)^3 - 5(3)^2 - p(3) + 3 = 0$<br>
+                    $54 - 45 - 3p + 3 = 0 \implies 12 - 3p = 0 \implies p = 4$.<br>
+                    Persamaan lengkap balok: $y(x) = 2x^3 - 5x^2 - 4x + 3$.<br>
+                    Sisa defleksi (lendutan) di titik pembebanan uji tekan $x = -2$:<br>
+                    $y(-2) = 2(-2)^3 - 5(-2)^2 - 4(-2) + 3$<br>
+                    $y(-2) = 2(-8) - 5(4) + 8 + 3 = -16 - 20 + 11 = -25$ mm.</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 24. Kunci Jawaban: D</p>
+                    <p class="font-semibold mb-2">Analisis Eksponensial dalam Biologi:</p>
+                    <p>Target daya tampung: $P(t) = 1625$.<br>
+                    Persamaan: $1625 = 2000 - 1500 \cdot 2^{-0,2t}$<br>
+                    $1500 \cdot 2^{-0,2t} = 2000 - 1625 = 375$<br>
+                    $2^{-0,2t} = \frac{375}{1500}$<br>
+                    Sederhanakan pecahan (dibagi 375):<br>
+                    $2^{-0,2t} = \frac{1}{4}$<br>
+                    $2^{-0,2t} = 2^{-2}$<br>
+                    Samakan pangkatnya: $-0,2t = -2 \implies t = \frac{-2}{-0,2} = 10$.<br>
+                    Tambak akan penuh pada bulan ke-10.</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 25. Kunci Jawaban: C</p>
+                    <p class="font-semibold mb-2">Analisis Operasi Vektor Resultan:</p>
+                    <p class="mb-2">Ditanya: Apakah vektor resultan $R = \vec{f}_A + \vec{f}_B = (x_{res}, 0)$ dengan syarat mutlak $x_{res} &gt; 0$?</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pernyataan (1) Saja: Kita tahu $\vec{f}_A = 4\hat{i} + 3\hat{j}$, tapi tanpa tahu besaran atau arah gaya <em>tugboat</em> B, resultan total tidak bisa dipastikan arah maupun nilai $x$-nya. <strong>(Tidak Cukup)</strong></li>
+                        <li>Pernyataan (2) Saja: Karena $\vec{f}_B$ adalah pencerminan $\vec{f}_A$ terhadap sumbu-$X$, maka jika $\vec{f}_A = x\hat{i} + y\hat{j}$, $\vec{f}_B = x\hat{i} - y\hat{j}$.<br>
+                        Resultannya: $\vec{f}_A + \vec{f}_B = 2x\hat{i} + 0\hat{j}$. Kapal terkonfirmasi tidak berbelok ke sumbu-$Y$, <strong>tetapi</strong> kita tidak tahu apakah ia bergerak maju ($+X$) atau justru mundur/tertarik ke belakang ($-X$) karena nilai absolut besaran $x$ tidak diketahui (apakah $x$ positif atau negatif). <strong>(Tidak Cukup)</strong></li>
+                        <li>Gabungan (1) dan (2): Masukkan nilai eksak dari Pernyataan 1.<br>
+                        $\vec{f}_A = 4\hat{i} + 3\hat{j} \implies \vec{f}_B = 4\hat{i} - 3\hat{j}$.<br>
+                        Resultan $R = (4+4)\hat{i} + (3-3)\hat{j} = 8\hat{i}$.<br>
+                        Karena $8 &gt; 0$, terkonfirmasi kapal mutlak bergerak hanya searah sumbu-$X$ positif. <strong>(Cukup)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 26. Kunci Jawaban: Kotak 1, 2, dan 3 (dicentang)</p>
+                    <p class="font-semibold mb-2">Analisis Kedudukan Garis Terhadap Lingkaran:</p>
+                    <p>Jari-jari lingkaran radar: $R = \sqrt{100} = 10$.<br>
+                    Jarak pusat ATC $(0,0)$ ke lintasan garis lintasan $3x + 4y - 50 = 0$:<br>
+                    $d = \frac{|3(0) + 4(0) - 50|}{\sqrt{3^2 + 4^2}} = \frac{|-50|}{5} = 10$.<br>
+                    Karena jarak tegak lurus $d$ persis sama dengan jari-jari $R$ ($10 = 10$), maka lintasan tersebut <strong>menyinggung</strong> tepi luar radar (tidak memotong dalam layar).</p>
+                    <ul class="list-disc pl-6 space-y-1 mt-2">
+                        <li>$\blacksquare$ Titik singgung dapat dicari dengan mensubstitusi persamaan $y = \frac{50-3x}{4}$ ke lingkaran, dan akan menghasilkan nilai akar kembar di koordinat $x=6, y=8$. Jadi titik kontaknya adalah $(6, 8)$. <strong>(Tepat)</strong></li>
+                        <li>$\blacksquare$ Jarak terpendek tegak lurus dari menara ke lintasan terdekat yang dihitung sebelumnya adalah persis sesuai radius, yaitu 10. <strong>(Tepat)</strong></li>
+                        <li>$\blacksquare$ Karakteristik garis yang "menyinggung" (diskriminan D=0) berarti ia tidak membelah masuk ke dalam area radius utama radar. <strong>(Tepat)</strong></li>
+                        <li>Distraktor 4: Tali busur hanya ada untuk garis secant (memotong di dua titik). Karena ini hanya garis singgung, panjang lintasan yang terpotong dan masuk ke <em>dalam</em> lingkaran sejatinya adalah 0. <strong>(Salah)</strong></li>
+                        <li>Distraktor 5: Gradien lintasan adalah $m = -\frac{a}{b} = -\frac{3}{4}$. Garis yang sejajar sumbu-Y seharusnya memiliki gradien $\infty$ (tak terdefinisi). <strong>(Salah)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 27. Kunci Jawaban: A</p>
+                    <p class="font-semibold mb-2">Analisis Transformasi Kurva (Rotasi):</p>
+                    <p>Matriks rotasi $90^\circ$ berlawanan arah jarum jam dengan pusat $(0,0)$ memetakan koordinat lama ke baru sesuai aturan:<br>
+                    $(x', y') = (-y, x)$<br>
+                    Artinya, nilai $y$ lama disubstitusi menjadi $-x'$, dan nilai $x$ lama disubstitusi menjadi $y'$.<br>
+                    Masukkan variabel baru tersebut ke persamaan kurva dasar $y = x^2 - 4x + 3$:<br>
+                    $(-x') = (y')^2 - 4(y') + 3$<br>
+                    Kalikan kedua ruas dengan $(-1)$:<br>
+                    $x' = -(y')^2 + 4y' - 3$.<br>
+                    Maka persamaan bayangannya adalah $x = -y^2 + 4y - 3$.</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 28. Kunci Jawaban: C</p>
+                    <p class="font-semibold mb-2">Analisis Transformasi Luasan menggunakan Determinan Matriks:</p>
+                    <p>Luas area bentuk apapun di ruang 2D yang ditransformasi secara linier oleh sebuah matriks $A$, luas bayangannya mengikuti formula sakti:<br>
+                    $\text{Luas Baru} = |\det(A)| \times \text{Luas Awal}$<br>
+                    Artinya, rasio perbesarannya tidak lain adalah nilai mutlak determinan dari matriks transformasi matriks angin kencang tersebut.<br>
+                    $\det(A) = \det\begin{pmatrix} 1 & -1 \\ 2 & 3 \end{pmatrix} = (1)(3) - (-1)(2) = 3 + 2 = 5$.<br>
+                    Maka badai tersebut secara instan melebar $5 \times$ lipat dari ukuran mula-mula. (Kita tidak perlu lelah menghitung luas awal jajaran genjang asli untuk mendapatkan nilai rasionya).</p>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 29. Kunci Jawaban: C</p>
+                    <p class="font-semibold mb-2">Analisis Limit Trigonometri Fundamental &amp; Kecukupan Data:</p>
+                    <p>Persamaan limit: $S = \lim_{t \to 0} \frac{1 - \cos(pt)}{t \tan(qt)}$.<br>
+                    Gunakan identitas sudut rangkap: $1 - \cos(pt) = 2\sin^2(\frac{pt}{2})$.<br>
+                    $S = \lim_{t \to 0} \frac{2\sin(\frac{p}{2}t) \cdot \sin(\frac{p}{2}t)}{t \cdot \tan(qt)}$<br>
+                    Pisahkan dan selesaikan dengan sifat limit $\lim_{t\to0}\frac{\sin at}{bt} = \frac{a}{b}$:<br>
+                    $S = 2 \cdot \frac{p/2}{1} \cdot \frac{p/2}{q} = 2 \cdot \frac{p}{2} \cdot \frac{p}{2q} = \frac{p^2}{2q}$.</p>
+                    <ul class="list-disc pl-6 space-y-1 mt-2">
+                        <li>Pernyataan (1) Saja: Memasukkan $p=4$ memberi hasil $S = \frac{16}{2q} = \frac{8}{q}$. Kita tidak bisa menyelesaikannya secara mutlak tanpa nilai variabel $q$. <strong>(Tidak Cukup)</strong></li>
+                        <li>Pernyataan (2) Saja: $q = \frac{p}{2}$. Masukkan ke pola limit $S = \frac{p^2}{2(p/2)} = \frac{p^2}{p} = p$. Walau sangat menyederhanakan, nilai besaran akhir simpangan $S$ tidak absolut karena kita tidak punya angka besaran tegangan dasar untuk $p$. <strong>(Tidak Cukup)</strong></li>
+                        <li>Gabungan (1) dan (2): Kita tahu rumusnya tersederhanakan menjadi $S = p$, dan nilai tegangannya terkalibrasi $p=4$. Maka absolut redaman $S = 4$ mm. <strong>(Cukup)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
+                    <p class="font-bold text-blue-700 mb-1">Soal 30. Kunci Jawaban: Benar, Benar, Salah</p>
+                    <p class="font-semibold mb-2">Analisis Limit Aljabar (Akar Sekawan):</p>
+                    <p class="mb-2">Persamaan laju serapan: $C(1) = \lim_{x \to 1} \frac{\sqrt{x+3} - 2}{x-1}$.</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pernyataan 1: Cara paling lumrah dalam mengatasi limit fungsi irasional akar yang membuahkan bentuk tak tentu $0/0$ (jika tanpa turunan L'Hopital) adalah dengan merasionalisasinya menggunakan <strong>bentuk sekawan/konjugat</strong> dari pembilangnya, yakni $(\sqrt{x+3} + 2)$. <strong>(Benar)</strong></li>
+                        <li>Pernyataan 2: Mari kita eksekusi kalikan dengan sekawannya.<br>
+                        <div class="math-block my-2">
+                        $$ \begin{aligned}
+                        &= \lim_{x \to 1} \frac{(\sqrt{x+3} - 2)(\sqrt{x+3} + 2)}{(x-1)(\sqrt{x+3} + 2)} \\
+                        &= \lim_{x \to 1} \frac{(x+3) - 4}{(x-1)(\sqrt{x+3} + 2)} \\
+                        &= \lim_{x \to 1} \frac{x-1}{(x-1)(\sqrt{x+3} + 2)} \quad \text{(Coret faktor linier } (x-1)) \\
+                        &= \lim_{x \to 1} \frac{1}{\sqrt{x+3} + 2} = \frac{1}{\sqrt{1+3} + 2} = \frac{1}{\sqrt{4} + 2} = \frac{1}{4} = 0,25.
+                        \end{aligned} $$
+                        </div>
+                        <strong>(Benar)</strong></li>
+                        <li>Pernyataan 3: Jika disubstitusi langsung dari fungsi awal dengan nilai limit menuju batas $x=1$, hasilnya adalah $\frac{\sqrt{4}-2}{1-1} = \frac{0}{0}$. Ini adalah parameter bentuk tak tentu limit yang <strong>tidak memilliki nilai secara aljabar langsung</strong>, BUKAN lantas bernilai absolut/pasti angka $0$! <strong>(Salah)</strong></li>
+                    </ul>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Sembunyikan semua section
+            document.getElementById('soal').classList.add('hidden');
+            document.getElementById('pembahasan').classList.add('hidden');
+            
+            // Hapus status aktif dari semua tombol
+            document.getElementById('btn-soal').classList.remove('active', 'bg-blue-600', 'text-white');
+            document.getElementById('btn-pembahasan').classList.remove('active', 'bg-blue-600', 'text-white');
+            
+            // Tampilkan section yang dipilih dan beri styling pada tombolnya
+            document.getElementById(sectionId).classList.remove('hidden');
+            document.getElementById('btn-' + sectionId).classList.add('active', 'bg-blue-600', 'text-white');
+        }
+        
+        // Setup initial state
+        document.getElementById('btn-soal').classList.add('bg-blue-600', 'text-white');
+    </script>
+</body>
+</html>
