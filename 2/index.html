@@ -109,21 +109,24 @@
                     <li>Waktu pengerjaan: <strong>60 menit</strong>.</li>
                 </ul>
             </div>
+
+            <!-- BAGIAN BIODATA TERBARU (Terhubung dengan App Script) -->
             <div class="identity-box-landing">
                 <h3>BIODATA PESERTA</h3>
-                <div class="form-group"><label>Nama :</label><input type="text" id="nama" /></div>
-                <div class="form-group"><label>Email :</label><input type="email" id="email" /></div>
+                <div id="loading-data" style="color: #00838f; font-weight: bold; margin-bottom: 10px;">⏳ Sedang memuat data peserta...</div>
+                
                 <div class="form-group">
-                  <label>Regional :</label>
-                  <select id="regional">
-                    <option value="" disabled selected>Pilih...</option>
-                    <option value="Jakarta">Jakarta</option>
-                    <option value="Bandung">Bandung</option>
-                    <option value="Surabaya">Surabaya</option>
-                    <option value="Lainnya">Lainnya</option>
-                  </select>
+                    <label>Email RG :</label>
+                    <select id="email" disabled>
+                        <option value="" disabled selected>Loading...</option>
+                    </select>
                 </div>
+                <div class="form-group"><label>Nama :</label><input type="text" id="nama" readonly style="background: #eee; cursor: not-allowed;" /></div>
+                <div class="form-group"><label>Mapel :</label><input type="text" id="mapel" readonly style="background: #eee; cursor: not-allowed;" /></div>
+                <div class="form-group"><label>Branch :</label><input type="text" id="branch" readonly style="background: #eee; cursor: not-allowed;" /></div>
+                <div class="form-group"><label>Territory :</label><input type="text" id="territory" readonly style="background: #eee; cursor: not-allowed;" /></div>
             </div>
+            
             <div id="form-error" class="hidden text-red-700 bg-red-100 border border-red-400 p-3 rounded mb-4 max-w-xl mx-auto font-bold">
                 Mohon lengkapi biodata sebelum memulai ujian!
             </div>
@@ -604,14 +607,17 @@
             </div>
 
             <footer class="worksheet-footer">
-                <b>Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
-                <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+                <div style="text-align: center; margin-top: 40px; color: #666;">
+                    <b>Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+                    <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+                </div>
             </footer>
         </div>
     </div>
 
     <script>
       let activeCategory = '';
+      let dataMTList = []; 
 
       document.addEventListener('DOMContentLoaded', () => {
         const landingPage = document.getElementById('landing-page');
@@ -619,17 +625,51 @@
         const timerBar = document.getElementById('timer-bar');
         const submitBtn = document.getElementById('submitBtn');
         const timerDisplay = document.getElementById('timer-display');
+        const emailSelect = document.getElementById('email');
+        const loadingData = document.getElementById('loading-data');
+        
         let isSubmitted = false;
         let timerInterval;
         let duration = 60 * 60; 
         let examEndTime;
 
-        function startExam(kategori) {
-            const nama = document.getElementById('nama').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const regional = document.getElementById('regional').value;
+        // 1. TARIK DATA DARI GOOGLE SHEET SAAT HALAMAN DIBUKA
+        if (typeof google !== 'undefined' && google.script) {
+            google.script.run.withSuccessHandler(function(data) {
+                dataMTList = data;
+                emailSelect.innerHTML = '<option value="" disabled selected>Pilih Email Anda...</option>';
+                data.forEach(mt => {
+                    let opt = document.createElement('option');
+                    opt.value = mt.email;
+                    opt.textContent = mt.email;
+                    emailSelect.appendChild(opt);
+                });
+                emailSelect.disabled = false;
+                loadingData.style.display = 'none';
+            }).withFailureHandler(function(error) {
+                loadingData.textContent = "Gagal memuat data: " + error.message;
+                loadingData.style.color = "red";
+            }).getMasterData();
+        } else {
+            loadingData.textContent = "Script tidak dijalankan dari Google Web App.";
+            loadingData.style.color = "red";
+        }
 
-            if (!nama || !email || !regional) {
+        // 2. AUTO-FILL BIODATA SAAT EMAIL DIPILIH
+        emailSelect.addEventListener('change', function() {
+            const selectedMT = dataMTList.find(mt => mt.email === this.value);
+            if (selectedMT) {
+                document.getElementById('nama').value = selectedMT.nama;
+                document.getElementById('mapel').value = selectedMT.mapel;
+                document.getElementById('branch').value = selectedMT.branch;
+                document.getElementById('territory').value = selectedMT.territory;
+            }
+        });
+
+        function startExam(kategori) {
+            const email = document.getElementById('email').value;
+            if (!email) {
+                document.getElementById('form-error').textContent = "Mohon pilih Email RG Anda terlebih dahulu dari daftar drop-down!";
                 document.getElementById('form-error').style.display = 'block';
                 return;
             }
@@ -639,8 +679,8 @@
             landingPage.style.display = 'none';
             examPage.style.display = 'block';
             
-            document.getElementById('display-nama').textContent = nama;
-            document.getElementById('display-regional').textContent = regional;
+            document.getElementById('display-nama').textContent = document.getElementById('nama').value;
+            document.getElementById('display-regional').textContent = document.getElementById('branch').value + " / " + document.getElementById('territory').value;
             
             if (activeCategory === 'wajib') {
                 document.getElementById('grid-wajib').style.display = 'grid';
@@ -665,7 +705,6 @@
 
         function updateTimer() {
             if (isSubmitted) { clearInterval(timerInterval); return; }
-            
             const remaining = Math.max(0, Math.floor((examEndTime - Date.now()) / 1000));
             const minutes = Math.floor(remaining / 60);
             const seconds = remaining % 60;
@@ -682,6 +721,7 @@
             }
         }
 
+        // PILIH OPSI GANDA
         document.querySelectorAll('.pilihan-ganda li').forEach(option => {
           option.addEventListener('click', function() {
             if (isSubmitted) return; 
@@ -691,6 +731,7 @@
           });
         });
 
+        // TOMBOL SUBMIT
         submitBtn.addEventListener('click', function() {
             if (isSubmitted) return;
             if (submitBtn.innerText === "SUBMIT JAWABAN") {
@@ -701,11 +742,12 @@
             processSubmission(false);
         });
 
+        // PROSES PENILAIAN & SIMPAN
         function processSubmission(isAutoSubmit) {
             if(isSubmitted) return;
             isSubmitted = true;
             
-            submitBtn.innerText = "MEMPROSES HASIL...";
+            submitBtn.innerText = "MENYIMPAN KE DATABASE...";
             submitBtn.style.backgroundColor = "#ccc";
             submitBtn.disabled = true;
 
@@ -714,15 +756,22 @@
             const totalSoal = activeCategory === 'wajib' ? 25 : 30;
             const soalItems = document.querySelectorAll(`#${activeGridId} .soal-item`);
             
-            soalItems.forEach(item => {
+            let dataJawaban = {}; // Log jawaban per nomor
+
+            soalItems.forEach((item, index) => {
                 let isCorrect = false;
+                let nomorSoal = index + 1;
+                let jawabanDirekam = "Tidak Dijawab"; 
+
                 item.classList.add('disabled-options');
 
+                // PG Biasa
                 if(item.querySelector('.pilihan-ganda')) {
                     const kunci = item.getAttribute('data-kunci');
                     const selected = item.querySelector('li.selected');
                     if (selected) {
-                        if (selected.getAttribute('data-option') === kunci) {
+                        jawabanDirekam = selected.getAttribute('data-option');
+                        if (jawabanDirekam === kunci) {
                             isCorrect = true;
                             selected.classList.add('correct');
                         } else {
@@ -733,10 +782,13 @@
                         item.querySelector(`li[data-option="${kunci}"]`)?.classList.add('correct');
                     }
                 } 
+                // PG Kompleks (Checkbox)
                 else if (item.querySelector('input[type="checkbox"]')) {
                     const cbs = item.querySelectorAll('input[type="checkbox"]');
                     let allMatch = true;
-                    cbs.forEach(cb => {
+                    let jwbArr = [];
+                    cbs.forEach((cb, i) => {
+                        if (cb.checked) jwbArr.push("Opsi " + (i+1));
                         const isKunci = cb.getAttribute('data-kunci') === 'true';
                         if((cb.checked && !isKunci) || (!cb.checked && isKunci)) allMatch = false;
                         
@@ -746,13 +798,18 @@
                             if(cb.checked && !isKunci) span.style.color = 'var(--wrong-border)';
                         }
                     });
+                    if (jwbArr.length > 0) jawabanDirekam = jwbArr.join(", ");
                     isCorrect = allMatch;
                 }
+                // Kategori B/S (Radio Table)
                 else if (item.querySelector('input[type="radio"]')) {
                     const rows = item.querySelectorAll('tbody tr:not(.bg-gray-100)');
                     let allMatch = true;
-                    rows.forEach(row => {
+                    let jwbArr = [];
+                    rows.forEach((row, i) => {
                         const checkedRadio = row.querySelector('input[type="radio"]:checked');
+                        if (checkedRadio) jwbArr.push("Pernyataan "+(i+1)+": "+checkedRadio.value);
+
                         if(!checkedRadio || checkedRadio.getAttribute('data-kunci') !== 'true') allMatch = false;
                         
                         const correctRadio = row.querySelector('input[data-kunci="true"]');
@@ -761,10 +818,12 @@
                              checkedRadio.parentElement.style.backgroundColor = 'var(--wrong-bg)';
                         }
                     });
+                    if (jwbArr.length > 0) jawabanDirekam = jwbArr.join(" | ");
                     isCorrect = allMatch;
                 }
 
                 if(isCorrect) correctCount++;
+                dataJawaban["soal_" + nomorSoal] = jawabanDirekam;
             });
 
             const finalScore = (correctCount / totalSoal) * 100;
@@ -772,55 +831,50 @@
             document.getElementById('correctCount').textContent = correctCount;
             document.getElementById('totalCount').textContent = totalSoal;
 
-            setTimeout(() => {
-                document.getElementById('resultBox').style.display = 'block';
+            // 3. KIRIM DATA KE GOOGLE APPS SCRIPT
+            const payload = {
+                email: document.getElementById('email').value,
+                nama: document.getElementById('nama').value,
+                mapel: document.getElementById('mapel').value,
+                branch: document.getElementById('branch').value,
+                territory: document.getElementById('territory').value,
+                kategori: activeCategory === 'wajib' ? "Matematika Wajib" : "Matematika Lanjut",
+                skor: finalScore.toFixed(2),
+                benar: correctCount,
+                totalSoal: totalSoal,
+                jawabanSiswa: dataJawaban
+            };
+
+            if (typeof google !== 'undefined' && google.script) {
+                google.script.run.withSuccessHandler(function(response) {
+                    submitBtn.style.display = 'none';
+                    document.getElementById('resultBox').style.display = 'block';
+                    document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+                }).withFailureHandler(function(error) {
+                    alert("Gagal menyimpan hasil ke database: " + error.message);
+                    submitBtn.innerText = "GAGAL MENYIMPAN. COBA LAGI";
+                    submitBtn.style.backgroundColor = "#e74c3c";
+                    submitBtn.disabled = false;
+                    isSubmitted = false;
+                }).simpanHasilUjian(payload);
+            } else {
+                // Fallback kalau cuma di-test di lokal (tanpa GAS)
                 submitBtn.style.display = 'none';
+                document.getElementById('resultBox').style.display = 'block';
                 document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
-            }, 500);
+            }
         }
 
-        // FUNGSI BARU UNTUK KEMBALI KE BERANDA (Tanpa location.reload)
+        // KEMBALI KE BERANDA SEGAR / REFRESH
         document.getElementById('btnHome').addEventListener('click', () => {
-            // Sembunyikan hasil & ujian, kembalikan ke landing page
-            document.getElementById('resultBox').style.display = 'none';
-            examPage.style.display = 'none';
-            landingPage.style.display = 'block';
-            timerBar.style.display = 'none';
-            document.body.style.paddingTop = '20px';
-            
-            // Kembalikan Tombol Submit
-            submitBtn.style.display = 'inline-block';
-            submitBtn.innerText = "SUBMIT JAWABAN";
-            submitBtn.style.backgroundColor = "var(--header-accent)";
-            submitBtn.disabled = false;
-            
-            // Bersihkan form
-            document.getElementById('nama').value = "";
-            document.getElementById('email').value = "";
-            document.getElementById('regional').value = "";
-            
-            // Sembunyikan kedua layout soal
-            document.getElementById('grid-wajib').style.display = 'none';
-            document.getElementById('grid-lanjut').style.display = 'none';
-            
-            // Bersihkan state jawaban PG Biasa
-            document.querySelectorAll('li.selected').forEach(el => el.classList.remove('selected'));
-            document.querySelectorAll('li.correct').forEach(el => el.classList.remove('correct'));
-            document.querySelectorAll('li.wrong').forEach(el => el.classList.remove('wrong'));
-            document.querySelectorAll('.disabled-options').forEach(el => el.classList.remove('disabled-options'));
-            
-            // Bersihkan Checkbox & Radio
-            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => el.checked = false);
-            document.querySelectorAll('span, tr, td').forEach(el => {
-                if (el.style.color) el.style.color = '';
-                if (el.style.backgroundColor) el.style.backgroundColor = '';
-            });
-
-            // Reset Timer State
-            isSubmitted = false;
-            clearInterval(timerInterval);
-            
-            window.scrollTo(0, 0);
+            if (typeof google !== 'undefined' && google.script) {
+                // Mereset page pake method GAS yang aman dari Iframe
+                google.script.run.withSuccessHandler(function(url) {
+                    window.top.location.href = url;
+                }).getScriptUrl();
+            } else {
+                location.reload(); 
+            }
         });
       });
     </script>
