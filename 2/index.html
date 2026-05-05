@@ -647,11 +647,11 @@
                 emailSelect.disabled = false;
                 loadingData.style.display = 'none';
             }).withFailureHandler(function(error) {
-                loadingData.textContent = "Gagal memuat data: " + error.message;
+                loadingData.innerHTML = "❌ <b>ERROR:</b> Anda membuka file HTML ini langsung dari laptop (lokal).<br>Harap buka <b>URL Web App</b> yang berawalan <i>https://script.google.com/macros/s/...</i> di browser Anda!";
                 loadingData.style.color = "red";
             }).getMasterData();
         } else {
-            loadingData.textContent = "Script tidak dijalankan dari Google Web App.";
+            loadingData.innerHTML = "❌ <b>ERROR:</b> Anda membuka file HTML ini langsung dari laptop (lokal).<br>Harap buka <b>URL Web App</b> yang berawalan <i>https://script.google.com/macros/s/...</i> di browser Anda!";
             loadingData.style.color = "red";
         }
 
