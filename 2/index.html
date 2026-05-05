@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Soal PATOM 2 - Matematika (HOTS)</title>
+    <!-- MathJax untuk Matematika -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+          processEscapes: true
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Font Montserrat & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --header-accent: #00838f;
+        --hover-bg: #e0f2f1;
+        --selected-bg: #00838f;
+        --selected-text: #ffffff;
+        --correct-bg: #d4edda;
+        --correct-border: #28a745;
+        --correct-text: #155724;
+        --wrong-bg: #f8d7da;
+        --wrong-border: #dc3545;
+        --wrong-text: #721c24;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f5f5f5;
+        margin: 0; padding: 20px; padding-bottom: 100px;
+      }
+      #timer-bar {
+        position: fixed; top: 0; left: 0; width: 100%; background-color: #263238; color: #ffffff;
+        padding: 15px 0; text-align: center; z-index: 999999; box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        font-size: 18px; font-weight: 700; display: none; justify-content: center; align-items: center; gap: 10px;
+      }
+      #timer-display { background: #37474f; padding: 2px 10px; border-radius: 4px; color: #4dd0e1; font-family: monospace; }
+      .timer-warning { color: #ff5252 !important; animation: blink 1s infinite; }
+      @keyframes blink { 50% { opacity: 0.5; } }
+      .container-wrapper { background: white; max-width: 1000px; margin: 0 auto; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+      #landing-page { text-align: center; }
+      .landing-header h1 { color: var(--header-accent); font-size: 28px; margin-bottom: 10px; }
+      .rules-box { background-color: #e0f7fa; border: 2px solid var(--header-accent); border-radius: 8px; padding: 20px; margin: 30px auto; text-align: left; max-width: 600px; }
+      .rules-box h3 { margin-top: 0; color: var(--header-accent); border-bottom: 1px solid #b2ebf2; padding-bottom: 10px; }
+      .identity-box-landing { max-width: 600px; margin: 0 auto 40px auto; text-align: left; background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+      .form-group { display: flex; align-items: center; margin-bottom: 15px; }
+      .form-group label { width: 120px; font-weight: 600; color: var(--header-accent); }
+      .form-group input, .form-group select { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
+      .btn-start { color: white; border: none; padding: 15px 30px; font-size: 18px; font-weight: 800; border-radius: 50px; cursor: pointer; transition: transform 0.2s; margin: 10px; }
+      .btn-wajib { background-color: #f39c12; } .btn-wajib:hover { background-color: #d68910; transform: scale(1.05); }
+      .btn-lanjut { background-color: var(--header-accent); } .btn-lanjut:hover { background-color: #006064; transform: scale(1.05); }
+      #exam-page { display: none; }
+      .worksheet-header { border-bottom: 3px solid var(--header-accent); padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-start; }
+      .header-left h1 { font-size: 24px; color: var(--header-accent); margin: 0 0 5px 0; font-weight: 800; }
+      .exam-info-bar { background: #f1f8e9; padding: 10px 15px; border-radius: 6px; margin-bottom: 30px; border-left: 5px solid #8bc34a; }
+      .questions-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 50px; }
+      .soal-item { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px dashed #eee; overflow-x: auto; }
+      .soal-header { display: flex; gap: 8px; margin-bottom: 12px; }
+      .nomor { font-weight: 800; color: var(--header-accent); min-width: 25px; }
+      .pertanyaan { flex: 1; text-align: justify; }
+      ol.pilihan-ganda { list-style-type: none; padding-left: 0; margin-top: 10px; }
+      ol.pilihan-ganda li { position: relative; padding: 8px 15px 8px 40px; margin-bottom: 6px; border: 1px solid #eee; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+      ol.pilihan-ganda li:hover { background-color: var(--hover-bg); border-color: var(--header-accent); }
+      ol.pilihan-ganda li.selected { background-color: var(--selected-bg); color: var(--selected-text); border-color: var(--selected-bg); font-weight: 600; }
+      ol.pilihan-ganda li::before { content: attr(data-option); position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: #eee; color: #555; border-radius: 50%; text-align: center; line-height: 20px; font-size: 11px; font-weight: bold; }
+      ol.pilihan-ganda li.selected::before { background: white; color: var(--selected-bg); }
+      .disabled-options { pointer-events: none; opacity: 0.8; }
+      li.correct { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; color: var(--correct-text) !important; }
+      li.correct::before { background-color: var(--correct-border) !important; color: white !important; content: "✓"; }
+      li.wrong { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; color: var(--wrong-text) !important; }
+      li.wrong::before { background-color: var(--wrong-border) !important; color: white !important; content: "✕"; }
+      .action-area { text-align: center; padding: 40px 20px; border-top: 2px dashed #ddd; }
+      .btn-submit { background-color: var(--header-accent); color: white; border: none; padding: 15px 50px; font-size: 20px; font-weight: 800; border-radius: 50px; cursor: pointer; transition: 0.2s; }
+      .btn-submit:hover { background-color: #006064; transform: translateY(-3px); }
+      .result-box { margin-top: 30px; padding: 25px; border-radius: 8px; background-color: #f1f8e9; border: 2px solid #8bc34a; display: none; }
+      .score-display { font-size: 36px; font-weight: 800; color: #2e7d32; }
+      /* Custom Table & Checkbox styles */
+      .math-block { overflow-x: auto; overflow-y: hidden; }
+      table input[type="radio"] { width: 1.25rem; height: 1.25rem; cursor: pointer; accent-color: #00838f; }
+      ul input[type="checkbox"] { width: 1.25rem; height: 1.25rem; cursor: pointer; accent-color: #00838f; margin-top: 0.25rem; margin-right: 0.75rem; }
+    </style>
+  </head>
+  <body>
+    <div id="timer-bar">
+        <span>SISA WAKTU:</span><span id="timer-display">60:00</span>
+    </div>
+    <div class="container-wrapper">
+        <!-- LANDING PAGE -->
+        <div id="landing-page">
+            <header class="landing-header">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Logo" class="h-20 mx-auto mb-5" />
+                <h1>Bank Soal PATOM 2 (HOTS)</h1>
+            </header>
+            <div class="rules-box">
+                <h3>PERATURAN UJIAN</h3>
+                <ul>
+                    <li>Terdapat <strong>25 Soal (Matematika Wajib)</strong> atau <strong>30 Soal (Matematika Lanjut)</strong>.</li>
+                    <li>Soal terdiri dari Pilihan Ganda Tunggal, Kecukupan Data, Pilihan Ganda Kompleks (Lebih dari 1 jawaban), dan Kategori (Benar/Salah).</li>
+                    <li>Waktu pengerjaan: <strong>60 menit</strong>.</li>
+                </ul>
+            </div>
+            <div class="identity-box-landing">
+                <h3>BIODATA PESERTA</h3>
+                <div class="form-group"><label>Nama :</label><input type="text" id="nama" /></div>
+                <div class="form-group"><label>Email :</label><input type="email" id="email" /></div>
+                <div class="form-group">
+                  <label>Regional :</label>
+                  <select id="regional">
+                    <option value="" disabled selected>Pilih...</option>
+                    <option value="Jakarta">Jakarta</option>
+                    <option value="Bandung">Bandung</option>
+                    <option value="Surabaya">Surabaya</option>
+                    <option value="Lainnya">Lainnya</option>
+                  </select>
+                </div>
+            </div>
+            <div id="form-error" class="hidden text-red-700 bg-red-100 border border-red-400 p-3 rounded mb-4 max-w-xl mx-auto font-bold">
+                Mohon lengkapi biodata sebelum memulai ujian!
+            </div>
+            <div>
+              <button id="btn-wajib" class="btn-start btn-wajib">MATEMATIKA WAJIB</button>
+              <button id="btn-lanjut" class="btn-start btn-lanjut">MATEMATIKA LANJUT</button>
+            </div>
+        </div>
+
+        <!-- EXAM PAGE -->
+        <div id="exam-page">
+            <header class="worksheet-header">
+                <div class="header-left"><h1>Bank Soal PATOM 2</h1><h2 id="exam-subtitle">-</h2></div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Logo" class="h-12" />
+            </header>
+            <div class="exam-info-bar">
+                Peserta: <strong id="display-nama">-</strong> | Regional: <strong id="display-regional">-</strong> | Kategori: <strong id="display-kategori">-</strong>
+            </div>
+
+            <!-- CONTAINER WAJIB -->
+            <div id="grid-wajib" class="questions-grid" style="display: none;">
+                <!-- Soal 1 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">1.</span><div class="pertanyaan">Sebuah bahan radioaktif yang digunakan dalam pengobatan medis meluruh sehingga massanya menyusut mengikuti fungsi $M(t) = M_0 \cdot (8)^{-\frac{t}{3}}$, dengan $M_0$ adalah massa awal dan $t$ adalah waktu dalam jam. Jika pada pukul 08.00 diinjeksikan dosis sebesar 32 mikrogram, berapakah sisa dosis di dalam tubuh pasien pada pukul 10.00 di hari yang sama?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">2 mikrogram</li><li data-option="B">4 mikrogram</li><li data-option="C">8 mikrogram</li><li data-option="D">16 mikrogram</li><li data-option="E">24 mikrogram</li></ol>
+                </div>
+                <!-- Soal 2 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">2.</span><div class="pertanyaan">Sebuah pabrik mengemas beras dalam dua jenis karung, $X$ dan $Y$. Diketahui berat karung selalu bernilai real positif. Apakah selisih kuadrat berat karung $X$ dan $Y$ lebih dari 20 kg²? (Apakah $X^2 - Y^2 > 20$?)</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Karung $X$ lebih berat 5 kg daripada karung $Y$.<br>2. Total berat karung $X$ dan karung $Y$ adalah 8 kg.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 3 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">3.</span><div class="pertanyaan">Sebuah toko memberikan promo ganda untuk pembelian sepatu. Skema A: Diskon 20% lalu potongan Rp50.000,00. Skema B: Potongan Rp50.000,00 lalu diskon 20%. Harga awal sepatu adalah $H$ (bilangan bulat positif, $H > 100.000$). Tentukan apakah pernyataan berikut Benar atau Salah berdasarkan sifat operasi bilangan real (distributif, komutatif, asosiatif).</div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left border-collapse border border-gray-300">
+                        <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Benar</th><th class="border p-2 text-center w-24">Salah</th></tr>
+                        <tr><td class="border p-2">Kedua skema promo selalu memberikan harga akhir yang sama karena sifat komutatif pengurangan.</td><td class="border p-2 text-center"><input type="radio" name="w3_r1" value="B"></td><td class="border p-2 text-center"><input type="radio" name="w3_r1" value="S" data-kunci="true"></td></tr>
+                        <tr><td class="border p-2">Skema B selalu memberikan harga akhir yang lebih murah bagi konsumen dibandingkan Skema A.</td><td class="border p-2 text-center"><input type="radio" name="w3_r2" value="B"></td><td class="border p-2 text-center"><input type="radio" name="w3_r2" value="S" data-kunci="true"></td></tr>
+                        <tr><td class="border p-2">Selisih harga akhir antara Skema A dan Skema B selalu konstan (Rp10.000,00) berapapun harga awal sepatu $H$.</td><td class="border p-2 text-center"><input type="radio" name="w3_r3" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="w3_r3" value="S"></td></tr>
+                    </table></div>
+                </div>
+                <!-- Soal 4 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">4.</span><div class="pertanyaan">Seorang penjahit memiliki persediaan 300 m kain katun dan 180 m kain sutra. Model pakaian I memerlukan 1,5 m katun dan 1 m sutra, sedangkan model pakaian II memerlukan 2 m katun dan 0,5 m sutra. Jika keuntungan pakaian I adalah Rp100.000,00 dan pakaian II Rp80.000,00, serta seluruh pakaian laku terjual, strategi apa yang mencerminkan pemikiran rasional tertinggi untuk memaksimumkan laba?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Memproduksi pakaian model I sebanyak-banyaknya.</li><li data-option="B">Memproduksi pakaian model II sebanyak-banyaknya.</li><li data-option="C">Memproduksi tepat 168 potong pakaian model I dan 24 potong pakaian model II.</li><li data-option="D">Memproduksi tepat 160 potong pakaian model I.</li><li data-option="E">Memproduksi tepat 150 potong pakaian model II.</li></ol>
+                </div>
+                <!-- Soal 5 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">5.</span><div class="pertanyaan">Toko "Kawan" menjual paket alat tulis yang terdiri dari buku tulis, pulpen, dan pensil. Budi membeli 2 buku, 1 pulpen, dan 1 pensil. Berapakah uang yang harus dibayarkan Budi?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Harga 4 buku, 2 pulpen, dan 2 pensil secara bersamaan adalah Rp40.000,00.<br>2. Harga 1 buku lebih mahal Rp2.000,00 dibandingkan harga 1 pulpen.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 6 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">6.</span><div class="pertanyaan">Sebuah perusahaan startup memodelkan pendapatan bulanannya (dalam jutaan rupiah) menggunakan fungsi kuadrat $P(x) = -2x^2 + 40x - 150$, di mana $x$ adalah harga langganan per bulan dalam puluhan ribu rupiah. <b>Pilihlah pernyataan yang TEPAT (Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Pendapatan maksimum yang dapat dicapai perusahaan adalah Rp 50.000.000,00.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Untuk mencapai pendapatan maksimum, harga langganan harus ditetapkan sebesar Rp100.000,00.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Jika harga langganan ditetapkan Rp50.000,00 atau Rp150.000,00, perusahaan tidak mendapatkan pendapatan sama sekali ($P(x)=0$).</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Domain kontekstual (harga langganan) agar perusahaan tidak rugi (pendapatan $\ge$ 0) adalah $5 \le x \le 15$.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Kenaikan harga langganan di atas Rp100.000,00 selalu diiringi dengan kenaikan pendapatan.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 7 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">7.</span><div class="pertanyaan">Diketahui fungsi rasional yang menggambarkan biaya rata-rata per unit barang (dalam ribuan rupiah) jika diproduksi $x$ unit barang adalah $C(x) = \frac{5x + 120}{x}$. Tentukan apakah pernyataan terkait fungsi dan inversnya berikut ini Sesuai atau Tidak Sesuai.</div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left border-collapse border border-gray-300">
+                        <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Sesuai</th><th class="border p-2 text-center w-28">Tidak Sesuai</th></tr>
+                        <tr><td class="border p-2">Biaya rata-rata produksi tidak akan pernah turun mencapai Rp5.000,00 berapapun jumlah unit yang diproduksi.</td><td class="border p-2 text-center"><input type="radio" name="w7_r1" value="S" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="w7_r1" value="TS"></td></tr>
+                        <tr><td class="border p-2">Fungsi invers untuk menentukan jumlah barang jika diketahui biaya rata-rata $y$ adalah $x = \frac{120}{y - 5}$.</td><td class="border p-2 text-center"><input type="radio" name="w7_r2" value="S" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="w7_r2" value="TS"></td></tr>
+                        <tr><td class="border p-2">Berdasarkan fungsi invers, jika perusahaan ingin menekan biaya rata-rata menjadi tepat Rp8.000,00, mereka harus memproduksi 40 unit barang.</td><td class="border p-2 text-center"><input type="radio" name="w7_r3" value="S" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="w7_r3" value="TS"></td></tr>
+                    </table></div>
+                </div>
+                <!-- Soal 8 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">8.</span><div class="pertanyaan">Pembuatan kertas melalui dua tahap mesin. Mesin I menghasilkan bahan setengah jadi mengikuti fungsi $f(x) = 0,8x - 1$ (dalam ton). Mesin II memproses bahan tersebut menjadi kertas mengikuti fungsi $g(x) = 0,5x^2 - 2x$. Jika sebuah pabrik ingin menghasilkan tepat 16 ton kertas jadi, berapa ton bahan kayu ($x$) yang harus dimasukkan ke Mesin I?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">5 ton</li><li data-option="B">10 ton</li><li data-option="C">11,25 ton</li><li data-option="D">15 ton</li><li data-option="E">16,25 ton</li></ol>
+                </div>
+                <!-- Soal 9 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">9.</span><div class="pertanyaan">Seseorang mengambil kredit pemilikan rumah (KPR) dengan sistem bunga majemuk 6% per tahun yang dihitung setiap bulan. Konsep ini menerapkan prinsip barisan dan deret geometri. Jika $M$ adalah pinjaman awal dan $i$ adalah suku bunga per bulan. <b>Pilihlah pernyataan yang TEPAT (Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Suku bunga yang digunakan untuk perhitungan deret geometrinya adalah $i = 0,005$.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Porsi bunga pada cicilan bulan ke-5 akan lebih besar dibandingkan porsi bunga pada cicilan bulan ke-2.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Porsi pelunasan pokok pinjaman dari bulan ke bulan akan membentuk barisan geometri yang naik.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Total cicilan per bulan selalu tetap (anuitas), sedangkan komponen penyusunnya (bunga dan pokok) berubah-ubah.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Jika inflasi tahunan melebihi 6%, nilai riil (daya beli) dari cicilan di tahun akhir menjadi lebih berat.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 10 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">10.</span><div class="pertanyaan">Sebuah gedung pertunjukan mengatur susunan kursi sedemikian rupa sehingga jumlah kursi pada setiap baris membentuk barisan aritmetika. Terdapat 20 baris kursi di gedung tersebut. Berapa kapasitas total gedung pertunjukan tersebut?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Jumlah kursi pada baris ke-10 dan baris ke-11 jika ditotal adalah 60 kursi.<br>2. Baris paling belakang memiliki kursi 38 buah lebih banyak dari baris paling depan.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 11 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">11.</span><div class="pertanyaan">Sebuah ruangan berbentuk balok $ABCD.EFGH$ dengan ukuran panjang $AB = 8$ m, lebar $BC = 6$ m, dan tinggi $CG = 4$ m. Sebuah kamera CCTV dipasang tepat di tengah-tengah atap. Kamera tersebut menyorot sebuah benda kecil yang tergeletak tepat di sudut $C$ ruangan. Jarak jangkauan pandang lurus dari kamera ke benda tersebut adalah...
+                        <div class="w-full max-w-sm mx-auto my-4 text-center">
+                            <svg viewBox="0 0 320 200" class="w-full max-w-xs mx-auto border border-gray-200 p-2 rounded bg-white" xmlns="http://www.w3.org/2000/svg">
+                                <defs><marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="red" /></marker></defs>
+                                <line x1="60" y1="160" x2="100" y2="120" stroke="black" stroke-width="1.5" stroke-dasharray="4"/>
+                                <line x1="100" y1="120" x2="260" y2="120" stroke="black" stroke-width="1.5" stroke-dasharray="4"/>
+                                <line x1="100" y1="120" x2="100" y2="20" stroke="black" stroke-width="1.5" stroke-dasharray="4"/>
+                                <line x1="60" y1="160" x2="220" y2="160" stroke="black" stroke-width="1.5"/>
+                                <line x1="220" y1="160" x2="260" y2="120" stroke="black" stroke-width="1.5"/>
+                                <line x1="60" y1="160" x2="60" y2="60" stroke="black" stroke-width="1.5"/>
+                                <line x1="220" y1="160" x2="220" y2="60" stroke="black" stroke-width="1.5"/>
+                                <line x1="260" y1="120" x2="260" y2="20" stroke="black" stroke-width="1.5"/>
+                                <line x1="60" y1="60" x2="220" y2="60" stroke="black" stroke-width="1.5"/>
+                                <line x1="220" y1="60" x2="260" y2="20" stroke="black" stroke-width="1.5"/>
+                                <line x1="260" y1="20" x2="100" y2="20" stroke="black" stroke-width="1.5"/>
+                                <line x1="100" y1="20" x2="60" y2="60" stroke="black" stroke-width="1.5"/>
+                                <line x1="60" y1="60" x2="260" y2="20" stroke="blue" stroke-width="1" stroke-dasharray="4"/>
+                                <line x1="220" y1="60" x2="100" y2="20" stroke="blue" stroke-width="1" stroke-dasharray="4"/>
+                                <circle cx="160" cy="40" r="3" fill="red" />
+                                <text x="160" y="30" font-size="12" fill="red" text-anchor="middle">T (CCTV)</text>
+                                <line x1="160" y1="40" x2="258" y2="118" stroke="red" stroke-width="1.5" marker-end="url(#arrow)"/>
+                                <text x="45" y="170" font-size="12">A</text><text x="225" y="175" font-size="12">B</text><text x="270" y="125" font-size="12">C</text><text x="85" y="125" font-size="12">D</text><text x="45" y="65" font-size="12">E</text><text x="230" y="65" font-size="12">F</text><text x="270" y="25" font-size="12">G</text><text x="85" y="15" font-size="12">H</text>
+                            </svg>
+                        </div>
+                    </div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">$\sqrt{41}$ meter</li><li data-option="B">$5\sqrt{2}$ meter</li><li data-option="C">$\sqrt{52}$ meter</li><li data-option="D">$3\sqrt{6}$ meter</li><li data-option="E">$2\sqrt{29}$ meter</li></ol>
+                </div>
+                <!-- Soal 12 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">12.</span><div class="pertanyaan">Diketahui dua bidang saling sejajar di dalam ruang. Bidang pertama melalui titik $K(1, 2, 3)$ dan bidang kedua melalui titik $L(1, 2, 8)$. Sebuah garis tegak lurus menembus kedua bidang tersebut. <b>Pilihlah pernyataan yang TEPAT mengenai hubungan objek geometri tersebut (Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox"><span>Jarak minimum antara kedua bidang tersebut adalah 5 satuan panjang.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Setiap garis yang berada pada bidang pertama pasti sejajar dengan bidang kedua.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Vektor normal dari kedua bidang tersebut pasti memiliki gradien atau arah yang saling tegak lurus.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Panjang segmen garis potong tegak lurus yang diapit oleh kedua bidang tepat 5 satuan.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Proyeksi sembarang titik di bidang pertama ke bidang kedua akan bergeser sejauh vektor $(0, 0, 5)$ atau $(0, 0, -5)$.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 13 -->
+                <div class="soal-item" data-kunci="D">
+                    <div class="soal-header"><span class="nomor">13.</span><div class="pertanyaan">Pada sebuah taman, terdapat tiga tiang lampu $A, B$, dan $C$. Jarak $A$ ke $B$ adalah 10 meter. Apakah posisi ketiga tiang tersebut membentuk segitiga siku-siku dengan sudut siku-siku di $C$?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Jarak dari $A$ ke $C$ adalah 6 meter dan $B$ ke $C$ adalah 8 meter.<br>2. Titik $C$ terletak pada lingkaran yang diameter tepinya adalah ruas garis $AB$.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 14 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">14.</span><div class="pertanyaan">Seorang siswa dengan tinggi badan 160 cm berdiri sejauh 4 meter dari sebuah tiang lampu. Bayangan ujung kepala siswa tersebut jatuh tepat di ujung bayangan tiang lampu, yang berjarak 2 meter di depan siswa tersebut. Analisislah masalah kesebangunan ini dan tentukan kebenaran pernyataan berikut.</div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left border-collapse border border-gray-300">
+                        <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Benar</th><th class="border p-2 text-center w-24">Salah</th></tr>
+                        <tr><td class="border p-2">Tinggi tiang lampu tersebut adalah 4,8 meter.</td><td class="border p-2 text-center"><input type="radio" name="w14_r1" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="w14_r1" value="S"></td></tr>
+                        <tr><td class="border p-2">Jika siswa tersebut melangkah 1 meter mendekati tiang, panjang bayangannya akan bertambah panjang.</td><td class="border p-2 text-center"><input type="radio" name="w14_r2" value="B"></td><td class="border p-2 text-center"><input type="radio" name="w14_r2" value="S" data-kunci="true"></td></tr>
+                        <tr><td class="border p-2">Konsep dasar penyelesaian soal ini bertumpu pada perbandingan alas dan tinggi dari dua segitiga siku-siku yang sebangun.</td><td class="border p-2 text-center"><input type="radio" name="w14_r3" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="w14_r3" value="S"></td></tr>
+                    </table></div>
+                </div>
+                <!-- Soal 15 -->
+                <div class="soal-item" data-kunci="B">
+                    <div class="soal-header"><span class="nomor">15.</span><div class="pertanyaan">Sebuah drone logistik bergerak dari pangkalan udara $P(2, -3)$ menuju titik $Q(a, b)$ melalui translasi $T = \binom{4}{5}$. Setibanya di $Q$, drone diperintahkan berputar (rotasi) memantau area dengan pusat perputaran di titik asal $(0,0)$ sejauh $90^\circ$ berlawanan arah jarum jam, sehingga bayangan akhirnya adalah $Q'$. Koordinat $Q'$ adalah...</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">$(2, 6)$</li><li data-option="B">$(-2, 6)$</li><li data-option="C">$(6, -2)$</li><li data-option="D">$(-6, -2)$</li><li data-option="E">$(-2, -6)$</li></ol>
+                </div>
+                <!-- Soal 16 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">16.</span><div class="pertanyaan">Selembar karton berbentuk persegi panjang akan dibuat menjadi sebuah kotak tanpa tutup dengan cara memotong persegi identik di keempat pojoknya dan melipat sisinya ke atas. Jika panjang karton 24 cm dan lebarnya 15 cm, dan sisi persegi yang dipotong adalah $x$ cm. Pernyataan analitis yang tepat terkait pemodelan masalah ini adalah <b>(Jawaban benar lebih dari satu)</b>:</div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox"><span>Fungsi volume kotak yang terbentuk adalah $V(x) = (24 - 2x)(15 - x)x$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Luas alas kotak yang terbentuk dapat dimodelkan sebagai $L_{alas} = 4x^2 - 78x + 360$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Syarat batas rasional dari panjang potongan agar kotak bisa terbentuk (domain) adalah $0 < x < 7,5$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Penggunaan turunan pertama fungsi $V'(x) = 0$ dapat diaplikasikan untuk mencari volume kotak maksimum.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Luas permukaan kotak tanpa tutup selalu konstan (yakni $360 \text{ cm}^2$) tanpa memedulikan nilai $x$.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 17 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">17.</span><div class="pertanyaan">Dua lingkaran kecil saling bersinggungan di luar, dan keduanya menyinggung bagian dalam sebuah lingkaran besar. Titik pusat ketiga lingkaran berada pada satu garis lurus. Berapakah luas daerah yang berada di dalam lingkaran besar namun di luar kedua lingkaran kecil tersebut?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Jari-jari lingkaran besar adalah 10 cm.<br>2. Perbandingan jari-jari kedua lingkaran kecil adalah $2 : 3$.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 18 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">18.</span><div class="pertanyaan">Dua orang pengamat, A dan B, berdiri sejajar mengamati puncak sebuah monumen dari arah yang berlawanan. Jarak antara pengamat A dan B adalah 100 meter. Sudut elevasi pengamat A ke puncak monumen adalah $30^\circ$, sedangkan sudut elevasi pengamat B adalah $45^\circ$. (Asumsikan tinggi badan diabaikan). Tinggi monumen tersebut adalah...
+                        <div class="w-full max-w-md mx-auto my-4 text-center">
+                            <svg viewBox="-50 -10 400 200" class="w-full max-w-sm mx-auto border border-gray-200 p-2 rounded bg-white" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="-20" y1="140" x2="320" y2="140" stroke="black" stroke-width="2"/><line x1="0" y1="140" x2="88" y2="20" stroke="blue" stroke-width="2"/><line x1="240" y1="140" x2="88" y2="20" stroke="blue" stroke-width="2"/><line x1="88" y1="140" x2="88" y2="20" stroke="black" stroke-width="1.5" stroke-dasharray="4"/>
+                                <path d="M 30 140 A 30 30 0 0 0 17 116" fill="none" stroke="black" stroke-width="1.2"/><text x="35" y="130" font-size="12">30°</text><path d="M 215 140 A 25 25 0 0 1 220 115" fill="none" stroke="black" stroke-width="1.2"/><text x="185" y="130" font-size="12">45°</text>
+                                <circle cx="0" cy="140" r="3" fill="black" /><text x="-5" y="155" font-size="14">A</text><circle cx="240" cy="140" r="3" fill="black" /><text x="235" y="155" font-size="14">B</text><text x="88" y="10" font-size="12" text-anchor="middle">Puncak</text>
+                                <line x1="0" y1="160" x2="240" y2="160" stroke="black" stroke-width="1" /><line x1="0" y1="155" x2="0" y2="165" stroke="black" stroke-width="1" /><line x1="240" y1="155" x2="240" y2="165" stroke="black" stroke-width="1" /><text x="120" y="175" font-size="12" text-anchor="middle">100 m</text>
+                            </svg>
+                        </div>
+                    </div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">$50(\sqrt{3} - 1)$ meter</li><li data-option="B">$50(\sqrt{3} + 1)$ meter</li><li data-option="C">$100(\sqrt{3} - 1)$ meter</li><li data-option="D">$\frac{100}{\sqrt{3}+1}$ meter</li><li data-option="E">$25\sqrt{3}$ meter</li></ol>
+                </div>
+                <!-- Soal 19 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">19.</span><div class="pertanyaan">Diketahui sudut $\beta$ berada pada interval $\frac{\pi}{2} \le \beta \le \pi$ (Kuadran II berserta batasnya) dan memenuhi persamaan $2\sin^2\beta - \sin\beta - 1 = 0$. Evaluasi pernyataan-pernyataan analitis di bawah ini!</div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left border-collapse border border-gray-300">
+                        <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Benar</th><th class="border p-2 text-center w-24">Salah</th></tr>
+                        <tr><td class="border p-2">Nilai dari $\csc \beta$ adalah 1.</td><td class="border p-2 text-center"><input type="radio" name="w19_r1" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="w19_r1" value="S"></td></tr>
+                        <tr><td class="border p-2">Nilai dari $\sec \beta$ pasti bernilai positif karena kuadrat sinus positif.</td><td class="border p-2 text-center"><input type="radio" name="w19_r2" value="B"></td><td class="border p-2 text-center"><input type="radio" name="w19_r2" value="S" data-kunci="true"></td></tr>
+                        <tr><td class="border p-2">Bentuk $\cot \beta$ tidak terdefinisi (atau nilainya 0) untuk sudut yang memenuhi syarat tersebut.</td><td class="border p-2 text-center"><input type="radio" name="w19_r3" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="w19_r3" value="S"></td></tr>
+                    </table></div>
+                </div>
+                <!-- Soal 20 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">20.</span><div class="pertanyaan">Sebuah wahana bianglala berputar dengan kecepatan konstan. Ketinggian kursi penumpang dari permukaan tanah (dalam meter) pada waktu $t$ (dalam menit) dimodelkan oleh fungsi trigonometri $h(t) = 15 - 12\cos\left(\frac{\pi t}{4}\right)$. <b>Pilihlah pernyataan yang TEPAT (Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Titik terendah (saat penumpang naik) berjarak 3 meter dari permukaan tanah.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Diameter kincir ria tersebut adalah 24 meter.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Waktu yang dibutuhkan untuk satu putaran penuh (periode) adalah 4 menit.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Penumpang akan mencapai ketinggian maksimum pertama kali pada menit ke-4.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Pada menit ke-2, ketinggian penumpang sama persis dengan tinggi pusat bianglala dari tanah.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 21 -->
+                <div class="soal-item" data-kunci="E">
+                    <div class="soal-header"><span class="nomor">21.</span><div class="pertanyaan">Diketahui sebuah segitiga sembarang $ABC$ dengan panjang sisi $BC = a$ dan sudut $\angle BAC = \alpha$. Berapakah luas segitiga $ABC$ tersebut?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Panjang jari-jari lingkaran luar segitiga $ABC$ adalah $R = 10$ cm.<br>2. Hasil perkalian sisi $b$ (sisi $AC$) dan sisi $c$ (sisi $AB$) adalah 120 cm².</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 22 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">22.</span><div class="pertanyaan">Rata-rata nilai ujian matematika dari 30 siswa kelas A adalah 78. Setelah diperiksa ulang, ternyata terjadi kesalahan baca: nilai dua orang siswa yang seharusnya 85 dan 90 terbaca sebagai 65 dan 70. Selain itu, dua orang siswa pindahan yang nilai rata-rata ujiannya adalah 80 baru saja digabungkan datanya ke kelas tersebut. Berapakah rata-rata nilai kelas A yang benar dan terbaru saat ini?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">78,500</li><li data-option="B">79,125</li><li data-option="C">79,375</li><li data-option="D">79,500</li><li data-option="E">80,000</li></ol>
+                </div>
+                <!-- Soal 23 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">23.</span><div class="pertanyaan">Data curah hujan bulanan di suatu kota memiliki rata-rata $R$, simpangan kuartil $Q_d$, simpangan baku $S$, dan variansi $V$. Diprediksi ke depannya setiap bulan curah hujan akan meningkat dengan pola: kalikan data asal dengan 2, lalu tambahkan dengan 5 (Transformasi $y_i = 2x_i + 5$). Dampak dari transformasi data ini adalah <b>(Jawaban benar lebih dari satu)</b>:</div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Rata-rata curah hujan yang baru menjadi $2R + 5$.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Simpangan baku curah hujan yang baru menjadi $2S + 5$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Variansi curah hujan yang baru menjadi $4V$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Jangkauan data (Range) yang baru menjadi dua kali lipat jangkauan data asal.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Simpangan kuartil ($Q_d$) yang baru menjadi $2Q_d + 5$.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 24 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">24.</span><div class="pertanyaan">Diagram garis berikut menunjukkan persentase kelulusan siswa SMA di suatu kabupaten dari tahun 2020 hingga 2024.
+                        <div class="w-full max-w-lg mx-auto my-6 text-center">
+                            <svg viewBox="-20 -20 320 250" class="w-full mx-auto border border-gray-200 p-2 rounded bg-white" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="20" y1="200" x2="20" y2="0" stroke="black" stroke-width="2"/><text x="20" y="-10" font-size="12" text-anchor="middle">% Lulus</text><line x1="20" y1="200" x2="300" y2="200" stroke="black" stroke-width="2"/><text x="310" y="205" font-size="12">Tahun</text>
+                                <line x1="20" y1="160" x2="280" y2="160" stroke="gray" stroke-dasharray="3,3"/><text x="15" y="165" font-size="10" text-anchor="end">80%</text><line x1="20" y1="120" x2="280" y2="120" stroke="gray" stroke-dasharray="3,3"/><text x="15" y="125" font-size="10" text-anchor="end">85%</text>
+                                <line x1="20" y1="80" x2="280" y2="80" stroke="gray" stroke-dasharray="3,3"/><text x="15" y="85" font-size="10" text-anchor="end">90%</text><line x1="20" y1="40" x2="280" y2="40" stroke="gray" stroke-dasharray="3,3"/><text x="15" y="45" font-size="10" text-anchor="end">95%</text>
+                                <text x="60" y="215" font-size="10" text-anchor="middle">2020</text><text x="110" y="215" font-size="10" text-anchor="middle">2021</text><text x="160" y="215" font-size="10" text-anchor="middle">2022</text><text x="210" y="215" font-size="10" text-anchor="middle">2023</text><text x="260" y="215" font-size="10" text-anchor="middle">2024</text>
+                                <path d="M 60 120 L 110 136 L 160 80 L 210 88 L 260 40" fill="none" stroke="blue" stroke-width="2"/>
+                                <circle cx="60" cy="120" r="4" fill="blue" /><text x="60" y="110" font-size="10" text-anchor="middle">85%</text><circle cx="110" cy="136" r="4" fill="blue" /><text x="110" y="150" font-size="10" text-anchor="middle">83%</text>
+                                <circle cx="160" cy="80" r="4" fill="blue" /><text x="160" y="70" font-size="10" text-anchor="middle">90%</text><circle cx="210" cy="88" r="4" fill="blue" /><text x="210" y="102" font-size="10" text-anchor="middle">89%</text><circle cx="260" cy="40" r="4" fill="blue" /><text x="260" y="30" font-size="10" text-anchor="middle">95%</text>
+                            </svg>
+                        </div>
+                        Evaluasi literasi data pada pernyataan-pernyataan di bawah ini.
+                    </div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left border-collapse border border-gray-300">
+                        <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Sesuai</th><th class="border p-2 text-center w-28">Tidak Sesuai</th></tr>
+                        <tr><td class="border p-2">Laju penurunan kelulusan dari 2020 ke 2021 lebih curam (lebih signifikan) dibandingkan laju penurunan dari tahun 2022 ke 2023.</td><td class="border p-2 text-center"><input type="radio" name="w24_r1" value="S" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="w24_r1" value="TS"></td></tr>
+                        <tr><td class="border p-2">Jika total siswa peserta ujian tahun 2020 dan 2021 sama persis, maka jumlah siswa yang <em>tidak lulus</em> pada tahun 2021 lebih banyak.</td><td class="border p-2 text-center"><input type="radio" name="w24_r2" value="S" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="w24_r2" value="TS"></td></tr>
+                        <tr><td class="border p-2">Rata-rata persentase kelulusan selama 5 tahun tersebut berada di bawah 88%.</td><td class="border p-2 text-center"><input type="radio" name="w24_r3" value="S"></td><td class="border p-2 text-center"><input type="radio" name="w24_r3" value="TS" data-kunci="true"></td></tr>
+                    </table></div>
+                </div>
+                <!-- Soal 25 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">25.</span><div class="pertanyaan">Sebuah tabel distribusi frekuensi kelompok menyajikan data gaji karyawan di Perusahaan X. Di manakah letak nilai kuartil atas ($Q_3$) dari data gaji tersebut?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Lebar kelas (panjang interval) setiap kelas adalah Rp1.000.000,00 dan terdapat total 100 karyawan.<br>2. Frekuensi kumulatif (kelas-kelas sebelum) kelas kuartil atas adalah 65, dengan frekuensi kelas kuartil atas itu sendiri adalah 20 karyawan, dan tepi bawah kelasnya adalah Rp5.500.000,00.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+            </div>
+
+            <!-- ================= CONTAINER SOAL LANJUT (30 Soal) ================= -->
+            <div id="grid-lanjut" class="questions-grid" style="display: none;">
+                <!-- Soal 1 -->
+                <div class="soal-item" data-kunci="D">
+                    <div class="soal-header"><span class="nomor">1.</span><div class="pertanyaan">Sebuah pabrik memproduksi tiga jenis paduan logam (A, B, C) menggunakan tiga bahan dasar: Tembaga, Seng, dan Timah. Matriks komposisi bahan baku (dalam kg) untuk memproduksi 1 unit tiap paduan adalah sebagai berikut: <br><br> $$M = \begin{pmatrix} 2 & 1 & 3 \\ 1 & 2 & 1 \\ 3 & 1 & 2 \end{pmatrix}$$ <br> Jika gudang memiliki persediaan tepat 18 kg Tembaga, 15 kg Seng, dan 17 kg Timah, dan seluruh bahan harus habis digunakan, berapakah total unit paduan logam (A + B + C) yang diproduksi?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">7 unit</li><li data-option="B">8 unit</li><li data-option="C">9 unit</li><li data-option="D">10 unit</li><li data-option="E">12 unit</li></ol>
+                </div>
+                <!-- Soal 2 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">2.</span><div class="pertanyaan">Diketahui matriks $A$ berukuran $3 \times 3$ yang memiliki determinan $|A| = 4$. Matriks $B$ adalah hasil dari operasi $B = 2A^{-1}$. Pernyataan analitis manakah yang tepat terkait sifat-sifat matriks tersebut? <b>(Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Determinan matriks $A^{-1}$ adalah $\frac{1}{4}$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Determinan dari matriks $B$ adalah 2.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Determinan dari matriks $B$ adalah $\frac{1}{2}$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Jika matriks $A$ dikalikan dengan matriks identitas $I$, maka $|AI| = 4$.</span></li>
+                        <li class="flex"><input type="checkbox"><span>$|A \cdot A^{-1}| = 0$.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 3 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">3.</span><div class="pertanyaan">Diketahui sistem persamaan linear dua variabel yang direpresentasikan dalam bentuk matriks $AX = B$. Apakah sistem persamaan ini memiliki solusi (nilai $X$) yang tunggal?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Determinan dari matriks $A$ bernilai nol ($|A| = 0$).<br>2. Matriks $B$ adalah matriks nol $\begin{pmatrix} 0 \\ 0 \end{pmatrix}$.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 4 -->
+                <div class="soal-item" data-kunci="D">
+                    <div class="soal-header"><span class="nomor">4.</span><div class="pertanyaan">Sebuah kotak tanpa tutup dibuat dari selembar karton berbentuk persegi dengan sisi 20 cm, dengan memotong persegi identik bersisi $x$ cm di keempat pojoknya. Volume kotak tersebut dimodelkan oleh polinomial $V(x) = 4x^3 - 80x^2 + 400x$. Jika pabrik ingin memotong bagian pojok sedemikian rupa sehingga menyisakan volume tepat $384 \text{ cm}^3$, nilai $x$ bilangan bulat yang memenuhi adalah...</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">2 cm</li><li data-option="B">4 cm</li><li data-option="C">5 cm</li><li data-option="D">6 cm</li><li data-option="E">8 cm</li></ol>
+                </div>
+                <!-- Soal 5 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">5.</span><div class="pertanyaan">Suku banyak berorde empat $P(x) = x^4 + ax^3 + bx^2 + cx + d$ memotong sumbu-$x$ di empat titik berbeda. Tentukan apakah pernyataan berikut Benar atau Salah berdasarkan Teorema Vieta dan Teorema Sisa.</div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left border-collapse border border-gray-300">
+                        <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Benar</th><th class="border p-2 text-center w-24">Salah</th></tr>
+                        <tr><td class="border p-2">Hasil kali keempat akar polinomial tersebut selalu sama dengan nilai konstanta $d$.</td><td class="border p-2 text-center"><input type="radio" name="l5_r1" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l5_r1" value="S"></td></tr>
+                        <tr><td class="border p-2">Jika $P(x)$ dibagi oleh $(x-k)$, maka sisa pembagiannya adalah $P(-k)$.</td><td class="border p-2 text-center"><input type="radio" name="l5_r2" value="B"></td><td class="border p-2 text-center"><input type="radio" name="l5_r2" value="S" data-kunci="true"></td></tr>
+                        <tr><td class="border p-2">Jika jumlah semua koefisien $(1 + a + b + c + d) = 0$, maka $x = 1$ pasti merupakan salah satu akar dari polinomial tersebut.</td><td class="border p-2 text-center"><input type="radio" name="l5_r3" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l5_r3" value="S"></td></tr>
+                    </table></div>
+                </div>
+                <!-- Soal 6 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">6.</span><div class="pertanyaan">Diketahui polinomial $F(x)$ jika dibagi $(x+3)$ bersisa $-10$. Berapakah sisa polinomial $F(x)$ jika dibagi oleh $x^2 + x - 6$?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Polinomial $F(x)$ jika dibagi $(x-2)$ bersisa 5.<br>2. Derajat dari polinomial $F(x)$ adalah 4.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 7 -->
+                <div class="soal-item" data-kunci="D">
+                    <div class="soal-header"><span class="nomor">7.</span><div class="pertanyaan">Waktu paruh suatu zat radioaktif yang digunakan dalam radioterapi dimodelkan oleh fungsi eksponensial $N(t) = N_0 \cdot 2^{-0,5t}$, di mana $N_0$ adalah massa awal dan $t$ adalah waktu dalam jam. Jika dokter membutuhkan setidaknya 12,5% dari dosis awal tetap berada dalam tubuh pasien untuk efektivitas optimal, batas waktu maksimal observasi adalah...</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">3 jam</li><li data-option="B">4 jam</li><li data-option="C">5 jam</li><li data-option="D">6 jam</li><li data-option="E">8 jam</li></ol>
+                </div>
+                <!-- Soal 8 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">8.</span><div class="pertanyaan">Diberikan fungsi rasional $f(x) = \frac{ax + b}{cx + d}$. Diketahui kurva fungsi ini memiliki asimtot vertikal di $x = 2$ dan asimtot horizontal di $y = 3$. Pernyataan yang TEPAT mengenai fungsi tersebut adalah <b>(Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Nilai dari $\frac{a}{c} = 3$.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Domain dari fungsi tersebut adalah seluruh bilangan real kecuali $x = 3$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Hubungan konstanta penyebut memenuhi $2c + d = 0$.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Grafik fungsi ini pasti memotong titik asal $(0,0)$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Fungsi invers $f^{-1}(x)$ akan memiliki asimtot vertikal di $x = 3$.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 9 -->
+                <div class="soal-item" data-kunci="B">
+                    <div class="soal-header"><span class="nomor">9.</span><div class="pertanyaan">Tentukan domain (daerah asal) dari fungsi komposit bentuk akar dan rasional berikut: $g(x) = \sqrt{\frac{x^2 - 9}{x + 1}}$.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">$x \ge 3$ atau $x \le -3$</li><li data-option="B">$-3 \le x < -1$ atau $x \ge 3$</li><li data-option="C">$-3 \le x \le 3$</li><li data-option="D">$x > -1$</li><li data-option="E">$x \le -3$ atau $-1 < x \le 3$</li></ol>
+                </div>
+                <!-- Soal 10 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">10.</span><div class="pertanyaan">Sebuah drone militer mendeteksi dua target bergerak dari koordinat pangkalannya $(0,0,0)$. Posisi Target P berada pada vektor $\vec{p} = \begin{pmatrix} 2 \\ -1 \\ 2 \end{pmatrix}$ dan Target Q pada vektor $\vec{q} = \begin{pmatrix} 2 \\ 4 \\ -4 \end{pmatrix}$ (satuan dalam km). Jika drone menembakkan laser secara lurus ke kedua target secara bersamaan, kosinus sudut yang dibentuk oleh kedua tembakan laser tersebut adalah...</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">$-\frac{2}{9}$</li><li data-option="B">$\frac{1}{3}$</li><li data-option="C">$-\frac{4}{9}$</li><li data-option="D">$\frac{2}{3}$</li><li data-option="E">$0$ (saling tegak lurus)</li></ol>
+                </div>
+                <!-- Soal 11 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">11.</span><div class="pertanyaan">Tiga buah titik di ruang 3D, yaitu $A(1, 2, 3)$, $B(4, 6, 9)$, dan $C(x, y, 21)$. Berapakah nilai $x + y$?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Ketiga titik tersebut kolinear (terletak pada satu garis lurus).<br>2. Perbandingan panjang $\vec{AB}$ dan $\vec{BC}$ adalah $1 : 2$.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 12 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">12.</span><div class="pertanyaan">Diketahui vektor $\vec{u} = 3\hat{i} + 4\hat{j}$ dan vektor $\vec{v} = 5\hat{i} + 12\hat{j}$. Tentukan kebenaran analitis pernyataan berikut mengenai panjang dan operasi vektor.</div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left border-collapse border border-gray-300">
+                        <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Benar</th><th class="border p-2 text-center w-24">Salah</th></tr>
+                        <tr><td class="border p-2">Panjang resultan vektor $(\vec{u} + \vec{v})$ pasti lebih kecil dari penjumlahan panjang masing-masing vektor $(|\vec{u}| + |\vec{v}|)$ karena keduanya tidak searah (Ketaksamaan Segitiga).</td><td class="border p-2 text-center"><input type="radio" name="l12_r1" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l12_r1" value="S"></td></tr>
+                        <tr><td class="border p-2">Proyeksi skalar ortogonal vektor $\vec{u}$ pada $\vec{v}$ adalah $\frac{63}{13}$.</td><td class="border p-2 text-center"><input type="radio" name="l12_r2" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l12_r2" value="S"></td></tr>
+                        <tr><td class="border p-2">Vektor $\vec{u}$ tegak lurus terhadap vektor $\vec{w} = 4\hat{i} - 3\hat{j}$.</td><td class="border p-2 text-center"><input type="radio" name="l12_r3" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l12_r3" value="S"></td></tr>
+                    </table></div>
+                </div>
+                <!-- Soal 13 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">13.</span><div class="pertanyaan">Pemodelan episentrum gempa bumi menunjukkan guncangan destruktif terjadi dalam area yang dibatasi oleh persamaan lingkaran $x^2 + y^2 - 10x + 6y - 2 = 0$ (dalam skala peta 1 unit = 10 km). Jika balai kota berada di koordinat $(8, 1)$, apakah balai kota tersebut aman dari guncangan destruktif?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Aman, karena titik balai kota berada di luar lingkaran (hasil substitusi > 0).</li><li data-option="B">Tidak aman, karena titik balai kota berada tepat di batas tepi lingkaran (hasil substitusi = 0).</li><li data-option="C">Tidak aman, karena titik balai kota berada di dalam lingkaran (hasil substitusi < 0).</li><li data-option="D">Aman, karena pusat gempa sangat jauh yaitu di $(-10, 6)$.</li><li data-option="E">Tidak dapat dipastikan dari persamaan lingkaran yang diberikan.</li></ol>
+                </div>
+                <!-- Soal 14 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">14.</span><div class="pertanyaan">Sebidang tanah berbentuk segitiga siku-siku dipetakan dalam koordinat kartesius dengan titik sudut $A(0,0), B(4,0)$, dan $C(0,3)$. Tanah tersebut terkena program penataan tata ruang sehingga posisinya ditransformasikan oleh matriks $T = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}$. Pernyataan yang TEPAT mengenai transformasi ini adalah <b>(Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Luas tanah awal sebelum ditransformasi adalah 6 satuan luas.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Determinan matriks transformasi $T$ adalah 6.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Luas tanah setelah ditransformasi bertambah menjadi 36 satuan luas.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Titik $B$ bergeser menjadi titik $(12, 0)$.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Bangun hasil transformasi dipastikan tetap berupa segitiga siku-siku dengan sudut tegak lurus terjaga.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 15 -->
+                <div class="soal-item" data-kunci="B">
+                    <div class="soal-header"><span class="nomor">15.</span><div class="pertanyaan">Sebuah garis singgung ditarik menyentuh lingkaran $x^2 + y^2 = 25$. Apakah persamaan garis singgung tersebut dapat ditentukan secara pasti dan tunggal?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Garis singgung tersebut sejajar dengan garis $4x - 3y + 12 = 0$.<br>2. Garis singgung tersebut menyinggung lingkaran di titik $(-3, 4)$.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 16 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">16.</span><div class="pertanyaan">Transformasi geometri sangat peka terhadap urutan (komposisi). Tentukan apakah pernyataan berikut Sesuai atau Tidak Sesuai.</div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left border-collapse border border-gray-300">
+                        <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Sesuai</th><th class="border p-2 text-center w-28">Tidak Sesuai</th></tr>
+                        <tr><td class="border p-2">Bayangan sebuah titik yang dicerminkan terhadap sumbu-$X$ lalu diputar $90^\circ$ pusat $(0,0)$ akan <b>sama persis</b> dengan titik yang diputar $90^\circ$ dulu baru dicerminkan ke sumbu-$X$.</td><td class="border p-2 text-center"><input type="radio" name="l16_r1" value="S"></td><td class="border p-2 text-center"><input type="radio" name="l16_r1" value="TS" data-kunci="true"></td></tr>
+                        <tr><td class="border p-2">Komposisi dua buah translasi $T_1$ dan $T_2$ bersifat komutatif ($T_1 \circ T_2 = T_2 \circ T_1$).</td><td class="border p-2 text-center"><input type="radio" name="l16_r2" value="S" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l16_r2" value="TS"></td></tr>
+                        <tr><td class="border p-2">Matriks transformasi dilatasi dengan faktor skala $k=2$ memiliki invers matriks berupa dilatasi dengan faktor skala $k=\frac{1}{2}$.</td><td class="border p-2 text-center"><input type="radio" name="l16_r3" value="S" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l16_r3" value="TS"></td></tr>
+                    </table></div>
+                </div>
+                <!-- Soal 17 -->
+                <div class="soal-item" data-kunci="B">
+                    <div class="soal-header"><span class="nomor">17.</span><div class="pertanyaan">Ahli biologi memodelkan laju pertumbuhan koloni bakteri setelah diberikan antibiotik dengan fungsi $P(t) = \frac{5t^2 - 3t + 10}{2t^2 + t}$, dengan $t$ adalah waktu dalam jam. Berapakah batas stabilitas populasi koloni tersebut jika dibiarkan dalam jangka waktu yang sangat panjang ($t \to \infty$)?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">$0$</li><li data-option="B">$2,5$ (atau $\frac{5}{2}$)</li><li data-option="C">$5$</li><li data-option="D">$10$</li><li data-option="E">Tidak terbatas ($\infty$)</li></ol>
+                </div>
+                <!-- Soal 18 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">18.</span><div class="pertanyaan">Menghitung limit fungsi rasional irasional saat $x \to \infty$ sering muncul. Diberikan limit: $\lim_{x \to \infty} \left( \sqrt{4x^2 + 12x - 5} - (2x - 1) \right)$. Berapakah nilai limit tersebut tanpa menggunakan Teorema L'Hopital?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">$2$</li><li data-option="B">$3$</li><li data-option="C">$4$</li><li data-option="D">$6$</li><li data-option="E">$\infty$</li></ol>
+                </div>
+                <!-- Soal 19 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">19.</span><div class="pertanyaan">Untuk mengevaluasi nilai $\lim_{x \to 0} \frac{1 - \cos(ax)}{bx \tan(cx)} = L$, <b>pilihlah pernyataan aljabar dan sifat limit trigonometri dasar yang TEPAT (Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Bentuk $1 - \cos(ax)$ dapat disubstitusi menggunakan identitas sudut rangkap menjadi $2\sin^2\left(\frac{ax}{2}\right)$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Nilai limit dasar $\lim_{x \to 0} \frac{\sin x}{\tan x} = 1$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Jika diselesaikan tanpa L'Hopital, hasil akhir limit $L$ tersebut akan bergantung pada kuadrat variabel $a$ (yakni mengandung bentuk $a^2$).</span></li>
+                        <li class="flex"><input type="checkbox"><span>Jika batas limit diubah menjadi $x \to \frac{\pi}{2}$, fungsi dapat langsung dievaluasi dengan substitusi langsung (asalkan penyebut $\neq 0$).</span></li>
+                        <li class="flex"><input type="checkbox"><span>Penggunaan L'Hopital satu kali langsung menyelesaikan persamaan ini karena menghilangkan per 0.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 20 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">20.</span><div class="pertanyaan">Apakah limit fungsi $\lim_{x \to 2} \frac{x^2 - px + q}{x - 2}$ memiliki nilai real mutlak yang terdefinisi?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Jika $x=2$ disubstitusikan ke pembilang, hasilnya adalah $0$ (yakni $4 - 2p + q = 0$).<br>2. Diketahui $p = 5$.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 21 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">21.</span><div class="pertanyaan">Dalam ilmu kriptografi, matriks digunakan untuk mengenkripsi koordinat lokasi rahasia. Sebuah tim intelijen menyandikan koordinat titik pertemuan $(x, y)$ dengan mengalikannya menggunakan matriks kunci publik $K = \begin{pmatrix} 2 & 3 \\ 3 & 5 \end{pmatrix}$. Hasil koordinat yang telah dienkripsi dan dikirim melalui sinyal radio adalah $(16, 27)$. <b>Pilihlah pernyataan yang TEPAT mengenai proses enkripsi dan dekripsi ini (Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Determinan dari matriks kunci $K$ adalah 1, sehingga proses dekripsi tidak akan menghasilkan koordinat dalam bentuk pecahan.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Matriks dekripsi yang harus digunakan oleh penerima pesan adalah $K^{-1} = \begin{pmatrix} 5 & -3 \\ -3 & 2 \end{pmatrix}$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Koordinat pertemuan rahasia yang asli sebelum dienkripsi adalah $(-1, 6)$.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Jika matriks kunci yang digunakan dirubah menjadi $\begin{pmatrix} 2 & 4 \\ 3 & 6 \end{pmatrix}$, tim intelijen masih bisa mendekripsi pesan tersebut secara tunggal.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Hasil kali matriks kunci $K$ dengan inversnya $K^{-1}$ akan menghasilkan koordinat $(0,0)$.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 22 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">22.</span><div class="pertanyaan">Departemen R&amp;D sebuah perusahaan teknologi memodelkan fungsi fluktuasi laba/rugi (dalam milyar rupiah) dari peluncuran purwarupa produk baru pada bulan ke-$x$ dengan suku banyak berorde empat: $P(x) = x^4 - 10x^3 + 35x^2 - 50x + 24$. Manajemen perlu menganalisis kapan produk tersebut mencapai titik impas atau <em>Break-Even Point</em> ($P(x) = 0$). Tentukan kebenaran analitis pernyataan berikut!</div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left border-collapse border border-gray-300">
+                        <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Benar</th><th class="border p-2 text-center w-24">Salah</th></tr>
+                        <tr><td class="border p-2">Teorema Sisa menjamin bahwa jika diproduksi pada bulan ke-5 ($x=5$), laba perusahaan adalah tepat 24 milyar rupiah.</td><td class="border p-2 text-center"><input type="radio" name="l22_r1" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l22_r1" value="S"></td></tr>
+                        <tr><td class="border p-2">Produk tersebut akan mengalami impas berturut-turut pada bulan ke-1, ke-2, ke-3, dan ke-4 pasca rilis.</td><td class="border p-2 text-center"><input type="radio" name="l22_r2" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l22_r2" value="S"></td></tr>
+                        <tr><td class="border p-2">Suku banyak tersebut jika dibagi dengan polinomial kuadrat $x^2 - 3x + 2$ akan menyisakan sisa yang berderajat satu.</td><td class="border p-2 text-center"><input type="radio" name="l22_r3" value="B"></td><td class="border p-2 text-center"><input type="radio" name="l22_r3" value="S" data-kunci="true"></td></tr>
+                    </table></div>
+                </div>
+                <!-- Soal 23 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">23.</span><div class="pertanyaan">Seorang insinyur sipil sedang menghitung lendutan (defleksi) pada sebuah balok baja penyangga jembatan. Persamaan defleksi tersebut berbentuk suku banyak berderajat tiga: $y(x) = 2x^3 - 5x^2 - px + 3$. Berdasarkan standar keamanan, defleksi harus bernilai nol (tidak ada lendutan) pada titik tumpuan $x = 3$ meter. Dengan informasi tersebut, berapakah sisa defleksi jika balok tersebut secara teoretis diberi beban uji tekan di titik $x = -2$ meter?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">$-25$ mm</li><li data-option="B">$-16$ mm</li><li data-option="C">$0$ mm</li><li data-option="D">$8$ mm</li><li data-option="E">$12$ mm</li></ol>
+                </div>
+                <!-- Soal 24 -->
+                <div class="soal-item" data-kunci="D">
+                    <div class="soal-header"><span class="nomor">24.</span><div class="pertanyaan">Dalam sebuah tambak pelestarian alam, populasi ikan endemik pada bulan ke-$t$ bertumbuh secara eksponensial mengikuti model $P(t) = 2000 - 1500 \cdot 2^{-0,2t}$. Pada bulan ke berapakah ekosistem tambak tersebut akan mencapai batas daya tampung spesifik 1625 ekor ikan, sehingga sebagian harus dipindahkan?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">2 bulan</li><li data-option="B">5 bulan</li><li data-option="C">8 bulan</li><li data-option="D">10 bulan</li><li data-option="E">12 bulan</li></ol>
+                </div>
+                <!-- Soal 25 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">25.</span><div class="pertanyaan">Dua buah <em>tugboat</em> (kapal tunda) A dan B menarik sebuah kapal kargo raksasa yang mogok di pelabuhan. <em>Tugboat</em> A menarik dengan gaya yang direpresentasikan oleh vektor $\vec{f}_A$ dan <em>Tugboat</em> B dengan vektor $\vec{f}_B$. Apakah kapal kargo tersebut bergerak lurus searah HANYA dengan sumbu-$X$ positif? (Artinya resultan $\vec{f}_A + \vec{f}_B$ hanya memiliki komponen searah $\hat{i}$ positif dan komponen $\hat{j} = 0$).</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Vektor gaya tarikan kapal A secara terisolasi adalah $\vec{f}_A = 4\hat{i} + 3\hat{j}$.<br>2. Kapal B menarik dengan gaya yang merupakan pencerminan identik dari vektor gaya kapal A terhadap sumbu-$X$.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 26 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">26.</span><div class="pertanyaan">Sebuah menara pengawas lalu lintas udara (ATC) berada di titik pusat koordinat $(0,0)$. Area pantauan radar ATC memancarkan gelombang yang membentuk batas lingkaran dengan persamaan $x^2 + y^2 = 100$ (dalam mil laut). Sebuah pesawat komersial terbang melintasi area tersebut dengan jalur lurus mengikuti persamaan garis $3x + 4y = 50$. <b>Pilihlah pernyataan yang TEPAT terkait posisi pesawat dan jangkauan radar (Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Titik persinggungan terdekat antara lintasan pesawat dan batas jangkauan radar terjadi di koordinat $(6, 8)$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Jarak terpendek tegak lurus pesawat tersebut ke menara pengawas adalah tepat 10 mil laut.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Pesawat tersebut tidak pernah benar-benar memasuki wilayah terdalam radar, melainkan hanya menyentuh batas terluarnya saja.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Panjang lintasan terbang pesawat yang terlacak (tali busur) di <em>dalam</em> layar radar adalah 20 mil laut.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Garis lintasan pesawat tersebut memiliki gradien yang sejajar dengan sumbu-$Y$.</span></li>
+                    </ul>
+                </div>
+                <!-- Soal 27 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">27.</span><div class="pertanyaan">Dalam mendesain motif batik digital menggunakan perangkat lunak grafis, seorang seniman merotasi sebuah kurva batas kelopak bunga yang awalnya memiliki persamaan $y = x^2 - 4x + 3$. Jika kurva tersebut diputar sejauh $90^\circ$ berlawanan arah jarum jam dengan pusat rotasi di titik asal $(0,0)$, persamaan kurva bayangan yang baru akan berubah menjadi...</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">$x = -y^2 + 4y - 3$</li><li data-option="B">$x = y^2 - 4y + 3$</li><li data-option="C">$y = -x^2 + 4x - 3$</li><li data-option="D">$y = -x^2 - 4x - 3$</li><li data-option="E">$x = -y^2 - 4y - 3$</li></ol>
+                </div>
+                <!-- Soal 28 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">28.</span><div class="pertanyaan">Kamera satelit cuaca memindai wilayah badai tropis di atas samudra yang memproyeksikan bentuk jajaran genjang. Jajaran genjang tersebut direpresentasikan oleh luas determinan dari matriks $W = \begin{pmatrix} 2 & 5 \\ 1 & 4 \end{pmatrix}$, di mana kolomnya merepresentasikan vektor sisi pembentuk badai. Akibat anomali tekanan udara, bentuk badai tersebut bertransformasi secara linier yang direpresentasikan oleh matriks angin kencang $A = \begin{pmatrix} 1 & -1 \\ 2 & 3 \end{pmatrix}$. Berapakah perbandingan rasio perbesaran luas wilayah badai setelah terkena anomali tersebut dibandingkan luas awalnya?</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">2 kali lipat</li><li data-option="B">3 kali lipat</li><li data-option="C">5 kali lipat</li><li data-option="D">8 kali lipat</li><li data-option="E">15 kali lipat</li></ol>
+                </div>
+                <!-- Soal 29 -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header"><span class="nomor">29.</span><div class="pertanyaan">Seorang insinyur mekanik menguji redaman gelombang getaran pada sebuah pegas suspensi mobil balap. Simpangan pegas tersebut dari titik keseimbangan sesaat setelah benturan ($t$ mendekati nol) dimodelkan secara teoritis oleh penyelesaian limit $S = \lim_{t \to 0} \frac{1 - \cos(pt)}{t \tan(qt)}$. Berapakah nilai simpangan $S$ absolut tersebut?</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Diketahui dari kalibrasi sensor bahwa nilai $p = 4$.<br>2. Konstanta pegas $q$ selalu dikonfigurasi bernilai persis setengah dari $p$.</div></div>
+                    <ol class="pilihan-ganda"><li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li><li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li><li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li><li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li><li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li></ol>
+                </div>
+                <!-- Soal 30 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">30.</span><div class="pertanyaan">Konsentrasi suatu zat obat dalam darah pasien (dalam mg/L) pada waktu $t$ jam setelah disuntikkan dapat dimodelkan dengan fungsi limit $C(t) = \lim_{x \to t} \frac{\sqrt{x+3} - 2}{x-1}$ (khusus untuk mengetahui laju penyerapan awal di saat kritis $t=1$ jam). Analisislah proses penyelesaian fungsi limit laju penyerapan ini jika dikerjakan <b>tanpa</b> menggunakan Teorema L'Hopital. Tentukan kebenaran analitis pernyataan berikut!</div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left border-collapse border border-gray-300">
+                        <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Benar</th><th class="border p-2 text-center w-24">Salah</th></tr>
+                        <tr><td class="border p-2">Untuk menyelesaikan limit secara aljabar saat $t=1$, pembilang dan penyebut perlu dikalikan dengan bentuk sekawannya yakni $(\sqrt{x+3} + 2)$.</td><td class="border p-2 text-center"><input type="radio" name="l30_r1" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l30_r1" value="S"></td></tr>
+                        <tr><td class="border p-2">Nilai mutlak limit laju penyerapan obat tepat pada waktu $t=1$ tersebut adalah $0,25$ mg/L per jam.</td><td class="border p-2 text-center"><input type="radio" name="l30_r2" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="l30_r2" value="S"></td></tr>
+                        <tr><td class="border p-2">Jika dievaluasi secara langsung dengan substitusi nilai $x=1$ tanpa proses manipulasi rasionalisasi aljabar, limit tersebut akan menghasilkan nilai pasti sebesar 0.</td><td class="border p-2 text-center"><input type="radio" name="l30_r3" value="B"></td><td class="border p-2 text-center"><input type="radio" name="l30_r3" value="S" data-kunci="true"></td></tr>
+                    </table></div>
+                </div>
+            </div>
+            
+            <div class="action-area">
+                <button id="submitBtn" class="btn-submit">SUBMIT JAWABAN</button>
+                <div id="resultBox" class="result-box">
+                    <div class="score-display">SKOR: <span id="scoreValue">0</span></div>
+                    <div class="score-message">Benar <span id="correctCount">0</span> dari <span id="totalCount">0</span> Soal</div>
+                    <button id="btnHome" class="btn-submit" style="margin-top: 20px; background-color: #555; padding: 10px 30px; font-size: 16px;">KEMBALI KE BERANDA</button>
+                </div>
+            </div>
+
+            <footer class="worksheet-footer">
+                <b>Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved.</b><br>
+                <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+      let activeCategory = '';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const landingPage = document.getElementById('landing-page');
+        const examPage = document.getElementById('exam-page');
+        const timerBar = document.getElementById('timer-bar');
+        const submitBtn = document.getElementById('submitBtn');
+        const timerDisplay = document.getElementById('timer-display');
+        let isSubmitted = false;
+        let timerInterval;
+        let duration = 60 * 60; 
+        let examEndTime;
+
+        function startExam(kategori) {
+            const nama = document.getElementById('nama').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const regional = document.getElementById('regional').value;
+
+            if (!nama || !email || !regional) {
+                document.getElementById('form-error').style.display = 'block';
+                return;
+            }
+            document.getElementById('form-error').style.display = 'none';
+
+            activeCategory = kategori;
+            landingPage.style.display = 'none';
+            examPage.style.display = 'block';
+            
+            document.getElementById('display-nama').textContent = nama;
+            document.getElementById('display-regional').textContent = regional;
+            
+            if (activeCategory === 'wajib') {
+                document.getElementById('grid-wajib').style.display = 'grid';
+                document.getElementById('display-kategori').textContent = "Matematika Wajib (25 Soal)";
+                document.getElementById('exam-subtitle').textContent = "Matematika Wajib - Ujian Mandiri";
+            } else {
+                document.getElementById('grid-lanjut').style.display = 'grid';
+                document.getElementById('display-kategori').textContent = "Matematika Lanjut (30 Soal)";
+                document.getElementById('exam-subtitle').textContent = "Matematika Lanjut - Ujian Mandiri";
+            }
+
+            timerBar.style.display = 'flex';
+            document.body.style.paddingTop = '80px'; 
+            
+            examEndTime = Date.now() + (duration * 1000); 
+            timerInterval = setInterval(updateTimer, 1000);
+            window.scrollTo(0, 0);
+        }
+
+        document.getElementById('btn-wajib').addEventListener('click', () => startExam('wajib'));
+        document.getElementById('btn-lanjut').addEventListener('click', () => startExam('lanjut'));
+
+        function updateTimer() {
+            if (isSubmitted) { clearInterval(timerInterval); return; }
+            
+            const remaining = Math.max(0, Math.floor((examEndTime - Date.now()) / 1000));
+            const minutes = Math.floor(remaining / 60);
+            const seconds = remaining % 60;
+            
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (remaining < 300 && remaining > 0) {
+                timerDisplay.classList.add('timer-warning');
+            } else if (remaining <= 0) {
+                clearInterval(timerInterval);
+                timerDisplay.textContent = "00:00";
+                timerDisplay.classList.remove('timer-warning');
+                processSubmission(true);
+            }
+        }
+
+        document.querySelectorAll('.pilihan-ganda li').forEach(option => {
+          option.addEventListener('click', function() {
+            if (isSubmitted) return; 
+            const siblings = this.parentNode.children;
+            for (let sibling of siblings) sibling.classList.remove('selected');
+            this.classList.add('selected');
+          });
+        });
+
+        submitBtn.addEventListener('click', function() {
+            if (isSubmitted) return;
+            if (submitBtn.innerText === "SUBMIT JAWABAN") {
+                submitBtn.innerText = "KLIK LAGI UNTUK KONFIRMASI (YAKIN?)";
+                submitBtn.style.backgroundColor = "#e67e22";
+                return;
+            }
+            processSubmission(false);
+        });
+
+        function processSubmission(isAutoSubmit) {
+            if(isSubmitted) return;
+            isSubmitted = true;
+            
+            submitBtn.innerText = "MEMPROSES HASIL...";
+            submitBtn.style.backgroundColor = "#ccc";
+            submitBtn.disabled = true;
+
+            let correctCount = 0;
+            const activeGridId = activeCategory === 'wajib' ? 'grid-wajib' : 'grid-lanjut';
+            const totalSoal = activeCategory === 'wajib' ? 25 : 30;
+            const soalItems = document.querySelectorAll(`#${activeGridId} .soal-item`);
+            
+            soalItems.forEach(item => {
+                let isCorrect = false;
+                item.classList.add('disabled-options');
+
+                if(item.querySelector('.pilihan-ganda')) {
+                    const kunci = item.getAttribute('data-kunci');
+                    const selected = item.querySelector('li.selected');
+                    if (selected) {
+                        if (selected.getAttribute('data-option') === kunci) {
+                            isCorrect = true;
+                            selected.classList.add('correct');
+                        } else {
+                            selected.classList.add('wrong');
+                            item.querySelector(`li[data-option="${kunci}"]`)?.classList.add('correct');
+                        }
+                    } else {
+                        item.querySelector(`li[data-option="${kunci}"]`)?.classList.add('correct');
+                    }
+                } 
+                else if (item.querySelector('input[type="checkbox"]')) {
+                    const cbs = item.querySelectorAll('input[type="checkbox"]');
+                    let allMatch = true;
+                    cbs.forEach(cb => {
+                        const isKunci = cb.getAttribute('data-kunci') === 'true';
+                        if((cb.checked && !isKunci) || (!cb.checked && isKunci)) allMatch = false;
+                        
+                        const span = cb.nextElementSibling;
+                        if(span) {
+                            if(isKunci) span.style.color = 'var(--correct-border)';
+                            if(cb.checked && !isKunci) span.style.color = 'var(--wrong-border)';
+                        }
+                    });
+                    isCorrect = allMatch;
+                }
+                else if (item.querySelector('input[type="radio"]')) {
+                    const rows = item.querySelectorAll('tbody tr:not(.bg-gray-100)');
+                    let allMatch = true;
+                    rows.forEach(row => {
+                        const checkedRadio = row.querySelector('input[type="radio"]:checked');
+                        if(!checkedRadio || checkedRadio.getAttribute('data-kunci') !== 'true') allMatch = false;
+                        
+                        const correctRadio = row.querySelector('input[data-kunci="true"]');
+                        if (correctRadio) correctRadio.parentElement.style.backgroundColor = 'var(--correct-bg)';
+                        if (checkedRadio && checkedRadio.getAttribute('data-kunci') !== 'true') {
+                             checkedRadio.parentElement.style.backgroundColor = 'var(--wrong-bg)';
+                        }
+                    });
+                    isCorrect = allMatch;
+                }
+
+                if(isCorrect) correctCount++;
+            });
+
+            const finalScore = (correctCount / totalSoal) * 100;
+            document.getElementById('scoreValue').textContent = finalScore.toFixed(2);
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('totalCount').textContent = totalSoal;
+
+            setTimeout(() => {
+                document.getElementById('resultBox').style.display = 'block';
+                submitBtn.style.display = 'none';
+                document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+        }
+
+        // FUNGSI BARU UNTUK KEMBALI KE BERANDA (Tanpa location.reload)
+        document.getElementById('btnHome').addEventListener('click', () => {
+            // Sembunyikan hasil & ujian, kembalikan ke landing page
+            document.getElementById('resultBox').style.display = 'none';
+            examPage.style.display = 'none';
+            landingPage.style.display = 'block';
+            timerBar.style.display = 'none';
+            document.body.style.paddingTop = '20px';
+            
+            // Kembalikan Tombol Submit
+            submitBtn.style.display = 'inline-block';
+            submitBtn.innerText = "SUBMIT JAWABAN";
+            submitBtn.style.backgroundColor = "var(--header-accent)";
+            submitBtn.disabled = false;
+            
+            // Bersihkan form
+            document.getElementById('nama').value = "";
+            document.getElementById('email').value = "";
+            document.getElementById('regional').value = "";
+            
+            // Sembunyikan kedua layout soal
+            document.getElementById('grid-wajib').style.display = 'none';
+            document.getElementById('grid-lanjut').style.display = 'none';
+            
+            // Bersihkan state jawaban PG Biasa
+            document.querySelectorAll('li.selected').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('li.correct').forEach(el => el.classList.remove('correct'));
+            document.querySelectorAll('li.wrong').forEach(el => el.classList.remove('wrong'));
+            document.querySelectorAll('.disabled-options').forEach(el => el.classList.remove('disabled-options'));
+            
+            // Bersihkan Checkbox & Radio
+            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => el.checked = false);
+            document.querySelectorAll('span, tr, td').forEach(el => {
+                if (el.style.color) el.style.color = '';
+                if (el.style.backgroundColor) el.style.backgroundColor = '';
+            });
+
+            // Reset Timer State
+            isSubmitted = false;
+            clearInterval(timerInterval);
+            
+            window.scrollTo(0, 0);
+        });
+      });
+    </script>
+  </body>
+</html>
