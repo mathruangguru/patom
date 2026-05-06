@@ -110,21 +110,76 @@
                 </ul>
             </div>
 
-            <!-- BAGIAN BIODATA -->
+            <!-- BAGIAN BIODATA MANUAL -->
             <div class="identity-box-landing">
                 <h3>BIODATA PESERTA</h3>
-                <div id="loading-data" style="color: #00838f; font-weight: bold; margin-bottom: 10px;">⏳ Sedang memuat data peserta dari Server...</div>
                 
-                <div class="form-group" id="email-container">
-                    <label>Email RG :</label>
-                    <select id="email" disabled>
-                        <option value="" disabled selected>Loading...</option>
-                    </select>
+                <div class="form-group">
+                  <label for="nama">Nama :</label>
+                  <input type="text" id="nama" placeholder="Masukkan nama lengkap..." />
                 </div>
-                <div class="form-group"><label>Nama :</label><input type="text" id="nama" readonly style="background: #eee; cursor: not-allowed;" /></div>
-                <div class="form-group"><label>Mapel :</label><input type="text" id="mapel" readonly style="background: #eee; cursor: not-allowed;" /></div>
-                <div class="form-group"><label>Branch :</label><input type="text" id="branch" readonly style="background: #eee; cursor: not-allowed;" /></div>
-                <div class="form-group"><label>Territory :</label><input type="text" id="territory" readonly style="background: #eee; cursor: not-allowed;" /></div>
+                <div class="form-group">
+                  <label for="email">Email RG :</label>
+                  <input type="email" id="email" placeholder="Masukkan email RG..." />
+                </div>
+                <div class="form-group">
+                  <label for="regional">Regional :</label>
+                  <select id="regional">
+                    <option value="" disabled selected>Pilih Regional...</option>
+                    <option value="Aceh">Aceh</option>
+                    <option value="Bali Outer">Bali Outer</option>
+                    <option value="Bandung Barat">Bandung Barat</option>
+                    <option value="Banten & Kab. Tangerang">Banten & Kab. Tangerang</option>
+                    <option value="Banyumas Raya">Banyumas Raya</option>
+                    <option value="Bogor Raya">Bogor Raya</option>
+                    <option value="Cibinong">Cibinong</option>
+                    <option value="Denpasar Raya">Denpasar Raya</option>
+                    <option value="Depok">Depok</option>
+                    <option value="Gresik Raya">Gresik Raya</option>
+                    <option value="Jakarta Barat">Jakarta Barat</option>
+                    <option value="Jakarta Selatan">Jakarta Selatan</option>
+                    <option value="Jakarta Timur">Jakarta Timur</option>
+                    <option value="Jakarta Utara">Jakarta Utara</option>
+                    <option value="Jambi & Bengkulu">Jambi & Bengkulu</option>
+                    <option value="Kabupaten Bandung">Kabupaten Bandung</option>
+                    <option value="Kabupaten Bekasi & Karawang">Kabupaten Bekasi & Karawang</option>
+                    <option value="Kalimantan Barat">Kalimantan Barat</option>
+                    <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+                    <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+                    <option value="Kalimantan Timur & Utara">Kalimantan Timur & Utara</option>
+                    <option value="Kota Bandung">Kota Bandung</option>
+                    <option value="Kota Bekasi">Kota Bekasi</option>
+                    <option value="Kota Tangerang">Kota Tangerang</option>
+                    <option value="Lampung">Lampung</option>
+                    <option value="Madiun Raya">Madiun Raya</option>
+                    <option value="Magelang Raya">Magelang Raya</option>
+                    <option value="Makassar Raya">Makassar Raya</option>
+                    <option value="Malang Raya">Malang Raya</option>
+                    <option value="Maluku & Papua">Maluku & Papua</option>
+                    <option value="Medan Raya">Medan Raya</option>
+                    <option value="Mojokerto Raya">Mojokerto Raya</option>
+                    <option value="Muria Raya">Muria Raya</option>
+                    <option value="Nusa Tenggara">Nusa Tenggara</option>
+                    <option value="Pantura">Pantura</option>
+                    <option value="Pekanbaru Raya">Pekanbaru Raya</option>
+                    <option value="Priangan Timur">Priangan Timur</option>
+                    <option value="Riau & Kepulauan Riau">Riau & Kepulauan Riau</option>
+                    <option value="Semarang Raya">Semarang Raya</option>
+                    <option value="Solo Raya">Solo Raya</option>
+                    <option value="Sulawesi Barat & Tengah">Sulawesi Barat & Tengah</option>
+                    <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                    <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
+                    <option value="Sulawesi Utara & Gorontalo">Sulawesi Utara & Gorontalo</option>
+                    <option value="Sumatra Barat">Sumatra Barat</option>
+                    <option value="Sumatra Selatan & Bangka Belitung">Sumatra Selatan & Bangka Belitung</option>
+                    <option value="Sumatra Utara">Sumatra Utara</option>
+                    <option value="Surabaya Raya">Surabaya Raya</option>
+                    <option value="Tangerang Selatan">Tangerang Selatan</option>
+                    <option value="Tapal Kuda">Tapal Kuda</option>
+                    <option value="Toba">Toba</option>
+                    <option value="Yogyakarta Raya">Yogyakarta Raya</option>
+                  </select>
+                </div>
             </div>
             
             <div id="form-error" class="hidden text-red-700 bg-red-100 border border-red-400 p-3 rounded mb-4 max-w-xl mx-auto font-bold">
@@ -572,7 +627,7 @@
                 </div>
                 <!-- Soal 27 -->
                 <div class="soal-item" data-kunci="A">
-                    <div class="soal-header"><span class="nomor">27.</span><div class="pertanyaan">Dalam mendesain motif batik digital menggunakan perangkat lunak grafis, seorang seniman merotasi sebuah kurva batas kelopak bunga yang awalnya memiliki persamaan $y = x^2 - 4x + 3$. Jika kurva tersebut diputar sejauh $90^\circ$ berlawanan arah jarum jam dengan pusat rotasi di titik asal $(0,0)$, persamaan kurva bayangan yang baru akan berubah menjadi...</div></div>
+                    <div class="soal-header"><span class="nomor">27.</span><div class="pertanyaan">Dalam mendesain motif batik digital menggunakan perangkat software grafis, seorang seniman merotasi sebuah kurva batas kelopak bunga yang awalnya memiliki persamaan $y = x^2 - 4x + 3$. Jika kurva tersebut diputar sejauh $90^\circ$ berlawanan arah jarum jam dengan pusat rotasi di titik asal $(0,0)$, persamaan kurva bayangan yang baru akan berubah menjadi...</div></div>
                     <ol class="pilihan-ganda"><li data-option="A">$x = -y^2 + 4y - 3$</li><li data-option="B">$x = y^2 - 4y + 3$</li><li data-option="C">$y = -x^2 + 4x - 3$</li><li data-option="D">$y = -x^2 - 4x - 3$</li><li data-option="E">$x = -y^2 - 4y - 3$</li></ol>
                 </div>
                 <!-- Soal 28 -->
@@ -617,10 +672,9 @@
 
     <script>
       let activeCategory = '';
-      let dataMTList = []; 
       
-      // DEPLOYMENT API URL
-      const GAS_URL = "https://script.google.com/macros/s/AKfycbz1o8W07AC2Mca4swShSnK_doxXf_OrHOr2zmpx8t0sbyQSyKqQ-YPK49wCAkt0MPW2UA/exec";
+      // DEPLOYMENT API URL (TERBARU)
+      const GAS_URL = "https://script.google.com/macros/s/AKfycbyfdYN5APvMwJSt10y1pjGfaBC9bdkA88qJACMZ4clgLxlkvqZrA5JeNK4gt_esBZr1Qw/exec";
 
       document.addEventListener('DOMContentLoaded', () => {
         const landingPage = document.getElementById('landing-page');
@@ -628,82 +682,21 @@
         const timerBar = document.getElementById('timer-bar');
         const submitBtn = document.getElementById('submitBtn');
         const timerDisplay = document.getElementById('timer-display');
-        const emailSelect = document.getElementById('email');
-        const loadingData = document.getElementById('loading-data');
         
         let isSubmitted = false;
         let timerInterval;
         let duration = 60 * 60; 
         let examEndTime;
-
-        // Fungsi fallback jika server belum di-update
-        function jalanFallbackData() {
-            loadingData.innerHTML = "⚠️ <b>INFO:</b> Server belum siap untuk data otomatis. Silakan isi biodata secara manual.";
-            loadingData.style.color = "#e67e22";
-            
-            const emailContainer = document.getElementById('email-container');
-            if (emailContainer) {
-                emailContainer.innerHTML = '<label>Email RG :</label><input type="email" id="email" placeholder="Ketik Email RG Anda..." required style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;" />';
-            }
-
-            ['nama', 'mapel', 'branch', 'territory'].forEach(id => {
-                const el = document.getElementById(id);
-                if(el) {
-                    el.removeAttribute('readonly');
-                    el.style.background = '#fff';
-                    el.style.cursor = 'text';
-                    el.placeholder = 'Isi ' + id + '...';
-                }
-            });
-        }
-
-        // 1. TARIK DATA DARI API (FETCH) SAAT HALAMAN DIBUKA
-        fetch(GAS_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain;charset=utf-8',
-            },
-            body: JSON.stringify({ action: 'getMasterData' })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.result && !data.error) {
-                dataMTList = data.result;
-                emailSelect.innerHTML = '<option value="" disabled selected>Pilih Email Anda...</option>';
-                dataMTList.forEach(mt => {
-                    let opt = document.createElement('option');
-                    opt.value = mt.email;
-                    opt.textContent = mt.email;
-                    emailSelect.appendChild(opt);
-                });
-                emailSelect.disabled = false;
-                loadingData.style.display = 'none';
-            } else {
-                jalanFallbackData();
-            }
-        })
-        .catch(error => {
-            jalanFallbackData();
-        });
-
-        // 2. AUTO-FILL BIODATA SAAT EMAIL DIPILIH (Jika dropdown berhasil diload)
-        document.body.addEventListener('change', function(e) {
-            if (e.target && e.target.id === 'email' && e.target.tagName.toLowerCase() === 'select') {
-                const selectedMT = dataMTList.find(mt => mt.email === e.target.value);
-                if (selectedMT) {
-                    document.getElementById('nama').value = selectedMT.nama || selectedMT.name || "";
-                    document.getElementById('mapel').value = selectedMT.mapel || "Matematika"; 
-                    document.getElementById('branch').value = selectedMT.branch || "Pusat";
-                    document.getElementById('territory').value = selectedMT.territory || "Indonesia";
-                }
-            }
-        });
+        let startTime;
 
         function startExam(kategori) {
-            const emailInput = document.getElementById('email');
-            const email = emailInput ? emailInput.value : '';
-            if (!email) {
-                document.getElementById('form-error').textContent = "Mohon isi Email RG Anda terlebih dahulu!";
+            const nama = document.getElementById('nama').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const regional = document.getElementById('regional').value;
+
+            // Validasi Input
+            if (!nama || !email || !regional) {
+                document.getElementById('form-error').textContent = "Mohon lengkapi biodata (Nama, Email RG, dan Regional) sebelum memulai ujian!";
                 document.getElementById('form-error').style.display = 'block';
                 return;
             }
@@ -713,8 +706,8 @@
             landingPage.style.display = 'none';
             examPage.style.display = 'block';
             
-            document.getElementById('display-nama').textContent = document.getElementById('nama').value || "-";
-            document.getElementById('display-regional').textContent = (document.getElementById('branch').value || "-") + " / " + (document.getElementById('territory').value || "-");
+            document.getElementById('display-nama').textContent = nama;
+            document.getElementById('display-regional').textContent = regional;
             
             if (activeCategory === 'wajib') {
                 document.getElementById('grid-wajib').style.display = 'grid';
@@ -729,6 +722,7 @@
             timerBar.style.display = 'flex';
             document.body.style.paddingTop = '80px'; 
             
+            startTime = new Date();
             examEndTime = Date.now() + (duration * 1000); 
             timerInterval = setInterval(updateTimer, 1000);
             window.scrollTo(0, 0);
@@ -776,7 +770,7 @@
             processSubmission(false);
         });
 
-        // PROSES PENILAIAN & SIMPAN (MENGGUNAKAN FETCH API)
+        // PROSES PENILAIAN & SIMPAN
         function processSubmission(isAutoSubmit) {
             if(isSubmitted) return;
             isSubmitted = true;
@@ -790,7 +784,7 @@
             const totalSoal = activeCategory === 'wajib' ? 25 : 30;
             const soalItems = document.querySelectorAll(`#${activeGridId} .soal-item`);
             
-            let dataJawaban = {}; // Log jawaban per nomor
+            let dataJawaban = {}; 
 
             soalItems.forEach((item, index) => {
                 let isCorrect = false;
@@ -865,29 +859,33 @@
             document.getElementById('correctCount').textContent = correctCount;
             document.getElementById('totalCount').textContent = totalSoal;
 
-            // 3. KIRIM DATA KE GOOGLE APPS SCRIPT VIA FETCH
+            // Hitung durasi
+            const endTime = new Date();
+            const timeDiff = Math.floor((endTime - startTime) / 1000); // dalam detik
+            const m = Math.floor(timeDiff / 60);
+            const s = timeDiff % 60;
+
+            // 3. SUSUN PAYLOAD PERSIS DENGAN BACK-END (Code.gs) ANDA
             const payload = {
-                // Diubah agar strukturnya masuk sesuai logika doPost di Google Apps Script (simpanNilaiSiswa)
-                email: document.getElementById('email').value,
-                topik: activeCategory === 'wajib' ? "Matematika Wajib (PATOM 2)" : "Matematika Lanjut (PATOM 2)",
-                mode: "Ujian Mandiri",
-                skor_pre: 0,
-                skor_kelas: 0,
-                skor_post: 0,
-                skor_modul: finalScore.toFixed(2), // Memasukkan nilai CBT ini ke skor modul
-                jawaban: JSON.stringify(dataJawaban) // Konversi Object ke String
+                nama: document.getElementById('nama').value.trim() || "-",
+                email: document.getElementById('email').value.trim() || "-",
+                regional: document.getElementById('regional').value || "-",
+                score: finalScore.toFixed(2).replace('.', ','), 
+                durasi: `${m} menit ${s} detik`
             };
+
+            // Inject soal_1 sampai soal_30
+            for (let i = 1; i <= 30; i++) {
+                payload['soal_' + i] = dataJawaban['soal_' + i] || "Tidak Dijawab";
+            }
 
             fetch(GAS_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8',
-                },
-                body: JSON.stringify({ action: 'simpanNilaiSiswa', args: [payload] })
+                body: JSON.stringify(payload)
             })
             .then(response => response.json())
             .then(data => {
-                if(data.result && data.result.success) {
+                if(data.result === "success") {
                     submitBtn.style.display = 'none';
                     document.getElementById('resultBox').style.display = 'block';
                     document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
@@ -900,6 +898,7 @@
             });
 
             function handleSimpanError(msg) {
+                console.error("Gagal nyimpen nih: ", msg);
                 submitBtn.innerText = "GAGAL MENYIMPAN. COBA LAGI";
                 submitBtn.style.backgroundColor = "#e74c3c";
                 submitBtn.disabled = false;
