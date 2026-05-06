@@ -854,6 +854,8 @@
                 dataJawaban["soal_" + nomorSoal] = jawabanDirekam;
             });
 
+            // Perhitungan Skor: (Jumlah Benar / Total Soal) x 100
+            // Otomatis Wajib = dibagi 25, Lanjut = dibagi 30
             const finalScore = (correctCount / totalSoal) * 100;
             document.getElementById('scoreValue').textContent = finalScore.toFixed(2);
             document.getElementById('correctCount').textContent = correctCount;
@@ -876,7 +878,12 @@
 
             // Inject soal_1 sampai soal_30
             for (let i = 1; i <= 30; i++) {
-                payload['soal_' + i] = dataJawaban['soal_' + i] || "Tidak Dijawab";
+                if (activeCategory === 'wajib' && i > 25) {
+                    // Pastikan soal 26-30 di Mat Wajib tidak dianggap "Tidak Dijawab"
+                    payload['soal_' + i] = "-"; 
+                } else {
+                    payload['soal_' + i] = dataJawaban['soal_' + i] || "Tidak Dijawab";
+                }
             }
 
             fetch(GAS_URL, {
