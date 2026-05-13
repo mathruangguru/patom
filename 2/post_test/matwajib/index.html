@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post-Test PATOM 2 - Matematika (HOTS)</title>
+    
+    <!-- MathJax untuk Matematika -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+          processEscapes: true
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Font Montserrat & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+      :root {
+        --header-accent: #00838f;
+        --hover-bg: #e0f2f1;
+        --selected-bg: #00838f;
+        --selected-text: #ffffff;
+        --correct-bg: #d4edda;
+        --correct-border: #28a745;
+        --correct-text: #155724;
+        --wrong-bg: #f8d7da;
+        --wrong-border: #dc3545;
+        --wrong-text: #721c24;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f5f5f5;
+        margin: 0; padding: 20px; padding-bottom: 100px;
+      }
+      #timer-bar {
+        position: fixed; top: 0; left: 0; width: 100%; background-color: #263238; color: #ffffff;
+        padding: 15px 0; text-align: center; z-index: 999999; box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        font-size: 18px; font-weight: 700; display: none; justify-content: center; align-items: center; gap: 10px;
+      }
+      #timer-display { background: #37474f; padding: 2px 10px; border-radius: 4px; color: #4dd0e1; font-family: monospace; }
+      .timer-warning { color: #ff5252 !important; animation: blink 1s infinite; }
+      @keyframes blink { 50% { opacity: 0.5; } }
+      .container-wrapper { background: white; max-width: 1000px; margin: 0 auto; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+      
+      #landing-page { text-align: center; }
+      .landing-header h1 { color: var(--header-accent); font-size: 28px; margin-bottom: 10px; }
+      .rules-box { background-color: #e0f7fa; border: 2px solid var(--header-accent); border-radius: 8px; padding: 20px; margin: 30px auto; text-align: left; max-width: 600px; }
+      .rules-box h3 { margin-top: 0; color: var(--header-accent); border-bottom: 1px solid #b2ebf2; padding-bottom: 10px; }
+      
+      .identity-box-landing { max-width: 600px; margin: 0 auto 40px auto; text-align: left; background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+      .form-group { display: flex; align-items: center; margin-bottom: 15px; }
+      .form-group label { width: 120px; font-weight: 600; color: var(--header-accent); }
+      .form-group input, .form-group select { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
+      
+      .btn-start { color: white; border: none; padding: 15px 30px; font-size: 18px; font-weight: 800; border-radius: 50px; cursor: pointer; transition: transform 0.2s; margin: 10px; }
+      .btn-wajib { background-color: #f39c12; } .btn-wajib:hover { background-color: #d68910; transform: scale(1.05); }
+      .btn-lanjut { background-color: var(--header-accent); } .btn-lanjut:hover { background-color: #006064; transform: scale(1.05); }
+      
+      #exam-page { display: none; }
+      .worksheet-header { border-bottom: 3px solid var(--header-accent); padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-start; }
+      .header-left h1 { font-size: 24px; color: var(--header-accent); margin: 0 0 5px 0; font-weight: 800; }
+      .exam-info-bar { background: #f1f8e9; padding: 10px 15px; border-radius: 6px; margin-bottom: 30px; border-left: 5px solid #8bc34a; }
+      
+      .questions-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 50px; }
+      .soal-item { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px dashed #eee; overflow-x: auto; }
+      .soal-header { display: flex; gap: 8px; margin-bottom: 12px; }
+      .nomor { font-weight: 800; color: var(--header-accent); min-width: 25px; }
+      .pertanyaan { flex: 1; text-align: justify; }
+      
+      ol.pilihan-ganda { list-style-type: none; padding-left: 0; margin-top: 10px; }
+      ol.pilihan-ganda li { position: relative; padding: 8px 15px 8px 40px; margin-bottom: 6px; border: 1px solid #eee; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+      ol.pilihan-ganda li:hover { background-color: var(--hover-bg); border-color: var(--header-accent); }
+      ol.pilihan-ganda li.selected { background-color: var(--selected-bg); color: var(--selected-text); border-color: var(--selected-bg); font-weight: 600; }
+      ol.pilihan-ganda li::before { content: attr(data-option); position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: #eee; color: #555; border-radius: 50%; text-align: center; line-height: 20px; font-size: 11px; font-weight: bold; }
+      ol.pilihan-ganda li.selected::before { background: white; color: var(--selected-bg); }
+      
+      .disabled-options { pointer-events: none; opacity: 0.8; }
+      li.correct { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; color: var(--correct-text) !important; }
+      li.correct::before { background-color: var(--correct-border) !important; color: white !important; content: "✓"; }
+      li.wrong { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; color: var(--wrong-text) !important; }
+      li.wrong::before { background-color: var(--wrong-border) !important; color: white !important; content: "✕"; }
+      
+      .action-area { text-align: center; padding: 40px 20px; border-top: 2px dashed #ddd; }
+      .btn-submit { background-color: var(--header-accent); color: white; border: none; padding: 15px 50px; font-size: 20px; font-weight: 800; border-radius: 50px; cursor: pointer; transition: 0.2s; }
+      .btn-submit:hover { background-color: #006064; transform: translateY(-3px); }
+      .result-box { margin-top: 30px; padding: 25px; border-radius: 8px; background-color: #f1f8e9; border: 2px solid #8bc34a; display: none; }
+      .score-display { font-size: 36px; font-weight: 800; color: #2e7d32; }
+      
+      .math-block { overflow-x: auto; overflow-y: hidden; }
+      table input[type="radio"] { width: 1.25rem; height: 1.25rem; cursor: pointer; accent-color: #00838f; }
+      ul input[type="checkbox"] { width: 1.25rem; height: 1.25rem; cursor: pointer; accent-color: #00838f; margin-top: 0.25rem; margin-right: 0.75rem; }
+    </style>
+</head>
+<body>
+    <div id="timer-bar">
+        <span>SISA WAKTU:</span><span id="timer-display">15:00</span>
+    </div>
+
+    <div class="container-wrapper">
+        <div id="landing-page">
+            <header class="landing-header">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Logo" class="h-20 mx-auto mb-5" />
+                <h1>Post-Test PATOM 2 (HOTS)</h1>
+            </header>
+            
+            <div class="rules-box">
+                <h3>PERATURAN UJIAN</h3>
+                <ul>
+                    <li>Terdapat <strong>5 Soal Evaluasi</strong> (Matematika Wajib).</li>
+                    <li>Soal terdiri dari Pilihan Ganda Tunggal, Kecukupan Data, Pilihan Ganda Kompleks, dan Kategori.</li>
+                    <li>Waktu pengerjaan: <strong>15 menit</strong>.</li>
+                </ul>
+            </div>
+
+            <div class="identity-box-landing">
+                <h3>BIODATA PESERTA</h3>
+                <div class="form-group">
+                  <label for="nama">Nama :</label>
+                  <input type="text" id="nama" placeholder="Masukkan nama lengkap..." />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email RG :</label>
+                  <input type="email" id="email" placeholder="Masukkan email RG..." />
+                </div>
+                <div class="form-group">
+                  <label for="regional">Regional :</label>
+                  <select id="regional">
+                    <option value="" disabled selected>Pilih Regional...</option>
+                    <option value="Aceh">Aceh</option>
+                    <option value="Bali Outer">Bali Outer</option>
+                    <option value="Bandung Barat">Bandung Barat</option>
+                    <option value="Banten & Kab. Tangerang">Banten & Kab. Tangerang</option>
+                    <option value="Banyumas Raya">Banyumas Raya</option>
+                    <option value="Bogor Raya">Bogor Raya</option>
+                    <option value="Cibinong">Cibinong</option>
+                    <option value="Denpasar Raya">Denpasar Raya</option>
+                    <option value="Depok">Depok</option>
+                    <option value="Gresik Raya">Gresik Raya</option>
+                    <option value="Jakarta Barat">Jakarta Barat</option>
+                    <option value="Jakarta Selatan">Jakarta Selatan</option>
+                    <option value="Jakarta Timur">Jakarta Timur</option>
+                    <option value="Jakarta Utara">Jakarta Utara</option>
+                    <option value="Jambi & Bengkulu">Jambi & Bengkulu</option>
+                    <option value="Kabupaten Bandung">Kabupaten Bandung</option>
+                    <option value="Kabupaten Bekasi & Karawang">Kabupaten Bekasi & Karawang</option>
+                    <option value="Kalimantan Barat">Kalimantan Barat</option>
+                    <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+                    <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+                    <option value="Kalimantan Timur & Utara">Kalimantan Timur & Utara</option>
+                    <option value="Kota Bandung">Kota Bandung</option>
+                    <option value="Kota Bekasi">Kota Bekasi</option>
+                    <option value="Kota Tangerang">Kota Tangerang</option>
+                    <option value="Lampung">Lampung</option>
+                    <option value="Madiun Raya">Madiun Raya</option>
+                    <option value="Magelang Raya">Magelang Raya</option>
+                    <option value="Makassar Raya">Makassar Raya</option>
+                    <option value="Malang Raya">Malang Raya</option>
+                    <option value="Maluku & Papua">Maluku & Papua</option>
+                    <option value="Medan Raya">Medan Raya</option>
+                    <option value="Mojokerto Raya">Mojokerto Raya</option>
+                    <option value="Muria Raya">Muria Raya</option>
+                    <option value="Nusa Tenggara">Nusa Tenggara</option>
+                    <option value="Pantura">Pantura</option>
+                    <option value="Pekanbaru Raya">Pekanbaru Raya</option>
+                    <option value="Priangan Timur">Priangan Timur</option>
+                    <option value="Riau & Kepulauan Riau">Riau & Kepulauan Riau</option>
+                    <option value="Semarang Raya">Semarang Raya</option>
+                    <option value="Solo Raya">Solo Raya</option>
+                    <option value="Sulawesi Barat & Tengah">Sulawesi Barat & Tengah</option>
+                    <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                    <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
+                    <option value="Sulawesi Utara & Gorontalo">Sulawesi Utara & Gorontalo</option>
+                    <option value="Sumatra Barat">Sumatra Barat</option>
+                    <option value="Sumatra Selatan & Bangka Belitung">Sumatra Selatan & Bangka Belitung</option>
+                    <option value="Sumatra Utara">Sumatra Utara</option>
+                    <option value="Surabaya Raya">Surabaya Raya</option>
+                    <option value="Tangerang Selatan">Tangerang Selatan</option>
+                    <option value="Tapal Kuda">Tapal Kuda</option>
+                    <option value="Toba">Toba</option>
+                    <option value="Yogyakarta Raya">Yogyakarta Raya</option>
+                  </select>
+                </div>
+            </div>
+            
+            <div id="form-error" class="hidden text-red-700 bg-red-100 border border-red-400 p-3 rounded mb-4 max-w-xl mx-auto font-bold">
+                Mohon lengkapi biodata sebelum memulai ujian!
+            </div>
+            
+            <div>
+              <button id="btn-wajib" class="btn-start btn-wajib">MATEMATIKA WAJIB</button>
+            </div>
+        </div>
+
+        <div id="exam-page">
+            <header class="worksheet-header">
+                <div class="header-left">
+                    <h1>Post-Test PATOM 2</h1>
+                    <h2 id="exam-subtitle">-</h2>
+                </div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Logo" class="h-12" />
+            </header>
+            
+            <div class="exam-info-bar">
+                Peserta: <strong id="display-nama">-</strong> | Regional: <strong id="display-regional">-</strong> | Kategori: <strong id="display-kategori">-</strong>
+            </div>
+
+            <!-- KUMPULAN SOAL -->
+            <div id="grid-wajib" class="questions-grid" style="display: none;">
+                
+                <!-- Soal 1 -->
+                <div class="soal-item" data-kunci="B">
+                    <div class="soal-header"><span class="nomor">1.</span><div class="pertanyaan">Sebuah obat antibiotik meluruh di dalam tubuh pasien mengikuti fungsi $P(t) = 64 \cdot (4)^{-\frac{t}{2}}$, dengan $P(t)$ adalah sisa dosis (dalam mikrogram) dan $t$ adalah waktu yang telah berlalu (dalam jam). Jika pada pukul 07.00 pasien meminum obat dengan dosis awal 64 mikrogram, berapakah sisa dosis di dalam darah pasien pada pukul 10.00 di hari yang sama?</div></div>
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">4 mikrogram</li>
+                        <li data-option="B">8 mikrogram</li>
+                        <li data-option="C">16 mikrogram</li>
+                        <li data-option="D">32 mikrogram</li>
+                        <li data-option="E">48 mikrogram</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 2 -->
+                <div class="soal-item" data-kunci="A">
+                    <div class="soal-header"><span class="nomor">2.</span><div class="pertanyaan">Terdapat dua paket kiriman, $A$ dan $B$. Diketahui berat paket selalu bernilai real positif. Apakah selisih kuadrat berat paket $A$ dan $B$ lebih dari 30 kg²? (Apakah $A^2 - B^2 > 30$?)</br><b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br>1. Paket $A$ lebih berat 6 kg daripada paket $B$.<br>2. Total berat paket $A$ dan paket $B$ adalah 10 kg.</div></div>
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li>
+                        <li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li>
+                        <li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li>
+                        <li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li>
+                        <li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 3 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">3.</span><div class="pertanyaan">Sebuah platform e-commerce menawarkan dua kode promo. Promo X: Diskon 30% lalu dipotong Rp100.000,00. Promo Y: Dipotong Rp100.000,00 lalu didiskon 30%. Harga awal barang adalah $H$ (dengan $H > 200.000$). Tentukan apakah pernyataan berikut Benar atau Salah terkait kalkulasi harga akhir konsumen.</div></div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse border border-gray-300">
+                            <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Benar</th><th class="border p-2 text-center w-24">Salah</th></tr>
+                            <tr><td class="border p-2">Harga akhir Promo X selalu sama dengan Promo Y karena persentase diskon dan nilai potongannya sama.</td><td class="border p-2 text-center"><input type="radio" name="s3_r1" value="B"></td><td class="border p-2 text-center"><input type="radio" name="s3_r1" value="S" data-kunci="true"></td></tr>
+                            <tr><td class="border p-2">Promo X selalu memberikan harga akhir yang lebih murah (menguntungkan konsumen) dibandingkan Promo Y.</td><td class="border p-2 text-center"><input type="radio" name="s3_r2" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="s3_r2" value="S"></td></tr>
+                            <tr><td class="border p-2">Selisih harga akhir antara Promo X dan Promo Y selalu stabil (yakni Rp30.000,00) berapa pun nilai $H$.</td><td class="border p-2 text-center"><input type="radio" name="s3_r3" value="B" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="s3_r3" value="S"></td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Soal 4 Kompleks -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">4.</span><div class="pertanyaan">Pendapatan bulanan sebuah aplikasi (dalam jutaan rupiah) dimodelkan oleh fungsi kuadrat $R(x) = -2x^2 + 60x - 250$, dengan $x$ mewakili harga langganan bulanan dalam puluhan ribu rupiah. <b>Pilihlah pernyataan yang TEPAT (Jawaban benar lebih dari satu):</b></div></div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Pendapatan maksimum yang bisa diperoleh aplikasi tersebut adalah Rp 200.000.000,00.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Harga langganan ideal untuk meraih pendapatan maksimum adalah Rp150.000,00 per bulan.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Titik impas (pendapatan nol) terjadi jika harga langganan ditetapkan di angka Rp50.000,00 atau Rp250.000,00.</span></li>
+                        <li class="flex"><input type="checkbox"><span>Kenaikan harga langganan di atas Rp100.000,00 selalu membuat pendapatan terus meningkat.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Agar perusahaan setidaknya tidak merugi ($R(x) \ge 0$), harga langganan harus berada dalam rentang $5 \le x \le 25$.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Soal 5 Kategori -->
+                <div class="soal-item">
+                    <div class="soal-header"><span class="nomor">5.</span><div class="pertanyaan">Biaya rata-rata produksi suatu barang di pabrik (dalam ribuan rupiah) untuk tiap $x$ unit dirumuskan dengan $B(x) = \frac{8x + 200}{x}$. Evaluasilah sifat-sifat fungsi rasional ini terhadap operasional pabrik.</div></div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse border border-gray-300">
+                            <tr class="bg-gray-100"><th class="border p-2">Pernyataan</th><th class="border p-2 text-center w-24">Sesuai</th><th class="border p-2 text-center w-28">Tidak Sesuai</th></tr>
+                            <tr><td class="border p-2">Sebanyak apa pun barang yang diproduksi, biaya rata-rata tidak akan pernah turun menyentuh tepat angka Rp8.000,00.</td><td class="border p-2 text-center"><input type="radio" name="s5_r1" value="S" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="s5_r1" value="TS"></td></tr>
+                            <tr><td class="border p-2">Rumus invers untuk memprediksi jumlah produksi jika target biaya rata-rata adalah $y$, dinyatakan dengan $x = \frac{200}{y - 8}$.</td><td class="border p-2 text-center"><input type="radio" name="s5_r2" value="S" data-kunci="true"></td><td class="border p-2 text-center"><input type="radio" name="s5_r2" value="TS"></td></tr>
+                            <tr><td class="border p-2">Jika manajer ingin mematok biaya rata-rata persis Rp13.000,00, pabrik harus memproduksi 50 unit barang.</td><td class="border p-2 text-center"><input type="radio" name="s5_r3" value="S"></td><td class="border p-2 text-center"><input type="radio" name="s5_r3" value="TS" data-kunci="true"></td></tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="action-area">
+                <button id="submitBtn" class="btn-submit">SUBMIT JAWABAN</button>
+                <div id="resultBox" class="result-box">
+                    <div class="score-display">SKOR: <span id="scoreValue">0</span></div>
+                    <div class="score-message mb-4">Benar <span id="correctCount">0</span> dari <span id="totalCount">0</span> Soal</div>
+                    <button id="btnHome" class="btn-submit" style="background-color: #555; padding: 10px 30px; font-size: 16px;">KEMBALI KE BERANDA</button>
+                </div>
+            </div>
+            
+            <div id="pembahasan" style="display: none; margin-top: 40px; padding-top: 30px; border-top: 2px dashed #00838f;">
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-8 rounded-r">
+                    <h2 class="font-bold text-yellow-800 text-lg mb-2">Kunci & Pembahasan Post-Test</h2>
+                    <p>Bagian ini ditujukan untuk mencocokkan hasil analisis guru dengan penalaran matematis yang tepat sesuai kompetensi pedagogik tingkat tinggi (HOTS).</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-8">Pembahasan: Bilangan dan Aljabar</h3>
+                
+                <!-- Pembahasan 1 -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-bold text-blue-700 mb-1">Soal 1. Kunci Jawaban: B (8 mikrogram)</p>
+                    <p class="font-semibold mb-2 text-gray-700">Langkah Penyelesaian:</p>
+                    <p>Fungsi peluruhan: $P(t) = 64 \cdot (4)^{-\frac{t}{2}}$.<br>Waktu yang berlalu dari pukul 07.00 hingga 10.00 adalah $t = 3$ jam.<br>Substitusi nilai $t=3$:</p>
+                    <div class="math-block my-3 bg-white p-3 rounded border border-gray-100">
+                    $$ \begin{aligned}
+                    P(3) &= 64 \cdot (4)^{-\frac{3}{2}} \\
+                    &= 64 \cdot (2^2)^{-\frac{3}{2}} \\
+                    &= 64 \cdot 2^{-3} = 64 \cdot \frac{1}{8} = 8 \text{ mikrogram.}
+                    \end{aligned} $$
+                    </div>
+                </div>
+
+                <!-- Pembahasan 2 -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-bold text-blue-700 mb-1">Soal 2. Kunci Jawaban: A</p>
+                    <p class="font-semibold mb-2 text-gray-700">Analisis Kecukupan Data:</p>
+                    <p class="mb-2">Pertanyaan: Apakah $A^2 - B^2 > 30$?</p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>Pernyataan (1):</strong> $A - B = 6$. Karena berat selalu $B > 0$, maka $A = B + 6 \implies A > 6$.<br>
+                        Maka jumlah $(A + B)$ pasti $> 6$. Substitusi ke bentuk selisih kuadrat: $A^2 - B^2 = (A - B)(A + B) = 6(A + B)$.<br>
+                        Karena $(A+B) > 6$, maka $6(A+B) > 36$. Karena $36 > 30$, pertanyaan dapat dijawab secara pasti ("Ya"). <strong>(Cukup)</strong></li>
+                        <li><strong>Pernyataan (2):</strong> $A + B = 10$. Kita tidak tahu selisihnya. Jika $A=9, B=1 \implies A^2-B^2 = 80$ ("Ya"). Jika $A=6, B=4 \implies A^2-B^2 = 20$ ("Tidak"). <strong>(Tidak Cukup)</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Pembahasan 3 -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-bold text-blue-700 mb-1">Soal 3. Kunci Jawaban: Salah, Benar, Benar</p>
+                    <p class="font-semibold mb-2 text-gray-700">Analisis Model Promo:</p>
+                    <p class="mb-2">Misalkan harga awal $= H$.<br>Promo X: $(H \times 0,7) - 100.000 = 0,7H - 100.000$<br>Promo Y: $(H - 100.000) \times 0,7 = 0,7H - 70.000$</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pernyataan 1: <strong>Salah</strong>. Hasil akhirnya berbeda (tidak berlaku sifat komutatif).</li>
+                        <li>Pernyataan 2: <strong>Benar</strong>. Pengurang pada Promo X lebih besar, harga akhirnya lebih murah bagi konsumen.</li>
+                        <li>Pernyataan 3: <strong>Benar</strong>. Selisih harga $= (0,7H - 70.000) - (0,7H - 100.000) = 30.000$ (konstan).</li>
+                    </ul>
+                </div>
+
+                <!-- Pembahasan 4 -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-bold text-blue-700 mb-1">Soal 4. Kunci Jawaban: 1, 2, 3, dan 5 (Benar)</p>
+                    <p class="font-semibold mb-2 text-gray-700">Analisis Kuadratik Optimal:</p>
+                    <p class="mb-2">$R(x) = -2x^2 + 60x - 250$. Puncak $x = \frac{-b}{2a} = 15$.</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pilihan 1: $R(15) = -2(225) + 60(15) - 250 = 200$ juta. <strong>(Tepat)</strong></li>
+                        <li>Pilihan 2: $x=15$ artinya Rp150.000,00. <strong>(Tepat)</strong></li>
+                        <li>Pilihan 3: $R(x)=0 \implies x^2-30x+125=0 \implies$ Akar $x=5$ dan $x=25$. <strong>(Tepat)</strong></li>
+                        <li>Pilihan 4: Melewati $x=15$, pendapatan turun. <strong>(Salah)</strong></li>
+                        <li>Pilihan 5: Nilai tak rugi di antara akar $5 \le x \le 25$. <strong>(Tepat)</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Pembahasan 5 -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-bold text-blue-700 mb-1">Soal 5. Kunci Jawaban: Sesuai, Sesuai, Tidak Sesuai</p>
+                    <p class="font-semibold mb-2 text-gray-700">Analisis Fungsi Rasional:</p>
+                    <p class="mb-2">$B(x) = \frac{8x + 200}{x} = 8 + \frac{200}{x}$.</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pernyataan 1: Asimtot datar $y=8$. Biaya tidak pernah tembus angka 8.000 pas. <strong>(Sesuai)</strong></li>
+                        <li>Pernyataan 2: $y = \frac{8x+200}{x} \implies x(y-8) = 200 \implies x = \frac{200}{y-8}$. <strong>(Sesuai)</strong></li>
+                        <li>Pernyataan 3: Jika $y=13$, $x = \frac{200}{13-8} = 40$ unit. Bukan 50 unit. <strong>(Tidak Sesuai)</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <footer class="worksheet-footer mt-10 text-center text-gray-500">
+                <p><b>Copyright Ⓒ 2026 - PT Ruang Raya Indonesia</b><br><i>Dilarang menyebarluaskan dokumen ini.</i></p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+      // 1. Setup Variabel Global
+      const GAS_URL = "https://script.google.com/macros/s/AKfycbxLqeGBFT6pI8aNI-9TMe6MjdgIK12ccHHeG0URkCbNtB9Eu79lY-WWzeQMmhDG6S0x3A/exec";
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        const landingPage = document.getElementById('landing-page');
+        const examPage = document.getElementById('exam-page');
+        const timerBar = document.getElementById('timer-bar');
+        const submitBtn = document.getElementById('submitBtn');
+        const timerDisplay = document.getElementById('timer-display');
+        
+        let isSubmitted = false;
+        let timerInterval;
+        let duration = 15 * 60; // 15 Menit
+        let examEndTime;
+        let startTime;
+
+        // 2. Fungsi Memulai Ujian
+        function startExam() {
+            const nama = document.getElementById('nama').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const regional = document.getElementById('regional').value;
+
+            if (!nama || !email || !regional) {
+                document.getElementById('form-error').style.display = 'block';
+                return;
+            }
+            document.getElementById('form-error').style.display = 'none';
+
+            landingPage.style.display = 'none';
+            examPage.style.display = 'block';
+            
+            document.getElementById('display-nama').textContent = nama;
+            document.getElementById('display-regional').textContent = regional;
+            document.getElementById('grid-wajib').style.display = 'grid';
+            document.getElementById('display-kategori').textContent = "Matematika Wajib (5 Soal)";
+            document.getElementById('exam-subtitle').textContent = "Evaluasi Mandiri";
+
+            timerBar.style.display = 'flex';
+            document.body.style.paddingTop = '80px';
+            
+            startTime = new Date();
+            examEndTime = Date.now() + (duration * 1000);
+            timerInterval = setInterval(updateTimer, 1000);
+            window.scrollTo(0, 0);
+        }
+
+        document.getElementById('btn-wajib').addEventListener('click', startExam);
+
+        // 3. Fungsi Timer
+        function updateTimer() {
+            if (isSubmitted) { clearInterval(timerInterval); return; }
+            const remaining = Math.max(0, Math.floor((examEndTime - Date.now()) / 1000));
+            const minutes = Math.floor(remaining / 60);
+            const seconds = remaining % 60;
+            
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (remaining < 300 && remaining > 0) {
+                timerDisplay.classList.add('timer-warning');
+            } else if (remaining <= 0) {
+                clearInterval(timerInterval);
+                timerDisplay.textContent = "00:00";
+                timerDisplay.classList.remove('timer-warning');
+                processSubmission(); // Auto submit
+            }
+        }
+
+        // 4. Interaksi Klik Opsi PG
+        document.querySelectorAll('.pilihan-ganda li').forEach(option => {
+          option.addEventListener('click', function() {
+            if (isSubmitted) return; 
+            const siblings = this.parentNode.children;
+            for (let sibling of siblings) sibling.classList.remove('selected');
+            this.classList.add('selected');
+          });
+        });
+
+        // 5. Tombol Submit Konfirmasi
+        submitBtn.addEventListener('click', function() {
+            if (isSubmitted) return;
+            if (submitBtn.innerText === "SUBMIT JAWABAN") {
+                submitBtn.innerText = "KLIK LAGI UNTUK KONFIRMASI (YAKIN?)";
+                submitBtn.style.backgroundColor = "#e67e22";
+                return;
+            }
+            processSubmission();
+        });
+
+        // 6. Proses Penilaian dan Pengiriman
+        function processSubmission() {
+            if(isSubmitted) return;
+            isSubmitted = true;
+            
+            submitBtn.innerText = "MENYIMPAN KE DATABASE...";
+            submitBtn.style.backgroundColor = "#ccc";
+            submitBtn.disabled = true;
+
+            let correctCount = 0;
+            const totalSoal = 5; // Hanya 5 soal untuk post-test ini
+            const soalItems = document.querySelectorAll('#grid-wajib .soal-item');
+            let dataJawaban = {}; 
+
+            soalItems.forEach((item, index) => {
+                let isCorrect = false;
+                let nomorSoal = index + 1;
+                let jawabanDirekam = "Tidak Dijawab"; 
+                item.classList.add('disabled-options');
+
+                // Koreksi PG
+                if(item.querySelector('.pilihan-ganda')) {
+                    const kunci = item.getAttribute('data-kunci');
+                    const selected = item.querySelector('li.selected');
+                    if (selected) {
+                        jawabanDirekam = selected.getAttribute('data-option');
+                        if (jawabanDirekam === kunci) {
+                            isCorrect = true;
+                            selected.classList.add('correct');
+                        } else {
+                            selected.classList.add('wrong');
+                            item.querySelector(`li[data-option="${kunci}"]`)?.classList.add('correct');
+                        }
+                    } else {
+                        item.querySelector(`li[data-option="${kunci}"]`)?.classList.add('correct');
+                    }
+                } 
+                // Koreksi Checkbox Kompleks
+                else if (item.querySelector('input[type="checkbox"]')) {
+                    const cbs = item.querySelectorAll('input[type="checkbox"]');
+                    let allMatch = true;
+                    let jwbArr = [];
+                    cbs.forEach((cb, i) => {
+                        if (cb.checked) jwbArr.push("Opsi " + (i+1));
+                        const isKunci = cb.getAttribute('data-kunci') === 'true';
+                        if((cb.checked && !isKunci) || (!cb.checked && isKunci)) allMatch = false;
+                        
+                        const span = cb.nextElementSibling;
+                        if(span) {
+                            if(isKunci) span.style.color = 'var(--correct-border)';
+                            if(cb.checked && !isKunci) span.style.color = 'var(--wrong-border)';
+                        }
+                    });
+                    if (jwbArr.length > 0) jawabanDirekam = jwbArr.join(", ");
+                    isCorrect = allMatch;
+                }
+                // Koreksi Kategori Radio (Benar/Salah)
+                else if (item.querySelector('input[type="radio"]')) {
+                    const rows = item.querySelectorAll('tbody tr:not(.bg-gray-100)');
+                    let allMatch = true;
+                    let jwbArr = [];
+                    rows.forEach((row, i) => {
+                        const checkedRadio = row.querySelector('input[type="radio"]:checked');
+                        if (checkedRadio) jwbArr.push("P. "+(i+1)+":"+checkedRadio.value);
+
+                        if(!checkedRadio || checkedRadio.getAttribute('data-kunci') !== 'true') allMatch = false;
+                        
+                        const correctRadio = row.querySelector('input[data-kunci="true"]');
+                        if (correctRadio) correctRadio.parentElement.style.backgroundColor = 'var(--correct-bg)';
+                        if (checkedRadio && checkedRadio.getAttribute('data-kunci') !== 'true') { 
+                             checkedRadio.parentElement.style.backgroundColor = 'var(--wrong-bg)';
+                        }
+                    });
+                    if (jwbArr.length > 0) jawabanDirekam = jwbArr.join("|");
+                    isCorrect = allMatch;
+                }
+
+                if(isCorrect) correctCount++;
+                dataJawaban["soal_" + nomorSoal] = jawabanDirekam;
+            });
+
+            // Hitung Skor & Waktu
+            const finalScore = (correctCount / totalSoal) * 100;
+            document.getElementById('scoreValue').textContent = finalScore.toFixed(0);
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('totalCount').textContent = totalSoal;
+
+            const endTime = new Date();
+            const timeDiff = Math.floor((endTime - startTime) / 1000);
+            const m = Math.floor(timeDiff / 60);
+            const s = timeDiff % 60;
+
+            // 7. Susun Data Payload
+            const payload = {
+                nama: document.getElementById('nama').value.trim() || "-",
+                email: document.getElementById('email').value.trim() || "-",
+                regional: document.getElementById('regional').value || "-",
+                score: finalScore.toFixed(0), 
+                durasi: `${m} m ${s} s`
+            };
+
+            for (let i = 1; i <= 30; i++) {
+                payload['soal_' + i] = dataJawaban['soal_' + i] || "-";
+            }
+
+            // 8. Kirim ke Google Apps Script (Dengan Failsafe)
+            fetch(GAS_URL, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                showResults(); // Tampilkan meskipun response gagal di backend
+                if(data.result !== "success") console.warn("GAS Warning:", data.error);
+            })
+            .catch(error => {
+                console.error("Fetch Error:", error.message);
+                showResults(); // Failsafe: Tetap tampilkan hasil walau fetch gagal total (misal CORS)
+            });
+        }
+
+        // 9. Fungsi Tampilkan Hasil & Pembahasan
+        function showResults() {
+            submitBtn.style.display = 'none';
+            document.getElementById('resultBox').style.display = 'block';
+            document.getElementById('pembahasan').style.display = 'block'; // Tampilkan pembahasan
+            document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 10. Refresh Halaman
+        document.getElementById('btnHome').addEventListener('click', () => {
+            location.reload(); 
+        });
+      });
+    </script>
+</body>
+</html>
