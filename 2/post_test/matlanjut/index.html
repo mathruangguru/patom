@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post-Test PATOM 2 - Matematika Lanjut (HOTS)</title>
+    
+    <!-- MathJax untuk Matematika -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+          processEscapes: true
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Font Montserrat & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+      :root {
+        --header-accent: #1e3a8a; /* Deep Blue 900 */
+        --hover-bg: #eff6ff; /* Blue 50 */
+        --selected-bg: #2563eb; /* Blue 600 */
+        --selected-text: #ffffff;
+        --correct-bg: #d4edda;
+        --correct-border: #28a745;
+        --correct-text: #155724;
+        --wrong-bg: #f8d7da;
+        --wrong-border: #dc3545;
+        --wrong-text: #721c24;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #1e293b;
+        background-color: #f8fafc;
+        margin: 0; padding: 20px; padding-bottom: 100px;
+      }
+      #timer-bar {
+        position: fixed; top: 0; left: 0; width: 100%; background-color: #0f172a; color: #ffffff;
+        padding: 15px 0; text-align: center; z-index: 999999; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        font-size: 18px; font-weight: 700; display: none; justify-content: center; align-items: center; gap: 10px;
+      }
+      #timer-display { background: #1e293b; padding: 2px 10px; border-radius: 4px; color: #38bdf8; font-family: monospace; }
+      .timer-warning { color: #f87171 !important; animation: blink 1s infinite; }
+      @keyframes blink { 50% { opacity: 0.5; } }
+      
+      .container-wrapper { background: white; max-width: 1000px; margin: 0 auto; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.05); }
+      
+      #landing-page { text-align: center; }
+      .landing-header h1 { color: var(--header-accent); font-size: 28px; margin-bottom: 10px; font-weight: 800; }
+      .rules-box { background-color: #f0f9ff; border: 2px solid #0284c7; border-radius: 8px; padding: 20px; margin: 30px auto; text-align: left; max-width: 600px; }
+      .rules-box h3 { margin-top: 0; color: #0369a1; border-bottom: 1px solid #bae6fd; padding-bottom: 10px; font-weight: 700; }
+      
+      .identity-box-landing { max-width: 600px; margin: 0 auto 40px auto; text-align: left; background: #fff; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; }
+      .form-group { display: flex; align-items: center; margin-bottom: 15px; }
+      .form-group label { width: 120px; font-weight: 600; color: #0f172a; }
+      .form-group input, .form-group select { flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-family: inherit; }
+      
+      .btn-start { color: white; border: none; padding: 15px 30px; font-size: 18px; font-weight: 800; border-radius: 50px; cursor: pointer; transition: transform 0.2s, background-color 0.2s; margin: 10px; }
+      .btn-lanjut { background-color: #2563eb; } .btn-lanjut:hover { background-color: #1d4ed8; transform: scale(1.05); }
+      
+      #exam-page { display: none; }
+      .worksheet-header { border-bottom: 3px solid var(--header-accent); padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-start; }
+      .header-left h1 { font-size: 24px; color: var(--header-accent); margin: 0 0 5px 0; font-weight: 800; }
+      .exam-info-bar { background: #f0fdf4; padding: 10px 15px; border-radius: 6px; margin-bottom: 30px; border-left: 5px solid #22c55e; }
+      
+      .questions-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 50px; }
+      .soal-item { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px dashed #e2e8f0; overflow-x: auto; }
+      .soal-header { display: flex; gap: 8px; margin-bottom: 12px; }
+      .nomor { font-weight: 800; color: #2563eb; min-width: 25px; }
+      .pertanyaan { flex: 1; text-align: justify; }
+      
+      ol.pilihan-ganda { list-style-type: none; padding-left: 0; margin-top: 10px; }
+      ol.pilihan-ganda li { position: relative; padding: 8px 15px 8px 40px; margin-bottom: 6px; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+      ol.pilihan-ganda li:hover { background-color: var(--hover-bg); border-color: #cbd5e1; }
+      ol.pilihan-ganda li.selected { background-color: var(--selected-bg); color: var(--selected-text); border-color: var(--selected-bg); font-weight: 600; }
+      ol.pilihan-ganda li::before { content: attr(data-option); position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: #e2e8f0; color: #475569; border-radius: 50%; text-align: center; line-height: 20px; font-size: 11px; font-weight: bold; }
+      ol.pilihan-ganda li.selected::before { background: white; color: var(--selected-bg); }
+      
+      .disabled-options { pointer-events: none; opacity: 0.8; }
+      li.correct { background-color: var(--correct-bg) !important; border-color: var(--correct-border) !important; color: var(--correct-text) !important; }
+      li.correct::before { background-color: var(--correct-border) !important; color: white !important; content: "✓"; }
+      li.wrong { background-color: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; color: var(--wrong-text) !important; }
+      li.wrong::before { background-color: var(--wrong-border) !important; color: white !important; content: "✕"; }
+      
+      .action-area { text-align: center; padding: 40px 20px; border-top: 2px dashed #e2e8f0; }
+      .btn-submit { background-color: #2563eb; color: white; border: none; padding: 15px 50px; font-size: 20px; font-weight: 800; border-radius: 50px; cursor: pointer; transition: 0.2s; }
+      .btn-submit:hover { background-color: #1d4ed8; transform: translateY(-3px); }
+      .result-box { margin-top: 30px; padding: 25px; border-radius: 8px; background-color: #f0fdf4; border: 2px solid #22c55e; display: none; }
+      .score-display { font-size: 36px; font-weight: 800; color: #15803d; }
+      
+      .math-block { overflow-x: auto; overflow-y: hidden; }
+      table input[type="radio"] { width: 1.25rem; height: 1.25rem; cursor: pointer; accent-color: #2563eb; }
+      ul input[type="checkbox"] { width: 1.25rem; height: 1.25rem; cursor: pointer; accent-color: #2563eb; margin-top: 0.25rem; margin-right: 0.75rem; }
+    </style>
+</head>
+<body>
+    <div id="timer-bar">
+        <span>SISA WAKTU:</span><span id="timer-display">15:00</span>
+    </div>
+
+    <div class="container-wrapper">
+        <div id="landing-page">
+            <header class="landing-header">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Logo" class="h-20 mx-auto mb-5" />
+                <h1>Post-Test PATOM 2 (HOTS)</h1>
+                <h2 class="text-xl font-bold text-gray-600">Matematika Lanjut</h2>
+            </header>
+            
+            <div class="rules-box">
+                <h3>PERATURAN UJIAN</h3>
+                <ul>
+                    <li>Terdapat <strong>5 Soal Evaluasi Mandiri</strong> berstandar Matematika Lanjut (HOTS).</li>
+                    <li>Tipe soal bervariasi: Pilihan Ganda Tunggal, Kecukupan Data, Pilihan Ganda Kompleks, dan Kategori.</li>
+                    <li>Waktu pengerjaan: <strong>15 menit</strong>.</li>
+                    <li>Sistem penilaian bersifat instan setelah Anda mengklik tombol submit.</li>
+                </ul>
+            </div>
+
+            <div class="identity-box-landing">
+                <h3>BIODATA PESERTA</h3>
+                <div class="form-group">
+                  <label for="nama">Nama :</label>
+                  <input type="text" id="nama" placeholder="Masukkan nama lengkap..." />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email RG :</label>
+                  <input type="email" id="email" placeholder="Masukkan email RG..." />
+                </div>
+                <div class="form-group">
+                  <label for="regional">Regional :</label>
+                  <select id="regional">
+                    <option value="" disabled selected>Pilih Regional...</option>
+                    <option value="Aceh">Aceh</option>
+                    <option value="Bali Outer">Bali Outer</option>
+                    <option value="Bandung Barat">Bandung Barat</option>
+                    <option value="Banten & Kab. Tangerang">Banten & Kab. Tangerang</option>
+                    <option value="Banyumas Raya">Banyumas Raya</option>
+                    <option value="Bogor Raya">Bogor Raya</option>
+                    <option value="Cibinong">Cibinong</option>
+                    <option value="Denpasar Raya">Denpasar Raya</option>
+                    <option value="Depok">Depok</option>
+                    <option value="Gresik Raya">Gresik Raya</option>
+                    <option value="Jakarta Barat">Jakarta Barat</option>
+                    <option value="Jakarta Selatan">Jakarta Selatan</option>
+                    <option value="Jakarta Timur">Jakarta Timur</option>
+                    <option value="Jakarta Utara">Jakarta Utara</option>
+                    <option value="Jambi & Bengkulu">Jambi & Bengkulu</option>
+                    <option value="Kabupaten Bandung">Kabupaten Bandung</option>
+                    <option value="Kabupaten Bekasi & Karawang">Kabupaten Bekasi & Karawang</option>
+                    <option value="Kalimantan Barat">Kalimantan Barat</option>
+                    <option value="Kalimantan Selatan">Kalimantan Selatan</option>
+                    <option value="Kalimantan Tengah">Kalimantan Tengah</option>
+                    <option value="Kalimantan Timur & Utara">Kalimantan Timur & Utara</option>
+                    <option value="Kota Bandung">Kota Bandung</option>
+                    <option value="Kota Bekasi">Kota Bekasi</option>
+                    <option value="Kota Tangerang">Kota Tangerang</option>
+                    <option value="Lampung">Lampung</option>
+                    <option value="Madiun Raya">Madiun Raya</option>
+                    <option value="Magelang Raya">Magelang Raya</option>
+                    <option value="Makassar Raya">Makassar Raya</option>
+                    <option value="Malang Raya">Malang Raya</option>
+                    <option value="Maluku & Papua">Maluku & Papua</option>
+                    <option value="Medan Raya">Medan Raya</option>
+                    <option value="Mojokerto Raya">Mojokerto Raya</option>
+                    <option value="Muria Raya">Muria Raya</option>
+                    <option value="Nusa Tenggara">Nusa Tenggara</option>
+                    <option value="Pantura">Pantura</option>
+                    <option value="Pekanbaru Raya">Pekanbaru Raya</option>
+                    <option value="Priangan Timur">Priangan Timur</option>
+                    <option value="Riau & Kepulauan Riau">Riau & Kepulauan Riau</option>
+                    <option value="Semarang Raya">Semarang Raya</option>
+                    <option value="Solo Raya">Solo Raya</option>
+                    <option value="Sulawesi Barat & Tengah">Sulawesi Barat & Tengah</option>
+                    <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                    <option value="Sulawesi Tenggara">Sulawesi Tenggara</option>
+                    <option value="Sulawesi Utara & Gorontalo">Sulawesi Utara & Gorontalo</option>
+                    <option value="Sumatra Barat">Sumatra Barat</option>
+                    <option value="Sumatra Selatan & Bangka Belitung">Sumatra Selatan & Bangka Belitung</option>
+                    <option value="Sumatra Utara">Sumatra Utara</option>
+                    <option value="Surabaya Raya">Surabaya Raya</option>
+                    <option value="Tangerang Selatan">Tangerang Selatan</option>
+                    <option value="Tapal Kuda">Tapal Kuda</option>
+                    <option value="Toba">Toba</option>
+                    <option value="Yogyakarta Raya">Yogyakarta Raya</option>
+                  </select>
+                </div>
+            </div>
+            
+            <div id="form-error" class="hidden text-red-700 bg-red-100 border border-red-400 p-3 rounded mb-4 max-w-xl mx-auto font-bold">
+                Mohon lengkapi biodata sebelum memulai ujian!
+            </div>
+            
+            <div>
+              <button id="btn-wajib" class="btn-start btn-lanjut">MULAI: MATEMATIKA LANJUT</button>
+            </div>
+        </div>
+
+        <div id="exam-page">
+            <header class="worksheet-header">
+                <div class="header-left">
+                    <h1>Post-Test PATOM 2</h1>
+                    <h2 id="exam-subtitle">Matematika Lanjut (HOTS)</h2>
+                </div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Logo" class="h-12" />
+            </header>
+            
+            <div class="exam-info-bar">
+                Peserta: <strong id="display-nama">-</strong> | Regional: <strong id="display-regional">-</strong> | Kategori: <strong id="display-kategori">-</strong>
+            </div>
+
+            <div id="grid-wajib" class="questions-grid" style="display: none;">
+                
+                <!-- Soal 1 (PG Tunggal: Vektor) -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header">
+                        <span class="nomor">1.</span>
+                        <div class="pertanyaan">
+                            Sebuah drone militer mendeteksi dua target bergerak dari koordinat pangkalannya $(0,0,0)$. Posisi Target P berada pada vektor $\vec{p} = \begin{pmatrix} 2 \\ -1 \\ 2 \end{pmatrix}$ dan Target Q pada vektor $\vec{q} = \begin{pmatrix} 2 \\ 4 \\ -4 \end{pmatrix}$ (satuan dalam km). Jika drone menembakkan laser secara lurus ke kedua target secara bersamaan, kosinus sudut yang dibentuk oleh kedua tembakan laser tersebut adalah...
+                        </div>
+                    </div>
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$-\frac{2}{9}$</li>
+                        <li data-option="B">$\frac{1}{3}$</li>
+                        <li data-option="C">$-\frac{4}{9}$</li>
+                        <li data-option="D">$\frac{2}{3}$</li>
+                        <li data-option="E">$0$ (Saling Tegak Lurus)</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 2 (PG Kecukupan Data: Vektor Resultan) -->
+                <div class="soal-item" data-kunci="C">
+                    <div class="soal-header">
+                        <span class="nomor">2.</span>
+                        <div class="pertanyaan">
+                            Dua buah <em>tugboat</em> (kapal tunda) A &amp; B menarik sebuah kapal kargo raksasa yang mogok di pelabuhan. <em>Tugboat</em> A menarik dengan gaya yang direpresentasikan oleh vektor $\vec{f}_A$ dan <em>Tugboat</em> B dengan vektor $\vec{f}_B$. Apakah kapal kargo tersebut bergerak lurus searah HANYA dengan sumbu-$X$ positif? (Artinya resultan $\vec{f}_A + \vec{f}_B$ hanya memiliki komponen searah $\hat{i}$ positif dan komponen $\hat{j} = 0$).<br/><br/>
+                            <b>Putuskan apakah pernyataan (1) dan (2) berikut cukup untuk menjawab pertanyaan tersebut.</b><br/>
+                            1. Vektor gaya tarikan kapal A secara terisolasi adalah $\vec{f}_A = 4\hat{i} + 3\hat{j}$.<br/>
+                            2. Kapal B menarik dengan gaya yang merupakan pencerminan identik dari vektor gaya kapal A terhadap sumbu-$X$.
+                        </div>
+                    </div>
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">Pernyataan (1) saja cukup, tetapi pernyataan (2) saja tidak cukup.</li>
+                        <li data-option="B">Pernyataan (2) saja cukup, tetapi pernyataan (1) saja tidak cukup.</li>
+                        <li data-option="C">Dua pernyataan bersama-sama cukup, tetapi satu pernyataan saja tidak cukup.</li>
+                        <li data-option="D">Pernyataan (1) saja cukup, DAN pernyataan (2) saja cukup.</li>
+                        <li data-option="E">Pernyataan (1) dan (2) tidak cukup untuk menjawab pertanyaan.</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 3 (Kategori Benar/Salah: Polinomial Laba) -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                        <span class="nomor">3.</span>
+                        <div class="pertanyaan">
+                            Departemen R&amp;D sebuah perusahaan teknologi memodelkan fungsi fluktuasi laba/rugi (dalam milyar rupiah) dari peluncuran purwarupa produk baru pada bulan ke-$x$ dengan suku banyak berorde empat: $P(x) = x^4 - 10x^3 + 35x^2 - 50x + 24$. Manajemen perlu menganalisis kapan produk tersebut mencapai titik impas atau <em>Break-Even Point</em> ($P(x) = 0$). Tentukan kebenaran analitis pernyataan berikut!
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border border-gray-300 p-2">Pernyataan</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Benar</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Salah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Teorema Sisa menjamin bahwa jika diproduksi pada bulan ke-5 ($x=5$), laba perusahaan adalah tepat 24 milyar rupiah.</td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s3_r1" value="B" data-kunci="true"></td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s3_r1" value="S"></td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Produk tersebut akan mengalami impas berturut-turut pada bulan ke-1, ke-2, ke-3, dan ke-4 pasca rilis.</td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s3_r2" value="B" data-kunci="true"></td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s3_r2" value="S"></td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Suku banyak tersebut jika dibagi dengan polinomial kuadrat $x^2 - 3x + 2$ akan menyisakan sisa yang berderajat satu.</td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s3_r3" value="B"></td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s3_r3" value="S" data-kunci="true"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Soal 4 (PG Kompleks: Limit Trigonometri) -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                        <span class="nomor">4.</span>
+                        <div class="pertanyaan">
+                            Untuk mengevaluasi nilai $\lim_{x \to 0} \frac{1 - \cos(ax)}{bx \ tan(cx)} = L$, <b>pilihlah pernyataan aljabar dan sifat limit trigonometri dasar yang TEPAT (Jawaban benar lebih dari satu):</b>
+                        </div>
+                    </div>
+                    <ul class="space-y-2">
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Bentuk $1 - \cos(ax)$ dapat disubstitusi menggunakan identitas sudut rangkap menjadi $2\sin^2\left(\frac{ax}{2}\right)$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Nilai limit dasar $\lim_{x \to 0} \frac{\sin x}{\tan x} = 1$.</span></li>
+                        <li class="flex"><input type="checkbox" data-kunci="true"><span>Jika diselesaikan tanpa L'Hopital, hasil akhir limit $L$ tersebut akan bergantung pada kuadrat variabel $a$ (yakni mengandung bentuk $a^2$).</span></li>
+                        <li class="flex"><input type="checkbox"><span>Jika batas limit diubah menjadi $x \to \frac{\pi}{2}$, fungsi dapat langsung dievaluasi dengan substitusi langsung (asalkan penyebut $\neq 0$).</span></li>
+                        <li class="flex"><input type="checkbox"><span>Penggunaan L'Hopital satu kali langsung menyelesaikan persamaan ini karena menghilangkan bentuk tak tentu $\frac{0}{0}$ di penyebut.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Soal 5 (Kategori Sesuai/Tidak Sesuai: ATC Radar & Lingkaran) -->
+                <div class="soal-item">
+                    <div class="soal-header">
+                        <span class="nomor">5.</span>
+                        <div class="pertanyaan">
+                            Sebuah menara pengawas lalu lintas udara (ATC) berada di titik pusat koordinat $(0,0)$. Area pantauan radar ATC memancarkan gelombang yang membentuk batas lingkaran dengan persamaan $x^2 + y^2 = 100$ (dalam mil laut). Sebuah pesawat komersial terbang melintasi area tersebut dengan jalur lurus mengikuti persamaan garis $3x + 4y = 50$. Evaluasilah kondisi penerbangan pesawat terhadap radar!
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border border-gray-300 p-2">Pernyataan</th>
+                                    <th class="border border-gray-300 p-2 text-center w-24">Sesuai</th>
+                                    <th class="border border-gray-300 p-2 text-center w-28">Tidak Sesuai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Titik persinggungan terdekat antara lintasan pesawat dan batas jangkauan radar terjadi di koordinat $(6, 8)$.</td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s5_r1" value="S" data-kunci="true"></td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s5_r1" value="TS"></td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Jarak terpendek tegak lurus pesawat tersebut ke menara pengawas adalah tepat 10 mil laut.</td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s5_r2" value="S" data-kunci="true"></td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s5_r2" value="TS"></td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-2">Panjang lintasan terbang pesawat yang terlacak (tali busur) di <em>dalam</em> layar radar adalah 20 mil laut.</td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s5_r3" value="S"></td>
+                                    <td class="border border-gray-300 p-2 text-center"><input type="radio" name="s5_r3" value="TS" data-kunci="true"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="action-area">
+                <button id="submitBtn" class="btn-submit">SUBMIT JAWABAN</button>
+                <div id="resultBox" class="result-box">
+                    <div class="score-display">SKOR: <span id="scoreValue">0</span></div>
+                    <div class="score-message mb-4">Benar <span id="correctCount">0</span> dari <span id="totalCount">0</span> Soal</div>
+                    <button id="btnHome" class="btn-submit" style="background-color: #475569; padding: 10px 30px; font-size: 16px;">KEMBALI KE BERANDA</button>
+                </div>
+            </div>
+            
+            <div id="pembahasan" style="display: none; margin-top: 40px; padding-top: 30px; border-top: 2px dashed #3b82f6;">
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-8 rounded-r">
+                    <h2 class="font-bold text-yellow-800 text-lg mb-2">Kunci & Pembahasan Post-Test</h2>
+                    <p>Bagian ini ditujukan untuk mencocokkan hasil analisis Anda dengan penalaran matematis yang tepat sesuai kompetensi tingkat tinggi (HOTS).</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-6 mt-8">Pembahasan: Matematika Lanjut (HOTS)</h3>
+                
+                <!-- Pembahasan 1 -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-bold text-blue-700 mb-1">Soal 1. Kunci Jawaban: C ($-\frac{4}{9}$)</p>
+                    <p class="font-semibold mb-2 text-gray-700">Analisis Sudut Dua Vektor (Dot Product):</p>
+                    <p>Vektor $\vec{p} = \begin{pmatrix} 2 \\ -1 \\ 2 \end{pmatrix}$ dan vektor $\vec{q} = \begin{pmatrix} 2 \\ 4 \\ -4 \end{pmatrix}$.</p>
+                    <p>Panjang $|\vec{p}| = \sqrt{2^2 + (-1)^2 + 2^2} = \sqrt{4+1+4} = \sqrt{9} = 3$.<br/>
+                    Panjang $|\vec{q}| = \sqrt{2^2 + 4^2 + (-4)^2} = \sqrt{4+16+16} = \sqrt{36} = 6$.</p>
+                    <p>Hasil kali titik (dot product):<br/>
+                    $\vec{p} \cdot \vec{q} = (2)(2) + (-1)(4) + (2)(-4) = 4 - 4 - 8 = -8$.</p>
+                    <p>Mencari nilai kosinus sudut $\theta$:<br/>
+                    $\cos \theta = \frac{\vec{p} \cdot \vec{q}}{|\vec{p}||\vec{q}|} = \frac{-8}{3 \cdot 6} = \frac{-8}{18} = -\frac{4}{9}$.</p>
+                </div>
+
+                <!-- Pembahasan 2 -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-bold text-blue-700 mb-1">Soal 2. Kunci Jawaban: C</p>
+                    <p class="font-semibold mb-2 text-gray-700">Analisis Kecukupan Data (Vektor Resultan):</p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>Pernyataan (1) Saja:</strong> Diketahui $\vec{f}_A = 4\hat{i} + 3\hat{j}$. Namun, tanpa tahu besaran atau arah gaya kapal B, resultan total tidak bisa dipastikan arah maupun komponen $x$-nya. <strong>(Tidak Cukup)</strong></li>
+                        <li><strong>Pernyataan (2) Saja:</strong> Karena $\vec{f}_B$ adalah pencerminan $\vec{f}_A$ terhadap sumbu-$X$, maka jika $\vec{f}_A = x\hat{i} + y\hat{j}$, $\vec{f}_B = x\hat{i} - y\hat{j}$.<br/>
+                        Resultannya: $\vec{f}_A + \vec{f}_B = 2x\hat{i} + 0\hat{j}$. Kapal terkonfirmasi tidak berbelok ke sumbu-$Y$ (karena komponen $\hat{j} = 0$), tetapi kita tidak tahu apakah ia bergerak maju ($x > 0$) atau mundur ($x < 0$). <strong>(Tidak Cukup)</strong></li>
+                        <li><strong>Gabungan (1) dan (2):</strong> Masukkan nilai eksak: $\vec{f}_A = 4\hat{i} + 3\hat{j} \implies \vec{f}_B = 4\hat{i} - 3\hat{j}$.<br/>
+                        Resultan $R = (4+4)\hat{i} + (3-3)\hat{j} = 8\hat{i}$.<br/>
+                        Karena komponen $\hat{i}$ positif ($8 > 0$), terkonfirmasi kapal mutlak bergerak maju searah sumbu-$X$ positif. <strong>(Cukup)</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Pembahasan 3 -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-bold text-blue-700 mb-1">Soal 3. Kunci Jawaban: Benar, Benar, Salah</p>
+                    <p class="font-semibold mb-2 text-gray-700">Analisis Polinomial dan Teorema Faktor:</p>
+                    <p class="mb-2">Fungsi: $P(x) = x^4 - 10x^3 + 35x^2 - 50x + 24$.</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pernyataan 1: Sesuai Teorema Sisa, laba perusahaan pada bulan ke-5 adalah substitusi $P(5)$.<br>
+                        $P(5) = (5)^4 - 10(5)^3 + 35(5)^2 - 50(5) + 24 = 625 - 1250 + 875 - 250 + 24 = 24$. <strong>(Benar)</strong></li>
+                        <li>Pernyataan 2: Faktorisasi penuh dari polinomial tersebut adalah $(x-1)(x-2)(x-3)(x-4) = 0$. Akar-akarnya adalah 1, 2, 3, dan 4. <strong>(Benar)</strong></li>
+                        <li>Pernyataan 3: Pembagi $x^2 - 3x + 2$ dapat difaktorkan menjadi $(x-1)(x-2)$. Karena $x=1$ dan $x=2$ adalah <strong>akar</strong> dari $P(x)$, maka hasil baginya dipastikan habis membagi, sehingga bersisa tepat $0$ (derajat nol), bukan sisa berderajat satu. <strong>(Salah)</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Pembahasan 4 -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-bold text-blue-700 mb-1">Soal 4. Kunci Jawaban: Opsi 1, 2, dan 3 (Dicentang)</p>
+                    <p class="font-semibold mb-2 text-gray-700">Analisis Limit Trigonometri Fundamental:</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pilihan 1: Identitas sudut rangkap $1 - \cos(ax) = 2\sin^2\left(\frac{ax}{2}\right)$. <strong>(Tepat)</strong></li>
+                        <li>Pilihan 2: Bentuk dasar limit fundamental sinus tangen $\lim_{x \to 0} \frac{\sin x}{\tan x} = 1$. <strong>(Tepat)</strong></li>
+                        <li>Pilihan 3: Eksekusi limit: $L = \lim_{x \to 0} \frac{2\sin^2(\frac{ax}{2})}{bx \cdot \tan(cx)} = \frac{2 \cdot (a/2) \cdot (a/2)}{bc} = \frac{a^2}{2bc}$. Hasil mengandung variabel kuadrat $a^2$. <strong>(Tepat)</strong></li>
+                        <li>Pilihan 4: Jika $x \to \pi/2$, nilai tangen menuju $\infty$ (tak terdefinisi), bukan substitusi langsung sederhana. <strong>(Salah)</strong></li>
+                        <li>Pilihan 5: Aturan perkalian $bx\tan(cx)$ saat diturunkan L'Hopital 1x menyisakan fungsi bernilai nol. Masih bentuk $\frac{0}{0}$ dan butuh diturunkan lagi. <strong>(Salah)</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Pembahasan 5 -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-bold text-blue-700 mb-1">Soal 5. Kunci Jawaban: Sesuai, Sesuai, Tidak Sesuai</p>
+                    <p class="font-semibold mb-2 text-gray-700">Analisis Kedudukan Garis terhadap Lingkaran:</p>
+                    <p class="mb-2">Jari-jari radar: $R = \sqrt{100} = 10$.<br>
+                    Jarak pusat ATC $(0,0)$ ke lintasan garis $3x + 4y - 50 = 0$:<br>
+                    $d = \frac{|3(0) + 4(0) - 50|}{\sqrt{3^2 + 4^2}} = \frac{|-50|}{5} = 10$.<br>
+                    Karena jarak $d = R$ ($10 = 10$), maka lintasan tersebut <strong>menyinggung</strong> tepi luar radar.</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Pernyataan 1: Titik persinggungan terdekat antara lintasan pesawat dan batas jangkauan radar terjadi di koordinat $(6, 8)$. <strong>(Sesuai)</strong></li>
+                        <li>Pernyataan 2: Jarak terpendek menara ke lintasan terdekat dihitung dari radius, yaitu $10$. <strong>(Sesuai)</strong></li>
+                        <li>Pernyataan 3: Karena lintasan hanya menyinggung (menyentuh luar), panjang tali busur lintasan yang terpotong dan masuk ke <em>dalam</em> lingkaran sejatinya adalah 0 mil laut. <strong>(Tidak Sesuai)</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <footer class="worksheet-footer mt-10 text-center text-gray-400">
+                <p><b>Copyright Ⓒ 2026 - PT Ruang Raya Indonesia</b><br><i>Dilarang menyebarluaskan dokumen ini tanpa izin tertulis.</i></p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+      // Sesuai dengan Deployment Web App Google Apps Script Anda yang aktif:
+      const GAS_URL = "https://script.google.com/macros/s/AKfycbx_Tbq_5saUKxz2fMOaSIeQfBXYccW8YktNqHEliBbv5F_p-GAMBSKAJuwsdjNUnrCWhA/exec";
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const landingPage = document.getElementById('landing-page');
+        const examPage = document.getElementById('exam-page');
+        const timerBar = document.getElementById('timer-bar');
+        const submitBtn = document.getElementById('submitBtn');
+        const timerDisplay = document.getElementById('timer-display');
+        
+        let isSubmitted = false;
+        let timerInterval;
+        let duration = 15 * 60; // 15 Menit
+        let examEndTime;
+        let startTime;
+
+        // Fungsi Memulai Ujian
+        function startExam() {
+            const nama = document.getElementById('nama').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const regional = document.getElementById('regional').value;
+
+            if (!nama || !email || !regional) {
+                document.getElementById('form-error').style.display = 'block';
+                return;
+            }
+            document.getElementById('form-error').style.display = 'none';
+
+            landingPage.style.display = 'none';
+            examPage.style.display = 'block';
+            
+            document.getElementById('display-nama').textContent = nama;
+            document.getElementById('display-regional').textContent = regional;
+            document.getElementById('grid-wajib').style.display = 'grid';
+            document.getElementById('display-kategori').textContent = "Matematika Lanjut (5 Soal)";
+
+            timerBar.style.display = 'flex';
+            document.body.style.paddingTop = '80px';
+            
+            startTime = new Date();
+            examEndTime = Date.now() + (duration * 1000);
+            timerInterval = setInterval(updateTimer, 1000);
+            window.scrollTo(0, 0);
+        }
+
+        document.getElementById('btn-wajib').addEventListener('click', startExam);
+
+        // Fungsi Timer Mundur
+        function updateTimer() {
+            if (isSubmitted) { clearInterval(timerInterval); return; }
+            const remaining = Math.max(0, Math.floor((examEndTime - Date.now()) / 1000));
+            const minutes = Math.floor(remaining / 60);
+            const seconds = remaining % 60;
+            
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (remaining < 300 && remaining > 0) {
+                timerDisplay.classList.add('timer-warning');
+            } else if (remaining <= 0) {
+                clearInterval(timerInterval);
+                timerDisplay.textContent = "00:00";
+                timerDisplay.classList.remove('timer-warning');
+                processSubmission(); // Auto-submit saat waktu habis
+            }
+        }
+
+        // Interaksi Klik Opsi Pilihan Ganda Tunggal / Kecukupan Data
+        document.querySelectorAll('.pilihan-ganda li').forEach(option => {
+          option.addEventListener('click', function() {
+            if (isSubmitted) return; 
+            const siblings = this.parentNode.children;
+            for (let sibling of siblings) sibling.classList.remove('selected');
+            this.classList.add('selected');
+          });
+        });
+
+        // Tombol Submit Konfirmasi
+        submitBtn.addEventListener('click', function() {
+            if (isSubmitted) return;
+            if (submitBtn.innerText === "SUBMIT JAWABAN") {
+                submitBtn.innerText = "KLIK LAGI UNTUK KONFIRMASI (YAKIN?)";
+                submitBtn.style.backgroundColor = "#e67e22";
+                return;
+            }
+            processSubmission();
+        });
+
+        // Evaluasi Lokal & Pengiriman ke Google Sheets Database
+        function processSubmission() {
+            if(isSubmitted) return;
+            isSubmitted = true;
+            
+            submitBtn.innerText = "MENYIMPAN KE DATABASE...";
+            submitBtn.style.backgroundColor = "#94a3b8";
+            submitBtn.disabled = true;
+
+            let correctCount = 0;
+            const totalSoal = 5; 
+            const soalItems = document.querySelectorAll('#grid-wajib .soal-item');
+            let dataJawaban = {};
+
+            soalItems.forEach((item, index) => {
+                let isCorrect = false;
+                let nomorSoal = index + 1;
+                let jawabanDirekam = "Tidak Dijawab";
+                item.classList.add('disabled-options');
+
+                // 1. Evaluasi Pilihan Ganda Tunggal (Soal 1 & 2)
+                if(item.querySelector('.pilihan-ganda')) {
+                    const kunci = item.getAttribute('data-kunci');
+                    const selected = item.querySelector('li.selected');
+                    if (selected) {
+                        jawabanDirekam = selected.getAttribute('data-option');
+                        if (jawabanDirekam === kunci) {
+                            isCorrect = true;
+                            selected.classList.add('correct');
+                        } else {
+                            selected.classList.add('wrong');
+                            item.querySelector(`li[data-option="${kunci}"]`)?.classList.add('correct');
+                        }
+                    } else {
+                        // Jika tidak dijawab, langsung sorot kunci jawaban yang benar
+                        item.querySelector(`li[data-option="${kunci}"]`)?.classList.add('correct');
+                    }
+                } 
+                // 2. Evaluasi Checkbox Kompleks (Soal 4)
+                else if (item.querySelector('input[type="checkbox"]')) {
+                    const cbs = item.querySelectorAll('input[type="checkbox"]');
+                    let allMatch = true;
+                    let jwbArr = [];
+                    cbs.forEach((cb, i) => {
+                        const isKunci = cb.getAttribute('data-kunci') === 'true';
+                        if(cb.checked) jwbArr.push("Opsi " + (i+1));
+                        
+                        if((cb.checked && !isKunci) || (!cb.checked && isKunci)) allMatch = false;
+                        
+                        const span = cb.nextElementSibling;
+                        if(span) {
+                            if(isKunci) span.style.color = 'var(--correct-border)';
+                            if(cb.checked && !isKunci) span.style.color = 'var(--wrong-border)';
+                        }
+                    });
+                    if (jwbArr.length > 0) jawabanDirekam = jwbArr.join(", ");
+                    isCorrect = allMatch;
+                }
+                // 3. Evaluasi Kategori Radio (Soal 3 & 5)
+                else if (item.querySelector('input[type="radio"]')) {
+                    const rows = item.querySelectorAll('tbody tr');
+                    let allMatch = true;
+                    let jwbArr = [];
+                    rows.forEach((row, i) => {
+                        const checkedRadio = row.querySelector('input[type="radio"]:checked');
+                        if (checkedRadio) jwbArr.push("P." + (i+1) + ":" + checkedRadio.value);
+                        
+                        if(!checkedRadio || checkedRadio.getAttribute('data-kunci') !== 'true') {
+                            allMatch = false;
+                        }
+                        
+                        const correctRadio = row.querySelector('input[data-kunci="true"]');
+                        if (correctRadio) correctRadio.parentElement.style.backgroundColor = 'var(--correct-bg)';
+                        if (checkedRadio && checkedRadio.getAttribute('data-kunci') !== 'true') { 
+                             checkedRadio.parentElement.style.backgroundColor = 'var(--wrong-bg)';
+                        }
+                    });
+                    if (jwbArr.length > 0) jawabanDirekam = jwbArr.join("|");
+                    isCorrect = allMatch;
+                }
+
+                if(isCorrect) {
+                    correctCount++;
+                }
+                dataJawaban["soal_" + nomorSoal] = jawabanDirekam;
+            });
+
+            // Tampilkan Skor Akhir secara instan di UI
+            const finalScore = (correctCount / totalSoal) * 100;
+            document.getElementById('scoreValue').textContent = finalScore.toFixed(0);
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('totalCount').textContent = totalSoal;
+
+            const endTime = new Date();
+            const timeDiff = Math.floor((endTime - startTime) / 1000);
+            const m = Math.floor(timeDiff / 60);
+            const s = timeDiff % 60;
+
+            // Membangun Payload Data yang sama dengan setupSheet Google Sheets
+            const payload = {
+                nama: document.getElementById('nama').value.trim() || "-",
+                email: document.getElementById('email').value.trim() || "-",
+                regional: document.getElementById('regional').value || "-",
+                score: finalScore.toFixed(0),
+                durasi: `${m} m ${s} s`
+            };
+
+            // Mengisi jawaban Soal 1 s.d. Soal 30 secara dinamis ke payload
+            for (let i = 1; i <= 30; i++) {
+                payload["soal_" + i] = dataJawaban["soal_" + i] || "-";
+            }
+
+            // Kirim data ke Google Sheets Web App dengan mekanisme Failsafe
+            fetch(GAS_URL, {
+                method: "POST",
+                mode: "no-cors", // Mode aman untuk bypass pembatasan CORS browser
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                // Berhasil mengirim atau direspon browser dengan no-cors sukses
+                showResults();
+            })
+            .catch((error) => {
+                console.error("Terjadi galat pengiriman:", error);
+                // Tetap panggil visualisasi hasil di UI meskipun jaringan bermasalah
+                showResults();
+            });
+        }
+
+        // Menampilkan Skor dan Pembahasan
+        function showResults() {
+            submitBtn.style.display = 'none';
+            document.getElementById('resultBox').style.display = 'block';
+            document.getElementById('pembahasan').style.display = 'block'; 
+            document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Memuat ulang halaman jika klik tombol Beranda
+        document.getElementById('btnHome').addEventListener('click', () => {
+            location.reload(); 
+        });
+      });
+    </script>
+</body>
+</html>
